@@ -17,19 +17,14 @@ public class SampleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger
 			.getLogger(SampleController.class);
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SampleController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info("Entered doPost method of SampleController");
+		logger.info("Exit doPost method of SampleController");
 	}
 
 	/**
