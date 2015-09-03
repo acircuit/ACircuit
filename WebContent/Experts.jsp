@@ -44,27 +44,8 @@
 	<div id="wrapper">
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
-			   <div class="div-container-navbar">
-			   	<nav class="navbar navbar-default">
-					  <div class="container-fluid">
-					    <div class="navbar-header">
-					     <a class="navbar-brand hidden-xs" href="https://www.advisorcircuit.com" ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
-					    </div>
-
-					    <!-- Collect the nav links, forms, and other content for toggling -->
-					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					     <ul class="nav navbar-nav">
-					        <li class="active"><a href="#">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="#">Q&A</a></li>
-					        <li><a href="#">Be an Advisor</a></li>
-					         <li><a href="#">How it Works</a></li>
-					          <li><a href="#">Login In</a></li>
-					          	<li><form class="search-form"><input  class="form-control search-box" type="text" placeholder="Search"></form></li>
-					      </ul>
-					    </div><!-- /.navbar-collapse -->
-					  </div><!-- /.container-fluid -->
-					</nav>
-			   	</div>
+			       <%@include file="/Header.jsp" %>
+			   
 			      
     
         <!-- Sidebar -->
@@ -103,80 +84,54 @@
 	</div>
 </div>
    	<div class="main-body-div container"  id="page-content-wrapper">
-   		<div class="category-filter-div row">
-  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
-  			<div class="col-xs-12 no-padding-xs">
-  				<div class="col-xs-12 col-sm-4 no-padding-xs">
-  					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bblue" name="bb1"><img class="category-im" src="assets/img/higher_studies.png">
-  							<br class="hidden-xs"><span>Higher studies</span></button>
-  							<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
-  					</div>
-  				</div>
-  				<div class="col-xs-12 col-sm-4 no-padding-xs">
-  					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bpink" name="bb2"><img src="assets/img/higher_studies.png">
-  							<br class="hidden-xs"><span>Industry</span></button>
-  						<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
-  					</div>
-  				</div>
-  				<div class="col-xs-12 col-sm-4 no-padding-xs">
-  					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bgreen" name="bb3"><img src="assets/img/higher_studies.png">
-  							<br class="hidden-xs"><span>Courses</span></button>
-  							<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs ">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
-  					</div>
-  				</div>
-  			</div>
-  		</div>
-  		<div class="row category-filter-row">
-  				<div class="category-all-filters container">
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  				</div>
-  			</div>
+   		    <%@include file="/Category.jsp" %>
    			<div class=" row no-padding-xs stopnow">
    				<div class="col-sm-3 hidden-xs filters" style="padding-left:51px;">
    					<div class="col-xs-12 left-col no-padding">
    						<span class="heading-filter">FILTERS</span>
    						<span class="reset-filter">Reset</span><br>
-   						<form>
+   						   						<form>
    							<div class="filter-type">
    								<span>Language</span>
    							</div>
-							  
-							  <div class="form-group squaredThree">
-							  	<input type="checkbox" id="1" name="All" checked/>
-								<label for="1"></label><span>All</span>
-							  </div>
-							  <div class="form-group squaredThree">
-							  	<input type="checkbox" id="2" name="Few" />
-								<label for="2"></label><span>Few</span>
-							  </div>
-							  <div class="form-group squaredThree">
-							  	<input type="checkbox" id="3" name="None" />
-								<label for="3"></label><span>None</span>
-							  </div>
-							 
+							 <c:forEach var="language" items="${languages}">
+							 	  <c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+							      <c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
+							      <div class="form-group squaredThree">
+							  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
+								      <label for="lan${lang}"></label><span>${language}</span>
+							      </div>
+							  </c:forEach>
+						 
+						<a href="#"  data-toggle="modal" data-target="#myModal">Show more</a>
+						</form>
+   						<form>
+   							<div class="filter-type">
+   								<span>Industry</span>
+   							</div>
+							 <c:forEach var="industry" items="${industries}">
+							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
+							      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
+							      <div class="form-group squaredThree">
+							  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
+								      <label for="ind${indus}"></label><span>${industry}</span>
+							      </div>
+							  </c:forEach>
+						 
 						<a href="#"  data-toggle="modal" data-target="#myModal">Show more</a>
 						</form>
 						<form>
    							<div class="filter-type">
    								<span>College</span>
    							</div>
-							  
-							  <div class="form-group squaredThree">
-							  	<input type="checkbox" value="None" id="4" name="All" />
-								<label for="4"></label><span>All</span>
-							  </div>
-							 
-							 
+							   <c:forEach var="institution" items="${institutions}">
+							   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
+							      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
+							      <div class="form-group squaredThree">
+							  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
+								      <label for="col${institute}"></label><span>${institution}</span>
+							      </div>
+							  </c:forEach>
 						</form>
 							<!-- Modal -->
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -286,7 +241,7 @@
    					<div class="col-xs-12 Afilter-container">
    					<div class="filters-active">
 	   						<span>Filters:</span>
-	   						<span class="filterlist"><span class="activef" value="1">All</span></span>
+	   						<span class="filterlist" id="filtervalues"></span>
    						</div>
    					</div>	
    					<div class="col-xs-12 card-container">
@@ -582,9 +537,23 @@ $('body').on('click', '.big-button', function(e){
 $('.squaredThree input[type=checkbox]').change(function() {
 	var text=$(this).attr('name');
   	var value=$(this).attr('id');
+    var filterString = ""; 
 
 		  if ($(this).is(':checked')) {
 		    $('.filterlist').append("<span class='activef' value="+value+">"+text+"</span>")
+		    var filters = document.getElementById("filtervalues").childNodes;
+		  	var length = filters.length;
+		       for (var k = 0; k <= length-1; k++) {
+		           var id = filters[k].id;
+		           var text = filters[k].innerHTML;
+		           var filterType = id.substring(0,3);
+		           if(filterType == "col"){
+		           	filterString = filterString +"college:"+text+"::";
+		           }
+		       }
+		       var pos = filterString.lastIndexOf(':');
+		       filterString = filterString.substring(0,pos-1);
+
 		  } else {
 		 	 $('.filterlist [value='+value+']').remove();
 		  }
