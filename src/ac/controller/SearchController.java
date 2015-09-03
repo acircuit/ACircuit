@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.ehcache.Element;
+
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -38,7 +40,7 @@ public class SearchController extends HttpServlet {
 		logger.info("Entered doGet method of SearchController");
 		String keyWord = request.getParameter("word");
 		String word = keyWord.toLowerCase();
-		List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
+		List<Integer> list = new ArrayList<Integer>();
 		Analyzer analyzer = new StandardAnalyzer();
 		LuceneAnalyzer token = new LuceneAnalyzer();
 		List<String> tokens= token.tokenizeString(analyzer, word);
@@ -55,7 +57,6 @@ public class SearchController extends HttpServlet {
 				int hit = map.get(word);
 				map.remove(word);
 				map.put(word, hit+1);
-				response.sendRedirect("Sample.jsp");
 			}else{
 				// If the keywors is not in the Trie, Then update trie, map and suf=ggestions table
 				//Updating table
@@ -67,10 +68,17 @@ public class SearchController extends HttpServlet {
 				Trie trie1 = MyCacheBuilder.trie;
 				trie1.load(keyWord);
 				map.put(keyWord, 1);
-				response.sendRedirect("Sample.jsp");
 
 			}
-
+			List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
+			for(Integer i : list){
+				MyCacheBuilder cacheBuilder = MyCacheBuilder .getCacheBuilder();
+				AdvisorDTO adv = cacheBuilder.getAdvisor(i);
+				advisors.add(adv);
+			}
+			
+			System.out.println("size:"+advisors.size());
+			response.sendRedirect("123");
 		}else{
 			//check if the keywords exists in the notsuggested table
 			SearchSuggestionsDTO dto = new SearchSuggestionsDTO();

@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>ACircuit</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>Sample.jsp.html</welcome-file>
   </welcome-file-list>
   <listener>
     <listener-class>
@@ -22,12 +22,20 @@
     <servlet-name>GetSuggestions</servlet-name>
     <url-pattern>/GetSuggestions</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>SearchController</servlet-name>
     <servlet-class>ac.controller.SearchController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchController</servlet-name>
     <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>GetAdvisorController</servlet-name>
+    <servlet-class>ac.controller.GetAdvisorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAdvisorController</servlet-name>
+    <url-pattern>/advisors</url-pattern>
   </servlet-mapping>
 </web-app>
