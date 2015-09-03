@@ -299,6 +299,41 @@ public class CacheDAO {
 		return institutions;
 	}
 	
+	public List<String> GetLanguages(){
+		logger.info("Entered GetLanguages method of CacheDAO");
+		List<String> languages = new ArrayList<String>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			//String q4in = generateQsForIn(words.size());
+			query = "SELECT  DISTINCT LANGUAGE_KNOWN FROM advisorlanguage";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				languages.add(results.getString("LANGUAGE_KNOWN"));
+			}
+		} catch (SQLException e) {
+			logger.error("GetLanguages method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetLanguages method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetLanguages method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetLanguages method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetLanguages method of CacheDAO");
+		return languages;
+	}
+	
 	public List<String> GetIndustries(){
 		logger.info("Entered GetIndustries method of CacheDAO");
 		List<String> industries = new ArrayList<String>();

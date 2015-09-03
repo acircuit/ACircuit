@@ -30,7 +30,7 @@
     <servlet-name>SearchController</servlet-name>
     <url-pattern>/Search</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>GetAdvisorController</servlet-name>
     <servlet-class>ac.controller.GetAdvisorController</servlet-class>
   </servlet>

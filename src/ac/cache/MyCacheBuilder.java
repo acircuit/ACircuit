@@ -70,11 +70,14 @@ public class MyCacheBuilder
 		}
 	}
 	
-	public void addFilters(List<String> institutions, List<String> industries ){
+	public void addFilters(List<String> institutions, List<String> industries, List<String> languages ){
 		Element element = new Element( 1, institutions );
 		filterCache.put(element);
 		Element element1 = new Element( 2, industries );
 		filterCache.put(element1);
+		
+		Element lang = new Element( 3, languages );
+		filterCache.put(lang);
 	}
 	public List<String> getIndustryFilterValues(){
 		Element element = filterCache.get(2);
@@ -88,6 +91,16 @@ public class MyCacheBuilder
 	
 	public List<String> getInstitutionsFilterValues(){
 		Element element = filterCache.get(1);
+		if( element != null )
+		{
+			return (List<String>)element.getValue();
+		}else{
+			return null;
+		}
+	}
+	
+	public List<String> getLanguagesFilterValues(){
+		Element element = filterCache.get(3);
 		if( element != null )
 		{
 			return (List<String>)element.getValue();
@@ -234,8 +247,13 @@ public class MyCacheBuilder
 		List<String> industries = new ArrayList<String>();
 		CacheDAO industry = new CacheDAO();
 		industries = industry.GetIndustries();
-
-		addFilters(institutions, industries); 
+		
+		//Getting all languages from the advisorlanguage table
+		List<String> languages = new ArrayList<String>();
+		CacheDAO language = new CacheDAO();
+		languages = language.GetLanguages();
+		
+		addFilters(institutions, industries,languages); 
 		
 		logger.info("Cache Built");
 	}

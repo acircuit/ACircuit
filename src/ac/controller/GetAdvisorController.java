@@ -32,30 +32,35 @@ public class GetAdvisorController extends HttpServlet {
 		logger.info("Entered doPost method of GetAdvisorController");
 		String category = request.getParameter("category");
 		List<Integer> list = new ArrayList<Integer>();
+		String ids = "";
 		if(category != null && !category.isEmpty() && category.equals("higherstudies")){
 			//Fetching all the advisor Id's from category table with category as Higher Studies
 			SearchDAO advisors = new SearchDAO();
-			list = 	advisors.GetAdvisorsUsingCategory("higherstudies");
+			ids = 	advisors.GetAdvisorsUsingCategory("higherstudies");
 		}else if (category != null && !category.isEmpty() && category.equals("industry")) {
 			//Fetching all the advisor Id's from category table with category as industry
 			SearchDAO advisors = new SearchDAO();
-			list = 	advisors.GetAdvisorsUsingCategory("industry");
+			ids = 	advisors.GetAdvisorsUsingCategory("industry");
 		}else if (category != null && !category.isEmpty() && category.equals("options")) {
 			//Fetching all the advisor Id's from category table with category as industry
 			SearchDAO advisors = new SearchDAO();
-			list = 	advisors.GetAdvisorsUsingCategory("options");
+			ids = 	advisors.GetAdvisorsUsingCategory("options");
 		}else{
 			//Fetching all the advisor Id's from category table with category as industry
 			SearchDAO advisors = new SearchDAO();
-			list = 	advisors.GetAdvisorsUsingCategory("all");
+			ids = 	advisors.GetAdvisorsUsingCategory("all");
 		}
 		MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 		List<String> industries = cache.getIndustryFilterValues();
 		MyCacheBuilder cache1 = MyCacheBuilder.getCacheBuilder();
 		List<String> institutions = cache1.getInstitutionsFilterValues();
-		request.setAttribute("ids", list);
+		MyCacheBuilder lang = MyCacheBuilder.getCacheBuilder();
+		List<String> languages = cache1.getLanguagesFilterValues();
+
+		request.setAttribute("ids", ids);
 		request.setAttribute("industries", industries);
 		request.setAttribute("institutions", institutions);
+		request.setAttribute("languages", languages);
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Experts.jsp");
         rd.forward(request, response);

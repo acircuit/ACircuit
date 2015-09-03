@@ -474,9 +474,9 @@ public class SearchDAO {
 		return advisors;
 	}
 	
-	public List<Integer> GetAdvisorsUsingCategory(String type){
+	public String GetAdvisorsUsingCategory(String type){
 		logger.info("Entered GetAdvisorsUsingCategory method of SearchDAO");
-		List<Integer> list = new ArrayList<Integer>();
+		String ids = "";
 		String	query ="";
 		try {
 			conn = ConnectionFactory.getConnection();
@@ -501,8 +501,10 @@ public class SearchDAO {
 			
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
-				list.add(results.getInt("ADVISOR_ID"));
+				ids = ids+ results.getInt("ADVISOR_ID")+":";
 			}
+			int pos = ids.lastIndexOf(':');
+			ids = ids.substring(0, pos);
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
@@ -527,7 +529,7 @@ public class SearchDAO {
 			}
 		}
 		logger.info("Exit GetAdvisorsUsingCategory method of SearchDAO");
-		return list;
+		return ids;
 
 	}
 	
