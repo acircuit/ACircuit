@@ -28,7 +28,7 @@
   				</div>
   			</div>
   		</div>
-  		<div class="row category-filter-row">
+  		<div class="row category-filter-row ">
   				<div class="category-all-filters container">
   					
   				</div>
