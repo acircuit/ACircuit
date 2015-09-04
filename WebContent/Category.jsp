@@ -1,41 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
 
-  <link rel="shortcut icon" href="https://www.advisorcircuit.com/assets/img/PageTop_Logo.png"> 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- Bootstrap core CSS -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="https//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link href="assets/css/pannel.css" rel="stylesheet">
-<link href="assets/css/star-rating.css" rel="stylesheet">
-<link href="assets/css/nav-mobile.css" rel="stylesheet">
-
-
-<!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
-
-<!-- Fonts from Google Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Lato:300,400,900'
-    rel='stylesheet' type='text/css'>
-<link href="assets/css/font-awesome.min.css" rel="stylesheet"
-    type="text/css">
-</head>
-<body>
-       <div class="category-filter-div row">
+       <div class="category-filter-div container no-padding">
   			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
-  			<div class="col-xs-12 no-padding-xs">
+  			<div class="col-xs-12 no-padding">
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
   						<button class="big-button bblue" name="bb1"><img class="category-im" src="assets/img/higher_studies.png">
@@ -64,12 +30,44 @@
   		</div>
   		<div class="row category-filter-row">
   				<div class="category-all-filters container">
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
-  					<a class="col-xs-4 Cfilter">bhjjjhbjh</a>
+  					
   				</div>
   			</div>
-</body>
-</html>
+  			<script>
+  			$('body').on('click', '.big-button', function(e){
+  				 var color = $(this).attr('name');
+  				 	$('.big-button').css('background-color','white');
+  				 	$(this).css('color','white');
+  					 if(color=='bb1')
+  					 {
+  					 	$(this).css('background-color','#00b9ff');
+  					 	$('.category-filter-row').slideDown();
+  					 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
+						var databb1='<a class="col-xs-4 Cfilter">this is bb1</a>';
+  					 	$('.category-all-filters').html(databb1);
+  					 }
+  					else if(color=='bb2')
+  					 {
+  					 	$(this).css('background-color','#f2624d');
+  					 	$('.category-filter-row').slideDown();
+  					 	$('.category-filter-row').css('border-top','4px solid #f2624d')
+  					 	var databb2='<a class="col-xs-4 Cfilter">this is bb2</a>';
+  					 	$('.category-all-filters').html(databb2);
+  					 }
+  					else
+  					{
+  						$(this).css('background-color','#a5cd5b');
+  						$('.category-filter-row').slideDown();
+  						$('.category-filter-row').css('border-top','4px solid #a5cd5b')
+  						var databb3='<a class="col-xs-4 Cfilter">this is bb3</a>';
+  					 	$('.category-all-filters').html(databb3);
+  					}
+  					
+  				});
+  			$('body').on('click', '.Cfilter', function(e){
+  				$('.collapsed-filter').slideDown();
+  				$('.category-filter-div').slideUp();
+  				$('.category-filter-row').slideUp();
+
+  			});
+  			</script>
