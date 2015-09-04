@@ -43,7 +43,6 @@ public class CacheDAO {
 				advisor.setEmail(results.getString("EMAIL"));
 				advisor.setCity(results.getString("CITY"));
 				advisor.setIndustry(results.getString("INDUSTRY"));
-				advisor.setLanguagesKnown(results.getString("LANGUAGE_KNOWN"));
 				advisor.setLinkedIn(results.getString("LINKEDIN_PROFILE_LINK"));
 				advisor.setIntro(results.getString("INTRODUCTION"));
 				advisor.setExperience(results.getString("EXPERIENCE"));
