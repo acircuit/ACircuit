@@ -72,7 +72,7 @@
 							      </div>
 							  </c:forEach>
 						 
-						<a href="#"  data-toggle="modal" data-target="#myModal">Show more</a>
+						<a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
 						</form>
    						<form>
    							<div class="filter-type">
@@ -87,7 +87,7 @@
 							      </div>
 							  </c:forEach>
 						 
-						<a href="#"  data-toggle="modal" data-target="#myModal">Show more</a>
+						<a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
 						</form>
 						<form>
    							<div class="filter-type">
