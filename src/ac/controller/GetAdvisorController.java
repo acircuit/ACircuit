@@ -56,11 +56,26 @@ public class GetAdvisorController extends HttpServlet {
 		List<String> institutions = cache1.getInstitutionsFilterValues();
 		MyCacheBuilder lang = MyCacheBuilder.getCacheBuilder();
 		List<String> languages = cache1.getLanguagesFilterValues();
-
+        
+		
+		//Getting the sub categories
+		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+		
+		MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+		List<String> industrySubCategory = industry.getIndustrySubCategory();
+		
+		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+		List<String> optionsSubCategory = option.getOpionsSubCategory();
+		
+		
 		request.setAttribute("ids", ids);
 		request.setAttribute("industries", industries);
 		request.setAttribute("institutions", institutions);
 		request.setAttribute("languages", languages);
+		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+		request.setAttribute("industrySubCategory", industrySubCategory);
+		request.setAttribute("optionsSubCategory", optionsSubCategory);
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Experts.jsp");
         rd.forward(request, response);

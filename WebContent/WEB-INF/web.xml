@@ -38,12 +38,20 @@
     <servlet-name>GetAdvisorController</servlet-name>
     <url-pattern>/advisors</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>FilterController</servlet-name>
     <servlet-class>ac.controller.FilterController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FilterController</servlet-name>
     <url-pattern>/Filters</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>qa</servlet-name>
+    <jsp-file>/Questions.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>qa</servlet-name>
+    <url-pattern>/questions</url-pattern>
+  </servlet-mapping>
 </web-app>

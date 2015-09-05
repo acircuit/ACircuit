@@ -503,8 +503,10 @@ public class SearchDAO {
 			while (results.next()) {
 				ids = ids+ results.getInt("ADVISOR_ID")+":";
 			}
-			int pos = ids.lastIndexOf(':');
-			ids = ids.substring(0, pos);
+			if(!ids.equals("")){
+			   int pos = ids.lastIndexOf(':');
+			   ids = ids.substring(0, pos);
+			}
 		} catch (SQLException e) {
 			try {
 				conn.rollback();

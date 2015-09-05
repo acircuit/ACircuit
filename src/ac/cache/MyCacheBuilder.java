@@ -36,6 +36,7 @@ public class MyCacheBuilder
 	private Ehcache searchCache;
 	private Ehcache advisorProfileCache;
 	private Ehcache filterCache;
+	private Ehcache subCategoryCache;
 	private static final Logger logger = Logger.getLogger(MyCacheBuilder.class);
 	public  static final Trie trie = new Trie();
 	public  static final 		Map<String, Integer> map = new ConcurrentHashMap<String, Integer>();
@@ -51,9 +52,11 @@ public class MyCacheBuilder
 		cacheManager.addCache("SearchCache");
 		cacheManager.addCache("AdvisorProfileCache");
 		cacheManager.addCache("FilterCache");
+		cacheManager.addCache("SubCategoryCache");
 		searchCache = cacheManager.getEhcache( "SearchCache" );
 		advisorProfileCache = cacheManager.getEhcache( "AdvisorProfileCache" );
 		filterCache = cacheManager.getEhcache( "FilterCache" );
+		subCategoryCache= cacheManager.getEhcache( "SubCategoryCache" );
 	}
 	public void addAdvisor(AdvisorDTO advisor){
 		Element element = new Element( advisor.getId(), advisor );
@@ -98,6 +101,46 @@ public class MyCacheBuilder
 			return null;
 		}
 	}
+	
+	public void addSubCategories(String[] higherStudiesSubCaegory,List<String> industrySub,List<String> optionSub){
+		Element element = new Element( 1, higherStudiesSubCaegory );
+		subCategoryCache.put(element);
+		Element element1 = new Element( 2, industrySub );
+		subCategoryCache.put(element1);
+		
+		Element element2 = new Element( 3, optionSub );
+		subCategoryCache.put(element2);
+	}
+	
+	public String[] getHigherStudiesSubCategory(){
+		Element element = subCategoryCache.get(1);
+		if( element != null )
+		{
+			return (String[])element.getValue();
+		}else{
+			return null;
+		}
+	}
+	public List<String> getIndustrySubCategory(){
+		Element element = subCategoryCache.get(2);
+		if( element != null )
+		{
+			return (List<String>)element.getValue();
+		}else{
+			return null;
+		}
+	}
+	public List<String> getOpionsSubCategory(){
+		Element element = subCategoryCache.get(3);
+		if( element != null )
+		{
+			return (List<String>)element.getValue();
+		}else{
+			return null;
+		}
+	}
+	
+	
 	
 	public List<String> getLanguagesFilterValues(){
 		Element element = filterCache.get(3);
@@ -255,6 +298,40 @@ public class MyCacheBuilder
 		
 		addFilters(institutions, industries,languages); 
 		
+		logger.info("Building SubCategory Cache");
+		//Building Higher studies sub category
+		String[] higherStudiesSubCaegory = new String[4];
+		higherStudiesSubCaegory[0] = "MBA-India";
+		higherStudiesSubCaegory[1] = "MBA-Abroad";
+		higherStudiesSubCaegory[2] = "Masters-India";
+		higherStudiesSubCaegory[3] = "Masters-Abroad";
+		
+		//Building Industry SubCategory
+		List<Integer> industryCategoryId = new ArrayList<Integer>();
+        //Getting the advisorids with category as industry
+		CacheDAO industryAdvisors = new CacheDAO();
+		industryCategoryId = industryAdvisors.GetCategoryId("industry");
+		List<String> subs = new ArrayList<String>();
+		if(industryCategoryId.size() > 0){
+			//Getting all the sub category
+			CacheDAO subCat = new CacheDAO();
+			subs = subCat.GetSubCategories(industryCategoryId);
+			
+		}
+
+		
+		
+		//Building Options sub category
+		List<Integer> optionsCategoryId = new ArrayList<Integer>();
+		//Getting the categoryids with category as industry
+		CacheDAO optionAdvisors = new CacheDAO();
+		industryCategoryId = industryAdvisors.GetCategoryId("option");
+		List<String> subs1 = new ArrayList<String>();
+		if(industryCategoryId.size() > 0){
+			CacheDAO subCat1 = new CacheDAO();
+			subs1 = subCat1.GetSubCategories(industryCategoryId);
+		}
+		addSubCategories(higherStudiesSubCaegory, subs,subs1); 
 		logger.info("Cache Built");
 	}
 

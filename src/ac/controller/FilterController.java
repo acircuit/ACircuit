@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +41,19 @@ public class FilterController extends HttpServlet {
 		String filterString = request.getParameter("filterString");
 		String ids = request.getParameter("ids");
 		String category = request.getParameter("category");
+		String paging = request.getParameter("paging");
+		int startIndex = 0;
+		int endIndex = 0;
+		String[] initialAdvisors = null;
+		if(paging != null){
+			int page = Integer.valueOf(paging);
+
+			startIndex = 11+ (page-1)*6;
+            endIndex = startIndex +5;
+		}
+		
+		
+		
 		//Getting a list of advisor id
 		String[] advisorIds = ids.split(":");
 		String q="";
@@ -75,6 +89,8 @@ public class FilterController extends HttpServlet {
 		if(language){
 			threshold++;
 		}
+		int count=0;
+		Boolean isLeft = false;
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
 		for(String aid : advisorIds){
@@ -104,6 +120,7 @@ public class FilterController extends HttpServlet {
 				advThreshold++;
 			}
 			if( advThreshold != 0 && advThreshold >= threshold){
+				if(count >= startIndex && count <=endIndex) {
 				JSONObject jo = new JSONObject();
 				jo.put("name", advisor.getName());
 				List<CategoryDTO> list = advisor.getCategories();
@@ -151,6 +168,14 @@ public class FilterController extends HttpServlet {
 						ed++;
 					}
 				}
+				if(ed == 0){
+					for(EducationDTO educ : education1){
+						if(educ.getType().equals("ug") && educ.getInstitution() != null){
+							jo.put("institution", educ.getInstitution());
+							ed++;
+						}
+					}
+				}
 				List<ProfessionalBackgroundDTO> profession= advisor.getProfession();
 				for(ProfessionalBackgroundDTO prof : profession){
 					if(prof.getIsCurrent() && prof.getDesignation() != null && prof.getCompany() != null){
@@ -159,8 +184,19 @@ public class FilterController extends HttpServlet {
 					}
 				}
 				array.add(jo);
+				count++;
+				isLeft = false;
+				
 				//q= q+advisor.getId();
+				}else{
+					isLeft = true;
+				}
 			}
+		}
+		if(isLeft){
+			JSONObject jo = new JSONObject();
+			jo.put("name", "noadv");
+
 		}
 		response.getWriter().write(array.toJSONString());
 		
