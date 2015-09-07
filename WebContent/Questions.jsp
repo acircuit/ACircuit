@@ -56,16 +56,16 @@
    		    <%@include file="/Category.jsp" %>
    		  
    			<div class="row no-padding-xs stopnow border-top body-content">
-   			<div class="col-xs-12 cc" style="padding-left:49px;">
+   			<div class="col-xs-12 cc" >
    			 <%@include file="/collapsed-category.jsp" %>
    			</div>
    			 
-   				<div class="col-xs-9 qa-left-section" style="padding-left:49px;">
+   				<div class="col-xs-12 col-sm-9 qa-left-section">
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
 			   			<span class="answers-count">32 Answers</span>
-			   			<button type="button" class="btn red-button ask-question-button">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 			   				<div class="each-question-div row" id="1">
@@ -138,11 +138,76 @@
 			   				
 			   		</div>
 	   			</div>
-	   			<div class="col-xs-3">
+	   			<div class="col-xs-3 hidden-xs">
+		   			<div  class="related col-xs-12">
+	                    <div class="rel-section">
+	                        <h2>MOST VIEWED QUESTIONS</h2>
+	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	
+	                    </div>
+					</div>
+					<div class="related col-xs-12">
+                    <div class="rel-section">
+                        <h2>POPULAR CATEGORIES</h2>
+                        <a class="rel-category">Category</a>
+                        <a class="rel-category">Category</a>
+                        <a class="rel-category">Category</a>
+                        <a class="rel-category">Category</a>
+                    </div>
 	   			</div>
    			</div>
    	 </div>
 </div>
+
+<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Ask Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row">
+										       <div class="col-xs-3"><span>Select category :</span></div>
+										       <div class="col-xs-9">
+											       <div class="col-xs-6">
+												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
+														  <option value="volvo">Volvo</option>
+														  <option value="saab">Saab</option>
+														  <option value="mercedes">Mercedes</option>
+														  <option value="audi">Audi</option>
+														</select>
+											       </div>
+											       <div class="col-xs-6">
+												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
+															  <option value="volvo">Volvo</option>
+															  <option value="saab">Saab</option>
+															  <option value="mercedes">Mercedes</option>
+															  <option value="audi">Audi</option>
+														</select>
+														
+											       </div>
+											      <br>
+											      <br>
+											        <div class="form-group squaredThree" >
+														  	<input type="checkbox" id="21" name="Post anonymously" />
+															<label for="2l"></label><span>Post anonymously</span>
+													</div>
+													<button type="button" class="btn red-button ask-question-button">Ask question</button>
+										       </div>
+									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 <script>
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
