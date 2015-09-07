@@ -1,0 +1,149 @@
+
+.collapsed-filter {
+    display: block;
+}
+
+
+.search-item
+{
+    font-size: 18px; 
+    font-family: 'Open SansR'; 
+    color: #4a4a4a;
+        opacity: .6;
+}
+.ask-question-button {
+    float: right;
+    margin-top:0px!important;}
+
+
+
+
+
+
+.adv-name
+{
+    font-size: 18px;
+    color: #37b7ae;
+    font-family: 'Open SansR';
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 8px
+}
+.adv-field{
+	font-family:'Open SansR';
+color: #6c6c6c;
+font-size: 14px;
+margin-top: 14px; 
+display:inline-block;
+ margin-left: 15px;}
+ 
+.rel_ques
+{
+    color: #37b7b3;
+    font-size: 13px;
+    font-family: 'Open SansR';
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+
+
+a:focus, a:hover {
+    text-decoration: none;
+    color: #37b7b3;
+}
+
+
+.adv-img
+{
+    height: 60px; 
+    width:60px;
+    border-radius: 50%;
+    float:left;
+}
+
+.adv_ans
+{
+    clear: both;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.adv_ans p
+{
+    font-size: 13px;
+}
+
+.written-on
+{
+    display: inline-block;
+    font-family: 'Open SansR';
+    color: #9b9b9b;
+    font-size: 13px;
+    float: left;
+    clear: left;
+    margin-left: 70px;
+    margin-top: -20px;
+}
+.ans-category
+{
+    padding: 5px 10px 5px 10px;
+    background-color: rgba(55, 183, 179, 0.2);
+    display: inline;
+    border-radius: 3px;
+    color: #9b9b9b;
+    font-size: 12px;
+    font-family: 'Open SansR';
+}
+.red-action-a{
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+.red-action-a a{
+text-decoration: none;
+    color: #f2624d;
+    font-size: 14px;
+    font-family: 'OpenSans-Semibold';
+   margin-left: 15px;
+   font-weight: 600;
+}
+
+@media (min-width: 320px) and (max-width: 462px) {
+ .qa-left-section {
+    padding-top: 0px;}
+.ask-question-button {
+    float: right;
+    margin-top: -42px!important;}
+.big-title-body {
+    font-size: 14px!important;}
+.search-item {
+    font-size: 12px;}
+.white-body-div {
+    padding: 7px;}
+.red-action-a {
+    float: left;
+    position: initial;}
+.adv-field {
+    font-size: 12px;
+    margin-top: 22px;
+    display: block;
+    margin-left: 0px;}
+.written-on {
+    display: inline-block;
+    font-family: 'Open SansR';
+    color: #9b9b9b;
+    font-size: 12px;
+    float: left;
+    clear: left;
+    margin-left: 0px;
+    margin-top: -8px;}
+}
+@media (min-width: 320px) and (max-width: 767px) {
+	.red-action-a {
+    float: right;
+    position: initial;}
+}
+@media (max-width: 992px) {
+	
+}

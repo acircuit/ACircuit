@@ -10,7 +10,7 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
 					        <li class="active"><a href="#">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="questions">Q&A</a></li>
+					        <li><a href="#">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
@@ -29,7 +29,6 @@
 					                </li>
 					                <li>
 					                    <a href="#">Q&A</a>
-
 					                </li>
 					                <li>
 					                    <a href="#">Be an Advisor</a>
@@ -52,4 +51,35 @@
 					            </button>
 					       
 					         <form class="search-form" style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text" placeholder="Search"></form>
-   							
+   	<script>
+   	$(document).ready(function () {
+  var trigger = $('.hamburger'),
+      overlay = $('.overlay'),
+     isClosed = false;
+
+    trigger.click(function () {
+      hamburger_cross();      
+    });
+
+    function hamburger_cross() {
+
+      if (isClosed == true) {          
+        overlay.hide();
+        trigger.removeClass('is-open');
+        trigger.addClass('is-closed');
+        isClosed = false;
+      } else {   
+        overlay.show();
+        trigger.removeClass('is-closed');
+        trigger.addClass('is-open');
+        isClosed = true;
+      }
+  }
+  
+  $('[data-toggle="offcanvas"]').click(function () {
+        $('#wrapper').toggleClass('toggled');
+  });  
+
+   		
+	});
+   	</script>
