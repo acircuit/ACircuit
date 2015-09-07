@@ -400,12 +400,16 @@ $('.squaredThree input[type=checkbox]').change(function() {
 		            	var obj = JSON.parse(response);
 		            	var count=0;
 		            	$.each(obj, function(key,value) {
+		            		if(value.name !="noadv"){
 		            		 if(count >10){
 		            			 document.getElementById("loadmorefilters").style.visibility = "visible";
-		            			 break;
+		            			 return false;
 		            		 }
 		            		 expertcard(value);
 		            		 count++;
+		            		}else{
+		            			 document.getElementById("loadmorefilters").style.visibility = "hidden";
+		            		}
 		            		}); 
 		            	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
 		               					// create an empty div in your page with some id
@@ -433,7 +437,7 @@ function GetLeftAdvisors(){
         		if(value.name !="noadv"){
         		 if(count >10){
         			 document.getElementById("loadmorefilters").style.visibility = "visible";
-        			 break;
+        			 return false;
         		 }
         		 expertcard(value);
         		 count++;

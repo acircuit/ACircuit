@@ -10,7 +10,7 @@
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
 					        <li class="active"><a href="#">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="#">Q&A</a></li>
+					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
@@ -28,7 +28,7 @@
 					                    <a href="#">Experts</a>
 					                </li>
 					                <li>
-					                    <a href="questions">Q&A</a>
+					                    <a href="#">Q&A</a>
 
 					                </li>
 					                <li>

@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.AdvisorLanguageDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -440,6 +441,44 @@ public class CacheDAO {
 		}
 		logger.info("Exit GetSubCategories method of CacheDAO");
 		return subs;
+	}
+	
+	public List<AdvisorLanguageDTO> GetAdvisorLanguage(){
+		logger.info("Entered GetAdvisorLanguage method of CacheDAO");
+		List<AdvisorLanguageDTO> language = new ArrayList<AdvisorLanguageDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			//String q4in = generateQsForIn(words.size());
+			query = "SELECT  * FROM advisorlanguage";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AdvisorLanguageDTO lang = new AdvisorLanguageDTO();
+				lang.setAdvisor_id(results.getInt("ADVISOR_ID"));
+				lang.setLanguage(results.getString("LANGUAGE_KNOWN"));
+				language.add(lang);
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorLanguage method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorLanguage method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorLanguage method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorLanguage method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorLanguage method of CacheDAO");
+		return language;
 	}
 	
 	private String generateQsForIn(int numQs) {

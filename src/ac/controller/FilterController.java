@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 
 import ac.cache.MyCacheBuilder;
 import ac.dto.AdvisorDTO;
+import ac.dto.AdvisorLanguageDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -43,7 +44,7 @@ public class FilterController extends HttpServlet {
 		String category = request.getParameter("category");
 		String paging = request.getParameter("paging");
 		int startIndex = 0;
-		int endIndex = 0;
+		int endIndex = 9;
 		String[] initialAdvisors = null;
 		if(paging != null){
 			int page = Integer.valueOf(paging);
@@ -99,9 +100,11 @@ public class FilterController extends HttpServlet {
 			int advThreshold = 0;
 			int advCollege = 0;
 			int advIndus = 0;
+			int advLang = 0;
 			List<EducationDTO> education = new ArrayList<EducationDTO>();
 			education = advisor.getEducation();
 			String indus = advisor.getIndustry();
+			List<AdvisorLanguageDTO> language1 = advisor.getLanguage();
 			for(int i=0;i<myarray.length;i++){
 				if(myarray[i].equals("college")){
 					for(EducationDTO edu : education){
@@ -111,12 +114,21 @@ public class FilterController extends HttpServlet {
 					}
 				}else if (myarray[i].equals("industry") && indus.equals(myarray[i+1])) {
 					advIndus++;
+				}else if (myarray[i].equals("language")) {
+					for(AdvisorLanguageDTO lan : language1){
+						if(lan.getLanguage().equals(myarray[i+1])){
+							advLang++;
+						}
+					}
 				}
 			}
 			if(advIndus > 0){
 				advThreshold++;
 			}
 			if(advCollege > 0){
+				advThreshold++;
+			}
+			if(advLang > 0){
 				advThreshold++;
 			}
 			if( advThreshold != 0 && advThreshold >= threshold){
@@ -198,6 +210,7 @@ public class FilterController extends HttpServlet {
 			jo.put("name", "noadv");
 
 		}
+		System.out.println(array.size());
 		response.getWriter().write(array.toJSONString());
 		
 		logger.info("Entered doPost method of FilterController");

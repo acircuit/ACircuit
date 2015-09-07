@@ -24,7 +24,14 @@ public class AdvisorDTO implements Serializable {
 	private List<ProfessionalBackgroundDTO> profession;
 	private List<CategoryDTO> categories;
 	private List<SubCategoryDTO> subCategories;
+	private List<AdvisorLanguageDTO> language; 
 	
+	public List<AdvisorLanguageDTO> getLanguage() {
+		return language;
+	}
+	public void setLanguage(List<AdvisorLanguageDTO> language) {
+		this.language = language;
+	}
 	public List<EducationDTO> getEducation() {
 		return education;
 	}

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import ac.dao.CacheDAO;
 import ac.dao.SuggestionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.AdvisorLanguageDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -243,11 +244,18 @@ public class MyCacheBuilder
 		List<SubCategoryDTO> subCategories = new ArrayList<SubCategoryDTO>();
 		CacheDAO subCategory = new CacheDAO();
 		subCategories = subCategory.GetSubCategoryDetails();
+		
+		//Fetching languages for an advisor
+		List<AdvisorLanguageDTO> language = new ArrayList<AdvisorLanguageDTO>();
+		CacheDAO lang = new CacheDAO();
+		language = lang.GetAdvisorLanguage();
+		
 		for(AdvisorDTO adv : advisorProfile){
 			List<EducationDTO> educ = new ArrayList<EducationDTO>();
 			List<ProfessionalBackgroundDTO> prof = new ArrayList<ProfessionalBackgroundDTO>();
 			List<CategoryDTO> categ= new ArrayList<CategoryDTO>();
 			List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
+			List<AdvisorLanguageDTO> advLanguage = new ArrayList<AdvisorLanguageDTO>();
 
 			for(EducationDTO edu : education){
 				if(edu.getAdvisorId() == adv.getId()){
@@ -273,6 +281,12 @@ public class MyCacheBuilder
 				}
 			}
 			adv.setSubCategories(sub);
+			for(AdvisorLanguageDTO lan : language){
+				if(lan.getAdvisor_id() == adv.getId()){
+					advLanguage.add(lan);
+				}
+			}
+			adv.setLanguage(advLanguage);
 			addAdvisor(adv);
 		}
 		
@@ -293,8 +307,8 @@ public class MyCacheBuilder
 		
 		//Getting all languages from the advisorlanguage table
 		List<String> languages = new ArrayList<String>();
-		CacheDAO language = new CacheDAO();
-		languages = language.GetLanguages();
+		CacheDAO languag = new CacheDAO();
+		languages = languag.GetLanguages();
 		
 		addFilters(institutions, industries,languages); 
 		
@@ -332,6 +346,8 @@ public class MyCacheBuilder
 			subs1 = subCat1.GetSubCategories(industryCategoryId);
 		}
 		addSubCategories(higherStudiesSubCaegory, subs,subs1); 
+		
+		
 		logger.info("Cache Built");
 	}
 
