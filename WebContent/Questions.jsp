@@ -1,4 +1,5 @@
 <%@page import="java.util.List"%>
+<%@page import="ac.dto.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -36,6 +37,10 @@
                 List<String> industries = (List<String>)request.getAttribute("industries");
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
+                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
+                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
+                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
         		pageContext.setAttribute("ids", ids);
 	
 
@@ -68,13 +73,15 @@
 			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
-			   				<div class="each-question-div row" id="1">
+
+		   				<c:forEach items="${questions}" var="question">
+ 							 <div class="each-question-div row" id="${question.getQuestionId()}">
 				   				<div class="col-xs-12 tag-div">
-									<span class="tag">category</span>
-									<span class="tag">sub-category</span>
+									<span class="tag">${question.getCategory()}</span>
+									<span class="tag">${question.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div">
-									<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
+									<span class="question">${question.getQuestion()}</span>
 				   					<br>
 				   					<span class="count-answers">5 answers</span><span class="updated-on">Last Updated on 3rd August</span>
 				   				</div> 
@@ -83,53 +90,15 @@
 									<span class="nameA">Raghu Venkat </span> answered
 									</span>
 									<p class="answer-to-question">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
+									${question.getAnswer()} <span class="more">more</span>
 									</p>
 				   				</div>
 				   				<div class="col-xs-11">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
-			   				</div>
-			   				<div class="each-question-div row" id="2">
-				   				<div class="col-xs-12 tag-div">
-									<span class="tag">category</span>
-									<span class="tag">sub-category</span>
-				   				</div>
-				   				<div class="col-xs-12 question-div">
-									<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
-				   					<br>
-				   					<span class="count-answers">5 answers</span><span class="updated-on">Last Updated on 3rd August</span>
-				   				</div> 
-				   				<div class="col-xs-9 answer-div">
-									<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> answered
-									</span>
-									<p class="answer-to-question">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
-									</p>
-				   				</div>
-				   				<div class="col-xs-11">
-				   					<div style="border-bottom: 1px solid lightgray;"></div>
-				   				</div>
-			   				</div>
-			   				<div class="each-question-div row" id="3">
-				   				<div class="col-xs-12 tag-div">
-									<span class="tag">category</span>
-									<span class="tag">sub-category</span>
-				   				</div>
-				   				<div class="col-xs-12 question-div">
-									<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
-				   					<br>
-				   					<span class="count-answers">5 answers</span><span class="updated-on">Last Updated on 3rd August</span>
-				   				</div> 
-				   				<div class="col-xs-9 answer-div">
-									<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> answered
-									</span>
-									<p class="answer-to-question">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
-									</p>
-				   				</div>
+
+			   				</div>		
+		   				</c:forEach>	
 				   				<div class="col-xs-11">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
@@ -170,7 +139,7 @@
 								      <span class="ask-question-modal-head">Ask Question</span><br>
 								      <br>
 								      <form class="ask-form"> 
-								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      	<textarea id="question"  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
 								      
 									       <br><br>
 									       <div class="row">
@@ -199,7 +168,8 @@
 														  	<input type="checkbox" id="21" name="Post anonymously" />
 															<label for="2l"></label><span>Post anonymously</span>
 													</div>
-													<button type="button" class="btn red-button ask-question-button">Ask question</button>
+
+													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
 										       </div>
 									       </div>
 								        </form>
@@ -223,6 +193,31 @@ $('body').on('click', '.less', function(e){
 	var res = data.substring(0,200);
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');
 });
+</script>
+<script type="text/javascript">
+	
+	function SubmitQuestion(){
+		$('.black-screen').show();
+		var question =$("#question").val();
+		var category = $("#category-menu-on-modal").val();
+		var subcategory = $("#subcategory-menu-on-modal").val();
+    	$.ajax({
+            url : 'QuestionsController', // Your Servlet mapping or JSP(not suggested)
+            data : {"question":question,"category" :category,"subcategory":subcategory},
+            type : 'POST',
+            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+            success : function(response) {
+				 alert(response);
+            	 $('.black-screen').hide();
+
+            },
+            error : function(request, textStatus, errorThrown) {
+                alert(errorThrown);
+                
+            }
+        });
+	}
+
 </script>
 </body>
 </html>

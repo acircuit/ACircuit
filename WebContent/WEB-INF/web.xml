@@ -46,12 +46,12 @@
     <servlet-name>FilterController</servlet-name>
     <url-pattern>/Filters</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>qa</servlet-name>
-    <jsp-file>/Questions.jsp</jsp-file>
+    <servlet>
+    <servlet-name>questions</servlet-name>
+    <servlet-class>ac.controller.QuestionsController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>qa</servlet-name>
+    <servlet-name>questions</servlet-name>
     <url-pattern>/questions</url-pattern>
   </servlet-mapping>
 </web-app>

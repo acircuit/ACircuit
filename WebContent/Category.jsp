@@ -22,7 +22,7 @@
   					<div class="big-button-div no-padding-xs">
   						<button class="big-button bgreen" name="bb3"><img src="assets/img/higher_studies.png">
   							<br class="hidden-xs"><span>Courses</span></button>
-  							<br class="hidden-xs"><br class="hidden-xs">
+ 							<br class="hidden-xs"><br class="hidden-xs">
   						<span class="hidden-xs ">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
   					</div>
   				</div>
@@ -40,27 +40,37 @@
   				 	$(this).css('color','white');
   					 if(color=='bb1')
   					 {
+  						var databb1="";
   					 	$(this).css('background-color','#00b9ff');
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
-						var databb1='<a class="col-xs-4 Cfilter">this is bb1</a>';
-  					 	$('.category-all-filters').html(databb1);
+  					 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
+						   databb1=databb1 + '<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetAdvisorAccordingToSubCategory(this)">${sub}</a>';
+  					 	   $('.category-all-filters').html(databb1);
+  					 	</c:forEach>
   					 }
   					else if(color=='bb2')
-  					 {
+  					 {  
+  						var databb2="";
   					 	$(this).css('background-color','#f2624d');
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #f2624d')
-  					 	var databb2='<a class="col-xs-4 Cfilter">this is bb2</a>';
-  					 	$('.category-all-filters').html(databb2);
+  					 	<c:forEach items="${industrySubCategory}" var="sub">
+					 	   databb2=databb2 + '<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetAdvisorAccordingToSubCategory(this)">${sub}</a>';
+  					 	   $('.category-all-filters').html(databb2);
+  					 	</c:forEach>
   					 }
   					else
   					{
+  						var databb3="";
   						$(this).css('background-color','#a5cd5b');
   						$('.category-filter-row').slideDown();
   						$('.category-filter-row').css('border-top','4px solid #a5cd5b')
-  						var databb3='<a class="col-xs-4 Cfilter">this is bb3</a>';
-  					 	$('.category-all-filters').html(databb3);
+  						<c:forEach items="${optionsSubCategory}" var="sub">
+						   databb3=databb3 +'<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetAdvisorAccordingToSubCategory(this)">${sub}</a>';
+  					 	   $('.category-all-filters').html(databb3);
+  					 	</c:forEach>
+
   					}
   					
   				});
@@ -70,4 +80,5 @@
   				$('.category-filter-row').slideUp();
 
   			});
+
   			</script>
