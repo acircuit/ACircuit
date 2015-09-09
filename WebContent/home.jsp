@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -55,11 +57,11 @@
    		</div>
    	</div>
 <div class="banner-div no-padding">
-	<div class="div-container-navbar">
+	<div class="div-container-navbar hidden-xs">
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
-					     <a class="navbar-brand hidden-xs" href="https://www.advisorcircuit.com" ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
+					     <a class="navbar-brand " href="https://www.advisorcircuit.com" ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
 					    </div>
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -76,7 +78,7 @@
 					  </div><!-- /.container-fluid -->
 					</nav>
 			   	</div>
-			   	<div class="banner-search-div row">
+			   	<div class="banner-search-div">
 			  
 			   	<span class="big-font-banner">Have questions about your career?</span><br>
 			   	<span class="small-font-banner">Connect with professionals who are actually in the field.</span><br><br>
@@ -84,21 +86,21 @@
 						<div class="category-filter-div container no-padding">
 					  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
 					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 no-padding">
-					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-blue" name="bb1"><img class="category-im" src="assets/img/whiteb.png">
 					  							<br class="hidden-xs"><span>Higher studies</span></button>
 					  							
 					  					</div>
 					  				</div>
-					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-pink" name="bb2"><img src="assets/img/whiteb.png">
 					  							<br class="hidden-xs"><span>Industry</span></button>
 					  						
 					  					</div>
 					  				</div>
-					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-green" name="bb3"><img src="assets/img/whiteb.png">
 					  							<br class="hidden-xs"><span>Courses</span></button>
@@ -108,7 +110,7 @@
 					  			</div>
 					  		</div>
    					</div>
-			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest"></form>
+			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest"></form>
 			  
 			   	</div>
 
@@ -118,7 +120,8 @@
   				</div>
   			</div>
 </div>
-   	<div class="index-body-div container"  id="page-content-wrapper">
+
+   	<div class="index-body-div container fadeinpoint"  id="page-content-wrapper">
    	<ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#experts" aria-controls="experts" role="tab" data-toggle="tab">Experts</a></li>
     <li role="presentation"><a href="#qnada" aria-controls="qnada" role="tab" data-toggle="tab">Q&A</a></li>
@@ -131,29 +134,55 @@
 	    <div class="experts-tab-head">
 	    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
 	    </div>
-	    <div class="row  col-xs-12 col-sm-10  col-sm-offset-1">
-		    <div class="col-xs-12 col-sm-4 tab-adv-div">
+	    <div class="advisors-row">
+		    <div class="scroll-xs scrollable-content">
+		    <div class="tab-adv-div">
 		     	<img class="adv-img" src="assets/img/Abhishek.JPG">
 	             <p class="adv-name">Doris Weaver</p>
 	             <p class="adv-field">Marketing</p>
 	             <p class="adv-text">I started directing plays back in college and decided I wanted to be involved in films to cater my ideas to a larger audience.</p>
 			</div>
-		     <div class="col-xs-12 col-sm-4  tab-adv-div">
+		     <div class="tab-adv-div">
 		     	<img class="adv-img" src="assets/img/Abhishek.JPG">
 	             <p class="adv-name">Doris Weaver</p>
 	             <p class="adv-field">Marketing</p>
 	             <p class="adv-text">I started directing plays back in college and decided I wanted to be involved in films to cater my ideas to a larger audience.</p>
 			</div>
-			 <div class="col-xs-12 col-sm-4  tab-adv-div">
+			  <div class="tab-adv-div">
 		     	<img class="adv-img" src="assets/img/Abhishek.JPG">
 	             <p class="adv-name">Doris Weaver</p>
 	             <p class="adv-field">Marketing</p>
 	             <p class="adv-text">I started directing plays back in college and decided I wanted to be involved in films to cater my ideas to a larger audience.</p>
 			</div>
+		    </div>
     	</div>
+    	<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
+							<button type="button" class="btn tab-button ">Browse Answers</button>
+							
+		</div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="qnada">
-    I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or lessI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or less
+	   <div class="experts-tab-head">
+		    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
+		</div>
+		<div class="qa-conatiner">
+			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
+				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
+				<span class="no-of-answers">15 Answers</span>
+			</div>
+			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
+				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
+				<span class="no-of-answers">15 Answers</span>
+			</div>
+			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
+				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
+				<span class="no-of-answers">15 Answers</span>
+			</div> 
+		</div>
+		<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
+							<button type="button" class="btn tab-button ">Browse Answers</button>
+							
+		</div>
     </div>
   </div>
    		
@@ -161,74 +190,85 @@
 	<div class="Bblue-bottom">
 			<div class="why-us-div container no-padding">
 		  			<div class="col-xs-12 why-us-head-text no-padding-xs">WHY USE <span class="our">OUR</span> SERVICE</div>
-		  			<div class="col-xs-12 no-padding">
-		  				<div class="col-xs-12 col-sm-3 no-padding">
+		  			 <div class="advisors-row">
+		   				 <div class="scroll-xs scrollable-content">
+		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
 		  						<img class="why-us-im" src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span class="why-us-medium-text">Large Network of Advisors</span>
+		  							<br><span class="why-us-medium-text">Large Network of Advisors</span>
 		  							<p class="why-us-text">Professionals from many different areas and industries at one place for you to choose from</p>
 		  							
 		  					</div>
 		  				</div>
-		  				<div class="col-xs-12 col-sm-3 no-padding">
+		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
 		  						<img class="why-us-im" src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span class="why-us-medium-text">First Hand Knowledge</span>
+		  							<br><span class="why-us-medium-text">First Hand Knowledge</span>
 		  							<p class="why-us-text">Get advice from people who have been there, done that</p>
 		  							
 		  					</div>
 		  				</div>
-		  				<div class="col-xs-12 col-sm-3 no-padding">
+		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
 		  						<img class="why-us-im" src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span class="why-us-medium-text">Connect Anytime Anywhere</span>
+		  							<br><span class="why-us-medium-text">Connect Anytime Anywhere</span>
 		  							<p class="why-us-text">No matter where you are, connect conveniently via phone or video chat</p>
 		  							
 		  					</div>
 		  				</div>
-		  				<div class="col-xs-12 col-sm-3 no-padding">
+		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
 		  						<img class="why-us-im" src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span class="why-us-medium-text">Great Advice At Steal</span>
+		  							<br><span class="why-us-medium-text">Great Advice At Steal</span>
 		  							<p class="why-us-text">Message advisors for free or book a one on one session at minimal prices</p>
 		  							
 		  					</div>
 		  				</div>
-		  				
+		  				</div>
 		  			</div>
 		  		</div>
    	</div>
+   	<div class="testimonial-div-container col-xs-12">
+	   	<div class="col-xs-12 testimonial-text-head no-padding-xs"><span>Testimonial</span></div>
+	   		<div class="testimonial-div col-xs-12 col-sm-10 col-sm-offset-1">
+				<div class="dquotes">
+					<span class="bqstart">“</span>
+				</div>
+				<div class="ad-speaks">
+					<span>I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project.</span>
+				</div>
+	   		</div>
+	   		<div class="user-images-div col-xs-12 col-sm-10 col-sm-offset-1">
+	   		<div class="user-div">
+	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
+	   			<span class="user-name">BRIANNA TERRY</span><br>
+	   			<span class="user-desig">Student</span>
+	   		</div>
+	   		<div class="user-div">
+	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
+	   			<span class="user-name">BRIANNA gsgg</span><br>
+	   			<span class="user-desig">Stusdds</span>
+	   		</div>
+	   		<div class="user-div">
+	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
+	   			<span class="user-name">BRI899ANNA gsgg</span><br>
+	   			<span class="user-desig">St00usdds</span>
+	   		</div>
+	   		<div class="user-div">
+	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
+	   			<span class="user-name">BRI899ANNA gsgg</span><br>
+	   			<span class="user-desig">St00usdds</span>
+	   		</div>
+	   	</div>
+   	</div>
+   	<div class="sign-up-div col-xs-12">
+   	 	<div class="col-xs-12 signup-text-head no-padding-xs"><span>START NOW</span></div>
+   	 	<div class="button-div">
+   	 	<button type="button" class="btn red-button signup-button">Book a session</button>
+   	 	</div>
+   	</div>
 <script>
-$(document).ready(function () {
-	  var trigger = $('.hamburger'),
-	      overlay = $('.overlay'),
-	     isClosed = false;
 
-	    trigger.click(function () {
-	      hamburger_cross();      
-	    });
-
-	    function hamburger_cross() {
-
-	      if (isClosed == true) {          
-	        overlay.hide();
-	        trigger.removeClass('is-open');
-	        trigger.addClass('is-closed');
-	        isClosed = false;
-	      } else {   
-	        overlay.show();
-	        trigger.removeClass('is-closed');
-	        trigger.addClass('is-open');
-	        isClosed = true;
-	      }
-	  }
-	  
-	  $('[data-toggle="offcanvas"]').click(function () {
-	        $('#wrapper').toggleClass('toggled');
-	  });  
-
-	   		
-		});
 //attach scroll event to render fixed header at particular moment
 $(window).scroll(function(){
 	// take the value of scrollTop and compare it with offset of an element which comes at top
@@ -245,11 +285,11 @@ $(window).scroll(function(){
 
 $('body').on('click', '.big-button', function(e){
 		 var color = $(this).attr('name');
-		 $('.big-button').css('border-bottom','4px solid white')
-		 $(this).css('border-bottom','4px solid #00FFF3')
+		 $('.big-button').css('border-width','1px 1px 4px 1px');
+		 $(this).css('border-width','3px 3px 6px 3px');
 			 if(color=='bb1')
 			 {
-			 
+				 
 			 	$('.category-filter-row').slideDown();
 			 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
 				var databb1='<a class="col-xs-4 Cfilter">this is bb1</a>';
@@ -273,6 +313,18 @@ $('body').on('click', '.big-button', function(e){
 			}
 			
 		});
+$('body').on('focus', '.search-box', function(e){
+	$('.search-form').css('width','70%');
+});
+$('body').on('click', '.user-img', function(e){
+	$('.user-name').hide();
+	$('.user-desig').hide();
+	$('.user-img').addClass('img-disable');
+	$(this).removeClass('img-disable');
+	$(this).closest('.user-div').find('.user-name').show();
+	$(this).closest('.user-div').find('.user-desig').show();
+});
+
 </script>
 </body>
 </html>

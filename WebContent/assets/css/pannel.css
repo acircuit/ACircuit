@@ -19,6 +19,9 @@
 @font-face {
   font-family: "LatoL";src:url("../fonts/Lato-Light.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Latob";src:url("../fonts/Lato-Bold.ttf") format("truetype");
+}
 body {
     font-family: "Open SansR";
 }
@@ -336,7 +339,7 @@ input[type=checkbox] {
     padding-bottom: 10px;
     margin-top: 9px;}
 .search-box{
-    background: url("../img/search.png") no-repeat scroll 3% center;
+    background: url("../img/search.png") no-repeat scroll 4px center;
     border-radius: 0px;
     background-color: white;
     background-size: 22px;
