@@ -62,4 +62,12 @@
     <servlet-name>answers</servlet-name>
     <url-pattern>/answers</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>advisorprofile</servlet-name>
+    <servlet-class>ac.controller.AdvisorProfileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorprofile</servlet-name>
+    <url-pattern>/advisorprofile</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,3 +1,4 @@
+<%@page import="ac.dto.AdvisorDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -35,11 +36,10 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-        		pageContext.setAttribute("ids", ids);
+                   AdvisorDTO advisor = (AdvisorDTO) request.getAttribute("advisor");
+                   String currentDesignation = (String) request.getAttribute("currentDesignation");
+                   String currentCompany = (String) request.getAttribute("currentCompany");
+
 	
 
 %>
@@ -65,21 +65,30 @@
 				<div class="col-xs-12 no-padding">
 					<div class="col-xs-12 col-sm-3 blueT  no-padding">
 						<div class="Adp" style="text-align:center;">
-							<img src="assets/img/Abhishek.JPG">
+							<img src="${advisor.getImage()}">
 						</div>
 					
 					</div>
 					<div class="col-xs-12 col-sm-9 padding-l-xs">
 						<div class="Apinfo">
-							<span class="Aname">Angela Dixon <br class="visible-xs"><span class="designation"><span class="hidden-xs">|</span>	MBA India, Management Consulting</span></span><br>
-							<span class="Afeild">Business Analyst in SAP Labs</span>
+							<span class="Aname">${advisor.getName()} <br class="visible-xs">
+							<c:forEach items="${advisor.getCategories()}" var="category">
+							    <c:forEach items="${advisor.getSubCategories()}" var="subcategory">
+							         <c:if test="${category.getCatId() == subcategory.getCategoryId()}">
+							              <span class="designation"><span class="hidden-xs">|</span>	${category.getCategory()}, ${subcategory.getSubCategory()}</span>
+							         </c:if>     
+							    </c:forEach>
+							</c:forEach>
+							
+							</span><br>
+							<span class="Afeild">${currentDesignation} in ${currentCompany}</span>
 							<span class="stars-xs visible-xs"><span class="rating-no">4.5</span>
 							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
 							<div class="dquotes">
 								<span class="bqstart">“</span>
 							</div>
 							<div class="ad-speaks">
-								<span>Speech marks. Curly quotes. That annoying thing cool people do with their fingers to emphasize a buzzword, shortly before you hit them.</span>
+								<span>${advisor.getIntro()}</span>
 							</div>
 						</div>
 					</div>
@@ -156,22 +165,20 @@
 			<span class="bio-heading">Work Experience</span>
 			<div class="border-b">
 				<div class="bio-div">
+				    <c:forEach items="${advisor.getProfession()}" var="profession">
 					<div class="bio-element">
-						<span class="bio-title">Associate Consultant</span>
-						<span class="bio-subtitle">Bain & Company</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
-						<span class="bio-subtitle3">2014 - Present</span>
+						<span class="bio-title">${profession.getDesignation()}</span>
+						<span class="bio-subtitle">${profession.getCompany()}</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
+						<span class="bio-subtitle3">${profession.getDuration()}</span>
 					</div>
-					<div class="bio-element">
-						<span class="bio-title">Associate Consultant</span>
-						<span class="bio-subtitle">Bain & Company</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
-						<span class="bio-subtitle3">2014 - Present</span>
-					</div>
+					</c:forEach>
 				</div>	
 				<span class="view-linkedin"> <i class="fa fa-linkedin"></i> View Linkedin Profile</span>
 			</div>
 			<span class="bio-heading">Education</span>
 			<div class="border-b">
 				<div class="bio-div">
+				    
 					<div class="bio-element">
 						<span class="bio-title">Associate Consultant</span>
 						<span class="bio-subtitle">Bain & Company</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>

@@ -334,9 +334,11 @@ function expertcard(value)
 			+'<div class="expert-card">'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-4 blueT  no-padding">'
+			+'<a href=advisorprofile?a='+value.id+'>'
 			+'<div class="Adp" style="text-align:center;">'
 			+'<img src="assets/img/Abhishek.JPG">'
 			+'</div>'
+			+'</a>'
 			+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled>'
 			
 			+'<div class="count">'

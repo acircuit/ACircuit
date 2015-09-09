@@ -135,6 +135,7 @@ public class FilterController extends HttpServlet {
 				if(count >= startIndex && count <=endIndex) {
 				JSONObject jo = new JSONObject();
 				jo.put("name", advisor.getName());
+				jo.put("id",advisor.getId());
 				List<CategoryDTO> list = advisor.getCategories();
 				int catId =0;
 				if(category.equals("higherstudies")){

@@ -92,6 +92,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 					if(count >= startIndex && count <=endIndex) {
 						JSONObject jo = new JSONObject();
 						jo.put("name", advisor.getName());
+						jo.put("id", advisor.getId());
 						List<SubCategoryDTO> subcats1 = advisor.getSubCategories();
 						for(SubCategoryDTO sub :subcats1){
 							if(sub.getCategoryId() == catId){
