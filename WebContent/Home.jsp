@@ -61,14 +61,16 @@
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
-					     <a class="navbar-brand " href="https://www.advisorcircuit.com" ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
-					    </div>
+					      <fmt:bundle basename="ac.resources.Path" prefix="path.">
+					              <a class="navbar-brand " href=<fmt:message key="home"/> ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
+					         </fmt:bundle>
+			     	    </div>
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
-					        <li class="active"><a href="#">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="#">Q&A</a></li>
+					        <li class="active"><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
+					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
@@ -86,6 +88,7 @@
 						<div class="category-filter-div container no-padding">
 					  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
 					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 no-padding">
+					  			 <a href="advisors?category=higherstudies">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-blue" name="bb1"><img class="category-im" src="assets/img/whiteb.png">
@@ -93,6 +96,8 @@
 					  							
 					  					</div>
 					  				</div>
+					  			</a>
+					  			 <a href="advisors?category=industry">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-pink" name="bb2"><img src="assets/img/whiteb.png">
@@ -100,6 +105,8 @@
 					  						
 					  					</div>
 					  				</div>
+					  			</a>
+					  			 <a href="advisors?category=options">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
 					  						<button class="big-button border-green" name="bb3"><img src="assets/img/whiteb.png">
@@ -107,10 +114,11 @@
 					  							
 					  					</div>
 					  				</div>
+					  			</a>
 					  			</div>
 					  		</div>
    					</div>
-			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest"></form>
+			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSuggestions(this)" name="word"></form>
 			  
 			   	</div>
 
@@ -157,7 +165,9 @@
 		    </div>
     	</div>
     	<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
-							<button type="button" class="btn tab-button ">Browse Answers</button>
+					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
+							<a href="<fmt:message key="questions"/>"><button type="button" class="btn tab-button ">Browse Answers</button></a>
+					    </fmt:bundle>
 							
 		</div>
     </div>
@@ -283,7 +293,7 @@ $(window).scroll(function(){
 	}//if-else
 });	
 
-$('body').on('click', '.big-button', function(e){
+/* $('body').on('click', '.big-button', function(e){
 		 var color = $(this).attr('name');
 		 $('.big-button').css('border-width','1px 1px 4px 1px');
 		 $(this).css('border-width','3px 3px 6px 3px');
@@ -312,7 +322,7 @@ $('body').on('click', '.big-button', function(e){
 			 	$('.category-all-filters').html(databb3);
 			}
 			
-		});
+		}); */
 $('body').on('focus', '.search-box', function(e){
 	$('.search-form').css('width','70%');
 });

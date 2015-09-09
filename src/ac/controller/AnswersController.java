@@ -61,7 +61,7 @@ public class AnswersController extends HttpServlet {
 		request.setAttribute("advisors", advisors);
 		request.setAttribute("count", count);
 
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/answers.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Answers.jsp");
         rd.forward(request, response);
 		
 		

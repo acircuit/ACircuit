@@ -49,7 +49,7 @@ public class AdvisorProfileController extends HttpServlet {
      		 request.setAttribute("currentDesignation", currentDesignation);
      		 request.setAttribute("currentCompany", currentCompany);
 
-             RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisor.jsp");
+             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Advisor.jsp");
              rd.forward(request, response);
 		}	
 		logger.info("Entered doPost method of AdvisorProfileController");

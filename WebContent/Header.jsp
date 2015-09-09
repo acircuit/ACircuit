@@ -1,15 +1,19 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
      <div class="div-container-navbar">
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
-					     <a class="navbar-brand hidden-xs" href="https://www.advisorcircuit.com" ><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
+					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
+					         <a class="navbar-brand hidden-xs" href=<fmt:message key="home"/>><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
+					    </fmt:bundle>
+					         
 					    </div>
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
-					        <li class="active"><a href="#">Experts <span class="sr-only">(current)</span></a></li>
+					        <li class="active"><a href="advisors?category=options">Experts <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>

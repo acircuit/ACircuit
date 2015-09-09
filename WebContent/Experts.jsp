@@ -177,13 +177,11 @@
    					</div>	
    					<div class="col-xs-12 card-container">
    					</div>
-   					<c:if test="<%=size > 10 %>">
-	   					<div class="col-xs-12" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;">
+	   					<div class="col-xs-12" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
 	   						<button type="button" class="btn load-more" onclick="GetMoreAdvisors()">
 	  											Load more</button>
 	
 	   					</div>
-   					</c:if>
    					<div class="col-xs-12 " id="loadmorefilters" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
 	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisors()">
 	  											Load more</button>
