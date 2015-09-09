@@ -54,4 +54,12 @@
     <servlet-name>questions</servlet-name>
     <url-pattern>/questions</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>answers</servlet-name>
+    <servlet-class>ac.controller.AnswersController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>answers</servlet-name>
+    <url-pattern>/answers</url-pattern>
+  </servlet-mapping>
 </web-app>

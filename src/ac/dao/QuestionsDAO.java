@@ -16,6 +16,7 @@ import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
+import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 import ac.jdbc.ConnectionFactory;
@@ -173,6 +174,152 @@ public class QuestionsDAO {
 		logger.info("Exit GetAnswers method of QuestionsDAO");
 		return list;
 	}
+	
+	
+	public QuestionsDTO GetQuestion( String qid){
+		logger.info("Entered GetQuestion method of QuestionsDAO");
+		QuestionsDTO question = new QuestionsDTO();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			//String q4in = generateQsForIn(words.size());
+			query = "SELECT * FROM questions WHERE Q_ID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,Integer.valueOf(qid) );
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+			question.setQuestionId(results.getInt("Q_ID"));
+			question.setQuestion(results.getString("QUESTION"));
+			question.setCategory(results.getString("CATEGORY"));
+			question.setSubcategory(results.getString("SUBCATEGORY"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetQuestion method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetAllQuestions method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestion method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestion method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetQuestion method of QuestionsDAO");
+		return question;
+
+	}
+	
+	
+	public List<AnswerDTO> GetAllAnswers(String q_id) {
+		logger.info("Entered GetAllAnswers method of QuestionsDAO");
+		List<AnswerDTO> list = new ArrayList<AnswerDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM answers WHERE QID =?";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.valueOf(q_id));
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AnswerDTO que = new AnswerDTO();
+				que.setAdvisor_id(results.getInt("AID"));
+				que.setQuestionId(results.getInt("QID"));
+				que.setAnswer(results.getString("ANSWER"));
+				que.setTime(results.getTimestamp("TIMESTAMP"));
+				list.add(que);
+			}
+			logger.info("Exit GetAllAnswers method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetAllAnswers method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAllAnswers method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAllAnswers method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAllAnswers method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetAllAnswers method of QuestionsDAO");
+		return list;
+	}
+	
+	public List<AdvisorDTO> GetAdvisorDetails(List<Integer> aId) {
+		logger.info("Entered GetAdvisorDetails method of QuestionsDAO");
+		List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(aId.size());
+			String query = "SELECT ADVISOR_ID,NAME,IMAGE,INDUSTRY FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + " )";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (Integer item : aId) {
+				pstmt.setInt(i++, item);
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AdvisorDTO adv = new AdvisorDTO();
+				adv.setId(results.getInt("ADVISOR_ID"));
+				adv.setName(results.getString("NAME"));
+				adv.setImage(results.getString("IMAGE"));
+				adv.setIndustry(results.getString("INDUSTRY"));
+				list.add(adv);
+			}
+			logger.info("Exit GetAdvisorDetails method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetAdvisorDetails method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorDetails method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorDetails method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorDetails method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetAdvisorDetails method of QuestionsDAO");
+		return list;
+	}
+	
+	
 	
 
 	private String generateQsForIn(int numQs) {
