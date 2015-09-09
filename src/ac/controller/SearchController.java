@@ -2,9 +2,11 @@ package ac.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,13 +42,17 @@ public class SearchController extends HttpServlet {
 		logger.info("Entered doGet method of SearchController");
 		String keyWord = request.getParameter("word");
 		String word = keyWord.toLowerCase();
-		List<Integer> list = new ArrayList<Integer>();
+		HashSet<Integer> list = new HashSet<Integer>();
 		Analyzer analyzer = new StandardAnalyzer();
 		LuceneAnalyzer token = new LuceneAnalyzer();
 		List<String> tokens= token.tokenizeString(analyzer, word);
 		//Search the keyword in Keywords column
 		ac.dao.SearchDAO dao = new ac.dao.SearchDAO();
 		list = dao.CheckInKeyWords(tokens);
+		String adIds = "";
+		for(Integer id :list){
+			adIds = adIds + id;
+		}
 		if(list.size() > 0){
 			//Check if the keywords is in the Trie
 			Trie trie = MyCacheBuilder.trie;
@@ -70,15 +76,14 @@ public class SearchController extends HttpServlet {
 				map.put(keyWord, 1);
 
 			}
-			List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
-			for(Integer i : list){
-				MyCacheBuilder cacheBuilder = MyCacheBuilder .getCacheBuilder();
-				AdvisorDTO adv = cacheBuilder.getAdvisor(i);
-				advisors.add(adv);
-			}
+//			List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
+//			for(Integer i : list){
+//				MyCacheBuilder cacheBuilder = MyCacheBuilder .getCacheBuilder();
+//				AdvisorDTO adv = cacheBuilder.getAdvisor(i);
+//				advisors.add(adv);
+//			}
 			
-			System.out.println("size:"+advisors.size());
-			response.sendRedirect("123");
+//			System.out.println("size:"+advisors.size());
 		}else{
 			//check if the keywords exists in the notsuggested table
 			SearchSuggestionsDTO dto = new SearchSuggestionsDTO();
@@ -88,14 +93,41 @@ public class SearchController extends HttpServlet {
 				//Increment hits
 				SearchDAO inc = new SearchDAO();
 				Boolean isIncrementCommit = inc.IncrementKeyWordHit(word);
-				response.sendRedirect("Sample.jsp");
 			}else{
 				//insert the keyword in notsuggested table
 				SearchDAO insert = new SearchDAO();
 				Boolean isInserted = insert.InsertKeywordInNotSuggested(word);
-				response.sendRedirect("Sample.jsp");
 			}
 		}
+		MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
+		List<String> industries = cache.getIndustryFilterValues();
+		MyCacheBuilder cache1 = MyCacheBuilder.getCacheBuilder();
+		List<String> institutions = cache1.getInstitutionsFilterValues();
+		MyCacheBuilder lang = MyCacheBuilder.getCacheBuilder();
+		List<String> languages = cache1.getLanguagesFilterValues();
+        
+		
+		//Getting the sub categories
+		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+		
+		MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+		List<String> industrySubCategory = industry.getIndustrySubCategory();
+		
+		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+		List<String> optionsSubCategory = option.getOpionsSubCategory();
+		
+		System.out.println(adIds);
+		request.setAttribute("ids", adIds);
+		request.setAttribute("industries", industries);
+		request.setAttribute("institutions", institutions);
+		request.setAttribute("languages", languages);
+		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+		request.setAttribute("industrySubCategory", industrySubCategory);
+		request.setAttribute("optionsSubCategory", optionsSubCategory);
+
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Experts.jsp");
+        rd.forward(request, response);
 		
 		logger.info("Exit doGet method of SearchController");
 	}

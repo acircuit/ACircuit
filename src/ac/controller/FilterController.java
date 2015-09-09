@@ -43,8 +43,8 @@ public class FilterController extends HttpServlet {
 		String ids = request.getParameter("ids");
 		String category = request.getParameter("category");
 		String paging = request.getParameter("paging");
-		int startIndex = 0;
-		int endIndex = 9;
+		int startIndex = 1;
+		int endIndex = 10;
 		String[] initialAdvisors = null;
 		if(paging != null){
 			int page = Integer.valueOf(paging);
@@ -90,7 +90,7 @@ public class FilterController extends HttpServlet {
 		if(language){
 			threshold++;
 		}
-		int count=0;
+		int count=1;
 		Boolean isLeft = false;
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
@@ -203,6 +203,7 @@ public class FilterController extends HttpServlet {
 				//q= q+advisor.getId();
 				}else{
 					isLeft = true;
+					count++;
 				}
 			}
 		}

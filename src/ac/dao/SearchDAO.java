@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -25,9 +26,9 @@ public class SearchDAO {
 	Connection conn = null;
 	
 	
-	public List<Integer> CheckInKeyWords(List<String> words){
+	public HashSet<Integer> CheckInKeyWords(List<String> words){
 		logger.info("Entered CheckInKeyWords method of SearchDAO");
-		List<Integer> list = new ArrayList<Integer>();
+		HashSet<Integer> list = new HashSet<Integer>();
 
 		try {
 			conn = ConnectionFactory.getConnection();

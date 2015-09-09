@@ -184,12 +184,12 @@
 	
 	   					</div>
    					</c:if>
-   					<div class="col-xs-12 hidden" id="loadmorefilters" style="text-align:center;text-align: center;margin-bottom: 15px;">
+   					<div class="col-xs-12 " id="loadmorefilters" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
 	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisors()">
 	  											Load more</button>
 	
 	   					</div>
-	   					<div class="col-xs-12 hidden" id="loadmoresub" style="text-align:center;text-align: center;margin-bottom: 15px;">
+	   					<div class="col-xs-12 " id="loadmoresub" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
 	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisorsUsingSubcategory()">
 	  											Load more</button>
 	
@@ -259,8 +259,9 @@
   }
 
 	  var advisorId =  "${ids}";
-	  $('.black-screen').show();
-  	$.ajax({
+	  if(advisorId != ""){
+ 	  $('.black-screen').show();
+  	  $.ajax({
         url : 'GetAdvisors', // Your Servlet mapping or JSP(not suggested)
         data : {"category":'<%=category%>',"ids":advisorId,"paging":0},
         type : 'POST',
@@ -279,8 +280,8 @@
             alert(errorThrown);
             
         }
-    });
-
+      });
+	  }
   
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
@@ -369,11 +370,19 @@ function expertcard(value)
 	$('.card-container').append(html);
 	starinputconversion();
 	}
+var adIds = "";
+var filterString = ""; 
 $('.squaredThree input[type=checkbox]').change(function() {
 	$('.black-screen').show();
 	var text=$(this).attr('name');
   	var value=$(this).attr('id');
-    var filterString = ""; 
+    debugger;
+	var adid = "";
+	if(adIds != ""){
+		adid = adIds;
+	}else{
+		adid = '<%=ids%>'
+	}
     $('.card-container').html('');
 		  if ($(this).is(':checked')) {
 		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+"</span>")
@@ -400,7 +409,7 @@ $('.squaredThree input[type=checkbox]').change(function() {
 		       filterString = filterString.substring(0,pos);
 		    	$.ajax({
 		            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
-		            data : {"category":'<%=category%>',"filterString" :filterString,"ids":'<%=ids%>'},
+		            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},
 		            type : 'POST',
 		            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		            success : function(response) {
@@ -412,13 +421,13 @@ $('.squaredThree input[type=checkbox]').change(function() {
 		            		if(value.name !="noadv"){
 		            		 if(count >10){
 		            			 
-		            			 document.getElementById("loadmorefilters").style.visibility = "visible";
+		            			 document.getElementById("loadmorefilters").style.display = 'none';
 		            			 return false;
 		            		 }
 		            		 expertcard(value);
 		            		 count++;
 		            		}else{
-		            			 document.getElementById("loadmorefilters").style.visibility = "hidden";
+		           			 document.getElementById("loadmorefilters").style.display = 'block';
 		            		}
 		            		}); 
 		            	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
@@ -435,9 +444,15 @@ $('.squaredThree input[type=checkbox]').change(function() {
 });
 var filterPaging =1;
 function GetLeftAdvisors(){
+	var id = "";
+	if(adIds != ""){
+		id = adIds;
+	}else{
+		id = '<%=ids%>'
+	}
 	$.ajax({
         url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":'<%=category%>',"filterString" :filterString,"ids":'<%=ids%>',"paging":filterPaging},
+        data : {"category":'<%=category%>',"filterString" :filterString,"ids":id,"paging":filterPaging},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
@@ -446,13 +461,13 @@ function GetLeftAdvisors(){
         	$.each(obj, function(key,value) {
         		if(value.name !="noadv"){
         		 if(count >10){
-        			 document.getElementById("loadmorefilters").style.visibility = "visible";
+        			 document.getElementById("loadmorefilters").style.display = 'block';
         			 return false;
         		 }
         		 expertcard(value);
         		 count++;
         		}else{
-       			 document.getElementById("loadmorefilters").style.visibility = "hidden";
+       			 document.getElementById("loadmorefilters").style.display = 'none';
         		}
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
@@ -510,25 +525,32 @@ $('.filters').bind('mousewheel DOMMouseScroll', function(e) {
         $(this).scrollTop(scrollTo + $(this).scrollTop());
     }
 });
+var categ = "";
+var subcateg ="";
 function GetResultAccordingToSubCategory(elem){
  	$('.black-screen').show();
-	var subcategory = elem.id;
+	var id = elem.id;
+	var cat = id.split(",");
+	categ= cat[0];
+	subcateg = cat[1];
     $('.card-container').html('');
 	$.ajax({
         url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":'<%=category%>',"ids":'<%=ids%>',"subcategory":subcategory},
+        data : {"category":cat[0],"subcategory":cat[1]},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
-        	  document.getElementById("loadmore").style.visibility = "hidden";
           	var obj = JSON.parse(response);
           	var count=0;
           	$.each(obj, function(key,value) {
-          		if(value.name !="noadv"){
+          		if(value.name !="noadv" && value.name !="id"){
           		 expertcard(value);
           		 count++;
-          		}else{
-          			 document.getElementById("loadmoresub").style.visibility = "visible";
+          		}else if (value.name =="id") {
+        			 adIds = value.ids;
+				}else{
+       			     document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'block';
           		}
           		}); 
           	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
@@ -547,17 +569,23 @@ function GetLeftAdvisorsUsingSubcategory(){
 	 $('.black-screen').show();
   	$.ajax({
         url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":'<%=category%>',"ids":'<%=ids%>',"subcategory":subcategory},
+        data : {"category":categ,"subcategory":subcateg,"paging":subpaging},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
         	var obj = JSON.parse(response);
-     		  paging++;
+        	subpaging++;
         	$.each(obj, function(key,value) {
-        		 if(value.name !="noadv"){
+        		alert(value.name);
+        		 if(value.name !="noadv" &&  value.name !="id"){
         		  expertcard(value);
-        		 }else{
-        			 document.getElementById("loadmore").style.visibility = "hidden";
+       			 document.getElementById("loadmoresub").style.display = 'none';
+        		 }else if (value.name =="id") {
+        			 adIds =value.ids;
+				}
+        		 else{
+        			 document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'block';
         		 }
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
