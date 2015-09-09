@@ -66,6 +66,7 @@ public class GetAdvisors extends HttpServlet {
 		
 							JSONObject jo = new JSONObject();
 							jo.put("name", advisor.getName());
+							jo.put("id", advisor.getId());
 							List<CategoryDTO> list = advisor.getCategories();
 							int catId =0;
 							if(category.equals("higherstudies")){
