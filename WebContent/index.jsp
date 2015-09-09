@@ -49,40 +49,11 @@
   <div class="black">
 	  </div>
 	
-	<div class="do-not-scroll " style="width:100%;">
-			 <!-- Sidebar -->
-					        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-					            <ul class="nav sidebar-nav">
-					                
-					                <li>
-					                    <a href="#">Experts</a>
-					                </li>
-					                <li>
-					                    <a href="#">Q&A</a>
-					                </li>
-					                <li>
-					                    <a href="#">Be an Advisor</a>
-					                </li>
-					                <li>
-					                    <a href="#">How it Works</a>
-					                </li>
-					                <li>
-					                    <a href="#">Login In</a>
-					                </li>
-					               
-					            </ul>
-					        </nav>
-					        <!-- /#sidebar-wrapper -->
-					       
-					         <button type="button" class="hamburger is-closed visible-xs" data-toggle="offcanvas">
-					                <span class="hamb-top"></span>
-					    			<span class="hamb-middle"></span>
-									<span class="hamb-bottom"></span>
-					            </button>
-					       
-					       
-	 
-</div>
+	<div class="do-not-scroll " style="width:100%">
+		  <div class="top-div" id="scrolling-header">
+			       <%@include file="/Header.jsp" %>
+   		</div>
+   	</div>
 <div class="banner-div no-padding">
 	<div class="div-container-navbar">
 			   	<nav class="navbar navbar-default">
@@ -109,37 +80,38 @@
 			  
 			   	<span class="big-font-banner">Have questions about your career?</span><br>
 			   	<span class="small-font-banner">Connect with professionals who are actually in the field.</span><br><br>
+			   		<div class="Bblue">
+						<div class="category-filter-div container no-padding">
+					  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
+					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 no-padding">
+					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  					<div class="big-button-div no-padding-xs">
+					  						<button class="big-button border-blue" name="bb1"><img class="category-im" src="assets/img/whiteb.png">
+					  							<br class="hidden-xs"><span>Higher studies</span></button>
+					  							
+					  					</div>
+					  				</div>
+					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  					<div class="big-button-div no-padding-xs">
+					  						<button class="big-button border-pink" name="bb2"><img src="assets/img/whiteb.png">
+					  							<br class="hidden-xs"><span>Industry</span></button>
+					  						
+					  					</div>
+					  				</div>
+					  				<div class="col-xs-12 col-sm-4 no-padding">
+					  					<div class="big-button-div no-padding-xs">
+					  						<button class="big-button border-green" name="bb3"><img src="assets/img/whiteb.png">
+					  							<br class="hidden-xs"><span>Courses</span></button>
+					  							
+					  					</div>
+					  				</div>
+					  			</div>
+					  		</div>
+   					</div>
 			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest"></form>
 			  
 			   	</div>
-	<div class="Bblue">
-			<div class="category-filter-div container no-padding">
-		  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
-		  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 no-padding">
-		  				<div class="col-xs-12 col-sm-4 no-padding">
-		  					<div class="big-button-div no-padding-xs">
-		  						<button class="big-button" name="bb1"><img class="category-im" src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span>Higher studies</span></button>
-		  							
-		  					</div>
-		  				</div>
-		  				<div class="col-xs-12 col-sm-4 no-padding">
-		  					<div class="big-button-div no-padding-xs">
-		  						<button class="big-button" name="bb2"><img src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span>Industry</span></button>
-		  						
-		  					</div>
-		  				</div>
-		  				<div class="col-xs-12 col-sm-4 no-padding">
-		  					<div class="big-button-div no-padding-xs">
-		  						<button class="big-button" name="bb3"><img src="assets/img/whiteb.png">
-		  							<br class="hidden-xs"><span>Courses</span></button>
-		  							
-		  					</div>
-		  				</div>
-		  			</div>
-		  		</div>
-   	</div>
+
    	<div class="row category-filter-row ">
   				<div class="category-all-filters container">
   					
@@ -257,7 +229,20 @@ $(document).ready(function () {
 
 	   		
 		});
+//attach scroll event to render fixed header at particular moment
+$(window).scroll(function(){
+	// take the value of scrollTop and compare it with offset of an element which comes at top
+	if( $(window).scrollTop() >= $(".fadeinpoint").offset().top) {
+		// show fixed header with animation
+		$("#scrolling-header").slideDown(100);
 		
+	} else{
+		// hide fixed header with animation
+		$("#scrolling-header").slideUp(100);
+		
+	}//if-else
+});	
+
 $('body').on('click', '.big-button', function(e){
 		 var color = $(this).attr('name');
 		 $('.big-button').css('border-bottom','4px solid white')
