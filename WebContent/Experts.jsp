@@ -189,10 +189,15 @@
 	  											Load more</button>
 	
 	   					</div>
+	   					<div class="col-xs-12 hidden" id="loadmoresub" style="text-align:center;text-align: center;margin-bottom: 15px;">
+	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisorsUsingSubcategory()">
+	  											Load more</button>
+	
+	   					</div>
    				</div>
    			</div>
    	</div>
-   	 </div>
+   	 </div> 
    	 <!-- Modal -->
 								<div class="modal fade" id="filtermodalixs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
@@ -397,11 +402,14 @@ $('.squaredThree input[type=checkbox]').change(function() {
 		            type : 'POST',
 		            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		            success : function(response) {
+           			    document.getElementById("loadmore").style.visibility = "hidden";
+           			    document.getElementById("loadmoresub").style.visibility = "hidden";
 		            	var obj = JSON.parse(response);
 		            	var count=0;
 		            	$.each(obj, function(key,value) {
 		            		if(value.name !="noadv"){
 		            		 if(count >10){
+		            			 
 		            			 document.getElementById("loadmorefilters").style.visibility = "visible";
 		            			 return false;
 		            		 }
@@ -500,16 +508,60 @@ $('.filters').bind('mousewheel DOMMouseScroll', function(e) {
         $(this).scrollTop(scrollTo + $(this).scrollTop());
     }
 });
-function GetAdvisorAccordingToSubCategory(elem){
+function GetResultAccordingToSubCategory(elem){
+ 	$('.black-screen').show();
+	var subcategory = elem.id;
+    $('.card-container').html('');
 	$.ajax({
-        url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":'<%=category%>',"filterString" :filterString,"ids":'<%=ids%>'},
+        url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":'<%=category%>',"ids":'<%=ids%>',"subcategory":subcategory},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	  document.getElementById("loadmore").style.visibility = "hidden";
+          	var obj = JSON.parse(response);
+          	var count=0;
+          	$.each(obj, function(key,value) {
+          		if(value.name !="noadv"){
+          		 expertcard(value);
+          		 count++;
+          		}else{
+          			 document.getElementById("loadmoresub").style.visibility = "visible";
+          		}
+          		}); 
+          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+             					// create an empty div in your page with some id
+          	 $('.black-screen').hide();
+
+          },
+          error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+var subpaging =1;
+function GetLeftAdvisorsUsingSubcategory(){
+	 $('.black-screen').show();
+  	$.ajax({
+        url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":'<%=category%>',"ids":'<%=ids%>',"subcategory":subcategory},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
         	var obj = JSON.parse(response);
-        	alert(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+     		  paging++;
+        	$.each(obj, function(key,value) {
+        		 if(value.name !="noadv"){
+        		  expertcard(value);
+        		 }else{
+        			 document.getElementById("loadmore").style.visibility = "hidden";
+        		 }
+        		}); 
+        	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
            					// create an empty div in your page with some id
+        	 $('.black-screen').hide();
+
         },
         error : function(request, textStatus, errorThrown) {
             alert(errorThrown);
@@ -518,8 +570,10 @@ function GetAdvisorAccordingToSubCategory(elem){
     });
 }
 
+
 var paging =1;
 function GetMoreAdvisors(){
+	 $('.black-screen').show();
   	$.ajax({
         url : 'GetAdvisors', // Your Servlet mapping or JSP(not suggested)
         data : {"category":'<%=category%>',"ids":"${ids}","paging":paging},
@@ -527,10 +581,10 @@ function GetMoreAdvisors(){
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
         	var obj = JSON.parse(response);
+  		    paging++;
         	$.each(obj, function(key,value) {
         		 if(value.name !="noadv"){
         		  expertcard(value);
-        		  paging++;
         		 }else{
         			 document.getElementById("loadmore").style.visibility = "hidden";
         		 }
