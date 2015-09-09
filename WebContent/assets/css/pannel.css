@@ -11,7 +11,13 @@
   font-family: "Open SansB";src:url("../fonts/OpenSans-Bold.ttf") format("truetype");
 }
 @font-face {
+  font-family: "Open SansL";src:url("../fonts/OpenSans-Light.ttf") format("truetype");
+}
+@font-face {
   font-family: "Lato";src:url("../fonts/Lato-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "LatoL";src:url("../fonts/Lato-Light.ttf") format("truetype");
 }
 body {
     font-family: "Open SansR";
