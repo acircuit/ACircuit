@@ -14,7 +14,7 @@
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
-					          	<li><form class="search-form"><input  class="form-control search-box" type="text" placeholder="Search"></form></li>
+					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word"></form></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -50,7 +50,7 @@
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form" style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text" placeholder="Search"></form>
+					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search"></form>
    	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),
@@ -82,4 +82,31 @@
 
    		
 	});
+   	</script>
+   	<script type="text/javascript">
+   	function FindSuggestions(s) {
+   		var len = s.value.length;
+   	    if(len>=3){
+   	   	 $('.black-screen').show();
+   	        $.ajax({
+   	            url : 'GetSuggestions', // Your Servlet mapping or JSP(not suggested)
+   	            data : {"word" : s.value},
+   	            type : 'POST',
+   	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+   	            success : function(response) {
+   	            	if(response != "nosuggestion"){
+   	            	var obj = JSON.parse(response);
+   	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
+   	            	alert(obj[0].word+"with "+ obj[0].hits+" hits");
+   	            	}
+   	           	    $('.black-screen').hide();
+   	            	
+   	            },
+   	            error : function(request, textStatus, errorThrown) {
+   	                alert(errorThrown);
+   	            }
+   	        }); 
+   	    }
+   	}
+   	
    	</script>

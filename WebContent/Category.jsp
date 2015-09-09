@@ -45,7 +45,7 @@
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
   					 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
-						   databb1=databb1 + '<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
+						   databb1=databb1 + '<a class="col-xs-4 Cfilter" id="higherstudies,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
   					 	   $('.category-all-filters').html(databb1);
   					 	</c:forEach>
   					 }
@@ -56,7 +56,7 @@
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #f2624d')
   					 	<c:forEach items="${industrySubCategory}" var="sub">
-					 	   databb2=databb2 + '<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
+					 	   databb2=databb2 + '<a class="col-xs-4 Cfilter" id="industry,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
   					 	   $('.category-all-filters').html(databb2);
   					 	</c:forEach>
   					 }
@@ -67,7 +67,7 @@
   						$('.category-filter-row').slideDown();
   						$('.category-filter-row').css('border-top','4px solid #a5cd5b')
   						<c:forEach items="${optionsSubCategory}" var="sub">
-						   databb3=databb3 +'<a class="col-xs-4 Cfilter" id="${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
+						   databb3=databb3 +'<a class="col-xs-4 Cfilter" id="options,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
   					 	   $('.category-all-filters').html(databb3);
   					 	</c:forEach>
 

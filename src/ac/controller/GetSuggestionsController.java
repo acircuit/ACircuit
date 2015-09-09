@@ -48,7 +48,7 @@ public class GetSuggestionsController extends HttpServlet {
 			}
 			response.setContentType("application/json");
 			if(array.isEmpty()){
-			  response.getWriter().write("no suggestion");
+			  response.getWriter().write("nosuggestion");
 			}else{
 				  response.getWriter().write(array.toJSONString());
 			}

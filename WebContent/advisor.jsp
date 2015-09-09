@@ -173,30 +173,30 @@
 					</div>
 					</c:forEach>
 				</div>	
-				<span class="view-linkedin"> <i class="fa fa-linkedin"></i> View Linkedin Profile</span>
+				<span class="view-linkedin"> <i class="fa fa-linkedin"></i> <a href="${advisor.getLinkedIn()}" target="blank">View Linkedin Profile</a></span>
 			</div>
 			<span class="bio-heading">Education</span>
 			<div class="border-b">
 				<div class="bio-div">
-				    
-					<div class="bio-element">
-						<span class="bio-title">Associate Consultant</span>
-						<span class="bio-subtitle">Bain & Company</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
-						<span class="bio-subtitle3">2014 - Present</span>
-					</div>
-					<div class="bio-element">
-						<span class="bio-title">Associate Consultant</span>
-						<span class="bio-subtitle">Bain & Company</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
-						<span class="bio-subtitle3">2014 - Present</span>
-					</div>
+				    <c:forEach items="${advisor.getEducation()}" var="education">
+				       <div class="bio-element">
+						   <span class="bio-title">${education.getCourse()}</span>
+						   <span class="bio-subtitle">${education.getInstitution()}</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
+						   <span class="bio-subtitle3">${education.getDuration()}</span>
+					   </div>
+				    </c:forEach>
 				</div>	
 				
 			</div>
 			<span class="bio-heading">Additional Information</span>
 			<div class="border-b">
-				<span class="a-info-each"><span class="additional-info-type">Current City</span><span class="additional-info-text">New Delhi, India</span></span>
-				<span class="a-info-each"><span class="additional-info-type">Current City</span><span class="additional-info-text">New Delhi, India</span></span>
-				<span class="a-info-each"><span class="additional-info-type">Current City</span><span class="additional-info-text">New Delhi, India</span></span>
+				<span class="a-info-each"><span class="additional-info-type">Current City</span><span class="additional-info-text">${advisor.getCity()}</span></span>
+				<span class="a-info-each"><span class="additional-info-type">Language</span>
+				<c:forEach items="${advisor.getLanguage()}" var="language">
+				<span class="additional-info-text">${language.getLanguage()},</span>
+				</c:forEach>
+				</span>
+				<span class="a-info-each"><span class="additional-info-type">Industry</span><span class="additional-info-text">${advisor.getIndustry()}</span></span>
 			</div>
 			<div class="ar-tab-div ">
 				   	<ul class="nav nav-tabs" role="tablist">

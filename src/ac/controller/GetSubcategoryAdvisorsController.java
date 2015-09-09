@@ -14,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import ac.cache.MyCacheBuilder;
+import ac.dao.SearchDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
@@ -35,12 +36,13 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of GetSubcategoryAdvisorsController");
 
-		String ids = request.getParameter("ids");
+		String ids = "";
+		String adId ="";
 		String category = request.getParameter("category");	
 		String subcategory = request.getParameter("subcategory");	
 		String paging = request.getParameter("paging");
-		int startIndex = 0;
-		int endIndex = 9;
+		int startIndex = 1;
+		int endIndex = 10;
 		String[] initialAdvisors = null;
 		if(paging != null){
 			int page = Integer.valueOf(paging);
@@ -48,10 +50,13 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 			startIndex = 11+ (page-1)*6;
             endIndex = startIndex +5;
 		}
-		String[] advisorIds = ids.split(":");
-		int count=0;
+		//Getting advisorId's
+		int count=1;
 		int catId =0;
 		Boolean isLeft = false;
+		SearchDAO advisors = new SearchDAO();
+		ids = 	advisors.GetAdvisorsUsingCategory(category);
+		String[] advisorIds = ids.split(":");
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
 			for(String aid : advisorIds){
@@ -89,6 +94,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						}
 				}
 				if(threshold ==2){
+					adId = adId+advisor.getId()+":";
 					if(count >= startIndex && count <=endIndex) {
 						JSONObject jo = new JSONObject();
 						jo.put("name", advisor.getName());
@@ -128,15 +134,22 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						
 					}else{
 						isLeft = true;
+						count++;
 					}
 				}
-				if(isLeft){
-					JSONObject jo = new JSONObject();
-					jo.put("name", "noadv");
-					array.add(jo);
-				}
+			
 			}
-			System.out.println(array.size());
+			if(isLeft){
+				JSONObject jo = new JSONObject();
+				jo.put("name", "noadv");
+				array.add(jo);
+			}
+			 int pos = ids.lastIndexOf(':');
+			 ids = ids.substring(0, pos);
+			 JSONObject jo = new JSONObject();
+				jo.put("name", "id");
+				jo.put("ids", adId);
+				array.add(jo);
 			response.getWriter().write(array.toJSONString());
 
 	    logger.info("Exit doPost method of GetSubcategoryAdvisorsController");
