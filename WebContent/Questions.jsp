@@ -38,6 +38,7 @@
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
                 List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("questions");
                 String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
                 List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                 List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
@@ -81,7 +82,7 @@
 									<span class="tag">${question.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div">
-									<span class="question">${question.getQuestion()}</span>
+									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
 				   					<br>
 				   					<span class="count-answers">5 answers</span><span class="updated-on">Last Updated on 3rd August</span>
 				   				</div> 
@@ -90,7 +91,11 @@
 									<span class="nameA">Raghu Venkat </span> answered
 									</span>
 									<p class="answer-to-question">
-									${question.getAnswer()} <span class="more">more</span>
+									<c:forEach items="${answers }" var="answer">
+										<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
+											${answer.getAnswer()} <span class="more">more</span>
+										</c:if>
+									</c:forEach>
 									</p>
 				   				</div>
 				   				<div class="col-xs-11">

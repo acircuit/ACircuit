@@ -208,6 +208,7 @@ public class FilterController extends HttpServlet {
 		if(isLeft){
 			JSONObject jo = new JSONObject();
 			jo.put("name", "noadv");
+			array.add(jo);
 
 		}
 		System.out.println(array.size());

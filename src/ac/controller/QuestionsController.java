@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import ac.cache.MyCacheBuilder;
 import ac.dao.QuestionsDAO;
+import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 
 /**
@@ -31,9 +32,13 @@ public class QuestionsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of QuestionsController");
 		//Getting all the questions for the user
-		List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();
 		QuestionsDAO que = new QuestionsDAO();
-		list = que.GetAllQuestions();
+		list1 = que.GetAllQuestions();
+		//Getting the Answers of the question
+		List<AnswerDTO> list = new ArrayList<AnswerDTO>();
+		QuestionsDAO question = new QuestionsDAO();
+		list = question.GetAnswers(list1);
 		//Getting the sub categories
 		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
 		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
@@ -43,7 +48,8 @@ public class QuestionsController extends HttpServlet {
 		
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
-		request.setAttribute("questions", list);
+		request.setAttribute("questions", list1);
+		request.setAttribute("answers", list);
 		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
 		request.setAttribute("industrySubCategory", industrySubCategory);
 		request.setAttribute("optionsSubCategory", optionsSubCategory);

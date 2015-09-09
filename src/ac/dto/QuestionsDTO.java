@@ -3,6 +3,13 @@ package ac.dto;
 public class QuestionsDTO {
 	
 	private int questionId;
+	private int advisor_id;
+	public int getAdvisor_id() {
+		return advisor_id;
+	}
+	public void setAdvisor_id(int advisor_id) {
+		this.advisor_id = advisor_id;
+	}
 	private String question;
 	private String answer;
 	private String category;

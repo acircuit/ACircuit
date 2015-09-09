@@ -46,7 +46,7 @@
     <servlet-name>FilterController</servlet-name>
     <url-pattern>/Filters</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>questions</servlet-name>
     <servlet-class>ac.controller.QuestionsController</servlet-class>
   </servlet>
