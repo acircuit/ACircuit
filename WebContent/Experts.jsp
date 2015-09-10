@@ -127,25 +127,85 @@
 						</form>
 							<!-- Modal -->
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							  <div class="modal-dialog" role="document">
+							  <div class="modal-dialog" role="document" style="width: 52%;">
 							    <div class="modal-content">
-							      <div class="modal-header">
+							      <div class="modal-header" style="border:0px;">
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							        <h4 class="modal-title" id="myModalLabel">Select <span>something<span></h4>
 							      </div>
-							      <div class="modal-body">
-							     <div class="row">
-							    
-
-									     
-									  
-
-							     </div>
+							      <div class="modal-body" style="padding-top: 0px;">
 							      <div class="row">
-							    
-									     
-
-							     </div>
+							     <div class="col-xs-12">
+							    	<div class="col-xs-5 no-padding">
+							      		<form class="search-form-modal" >
+							      		<input  class="form-control search-box-modal" type="text" placeholder="Search"  name="word" autocomplete="off">
+							      		</form>
+							    	</div>
+							    	<div class="col-xs-7">
+							   			 <span class="alpha">A</span>
+							   			  <span class="alpha">B</span>
+							   			   <span class="alpha">C</span>
+							   			    <span class="alpha">D</span>
+							   			     <span class="alpha">E</span>
+							   			      <span class="alpha">F</span>
+							   			       <span class="alpha">G</span>
+							   			        <span class="alpha">H</span>
+							   			         <span class="alpha">I</span>
+							   			          <span class="alpha">J</span>
+							   			           <span class="alpha">K</span>
+							   			            <span class="alpha">L</span>
+							   			             <span class="alpha">M</span>
+							   			              <span class="alpha">N</span>
+							   			               <span class="alpha">O</span>
+							   			                <span class="alpha">P</span>
+							   			                 <span class="alpha">Q</span>
+							   			                  <span class="alpha">R</span>
+							   			                   <span class="alpha">S</span>
+							   			                    <span class="alpha">T</span>
+							   			                     <span class="alpha">U</span>
+							   			                      <span class="alpha">V</span>
+							   			                       <span class="alpha">W</span>
+							   			                        <span class="alpha">X</span>
+							   			                         <span class="alpha">Y</span>
+							   			                          <span class="alpha">Z</span>
+							    	</div>
+							    	
+							    	</div>
+							    	</div>
+							    	<div class="row" style="margin-top: 20px;">
+								    	<div class="col-xs-12" id="modal-filter">
+									    	<div class="col-xs-3 alpha-div-filter filters-in-modal">
+										    	<span>A</span><br>
+										    	  <div class="form-group squaredThree">
+												  	<input type="checkbox" id="2l" name="Few0" />
+													<label for="2l"></label><span>Few0</span>
+												  </div>
+												  <div class="form-group squaredThree">
+												  	<input type="checkbox" id="2l" name="Few0" />
+													<label for="2l"></label><span>Few0</span>
+												  </div>
+												  <div class="form-group squaredThree">
+												  	<input type="checkbox" id="2l" name="Few0" />
+													<label for="2l"></label><span>Few0</span>
+												  </div>
+									    	</div>
+									    	<div class="col-xs-3 alpha-div-filter filters-in-modal">
+										    	<span>B</span><br>
+										    	  <div class="form-group squaredThree">
+												  	<input type="checkbox" id="2l" name="Few0" />
+													<label for="2l"></label><span>Few0</span>
+												  </div>
+									    	</div>
+									    	<div class="col-xs-3 alpha-div-filter filters-in-modal">
+										    	<span>C</span><br>
+										    	  <div class="form-group squaredThree">
+												  	<input type="checkbox" id="2l" name="Few0" />
+													<label for="2l"></label><span>Few0</span>
+												  </div>
+									    	</div>
+							    	 	</div>
+							    	 </div>
+							      
 							      </div>
 							      
 							    </div>
