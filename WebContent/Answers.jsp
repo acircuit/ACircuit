@@ -43,6 +43,8 @@
                 String last_Updated = (String) request.getAttribute("last_Updated");
                 List<AdvisorDTO> advisors = (List<AdvisorDTO>)request.getAttribute("advisors");
                 Integer count = (Integer) request.getAttribute("count");
+                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
+                List<String> popCats = (List<String>)request.getAttribute("popCats");
 				pageContext.setAttribute("ids", ids);
 	
 
@@ -131,21 +133,18 @@
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
+	                           <c:forEach items="${mostViewedQuestions}" var="viewed">
+	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
+	                          </c:forEach>
 	
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
                     <div class="rel-section">
                         <h2>POPULAR CATEGORIES</h2>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
+                         <c:forEach items="${popCats}" var="pop">
+                            <a class="rel-category">${pop}</a>
+	                    </c:forEach>
                     </div>
 	   			</div>
    			</div>

@@ -42,6 +42,9 @@
                 String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
                 List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                 List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
+                List<String> popCats = (List<String>)request.getAttribute("popCats");
+
         		pageContext.setAttribute("ids", ids);
 	
 
@@ -84,7 +87,7 @@
 				   				<div class="col-xs-12 question-div">
 									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
 				   					<br>
-				   					<span class="count-answers">5 answers</span><span class="updated-on">Last Updated on 3rd August</span>
+				   					<span class="count-answers">${question.getCount()} answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>
 				   				</div> 
 				   				<div class="col-xs-9 answer-div">
 									<span class="by-whom">
@@ -116,21 +119,17 @@
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	                        <p class="rel_ques"><a class="rel_ques">Which are the best MBA schools in India?</a></p>
-	
+	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
+	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
+	                          </c:forEach>
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
                     <div class="rel-section">
                         <h2>POPULAR CATEGORIES</h2>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
-                        <a class="rel-category">Category</a>
+                        <c:forEach items="${popCats}" var="pop">
+                            <a class="rel-category">${pop}</a>
+	                    </c:forEach>
                     </div>
 	   			</div>
    			</div>

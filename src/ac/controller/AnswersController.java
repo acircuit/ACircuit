@@ -51,10 +51,25 @@ public class AnswersController extends HttpServlet {
 			aId.add(ans.getAdvisor_id());
 			count++;
 		}
+		//Incrementing Questions hit
+		QuestionsDAO inc = new QuestionsDAO();
+		inc.IncrementQuestionHit(q_id);
 		//Get Advisor name , image and industry
 		List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
 		QuestionsDAO adv = new QuestionsDAO();
 		advisors = adv.GetAdvisorDetails(aId);
+		
+		//Getting Most Viewed Questions
+		List<QuestionsDTO> mostViewedQuestions = new ArrayList<QuestionsDTO>();
+		QuestionsDAO views = new QuestionsDAO();
+		mostViewedQuestions = views.GetMostViewedQuestion();
+					
+		//Getting Popular categories
+		QuestionsDAO cats = new QuestionsDAO();
+		List<String> popCats = cats.GetPopularCategories();
+		
+		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
+		request.setAttribute("popCats", popCats);
 		request.setAttribute("question", que);
 		request.setAttribute("answers", list);
 		request.setAttribute("last_Updated", last_Updated);
