@@ -192,11 +192,16 @@ font-size: 14px;
 	min-height: 150px;
     width: 100%;
     background-color: #37b7b3;
+    padding-bottom: 40px;
 }
 .why-us-div{
 	
 }
-
+.T-button{
+	background-color: #37B7B3;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF !important;
+}
 .our{
 	    border-bottom: 3px solid black;
     padding-bottom: 8px;
@@ -216,7 +221,7 @@ font-size: 14px;
 }
 .why-us-im{
 	margin-bottom: 15px;
-    width: 95px;
+ /*  width: 66px; */
 }
 .why-us-medium-text{
 color: #ffffff;
@@ -281,6 +286,7 @@ color: #ffffff;
 }
 .testimonial-div-container{
 	background-color:white;
+	    padding-bottom: 40px;
 }
 .testimonial-text-head{
     margin-top: 60px;
@@ -366,7 +372,9 @@ margin-left: 60px;
 	font-size: 15px;
     padding: 10px 30px 10px 30px;
 }
-
+.t-text{
+	display:none;
+}
 
 
 
@@ -480,7 +488,7 @@ margin-left: 60px;
 }
 .why-us-im {
     margin-bottom: 7px;
-    width: 65px;
+   /*  width: 65px; */
 }
 .y-div {
     margin-bottom: 0px;
@@ -511,6 +519,9 @@ margin-left: 60px;
 .img-disable {
     width: 36px;
     height: 36px;
+}
+.Bblue-bottom {
+    padding-bottom: 0px;
 }
 .user-name {
     font-size: 9px;

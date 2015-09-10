@@ -91,7 +91,7 @@
 					  			 <a href="advisors?category=higherstudies">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
-					  						<button class="big-button border-blue" name="bb1"><img class="category-im" src="assets/img/whiteb.png">
+					  						<button class="big-button border-blue" name="bb1"><img class="category-im" src="assets/img/higher studies.png">
 					  							<br class="hidden-xs"><span>Higher studies</span></button>
 					  							
 					  					</div>
@@ -100,7 +100,7 @@
 					  			 <a href="advisors?category=industry">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
-					  						<button class="big-button border-pink" name="bb2"><img src="assets/img/whiteb.png">
+					  						<button class="big-button border-pink" name="bb2"><img src="assets/img/industry.png">
 					  							<br class="hidden-xs"><span>Industry</span></button>
 					  						
 					  					</div>
@@ -109,7 +109,7 @@
 					  			 <a href="advisors?category=options">
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div no-padding-xs">
-					  						<button class="big-button border-green" name="bb3"><img src="assets/img/whiteb.png">
+					  						<button class="big-button border-green" name="bb3"><img src="assets/img/courses.png">
 					  							<br class="hidden-xs"><span>Courses</span></button>
 					  							
 					  					</div>
@@ -118,15 +118,14 @@
 					  			</div>
 					  		</div>
    					</div>
-			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search"><input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSuggestions(this)" name="word"></form>
-			  
+			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
+			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
+			   	<div class="dropdown sugg">
+					          			
+					          	</div>
+			   	</form>
+			  	
 			   	</div>
-
-   	<div class="row category-filter-row ">
-  				<div class="category-all-filters container">
-  					
-  				</div>
-  			</div>
 </div>
 
    	<div class="index-body-div container fadeinpoint"  id="page-content-wrapper">
@@ -166,7 +165,7 @@
     	</div>
     	<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-							<a href="<fmt:message key="questions"/>"><button type="button" class="btn tab-button ">Browse Answers</button></a>
+							<a href="<fmt:message key="questions"/>"><button type="button" class="btn tab-button ">Find Advisors</button></a>
 					    </fmt:bundle>
 							
 		</div>
@@ -197,14 +196,14 @@
   </div>
    		
 	</div>
-	<div class="Bblue-bottom">
+	<div class="Bblue-bottom col-xs-12">
 			<div class="why-us-div container no-padding">
 		  			<div class="col-xs-12 why-us-head-text no-padding-xs">WHY USE <span class="our">OUR</span> SERVICE</div>
 		  			 <div class="advisors-row">
 		   				 <div class="scroll-xs scrollable-content">
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/whiteb.png">
+		  						<img class="why-us-im" src="assets/img/service1.png">
 		  							<br><span class="why-us-medium-text">Large Network of Advisors</span>
 		  							<p class="why-us-text">Professionals from many different areas and industries at one place for you to choose from</p>
 		  							
@@ -212,7 +211,7 @@
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/whiteb.png">
+		  						<img class="why-us-im" src="assets/img/service2.png">
 		  							<br><span class="why-us-medium-text">First Hand Knowledge</span>
 		  							<p class="why-us-text">Get advice from people who have been there, done that</p>
 		  							
@@ -220,7 +219,7 @@
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/whiteb.png">
+		  						<img class="why-us-im" src="assets/img/service3.png">
 		  							<br><span class="why-us-medium-text">Connect Anytime Anywhere</span>
 		  							<p class="why-us-text">No matter where you are, connect conveniently via phone or video chat</p>
 		  							
@@ -228,7 +227,7 @@
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/whiteb.png">
+		  						<img class="why-us-im" src="assets/img/service3.png">
 		  							<br><span class="why-us-medium-text">Great Advice At Steal</span>
 		  							<p class="why-us-text">Message advisors for free or book a one on one session at minimal prices</p>
 		  							
@@ -237,6 +236,10 @@
 		  				</div>
 		  			</div>
 		  		</div>
+		  		<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
+							<button type="button" class="btn T-button ">How it works</button>
+							
+		</div>
    	</div>
    	<div class="testimonial-div-container col-xs-12">
 	   	<div class="col-xs-12 testimonial-text-head no-padding-xs"><span>Testimonial</span></div>
@@ -250,21 +253,25 @@
 	   		</div>
 	   		<div class="user-images-div col-xs-12 col-sm-10 col-sm-offset-1">
 	   		<div class="user-div">
+	   		<span class="t-text">content 1ccaa I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
 	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
 	   			<span class="user-name">BRIANNA TERRY</span><br>
 	   			<span class="user-desig">Student</span>
 	   		</div>
-	   		<div class="user-div">
-	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
+	   		<div class="user-div" id="timg2">
+	   		<span class="t-text">content gone now more I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
+	   			<img class="user-img img-disable"  src="assets/img/Abhishek.JPG"><br>
 	   			<span class="user-name">BRIANNA gsgg</span><br>
 	   			<span class="user-desig">Stusdds</span>
 	   		</div>
 	   		<div class="user-div">
+	   		<span class="t-text">content lets do it I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
 	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
 	   			<span class="user-name">BRI899ANNA gsgg</span><br>
 	   			<span class="user-desig">St00usdds</span>
 	   		</div>
 	   		<div class="user-div">
+	   		<span class="t-text">content ok fine as you wish I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
 	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
 	   			<span class="user-name">BRI899ANNA gsgg</span><br>
 	   			<span class="user-desig">St00usdds</span>
@@ -277,7 +284,13 @@
    	 	<button type="button" class="btn red-button signup-button">Book a session</button>
    	 	</div>
    	</div>
+   	 <%@include file="/footer.jsp" %>
 <script>
+	$(document).ready(function () {
+		$('#timg2').find('.user-name').show();
+		$('#timg2').find('.user-desig').show();
+		$('#timg2').find('img').removeClass('img-disable');
+		    });
 
 //attach scroll event to render fixed header at particular moment
 $(window).scroll(function(){
@@ -293,48 +306,25 @@ $(window).scroll(function(){
 	}//if-else
 });	
 
-/* $('body').on('click', '.big-button', function(e){
-		 var color = $(this).attr('name');
-		 $('.big-button').css('border-width','1px 1px 4px 1px');
-		 $(this).css('border-width','3px 3px 6px 3px');
-			 if(color=='bb1')
-			 {
-				 
-			 	$('.category-filter-row').slideDown();
-			 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
-				var databb1='<a class="col-xs-4 Cfilter">this is bb1</a>';
-			 	$('.category-all-filters').html(databb1);
-			 }
-			else if(color=='bb2')
-			 {
-			 	
-			 	$('.category-filter-row').slideDown();
-			 	$('.category-filter-row').css('border-top','4px solid #f2624d')
-			 	var databb2='<a class="col-xs-4 Cfilter">this is bb2</a>';
-			 	$('.category-all-filters').html(databb2);
-			 }
-			else
-			{
-				
-				$('.category-filter-row').slideDown();
-				$('.category-filter-row').css('border-top','4px solid #a5cd5b')
-				var databb3='<a class="col-xs-4 Cfilter">this is bb3</a>';
-			 	$('.category-all-filters').html(databb3);
-			}
-			
-		}); */
-$('body').on('focus', '.search-box', function(e){
+
+/* $('body').on('focus', '.search-box', function(e){
 	$('.search-form').css('width','70%');
-});
+}); */
 $('body').on('click', '.user-img', function(e){
 	$('.user-name').hide();
 	$('.user-desig').hide();
 	$('.user-img').addClass('img-disable');
 	$(this).removeClass('img-disable');
+	var text = $(this).closest('.user-div').find('.t-text').html();
+	$('.ad-speaks').html(text);
 	$(this).closest('.user-div').find('.user-name').show();
 	$(this).closest('.user-div').find('.user-desig').show();
 });
-
+$('body').on('focus', '.banner-search-box', function(e){
+		$('.suggestion').show();
+}).on('blur','.banner-search-box', function() {
+	$('.suggestion').hide();
+});
 </script>
 </body>
 </html>
