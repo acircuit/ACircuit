@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,26 @@ public class QuestionsController extends HttpServlet {
 		List<AnswerDTO> list = new ArrayList<AnswerDTO>();
 		QuestionsDAO question = new QuestionsDAO();
 		list = question.GetAnswers(list1);
+		SimpleDateFormat format = new SimpleDateFormat("dd MMM");
+		for(QuestionsDTO que1 : list1) {
+		 int count=0;
+		 for(AnswerDTO ans : list){
+			 if(que1.getQuestionId() == ans.getQuestionId()){
+				 count ++;
+				 que1.setLastUpdated(format.format(ans.getTime()));
+			 }
+		 }
+		 que1.setCount(count);
+		}
+		//Getting Most Viewed Questions
+		List<QuestionsDTO> mostViewedQuestions = new ArrayList<QuestionsDTO>();
+		QuestionsDAO views = new QuestionsDAO();
+		mostViewedQuestions = views.GetMostViewedQuestion();
+		
+		//Getting Popular categories
+		QuestionsDAO cats = new QuestionsDAO();
+		List<String> popCats = cats.GetPopularCategories();
+		
 		//Getting the sub categories
 		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
 		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
@@ -48,12 +69,13 @@ public class QuestionsController extends HttpServlet {
 		
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
-		System.out.println(higherStudiesSubCategory.length);
 		request.setAttribute("questions", list1);
 		request.setAttribute("answers", list);
 		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
 		request.setAttribute("industrySubCategory", industrySubCategory);
 		request.setAttribute("optionsSubCategory", optionsSubCategory);
+		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
+		request.setAttribute("popCats", popCats);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Questions.jsp");
         rd.forward(request, response);
 		

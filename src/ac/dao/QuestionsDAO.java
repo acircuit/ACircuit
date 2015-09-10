@@ -16,6 +16,7 @@ import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
+
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
@@ -146,6 +147,7 @@ public class QuestionsDAO {
 				que.setAdvisor_id(results.getInt("AID"));
 				que.setQuestionId(results.getInt("QID"));
 				que.setAnswer(results.getString("ANSWER"));
+				que.setTime(results.getTimestamp("TIMESTAMP"));
 				list.add(que);
 			}
 			logger.info("Exit GetAnswers method of QuestionsDAO");
@@ -319,8 +321,132 @@ public class QuestionsDAO {
 		return list;
 	}
 	
+	public Boolean IncrementQuestionHit(String qid){
+		logger.info("Entered IncrementQuestionHit method of QuestionsDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "UPDATE questions SET HITS=HITS+1 WHERE Q_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.valueOf(qid));
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("IncrementQuestionHit method of QuestionsDAO threw error:"+e.getMessage());
+				e1.printStackTrace();
+			}	
+			logger.error("IncrementQuestionHit method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("IncrementQuestionHit method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("IncrementQuestionHit method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("IncrementQuestionHit method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}		
+		logger.info("Entered IncrementQuestionHit method of QuestionsDAO");
+		return isCommit;
+	}
+	
+	public List<QuestionsDTO> GetMostViewedQuestion() {
+		logger.info("Entered GetMostViewedQuestion method of QuestionsDAO");
+		List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT QUESTION,Q_ID FROM questions WHERE ISANSWERED=? ORDER BY HITS DESC LIMIT 5";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				QuestionsDTO question = new QuestionsDTO();
+				question.setQuestion(results.getString("QUESTION"));
+				question.setQuestionId(results.getInt("Q_ID"));
+				list.add(question);
+			}
+			logger.info("Exit GetMostViewedQuestion method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetMostViewedQuestion method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetMostViewedQuestion method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetMostViewedQuestion method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetMostViewedQuestion method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetMostViewedQuestion method of QuestionsDAO");
+		return list;
+	}
 	
 	
+	public List<String> GetPopularCategories() {
+		logger.info("Entered GetPopularCategories method of QuestionsDAO");
+		List<String> list = new ArrayList<String>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT DISTINCT CATEGORY FROM questions WHERE ISANSWERED=?  ORDER BY HITS DESC LIMIT 4";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getString("CATEGORY"));
+			}
+			logger.info("Exit GetPopularCategories method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetPopularCategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetPopularCategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetPopularCategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetPopularCategories method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetPopularCategories method of QuestionsDAO");
+		return list;
+	}
 
 	private String generateQsForIn(int numQs) {
 		String items = "";

@@ -14,6 +14,20 @@ public class QuestionsDTO {
 	private String answer;
 	private String category;
 	private String subcategory;
+	private String lastUpdated; 
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getLastUpdated() {
+		return lastUpdated;
+	}
+	public void setLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 	public int getQuestionId() {
 		return questionId;
 	}
