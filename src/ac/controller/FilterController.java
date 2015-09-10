@@ -164,6 +164,18 @@ public class FilterController extends HttpServlet {
 					}
 				}else if (category.equals("options")) {
 					for(CategoryDTO cat : list){
+						if(cat.getCategory().equals("options")){
+							catId = cat.getCatId();
+						}
+					}
+					List<SubCategoryDTO> subcats = advisor.getSubCategories();
+					for(SubCategoryDTO sub :subcats){
+						if(sub.getCategoryId() == catId){
+							jo.put("subcategory", sub.getSubCategory());
+						}
+					}
+				}else{
+					for(CategoryDTO cat : list){
 							catId = cat.getCatId();
 					}
 					List<SubCategoryDTO> subcats = advisor.getSubCategories();
