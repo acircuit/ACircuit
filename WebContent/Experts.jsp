@@ -212,6 +212,7 @@
    				</div>
    			</div>
    	</div>
+   	 <%@include file="/footer.jsp" %>
    	 </div> 
    	 <!-- Modal -->
 								<div class="modal fade" id="filtermodalixs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -250,7 +251,12 @@
     <!-- /#wrapper -->
    	<script>
    	$(document).ready(function () {
-   	 var trigger = $('.hamburger'),
+   		var whattype='<%=category%>';
+	if(whattype =="higherstudies")
+		{
+			$('.bblue').trigger( "click" );
+		}
+   		var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
 
@@ -271,6 +277,7 @@
         trigger.addClass('is-open');
         isClosed = true;
       }
+      
   }
 
 	  var advisorId =  "${ids}";
@@ -288,7 +295,8 @@
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
            					// create an empty div in your page with some id
-        	 $('.black-screen').hide();
+        	 
+           					$('.black-screen').hide();
 
         },
         error : function(request, textStatus, errorThrown) {
@@ -554,6 +562,7 @@ function GetResultAccordingToSubCategory(elem){
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
+        	debugger;
           	var obj = JSON.parse(response);
           	var count=0;
           	$.each(obj, function(key,value) {
