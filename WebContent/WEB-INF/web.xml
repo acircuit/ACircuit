@@ -62,6 +62,14 @@
     <servlet-name>answers</servlet-name>
     <url-pattern>/answers</url-pattern>
   </servlet-mapping>
+        <servlet>
+    <servlet-name>GetSubcategoryAdvisors</servlet-name>
+    <servlet-class>ac.controller.GetSubcategoryAdvisorsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSubcategoryAdvisors</servlet-name>
+    <url-pattern>/GetSubcategoryAdvisors</url-pattern>
+  </servlet-mapping>
     <servlet>
     <servlet-name>advisorprofile</servlet-name>
     <servlet-class>ac.controller.AdvisorProfileController</servlet-class>
@@ -70,4 +78,5 @@
     <servlet-name>advisorprofile</servlet-name>
     <url-pattern>/advisorprofile</url-pattern>
   </servlet-mapping>
+
 </web-app>

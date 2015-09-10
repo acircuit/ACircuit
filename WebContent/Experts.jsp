@@ -50,7 +50,7 @@
 <body>
 
 	<div id="wrapper">
-	<div class="black-screen"></div>
+	<div class="black-screen"><img src="assets/img/719.GIF"></div>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -280,39 +280,41 @@
       
   }
 
-	  var advisorId =  "${ids}";
-	  if(advisorId != ""){
- 	  $('.black-screen').show();
-  	  $.ajax({
-        url : 'GetAdvisors', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":'<%=category%>',"ids":advisorId,"paging":0},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	var obj = JSON.parse(response);
-        	$.each(obj, function(key,value) {
-        		 expertcard(value);
-        		}); 
-        	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
-           					// create an empty div in your page with some id
-        	 
-           					$('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-      });
-	  }
-  
+	  
+    emptystate();
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });  
 
-   		
+  defaultcall();
 	});
+function defaultcall(){
+	var advisorId =  "${ids}";
+	  if(advisorId != ""){
+	  $('.black-screen').show();
+	  $.ajax({
+      url : 'GetAdvisors', // Your Servlet mapping or JSP(not suggested)
+      data : {"category":'<%=category%>',"ids":advisorId,"paging":0},
+      type : 'POST',
+      dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+      success : function(response) {
+      	var obj = JSON.parse(response);
+      	$.each(obj, function(key,value) {
+      		 expertcard(value);
+      		}); 
+      	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+         					// create an empty div in your page with some id
+      	 
+         					$('.black-screen').hide();
 
+      },
+      error : function(request, textStatus, errorThrown) {
+          alert(errorThrown);
+          
+      }
+    });
+	  }
+}
 $(window).bind('mousewheel', function(event) {
 		// take the value of scrollTop and compare it with offset of an element which comes at top
 				if( $(window).scrollTop() >= $(".stopnow").offset().top-100) {
@@ -327,31 +329,14 @@ $(window).bind('mousewheel', function(event) {
 		}
 				
 });
-$('body').on('click', '.big-button', function(e){
-	 var color = $(this).attr('name');
-	 	$('.big-button').css('background-color','white');
-	 	$(this).css('color','white');
-		 if(color=='bb1')
-		 {
-		 	$(this).css('background-color','#00b9ff');
-		 	$('.category-filter-row').slideDown();
-		 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
-
-		 }
-		else if(color=='bb2')
-		 {
-		 	$(this).css('background-color','#f2624d');
-		 	$('.category-filter-row').slideDown();
-		 	$('.category-filter-row').css('border-top','4px solid #f2624d')
-		 }
-		else
-		{
-			$(this).css('background-color','#a5cd5b');
-			$('.category-filter-row').slideDown();
-			$('.category-filter-row').css('border-top','4px solid #a5cd5b')
-		}
-		
-	});
+function emptystate(){
+	var html='<div class="col-xs-12 expert-card-div" style="max-height: 54px;">'
+		+'<div class="empty-state" >'
+		+'<span>Sorry no data found for your search</span>'
+		+'</div>'
+		+'</div>';
+$('.card-container').html(html);
+}
 function expertcard(value)
 {
 	var html='<div class="col-xs-12  col-sm-6 expert-card-div">'
@@ -515,7 +500,8 @@ $('body').on('click', '.filters-type-xs li', function(e){
 
 $('body').on('click', '.reset-filter', function(e){
 	$('input:checkbox').removeAttr('checked');
-	$('.filterlist').html("<span class='activef' value='1'>All</span>");
+	defaultcall();
+	$('.filterlist').html('');
 });
 
 $('body').on('click', '#backtofilters', function(e){
@@ -551,18 +537,19 @@ var categ = "";
 var subcateg ="";
 function GetResultAccordingToSubCategory(elem){
  	$('.black-screen').show();
+
 	var id = elem.id;
 	var cat = id.split(",");
 	categ= cat[0];
 	subcateg = cat[1];
     $('.card-container').html('');
 	$.ajax({
-        url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
+        url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
         data : {"category":cat[0],"subcategory":cat[1]},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
-        	debugger;
+       
           	var obj = JSON.parse(response);
           	var count=0;
           	$.each(obj, function(key,value) {

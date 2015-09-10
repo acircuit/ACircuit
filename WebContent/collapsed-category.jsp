@@ -5,36 +5,51 @@
    						<div class="col-xs-9">
    							<div class="col-xs-4">
    					
-   							<div class="dropdown">
-							  <button class="btn btn-default dropdown-toggle collapsed-filter-button" type="button" id="category-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							    Dropdown
-							   <i class="fa fa-angle-down"></i>
-							  </button>
-							  <ul class="dropdown-menu" aria-labelledby="category-menu">
-							    <li><a href="#">Action</a></li>
-							    <li><a href="#">Another action</a></li>
-							    <li><a href="#">Something else here</a></li>
-							    <li><a href="#">Separated link</a></li>
-							  </ul>
-							</div>
+   							<select class="collapsed-filter-button" id="category-menu">
+								  <option value="1">Higher studies</option>
+								  <option value="2">Industry</option>
+								  <option value="3">Courses</option>
+								 
+								</select>
    							</div>
    						<div class="col-xs-4">
    							
-   							<div class="dropdown">
-							  <button class="btn btn-default dropdown-toggle collapsed-filter-button" type="button" id="subcategory-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							    Dropdown
-							    <i class="fa fa-angle-down"></i>
-							  </button>
-							  <ul class="dropdown-menu" aria-labelledby="subcategory-menu">
-							    <li><a href="#">Action</a></li>
-							    <li><a href="#">Another action</a></li>
-							    <li><a href="#">Something else here</a></li>
-							    <li><a href="#">Separated link</a></li>
-							  </ul>
-							</div>
+   							<select class="collapsed-filter-button" id="subcategory-menu">
+								 
+							</select>
    						</div>
    						<div class="col-xs-4">
    						<button type="button" class="btn green-button collapsed-search-button" style="width:100%">Search</button>
    						</div>
    						</div>
    					</div>
+   					<script>
+   					$('#category-menu').on('change', function() {
+   		  			 var values= ( this.value ); // or $(this).val()
+	   		  		if(values=='1')
+						 {
+	   		  				var option1="";
+						 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
+						   option1=option1 + '<option value="${sub}">${sub}</option>';
+						   $('#subcategory-menu').html(option1);
+						 	</c:forEach>
+						 }
+						else if(values=='2')
+						 {  
+							var option2="";
+							<c:forEach items="${industrySubCategory}" var="sub">
+						   option2=option2 + '<option value="${sub}">${sub}</option>';
+						   $('#subcategory-menu').html(option2);
+						 	</c:forEach>
+						 }
+						else
+						{
+							var option3="";
+							<c:forEach items="${optionsSubCategory}" var="sub">
+						   option3=option3 + '<option value="${sub}">${sub}</option>';
+						   $('#subcategory-menu').html(option3);
+						 	</c:forEach>
+	
+						}
+   		  			});
+   					</script>

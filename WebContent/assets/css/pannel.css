@@ -49,6 +49,25 @@ body {
     pointer-events: none;
     top: 0px;
 }
+.black-screen img{
+position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100px;
+}
+.empty-state{
+	text-align: center;
+    padding-top: 16px;
+    font-family: latol;
+    background-color: rgb(195, 195, 195);
+    min-height: 0px;
+    padding-bottom: 16px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
 /*Modifiaction in bootstrap classes*/
 .navbar {
     margin-bottom: 13px;
@@ -537,6 +556,9 @@ color: white;
   width: 100%;
   border-radius: 0px!important;
   text-align:left;
+      min-height: 34px;
+    border-color: #adadad;
+        color: #333;
   
 }
 .collapsed-filter-button i{
