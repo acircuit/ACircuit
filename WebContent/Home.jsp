@@ -324,7 +324,12 @@ $('body').on('click', '.user-img', function(e){
 $('body').on('focus', '.banner-search-box', function(e){
 		$('.suggestion').show();
 }).on('blur','.banner-search-box', function() {
-	$('.suggestion').hide();
+	/* $('.suggestion').hide(); */
+});
+$('body').on('click', '.suggestion', function(e){
+		var suge= $(this).html();
+		$('.banner-search-box').val(suge);
+		$('.suggestion').hide();
 });
 </script>
 <script type="text/javascript">

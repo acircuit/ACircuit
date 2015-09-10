@@ -58,7 +58,10 @@
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search"></form>
+					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
+					         <div id="headersuggestions" class="dropdown sugg">
+					          			
+					          	</div></form>
    	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),
@@ -133,10 +136,16 @@
    		$('.search-form').addClass('inc-searchbox');
     }).on('blur',".search-box", function() {
     	$('#bs-example-navbar-collapse-1 ul li').show();
-    	$('.suggestion').hide();
+    	/* $('.suggestion').hide(); */
     	$('#bs-example-navbar-collapse-1 ul').removeClass('inc-searchulli');
    		$('#bs-example-navbar-collapse-1 ul li:last').removeClass('inc-searchulli');
     	$('.search-form').removeClass('inc-searchbox');
+    });
+   	
+   	$('body').on('click', '.suggestion', function(e){
+   		var suge= $(this).html();
+   		$('.search-box').val(suge);
+   		$('.suggestion').hide();
     });
    	
    	</script>

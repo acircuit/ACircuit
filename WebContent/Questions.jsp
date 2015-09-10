@@ -38,7 +38,7 @@
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
                 List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("questions");
+                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
                 String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
                 List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                 List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
@@ -107,14 +107,12 @@
 
 			   				</div>		
 		   				</c:forEach>	
-				   				<div class="col-xs-11">
-				   					<div style="border-bottom: 1px solid lightgray;"></div>
-				   				</div>
+				   				
 			   				</div>
 			   				
 			   				
 			   		</div>
-	   			</div>
+	   			
 	   			<div class="col-xs-3 hidden-xs">
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
@@ -132,6 +130,14 @@
 	                    </c:forEach>
                     </div>
 	   			</div>
+   			</div>
+   			<div class="load-more-div col-xs-12" style="margin-top:30px;">
+   				<div class="col-xs-9" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;">
+	   						<button type="button" class="btn load-more" style="width: 200px;">
+	  											Load more</button>
+	
+	   					</div>
+   			</div>
    			</div>
    	 </div>
 </div>
@@ -183,6 +189,32 @@
 								  </div>
 								</div>
 <script>
+function questioncard(){
+	var html='<div class="each-question-div row" id="">'
+			+'<div class="col-xs-12 tag-div">'
+			+'<span class="tag">category</span>'
+			+'<span class="tag">subcategory</span>'
+			+'</div>'
+			+'<div class="col-xs-12 question-div">'
+			+'<a href="link"><span class="question">question here</span></a>'
+			+'<br>'
+			+'<span class="count-answers">12 answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>'
+			+'</div> '
+			+'<div class="col-xs-9 answer-div">'
+			+'<span class="by-whom">'
+			+'<span class="nameA">Raghu Venkat </span> answered'
+			+'</span>'
+			+'<p class="answer-to-question">'
+			+'answerhere<span class="more">more</span>'
+
+			+'</p>'
+			+'</div>'
+			+'<div class="col-xs-11">'
+			+'<div style="border-bottom: 1px solid lightgray;"></div>'
+			+'</div>'
+
+			+'</div>';
+}
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
 });
