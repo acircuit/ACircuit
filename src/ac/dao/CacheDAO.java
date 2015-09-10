@@ -272,7 +272,7 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT INSTITUTION FROM advisoreducation";	
+			query = "SELECT  DISTINCT INSTITUTION FROM advisoreducation ORDER BY INSTITUTION";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
@@ -307,7 +307,7 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT LANGUAGE_KNOWN FROM advisorlanguage";	
+			query = "SELECT  DISTINCT LANGUAGE_KNOWN FROM advisorlanguage ORDER BY LANGUAGE_KNOWN";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
@@ -342,7 +342,7 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=?";	
+			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? ORDER BY INDUSTRY";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
 			ResultSet results = pstmt.executeQuery();
