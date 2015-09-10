@@ -250,10 +250,7 @@
     <!-- /#wrapper -->
    	<script>
    	$(document).ready(function () {
-   		alert("${uri}");
-   		alert("${pageName}");
-
-  var trigger = $('.hamburger'),
+   	 var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
 
@@ -394,7 +391,6 @@ $('.squaredThree input[type=checkbox]').change(function() {
 	$('.black-screen').show();
 	var text=$(this).attr('name');
   	var value=$(this).attr('id');
-    debugger;
 	var adid = "";
 	if(adIds != ""){
 		adid = adIds;

@@ -200,7 +200,14 @@ $('body').on('click', '.less', function(e){
 });
 </script>
 <script type="text/javascript">
-	
+	function GetResultAccordingToSubCategory(elem){
+		$('.black-screen').show();
+		var id = elem.id;
+		var cat = id.split(",");
+		categ= cat[0];
+		subcateg = cat[1];
+		
+	}
 	function SubmitQuestion(){
 		$('.black-screen').show();
 		var question =$("#question").val();
