@@ -43,7 +43,7 @@
                 List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                 List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
         		pageContext.setAttribute("ids", ids);
-	
+
 
 %>
 </head>
@@ -69,44 +69,61 @@
    							<div class="filter-type">
    								<span>Language</span>
    							</div>
+   							<c:set value="0" var="langCounter"></c:set>
 							 <c:forEach var="language" items="${languages}">
-							 	  <c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
-							      <c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
-							      <div class="form-group squaredThree">
+   							      <c:set value="${langCounter +1 }" var="langCounter"></c:set>
+								  <c:if test="${langCounter <=10 }">
+									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+									<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
+									<div class="form-group squaredThree">
 							  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
 								      <label for="lan${lang}"></label><span>${language}</span>
 							      </div>
-							  </c:forEach>
-						 
-						<a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
+							      </c:if>
+							</c:forEach>
+							<c:if test="${languages.size() > 10 }">
+								<a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
+							</c:if>
 						</form>
    						<form>
    							<div class="filter-type">
    								<span>Industry</span>
    							</div>
+   							<c:set value="0" var="indCounter"></c:set>
 							 <c:forEach var="industry" items="${industries}">
+                                 <c:set value="${indCounter +1 }" var="indCounter"></c:set>
+								  <c:if test="${indCounter <=10 }">							 
 							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
 							      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
 								      <label for="ind${indus}"></label><span>${industry}</span>
 							      </div>
+							      </c:if>
 							  </c:forEach>
-						 
-						<a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
+							<c:if test="${industries.size() > 10 }">
+						        <a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
+						     </c:if>   
 						</form>
 						<form>
    							<div class="filter-type">
    								<span>College</span>
    							</div>
+   							   <c:set value="0" var="insCounter"></c:set>
 							   <c:forEach var="institution" items="${institutions}">
+							      <c:set value="${insCounter +1 }" var="insCounter"></c:set>
+								  <c:if test="${insCounter <=10 }">			
 							   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
 							      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
 								      <label for="col${institute}"></label><span>${institution}</span>
 							      </div>
+							      </c:if>
 							  </c:forEach>
+							  <c:if test="${institutions.size() > 10 }">
+						        <a href="#"  data-toggle="modal" data-target="#myModal" class="show-more-filter">Show more</a>
+						     </c:if>  
 						</form>
 							<!-- Modal -->
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -233,7 +250,7 @@
     <!-- /#wrapper -->
    	<script>
    	$(document).ready(function () {
-  var trigger = $('.hamburger'),
+   	 var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
 
@@ -374,7 +391,6 @@ $('.squaredThree input[type=checkbox]').change(function() {
 	$('.black-screen').show();
 	var text=$(this).attr('name');
   	var value=$(this).attr('id');
-    debugger;
 	var adid = "";
 	if(adIds != ""){
 		adid = adIds;

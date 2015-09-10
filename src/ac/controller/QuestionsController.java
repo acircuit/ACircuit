@@ -48,6 +48,7 @@ public class QuestionsController extends HttpServlet {
 		
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
+		System.out.println(higherStudiesSubCategory.length);
 		request.setAttribute("questions", list1);
 		request.setAttribute("answers", list);
 		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
