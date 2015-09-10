@@ -20,7 +20,7 @@
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
-					          	<div class="dropdown sugg">
+					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div></form></li>
 					      </ul>
@@ -103,12 +103,18 @@
    	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
    	            success : function(response) {
    	            	if(response != "nosuggestion"){
+   	   	            document.getElementById("headersuggestions").innerHTML="";
    	            	var obj = JSON.parse(response);
    	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
-   	            	var html='	<div class="suggestion">'+obj[0].word+'</div>';
-   	            	$('.sugg').append(html);
-   	            	$('.suggestion').show();
+   	            	$.each(obj, function(key,value) {
+	   	            	var html='	<div class="suggestion">'+value.word+'</div><br>';
+	   	            	$('.sugg').append(html);
+	   	            	$('.suggestion').show();
+   	            	}); 
    	            	/* alert(obj[0].word+"with "+ obj[0].hits+" hits"); */
+   	            	}else{
+   	   	   	            document.getElementById("headersuggestions").innerHTML="";
+	   	            	$('.suggestion').hide();
    	            	}
    	           	    $('.black-screen').hide();
    	            	

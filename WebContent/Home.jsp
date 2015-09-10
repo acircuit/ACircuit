@@ -119,8 +119,8 @@
 					  		</div>
    					</div>
 			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
-			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
-			   	<div class="dropdown sugg">
+			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSearchSuggestions(this)" name="word" autocomplete="off">
+			   	<div id="homesuggestions" class="dropdown homesugg">
 					          			
 					          	</div>
 			   	</form>
@@ -165,7 +165,7 @@
     	</div>
     	<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-							<a href="<fmt:message key="questions"/>"><button type="button" class="btn tab-button ">Find Advisors</button></a>
+							<a href="<fmt:message key="alladvisors"/>"><button type="button" class="btn tab-button ">Find Advisors</button></a>
 					    </fmt:bundle>
 							
 		</div>
@@ -189,8 +189,9 @@
 			</div> 
 		</div>
 		<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
-							<button type="button" class="btn tab-button ">Browse Answers</button>
-							
+		                 <fmt:bundle basename="ac.resources.Path" prefix="path.">
+							<a href="<fmt:message key="questions"/>"><button type="button" class="btn tab-button ">Browse Answers</button></a>
+					    </fmt:bundle>
 		</div>
     </div>
   </div>
@@ -325,6 +326,43 @@ $('body').on('focus', '.banner-search-box', function(e){
 }).on('blur','.banner-search-box', function() {
 	$('.suggestion').hide();
 });
+</script>
+<script type="text/javascript">
+	function FindSearchSuggestions(s) {
+   		var len = s.value.length;
+   	    if(len>=3){
+   	   	 $('.black-screen').show();
+   	        $.ajax({
+   	            url : 'GetSuggestions', // Your Servlet mapping or JSP(not suggested)
+   	            data : {"word" : s.value},
+   	            type : 'POST',
+   	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+   	            success : function(response) {
+   	            	if(response != "nosuggestion"){
+   	            	document.getElementById("homesuggestions").innerHTML="";
+   	            	var obj = JSON.parse(response);
+   	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
+   	            	$.each(obj, function(key,value) {
+	   	            	var html='	<div class="suggestion">'+value.word+'</div><br>';
+	   	            	$('.homesugg').append(html);
+	   	            	$('.suggestion').show();
+   	            	}); 
+   	            	/* alert(obj[0].word+"with "+ obj[0].hits+" hits"); */
+   	            	}else{
+   	   	            	document.getElementById("homesuggestions").innerHTML="";
+	   	            	$('.suggestion').hide();
+   	            	}
+   	           	    $('.black-screen').hide();
+   	            	
+   	            },
+   	            error : function(request, textStatus, errorThrown) {
+   	                alert(errorThrown);
+   	            }
+   	        }); 
+   	    }
+   	}
+
+
 </script>
 </body>
 </html>

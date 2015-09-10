@@ -40,6 +40,7 @@ public class GetSuggestionsController extends HttpServlet {
 			String data="";
 		    JSONArray array = new JSONArray();
 			for (String word : words) {
+				System.out.println(word);
 				JSONObject jo = new JSONObject();
 				jo.put("word", word);
 				jo.put("hits", map.get(word));
