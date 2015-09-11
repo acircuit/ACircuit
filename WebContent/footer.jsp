@@ -1,5 +1,8 @@
 <link href="assets/css/footer.css" rel="stylesheet">
 <div class="footer-div-bottom col-xs-12">
+<div class="col-xs-10 col-xs-offset-1 bordert">
+				   					<div style="border-bottom: 1px solid lightgray;margin-bottom: 30px;"></div>
+				   					</div>
 	<div class="col-xs-12 col-sm-4 logo-div-footer hidden-xs">
 		<img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo">
 	</div>

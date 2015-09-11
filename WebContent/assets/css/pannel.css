@@ -79,6 +79,10 @@ background: url("../img/search.png") no-repeat scroll 4px center;
 .alpha{
 	font-size:16px;
 	color:#37b7ae;
+	cursor: pointer;
+}
+.fa-times{
+	cursor: pointer;
 }
 /*Modifiaction in bootstrap classes*/
 .navbar {
@@ -105,6 +109,10 @@ background: url("../img/search.png") no-repeat scroll 4px center;
 .inc-searchulli{
 	width:90%;
 }
+.homesugg{
+	position: absolute;
+    width: 100%;
+}
 .sugg{
 margin-top: 4px;
 }
@@ -116,10 +124,13 @@ margin-top: 4px;
     padding: 4px;
     border: 1px solid lightgray;
     border-top: 0px;
-        position: absolute;
+        
             width: 100%;
     text-align: left;
     cursor:pointer;
+}
+.hsuggestion:hover,.suggestion:hover{
+    background-color: #E4E4E4;
 }
 .hsuggestion{
 	display:none;
@@ -263,6 +274,16 @@ margin-top:10px;
 .category-label{
   padding: 6px 12px;
     font-size: 14px;
+}
+.alpha-div-filter{
+	    min-height: 126px;
+    max-height: 126px;
+    overflow-y: scroll;
+    margin-bottom: 13px;
+}
+#filterModal{
+	max-height: 273px;
+    overflow-y: scroll;
 }
 .golden-button{
   background-color: #f5a623;

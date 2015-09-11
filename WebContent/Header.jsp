@@ -110,7 +110,7 @@
    	            	var obj = JSON.parse(response);
    	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
    	            	$.each(obj, function(key,value) {
-	   	            	var html='	<div class="hsuggestion">'+value.word+'</div><br>';
+	   	            	var html='	<div class="hsuggestion">'+value.word+'</div>';
 	   	            	$('.sugg').append(html);
 	   	            	$('.hsuggestion').show();
    	            	}); 

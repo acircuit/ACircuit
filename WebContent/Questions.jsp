@@ -222,12 +222,12 @@ $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
 });
 $('body').on('click', '.more', function(e){
-	var id = $(this).closest('.each-question-div').attr('id');
+	var id = $(this).closest('.answer-to-question').attr('id');
 	var data="I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ";
 	 $(this).closest('.each-question-div').find('.answer-to-question').html(data+'<span class="less">less</span>');
 });
 $('body').on('click', '.less', function(e){
-	var id = $(this).closest('.each-question-div').attr('id');
+	var id = $(this).closest('.answer-to-question').attr('id');
 	var data="I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ";
 	var res = data.substring(0,200);
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');

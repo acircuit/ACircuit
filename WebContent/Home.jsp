@@ -348,7 +348,7 @@ $('body').on('click', '.suggestion', function(e){
    	            	var obj = JSON.parse(response);
    	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
    	            	$.each(obj, function(key,value) {
-	   	            	var html='	<div class="suggestion">'+value.word+'</div><br>';
+	   	            	var html='	<div class="suggestion">'+value.word+'</div>';
 	   	            	$('.homesugg').append(html);
 	   	            	$('.suggestion').show();
    	            	}); 
