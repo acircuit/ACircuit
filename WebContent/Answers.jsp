@@ -164,6 +164,11 @@
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
 });
+$('body').on('click', '.collapsed-search-button', function(e){
+	 var optionSelected = $("#category-menu option:selected").attr('value');
+	 var optionSelectedsub = $("#subcategory-menu option:selected").attr('value');
+	 window.location.href = 'questions?category='+optionSelected+'&subcategory='+optionSelectedsub+'';
+});
 $('body').on('click', '.more', function(e){
 	var id = $(this).closest('.each-question-div').attr('id');
 	var data="I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ";
