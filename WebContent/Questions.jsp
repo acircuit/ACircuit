@@ -190,23 +190,23 @@
 								  </div>
 								</div>
 <script>
-function questioncard(){
+function questioncard(value){
 	var html='<div class="each-question-div row" id="">'
 			+'<div class="col-xs-12 tag-div">'
-			+'<span class="tag">category</span>'
-			+'<span class="tag">subcategory</span>'
+			+'<span class="tag">'+value.category+'</span>'
+			+'<span class="tag">'+value.subcategory+'</span>'
 			+'</div>'
 			+'<div class="col-xs-12 question-div">'
-			+'<a href="link"><span class="question">question here</span></a>'
+			+'<a href="answers?q='+value.id+'"><span class="question">'+value.question+'</span></a>'
 			+'<br>'
-			+'<span class="count-answers">12 answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>'
+			+'<span class="count-answers">'+value.count+' answers</span><span class="updated-on">Last Updated on '+value.lastupdated+'</span>'
 			+'</div> '
 			+'<div class="col-xs-9 answer-div">'
 			+'<span class="by-whom">'
 			+'<span class="nameA">Raghu Venkat </span> answered'
 			+'</span>'
 			+'<p class="answer-to-question">'
-			+'answerhere<span class="more">more</span>'
+			+value.answer+'<span class="more">more</span>'
 
 			+'</p>'
 			+'</div>'
@@ -215,6 +215,8 @@ function questioncard(){
 			+'</div>'
 
 			+'</div>';
+			
+	        $('.white-body-div').append(html);
 }
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
@@ -230,8 +232,7 @@ $('body').on('click', '.less', function(e){
 	var res = data.substring(0,200);
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');
 });
-</script>
-<script type="text/javascript">
+
 	function GetResultAccordingToSubCategory(elem){
 		$('.black-screen').show();
 		var id = elem.id;
@@ -260,6 +261,64 @@ $('body').on('click', '.less', function(e){
                 
             }
         });
+	}
+	
+	function GetResultAccordingToSubCategory(elem){
+		$('.black-screen').show();
+		var id = elem.id;
+		var cat = id.split(",");
+		categ= cat[0];
+		subcateg = cat[1];
+	    $('.white-body-div').html('');
+		$.ajax({
+	        url : 'GetSubcategoryQuestions', // Your Servlet mapping or JSP(not suggested)
+	        data : {"category":cat[0],"subcategory":cat[1]},
+	        type : 'POST',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	          	var obj = JSON.parse(response);
+	          	$.each(obj, function(key,value) {
+	          		 questioncard(value);
+	          	}); 
+	          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+	             					// create an empty div in your page with some id
+	          	 $('.black-screen').hide();
+
+	          },
+	          error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    });
+	}
+	
+	function GetResultsUsingSubCategory(){
+		$('.black-screen').show();
+		   var sel = document.getElementById('category-menu');
+		   var category = sel.options[sel.selectedIndex].value;
+		   var sel1 = document.getElementById('subcategory-menu');
+		   var subcategory = sel1.options[sel1.selectedIndex].value;
+		    $('.white-body-div').html('');
+			$.ajax({
+		        url : 'GetSubcategoryQuestions', // Your Servlet mapping or JSP(not suggested)
+		        data : {"category":category,"subcategory":subcategory},
+		        type : 'POST',
+		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+		        success : function(response) {
+		          	var obj = JSON.parse(response);
+		          	$.each(obj, function(key,value) {
+		          		 questioncard(value);
+		          	}); 
+		          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+		             					// create an empty div in your page with some id
+		          	 $('.black-screen').hide();
+
+		          },
+		          error : function(request, textStatus, errorThrown) {
+		            alert(errorThrown);
+		            
+		        }
+		    });
 	}
 
 </script>

@@ -215,7 +215,6 @@ public class FilterController extends HttpServlet {
 				//q= q+advisor.getId();
 				}else{
 					isLeft = true;
-					count++;
 				}
 			}
 		}

@@ -54,7 +54,7 @@ public class GetAdvisors extends HttpServlet {
             endIndex = startIndex +5;
 			initialAdvisors = Arrays.copyOfRange(advisorIds, startIndex, endIndex);
 		}
-		
+		Boolean isLeft = false;
 		  JSONArray array = new JSONArray();
 			for(String aid : initialAdvisors){
 				if(aid != null){
@@ -139,15 +139,19 @@ public class GetAdvisors extends HttpServlet {
 									jo.put("designation", prof.getDesignation());
 								}
 							}
+							isLeft = false;
 							array.add(jo);
 					//q= q+advisor.getId();
 				   }else{
-						JSONObject jo = new JSONObject();
-						jo.put("name","noadv");
-						array.add(jo);
+						isLeft = true;
+						
 				   }
 				}
-
+                if(isLeft){
+                	JSONObject jo = new JSONObject();
+					jo.put("name","noadv");
+					array.add(jo);
+                }
 			response.getWriter().write(array.toJSONString());
 		
 		logger.info("Exit doPost method of GetAdvisors");

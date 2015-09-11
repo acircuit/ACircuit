@@ -56,6 +56,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 		Boolean isLeft = false;
 		SearchDAO advisors = new SearchDAO();
 		ids = 	advisors.GetAdvisorsUsingCategory(category);
+		System.out.println(ids);
 		String[] advisorIds = ids.split(":");
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
@@ -128,13 +129,15 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 								jo.put("designation", prof.getDesignation());
 							}
 						}
+						System.out.println(jo.get("name"));
 						array.add(jo);
 						count++;
 						isLeft = false;
+						System.out.println(isLeft);
 						
 					}else{
 						isLeft = true;
-						count++;
+						System.out.println(isLeft);
 					}
 				}
 			
@@ -144,12 +147,13 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 				jo.put("name", "noadv");
 				array.add(jo);
 			}
-			 int pos = ids.lastIndexOf(':');
-			 ids = ids.substring(0, pos);
+			 int pos = adId.lastIndexOf(':');
+			 adId = adId.substring(0, pos);
 			 JSONObject jo = new JSONObject();
 				jo.put("name", "id");
 				jo.put("ids", adId);
 				array.add(jo);
+				System.out.println(array.size());
 			response.getWriter().write(array.toJSONString());
 
 	    logger.info("Exit doPost method of GetSubcategoryAdvisorsController");
