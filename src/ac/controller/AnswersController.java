@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.cache.MyCacheBuilder;
 import ac.dao.QuestionsDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
@@ -68,6 +69,16 @@ public class AnswersController extends HttpServlet {
 		QuestionsDAO cats = new QuestionsDAO();
 		List<String> popCats = cats.GetPopularCategories();
 		
+		//Getting the sub categories
+		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+		
+		MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+		List<String> industrySubCategory = industry.getIndustrySubCategory();
+		
+		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+		List<String> optionsSubCategory = option.getOpionsSubCategory();
+		
 		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
 		request.setAttribute("popCats", popCats);
 		request.setAttribute("question", que);
@@ -75,7 +86,9 @@ public class AnswersController extends HttpServlet {
 		request.setAttribute("last_Updated", last_Updated);
 		request.setAttribute("advisors", advisors);
 		request.setAttribute("count", count);
-
+		request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+		request.setAttribute("industrySubCategory", industrySubCategory);
+		request.setAttribute("optionsSubCategory", optionsSubCategory);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Answers.jsp");
         rd.forward(request, response);
 		
