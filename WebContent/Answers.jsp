@@ -120,15 +120,13 @@
 				   				</c:forEach>
 			   				</c:forEach>
 			   				
-				   				<div class="col-xs-11">
-				   					<div style="border-bottom: 1px solid lightgray;"></div>
-				   				</div>
+				   			
 			   				</div>
 			   				
 			   				
 			   				
 			   		</div>
-	   			</div>
+	   			
 	   			<div class="col-xs-3 hidden-xs">
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
@@ -148,9 +146,18 @@
                     </div>
 	   			</div>
    			</div>
+   			<div class="load-more-div col-xs-12" style="margin-top:30px;">
+   				<div class="col-xs-9" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;">
+	   						<button type="button" class="btn load-more" style="width: 200px;">
+	  											Load more</button>
+	
+	   					</div>
+   			</div>
+   		</div>	
    	 </div>
+	 <%@include file="/footer.jsp" %>
 </div>
-</div>
+
 <script>
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
