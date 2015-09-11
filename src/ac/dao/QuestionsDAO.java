@@ -447,6 +447,61 @@ public class QuestionsDAO {
 		logger.info("Exit GetPopularCategories method of QuestionsDAO");
 		return list;
 	}
+	
+	public List<QuestionsDTO> GetQuestionsAccordingToSubcategory(String category, String subcategory) {
+		logger.info("Entered GetQuestionsAccordingToSubcategory method of QuestionsDAO");
+		List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM questions WHERE ISANSWERED=?  AND CATEGORY=? AND SUBCATEGORY=?";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			if(category.equals("higherstudies")){
+				pstmt.setString(2,"studies");
+			}else if (category.equals("industry")) {
+				pstmt.setString(2,"industry");
+			}else{
+				pstmt.setString(2,"options");
+			}
+			pstmt.setString(3, subcategory.toLowerCase());
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				QuestionsDTO question = new QuestionsDTO();
+				question.setQuestionId(results.getInt("Q_ID"));
+				question.setQuestion(results.getString("QUESTION"));
+				question.setCategory(results.getString("CATEGORY"));
+				question.setSubcategory(results.getString("SUBCATEGORY"));
+				questions.add(question);
+			}
+			logger.info("Exit GetQuestionsAccordingToSubcategory method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetQuestionsAccordingToSubcategory method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestionsAccordingToSubcategory method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestionsAccordingToSubcategory method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestionsAccordingToSubcategory method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetQuestionsAccordingToSubcategory method of QuestionsDAO");
+		return questions;
+	}
+
 
 	private String generateQsForIn(int numQs) {
 		String items = "";

@@ -339,9 +339,11 @@
       }
       
   }
+  if("${ids}" == ""){
+	    emptystate();
 
+  }
 	  
-    emptystate();
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });  
@@ -360,7 +362,11 @@ function defaultcall(){
       success : function(response) {
       	var obj = JSON.parse(response);
       	$.each(obj, function(key,value) {
+      		if(value.name != "noadv"){
       		 expertcard(value);
+      		}else{
+      			 document.getElementById("loadmore").style.display = 'block';
+      		}
       		}); 
       	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
          					// create an empty div in your page with some id
@@ -480,8 +486,9 @@ $('.squaredThree input[type=checkbox]').change(function() {
 		            type : 'POST',
 		            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		            success : function(response) {
-           			    document.getElementById("loadmore").style.visibility = "hidden";
-           			    document.getElementById("loadmoresub").style.visibility = "hidden";
+           			 document.getElementById("loadmore").style.display = 'none';
+        			 document.getElementById("loadmoresub").style.display = 'none';
+
 		            	var obj = JSON.parse(response);
 		            	var count=0;
 		            	$.each(obj, function(key,value) {
@@ -525,6 +532,7 @@ function GetLeftAdvisors(){
         success : function(response) {
         	var obj = JSON.parse(response);
         	var count=0;
+        	filterPaging++;
         	$.each(obj, function(key,value) {
         		if(value.name !="noadv"){
         		 if(count >10){
@@ -618,10 +626,52 @@ function GetResultAccordingToSubCategory(elem){
           		 count++;
           		}else if (value.name =="id") {
         			 adIds = value.ids;
-				}else{
-       			     document.getElementById("loadmore").style.display  = "none";
+        			 document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'none';
+				}else if (value.name =="noadv") {
+					 document.getElementById("loadmore").style.display  = "none";
           			 document.getElementById("loadmoresub").style.display = 'block';
-          		}
+				}
+          		}); 
+          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+             					// create an empty div in your page with some id
+          	 $('.black-screen').hide();
+
+          },
+          error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+function GetResultsUsingSubCategory(){
+	$('.black-screen').show();
+	   var sel = document.getElementById('category-menu');
+	   var category = sel.options[sel.selectedIndex].value;
+	   var sel1 = document.getElementById('subcategory-menu');
+	   var subcategory = sel1.options[sel1.selectedIndex].value;
+    $('.card-container').html('');
+	$.ajax({
+        url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":category,"subcategory":subcategory},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+       
+          	var obj = JSON.parse(response);
+          	var count=0;
+          	$.each(obj, function(key,value) {
+          		if(value.name !="noadv" && value.name !="id"){
+          		 expertcard(value);
+          		 count++;
+          		}else if (value.name =="id") {
+        			 adIds = value.ids;
+        			 document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'none';
+				}else if (value.name =="noadv") {
+					 document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'block';
+				}
           		}); 
           	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
              					// create an empty div in your page with some id
@@ -652,10 +702,13 @@ function GetLeftAdvisorsUsingSubcategory(){
        			 document.getElementById("loadmoresub").style.display = 'none';
         		 }else if (value.name =="id") {
         			 adIds =value.ids;
+				}else if (value.name !="noadv") {
+					 document.getElementById("loadmore").style.display  = "none";
+          			 document.getElementById("loadmoresub").style.display = 'block';
 				}
         		 else{
         			 document.getElementById("loadmore").style.display  = "none";
-          			 document.getElementById("loadmoresub").style.display = 'block';
+          			 document.getElementById("loadmoresub").style.display = 'none';
         		 }
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;

@@ -6,9 +6,9 @@
    							<div class="col-xs-4">
    					
    							<select class="collapsed-filter-button" id="category-menu">
-								  <option value="1">Higher studies</option>
-								  <option value="2">Industry</option>
-								  <option value="3">Courses</option>
+								  <option value="higherstudies">Higher studies</option>
+								  <option value="industry">Industry</option>
+								  <option value="options">Courses</option>
 								 
 								</select>
    							</div>
@@ -19,14 +19,14 @@
 							</select>
    						</div>
    						<div class="col-xs-4">
-   						<button type="button" class="btn green-button collapsed-search-button" style="width:100%">Search</button>
+   						<button type="button" class="btn green-button collapsed-search-button" style="width:100%" onclick="GetResultsUsingSubCategory()">Search</button>
    						</div>
    						</div>
    					</div>
    					<script>
    					$('#category-menu').on('change', function() {
    		  			 var values= ( this.value ); // or $(this).val()
-	   		  		if(values=='1')
+	   		  		if(values=='higherstudies')
 						 {
 	   		  				var option1="";
 						 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
@@ -34,7 +34,7 @@
 						   $('#subcategory-menu').html(option1);
 						 	</c:forEach>
 						 }
-						else if(values=='2')
+						else if(values=='industry')
 						 {  
 							var option2="";
 							<c:forEach items="${industrySubCategory}" var="sub">

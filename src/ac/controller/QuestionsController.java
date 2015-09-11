@@ -32,14 +32,29 @@ public class QuestionsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of QuestionsController");
-		//Getting all the questions for the user
+		String category = request.getParameter("category");
+		String subcategory = request.getParameter("subcategory");
 		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();
-		QuestionsDAO que = new QuestionsDAO();
-		list1 = que.GetAllQuestions();
-		//Getting the Answers of the question
 		List<AnswerDTO> list = new ArrayList<AnswerDTO>();
-		QuestionsDAO question = new QuestionsDAO();
-		list = question.GetAnswers(list1);
+		if(category != null && subcategory != null){
+			QuestionsDAO questions = new QuestionsDAO();
+			list1 = questions.GetQuestionsAccordingToSubcategory(category,subcategory);
+			//Getting the last updated answer for each of the questions
+			QuestionsDAO answers = new QuestionsDAO();
+			list = answers.GetAnswers(list1);
+			
+			
+		}else{
+			//Getting all the questions for the user
+			QuestionsDAO que = new QuestionsDAO();
+			list1 = que.GetAllQuestions();
+			//Getting the Answers of the question
+			QuestionsDAO question = new QuestionsDAO();
+			list = question.GetAnswers(list1);
+		}
+
+		
+		
 		SimpleDateFormat format = new SimpleDateFormat("dd MMM");
 		for(QuestionsDTO que1 : list1) {
 		 int count=0;

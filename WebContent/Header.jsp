@@ -59,9 +59,9 @@
 					            </button>
 					       
 					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
-					         <div id="headersuggestions" class="dropdown sugg">
+					        <!--  <div id="headersuggestions" class="dropdown sugg">
 					          			
-					          	</div></form>
+					          	</div> --></form>
    	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),
@@ -110,14 +110,14 @@
    	            	var obj = JSON.parse(response);
    	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
    	            	$.each(obj, function(key,value) {
-	   	            	var html='	<div class="suggestion">'+value.word+'</div><br>';
+	   	            	var html='	<div class="hsuggestion">'+value.word+'</div><br>';
 	   	            	$('.sugg').append(html);
-	   	            	$('.suggestion').show();
+	   	            	$('.hsuggestion').show();
    	            	}); 
    	            	/* alert(obj[0].word+"with "+ obj[0].hits+" hits"); */
    	            	}else{
    	   	   	            document.getElementById("headersuggestions").innerHTML="";
-	   	            	$('.suggestion').hide();
+	   	            	$('.hsuggestion').hide();
    	            	}
    	           	    $('.black-screen').hide();
    	            	
@@ -129,23 +129,23 @@
    	    }
    	}
    	$('body').on('focus', '.search-box', function(e){
-   		$('.suggestion').show();
+   		$('.hsuggestion').show();
    		$('#bs-example-navbar-collapse-1 ul li:not(:last)').hide();
    		$('#bs-example-navbar-collapse-1 ul').addClass('inc-searchulli');
    		$('#bs-example-navbar-collapse-1 ul li:last').addClass('inc-searchulli');
    		$('.search-form').addClass('inc-searchbox');
     }).on('blur',".search-box", function() {
     	$('#bs-example-navbar-collapse-1 ul li').show();
-    	/* $('.suggestion').hide(); */
+    	/* $('.hsuggestion').hide(); */
     	$('#bs-example-navbar-collapse-1 ul').removeClass('inc-searchulli');
    		$('#bs-example-navbar-collapse-1 ul li:last').removeClass('inc-searchulli');
     	$('.search-form').removeClass('inc-searchbox');
     });
    	
-   	$('body').on('click', '.suggestion', function(e){
+   	$('body').on('click', '.hsuggestion', function(e){
    		var suge= $(this).html();
    		$('.search-box').val(suge);
-   		$('.suggestion').hide();
+   		$('.hsuggestion').hide();
     });
    	
    	</script>

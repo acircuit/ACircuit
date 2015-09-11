@@ -150,7 +150,6 @@
    			</div>
    	 </div>
 </div>
-</div>
 <script>
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
