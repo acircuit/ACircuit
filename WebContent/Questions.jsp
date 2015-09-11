@@ -140,6 +140,7 @@
    			</div>
    			</div>
    	 </div>
+   	 <%@include file="/footer.jsp" %>
 </div>
 
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
