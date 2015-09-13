@@ -24,8 +24,8 @@
 <link href="assets/css/nav-mobile.css" rel="stylesheet">
 <link href="assets/css/qa.css" rel="stylesheet">
 <link href="assets/css/ud.css" rel="stylesheet">
-
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
 
 <!-- Fonts from Google Fonts -->
@@ -209,7 +209,7 @@
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;">Book a session</button>
+							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
 						</div>
@@ -235,7 +235,128 @@
    	 </div>
    	 <%@include file="/footer.jsp" %>
 </div>
-
+<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								    	<div class="modal-head-bsession">
+								    		<span class="modal-head-text">Book A Session</span>
+								    	</div>
+								    	<div class="modal-main-body row">
+								    		<span class="modal-body-text">Session with Charles Dixon</span>
+								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data">
+								    			<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
+											       <div class="col-xs-9 form-group">
+				                                         <div class="col-xs-6">
+				                                         	 <div class="roundedOne">
+																<input type="checkbox" value="" id="phone" name="check" />
+																<label for="phone"></label>
+																<span class="available-type-text">Phone</span>
+																
+															</div>
+														</div>
+														<div class="col-xs-6">
+				                                         	 <div class="roundedOne">
+																<input type="checkbox" value="" id="video" name="check" />
+																<label for="video"></label>
+																<span class="available-type-text">video</span>
+																
+															</div>
+														</div>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
+											       <div class="col-xs-9 form-group">
+				                                        <select class="collapsed-filter-button inpt-mw" id="duration">
+														  <option value="1">30 minutes</option>
+														  <option value="2">Industry</option>
+														  <option value="3">Courses</option>
+														 
+														</select> 
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
+											       <div class="col-xs-9 form-group">
+				                                       <span class="session-cost">Rs 500</span><br>
+				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Query Description</label>
+											       <div class="col-xs-9 form-group">
+				                                       <textarea class="form-control"></textarea>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Attachments</label>
+											       <div class="col-xs-9 form-group">
+				                                      <input type="file" class="custom-file-input">
+											 		</div>
+											 	</div>
+											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw">
+														  <option value="1">4:30pm</option>
+														  <option value="2">Industry</option>
+														  <option value="3">Courses</option>
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw">
+														  <option value="1">4:30pm</option>
+														  <option value="2">Industry</option>
+														  <option value="3">Courses</option>
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw">
+														  <option value="1">4:30pm</option>
+														  <option value="2">Industry</option>
+														  <option value="3">Courses</option>
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="col-xs-12 button-div" >
+											 	<button type="button" class="btn book-button" >Book</button>
+											 	<button type="button" class="btn cancel-button" data-dismiss="modal">Cancel</button>
+											 	
+											 	</div>
+								    		</form>
+								    	</div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -283,6 +404,10 @@
 								  </div>
 								</div>
 <script>
+$('.datepicker').datepicker({
+    format: 'mm/dd/yyyy',
+    startDate: '-3d'
+})
 function questioncard(value){
 	var html='<div class="each-question-div row" id="">'
 			+'<div class="col-xs-12 tag-div">'
