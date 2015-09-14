@@ -39,6 +39,12 @@
 		<a href="" onclick="">${institute}</a>
 		<br>
 	</c:forEach>
+	
+	<form action="LoginController" method="post">
+		<input type="text" id="email" name="email">
+		<input type="password" name="password">
+		<button type="submit"></button>
+	</form>
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
 function FindSuggestions(s) {

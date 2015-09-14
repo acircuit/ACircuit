@@ -93,7 +93,7 @@
 									<span class="by-whom">
 									<span class="nameA">Raghu Venkat </span> answered
 									</span>
-									<p class="answer-to-question">
+									<p  class="answer-to-question">
 									<c:forEach items="${answers }" var="answer">
 										<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
 											${answer.getAnswer()} <span class="more">more</span>

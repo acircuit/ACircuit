@@ -24,8 +24,22 @@ public class AdvisorDTO implements Serializable {
 	private List<ProfessionalBackgroundDTO> profession;
 	private List<CategoryDTO> categories;
 	private List<SubCategoryDTO> subCategories;
-	private List<AdvisorLanguageDTO> language; 
+	private List<AdvisorLanguageDTO> language;
+	private Boolean isActive;
+	private Boolean isVerified;
 	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
 	public List<AdvisorLanguageDTO> getLanguage() {
 		return language;
 	}

@@ -70,7 +70,7 @@
     <servlet-name>GetSubcategoryAdvisors</servlet-name>
     <url-pattern>/GetSubcategoryAdvisors</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>GetSubcategoryQuestions</servlet-name>
     <servlet-class>ac.controller.GetSubcategoryQuestionsController</servlet-class>
   </servlet>
@@ -85,5 +85,21 @@
   <servlet-mapping>
     <servlet-name>advisorprofile</servlet-name>
     <url-pattern>/advisorprofile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userdashboard</servlet-name>
+    <servlet-class>ac.controller.UserDashboardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userdashboard</servlet-name>
+    <url-pattern>/userdashboard</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisordashboard</servlet-name>
+    <servlet-class>ac.controller.AdvisorDashboardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisordashboard</servlet-name>
+    <url-pattern>/advisordashboard</url-pattern>
   </servlet-mapping>
 </web-app>

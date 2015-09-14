@@ -431,7 +431,7 @@ var filterString = "";
 	}
     $('.card-container').html('');
 		  if ($(this).is(':checked')) {
-		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+" <i class='fa fa-times'></i></span>")
+		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+"</span>")
 		    
 		  } else {
 		 	 $('.filterlist [value='+value+']').remove();
@@ -453,6 +453,7 @@ var filterString = "";
 		       }
 		       var pos = filterString.lastIndexOf('::');
 		       filterString = filterString.substring(0,pos);
+		       debugger;
 		    	$.ajax({
 		            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
 		            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},

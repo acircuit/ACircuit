@@ -208,6 +208,7 @@ public class FilterController extends HttpServlet {
 						jo.put("designation", prof.getDesignation());
 					}
 				}
+				System.out.println("added");
 				array.add(jo);
 				count++;
 				isLeft = false;
