@@ -81,7 +81,7 @@
 .link{
 	
 }
-.prop-time-div{
+.write-div,.prop-time-div{
 	margin-bottom: 25px;
 }
 .prop-time-text{
@@ -89,6 +89,7 @@
     font-size: 24px;
     display: inline-block;
     margin-bottom: 20px;
+    font-family: latol;
 }
 .slot-asked-for{
 	float: left;
@@ -113,6 +114,8 @@
 }
 .total-cost-div {
     margin-top: 25px;
+        margin-bottom: 25px;
+    
 }
 .total-cost-text{
 	    color: #9b9b9b;
@@ -130,15 +133,55 @@
 	color:#4a4a4a;
 	font-size:18px;
 }
-.rating-md {
+.review-div .rating-md {
     font-size: 1.13em;
     padding-top: 0px;
     text-align: right;
     margin-top: -28px;
     margin-bottom: 11px;
 }
+.write-div .rating-md {
+    font-size: 1.13em;
+    padding-top: 0px;
+    text-align: left;
+       margin-top: -3px;
+    margin-bottom: 0px;
+}
 .review-div{
 	margin-bottom: 25px;
     border-bottom: 1px solid lightgray;
     padding-bottom: 10px;
+}
+.submit-button{
+	    background-color: #f2624d;
+    color: white;
+    float: right;
+    width: 120px;
+    height: 40px;
+}
+.next-step-div{
+	background-color:#f2f2f2;
+	padding-top: 20px;
+}
+.next-step-text{
+	font-size:24px;
+	font-family:latol;
+}
+.more-session{
+	color:#4a4a4a;
+	font-size:13px;
+}
+.more-session-div{
+	margin-top:20px;
+}
+.new-session-div{
+margin-top: 20px;
+    text-align: center;
+    margin-bottom: 55px;
+    }
+.book-new{
+	font-size: 18px;
+    color: #fd6d64;
+    font-weight: 600;
+    text-decoration: underline;
 }
