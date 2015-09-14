@@ -20,6 +20,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="https//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="assets/css/pannel.css" rel="stylesheet">
 <link href="assets/css/ud.css" rel="stylesheet">
@@ -320,7 +321,7 @@
 	</div>
 	</div>
 </div>
-<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="booksession">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-body">
@@ -390,9 +391,8 @@
 											       </div>
 											       <div class="col-xs-6">
 											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
+														  
+														  
 													</select> 
 											       </div>
 				                                     
@@ -406,9 +406,7 @@
 											       </div>
 											       <div class="col-xs-6">
 											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
+														
 													</select> 
 											       </div>
 				                                     
@@ -422,9 +420,7 @@
 											       </div>
 											       <div class="col-xs-6">
 											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
+														
 													</select> 
 											       </div>
 				                                     
@@ -491,12 +487,20 @@
 <script>
 
 $(document).ready(function () {
+	$('.datepicker').datepicker({
+	    format: 'mm/dd/yyyy',
+	    startDate: '-3d'
+	});
+	var i=0;
+	var html=""
+	for(i=0;i<25;i++){
+		html='<option value="'+i+':00">'+i+':00 Hours</option>'
+			+'<option value="'+i+':30">'+i+':30 Hours</option>';
+		$('.inpt-mw').append(html);
+	}
 	starinputconversion();
 });
-$('.datepicker').datepicker({
-    format: 'mm/dd/yyyy',
-    startDate: '-3d'
-})
+
 $('body').on('click', '.more', function(e){
 	var id = $(this).closest('.each-question-div').attr('id');
 	var data="I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ";
