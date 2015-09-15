@@ -63,7 +63,7 @@
 	color: #9b9b9b;
     font-size: 24px;
     display: inline-block;
-    margin-bottom: 21px;
+    margin-bottom: 18px;
 }
 .q-description{
 	font-size:13px;
@@ -133,6 +133,7 @@
 .session-date{
 	color:#4a4a4a;
 	font-size:18px;
+	border-bottom: 2px solid #4a90e2;
 }
 .review-div .rating-md {
     font-size: 1.13em;
@@ -225,6 +226,7 @@ color: #9b9b9b;
 .timeslots-proposed{
 	color:#4a4a4a;
 	font-size:13px;
+	margin-right: 26px;
 }   
 .similar-profiles-div{
 	margin-top: 13px;
@@ -273,4 +275,21 @@ color: #9b9b9b;
     clear: left;
     margin-left: 60px;
     margin-top: -13px;
+}
+.step-text-no{
+	font-size:15px;
+	color:#9b9b9b;
+	line-height: 25px;
+}
+.approx-cost-head{
+	
+}
+.reason-input{
+	
+}
+.modal-main-body {
+    padding: 30px 40px 31px 40px;
+}
+#booksession .modal-body {
+    background-color: #e7e7e7;
 }
