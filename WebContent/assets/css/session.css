@@ -52,6 +52,7 @@
 }
 .mode-type{
 	color: #4a4a4a;
+	line-height: 33px;
 }
 .query-description-div{
 	padding-top: 40px;
@@ -162,6 +163,7 @@
 .next-step-div{
 	background-color:#f2f2f2;
 	padding-top: 20px;
+	min-height: 135px;
 }
 .next-step-text{
 	font-size:24px;
@@ -185,3 +187,42 @@ margin-top: 20px;
     font-weight: 600;
     text-decoration: underline;
 }
+.due-in-text{
+	color:#6c6c6c;
+	font-size:14px;
+	font-family:Open SansL;
+}
+.due-in-time{
+	color:#4a4a4a;
+	font-size:22px;
+		font-family:Open SansL;
+}
+.advisor-description-div{
+	padding-top: 22px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 9px;
+}
+.advisor-description-head{
+color: #9b9b9b;
+    font-size: 24px;
+    display: inline-block;
+    margin-bottom: 21px;
+}
+.query-description-small-text{
+	color:#4a4a4a;
+	font-size:14px;
+	font-family:Open SansL;
+}
+.propsed-time-slots-div{
+	
+}
+.propsed-time-slots-head{
+	color:#4a4a4a;
+	font-size:14px;
+	font-family:Open SansL;
+	    line-height: 36px;
+}
+.timeslots-proposed{
+	color:#4a4a4a;
+	font-size:13px;
+}    
