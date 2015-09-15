@@ -35,21 +35,9 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
 
-        		pageContext.setAttribute("ids", ids);
-	
-
+                   SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
+                   UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
 %>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -65,39 +53,41 @@
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with Charlie Dixon</span>
+							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${userDetails.getFullName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="assets/img/Abhishek.JPG">
+								<img src="${userDetails.getImage()}">
 							</div>
 				   		</div>
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<span class="session-id">Session ID #123456</span>
-		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;">Accept Session</button>
+		   		    		<span class="session-id">Session ID ${sessionDetails.getSessionid()}</span>
+		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
 					   		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request waiting for your approval</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">Aasfsfd</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="btext name">${userDetails.getFullName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
 						   		<br>
-						   		<span class="mode">Duration</span>	<span class="mode-type">30 Minutes</span>
+						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   		</div>
 					   		<div class="query-description-div col-xs-12 no-padding">
 					   			<span class="query-description-head">Query Description</span>
 					   			<p class="q-description">
-					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
+					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
-					   			<a class="link btext">resume.txt</a>
+					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		<form action="approvesession" method="post">
+					   		<input type="hidden" value="${sessionDetails.getSessionid()}" name="sId">
 					   		<div class="col-xs-12 no-padding">
 					   		<span class="prop-time-text">Proposed Time Slots</span>
 					   		</div>
@@ -105,31 +95,24 @@
 					   			
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="roundedOne">
-											<input type="checkbox" value="" id="video" name="check" />
+											<input type="checkbox" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="video" name="date1" />
 											<label for="video"></label>
 										</div>
-										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">23rd September 2015, 7:30 pm</span></span>
+										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="roundedOne">
-											<input type="checkbox" value="" id="video" name="check" />
+											<input type="checkbox" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="video" name="date1" />
 											<label for="video"></label>
 										</div>
-										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">23rd September 2015, 7:30 pm</span></span>
+										<span class="slot-asked-for"><span class="slot-no">Slot 2</span><span class="slot-asked-time">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="roundedOne">
-											<input type="checkbox" value="" id="video" name="check" />
+											<input type="checkbox" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="video" name="date1" />
 											<label for="video"></label>
 										</div>
-										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">23rd September 2015, 7:30 pm</span></span>
-					   				</div>
-					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
-											<input type="checkbox" value="" id="video" name="check" />
-											<label for="video"></label>
-										</div>
-										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">23rd September 2015, 7:30 pm</span></span>
+										<span class="slot-asked-for"><span class="slot-no">Slot 3</span><span class="slot-asked-time">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="roundedOne">
@@ -148,10 +131,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="newdate1">
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw">
+											        <select class="collapsed-filter-button inpt-mw" name="newtime1">
 														
 													</select> 
 											       </div>
@@ -162,10 +145,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="newdate2">
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw">
+											        <select class="collapsed-filter-button inpt-mw" name="newtime2">
 														
 													</select> 
 											       </div>
@@ -177,16 +160,17 @@
 					   			<span class="prop-time-text">Session Plan</span>
 					   		</div>
 					   			<div class="prop-time-div col-xs-12 no-padding">
-					   				<textarea rows="5" cols="" class="form-control"></textarea>
+					   				<textarea rows="5" cols="" class="form-control" id="sessionplan" name="sessionplan"></textarea>
 					   			</div>
 					   			<div class="total-cost-div">
 					   				<span class="total-cost-text">Total cost</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
+					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
 					   			</div>
 					   			<div class="col-xs-12 no-padding">
-					   			<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;">Accept Session</button>
+					   			<button type="submit" class="btn two-buttons" style="background-color: #f2624d;color:white;">Accept Session</button>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
 					   			</div>
+					   			</form>
 				   		</div>
 				   	</div>
 				   
@@ -216,7 +200,10 @@ $(document).ready(function () {
 	}
 	starinputconversion();
 });
+
+function AcceptSession(){
 	
+}
 
 </script>
 </body>

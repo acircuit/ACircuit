@@ -2,7 +2,6 @@ package ac.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,36 +10,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-/**
- * Servlet implementation class UserDashboardController
- */
-@WebServlet("/UserDashboardController")
-public class UserDashboardController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(UserDashboardController.class);
- 
+import ac.dao.SessionDAO;
 
+/**
+ * Servlet implementation class UserMyAccountCurrentSessionsController
+ */
+@WebServlet("/UserMyAccountCurrentSessionsController")
+public class UserMyAccountCurrentSessionsController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(UserMyAccountCurrentSessionsController.class);
+  
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Entered doPost method of UserLoginController");
 		int userId = 0;
-		Boolean isError = false;
+		Boolean isError =false;
 		try{
 			userId = (int) request.getSession().getAttribute("userId");
 		}catch(Exception e){
 			isError = true;
 		}
+		//Getting the sessiondetails for the user
 		if(userId != 0){
-			//Getting all the information needed for the dashboard
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userdashboard.jsp");
-	        rd.forward(request, response);
-		}
-		if(isError){
-			response.sendRedirect("Error");
-		}
+			SessionDAO session= new SessionDAO();
+			session.GetSessionDetails(userId);
 			
-		logger.info("Entered doPost method of UserLoginController");
+			
+		}
 	}
 }
