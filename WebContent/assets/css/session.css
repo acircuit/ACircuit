@@ -225,4 +225,52 @@ color: #9b9b9b;
 .timeslots-proposed{
 	color:#4a4a4a;
 	font-size:13px;
-}    
+}   
+.similar-profiles-div{
+	margin-top: 13px;
+   
+}
+.similar-profile-head{
+	font-size: 15px;
+    color: #9b9b9b;
+    font-family: lato;
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 19px;
+} 
+.adv-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: left;
+}
+.adv-name {
+    font-size: 18px;
+    color: #37b7ae;
+    font-family: 'Open SansR';
+    display: inline-block;
+   margin-top: 0px;
+    margin-left: 8px;
+}
+.adv-field {
+    font-family: 'Open SansR';
+    color: #6c6c6c;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-left: 11px;
+    display: block;
+    float: left;
+}
+.advisor_details{
+	margin-bottom: 10px;
+}
+.written-on {
+    display: inline-block;
+    font-family: 'Open SansR';
+    color: #9b9b9b;
+    font-size: 13px;
+    float: left;
+    clear: left;
+    margin-left: 60px;
+    margin-top: -13px;
+}
