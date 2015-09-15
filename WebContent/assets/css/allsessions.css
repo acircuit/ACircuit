@@ -1,0 +1,205 @@
+@CHARSET "ISO-8859-1";
+.div-for-notifications{
+	background-color: white;
+    padding-top: 32px;
+    border-top: 4px solid #8177c5;
+}
+.noti-img{
+	    width: 74px;
+}
+
+.gborder-div {
+    padding: 10px 10px 10px 10px;
+    border: 1px solid lightgray;
+    border-left: 6px solid #7ED321;
+    margin-bottom: -7px;
+    width: 75%;
+    float: right;
+    display: inline-block;
+}
+.ask-for-review{
+	color: #4a4a4a;
+    font-size: 14px;
+    line-height: 39px;
+    margin-bottom: 10px;
+}
+.session-tab-div{
+	margin-top: 22px;
+    padding: 0px;
+}
+.session-tab-div .nav-tabs>li.active>a,.session-tab-div .nav-tabs>li.active>a:focus,.session-tab-div .nav-tabs>li.active>a:hover {
+    color: #37B7B3;
+    cursor: default;
+    background-color: #EEEEEE;
+    border: 0px solid rgba(221, 221, 221, 0);
+    border-bottom-color: #37B7B3;
+    font-weight: 600;
+    border-bottom: 4px solid #37b7b3;
+}
+.session-tab-div .nav>li {
+    margin-left: 0px;
+    margin-right: 45px;
+}
+.session-tab-div .nav-tabs>li.active>a,.session-tab-div .nav-tabs>li.active>a:focus,.session-tab-div .nav-tabs>li.active>a:hover {
+   color: #37b7b3;
+    cursor: default;
+    background-color: #EEE;
+    border: 0px solid #ddd;
+    border-bottom: 4px solid #37b7b3;
+    font-weight: 400;
+}
+.session-tab-div .nav>li>a {
+    color: #6c6c6c;
+    padding: 0px;
+    padding-bottom: 10px;
+    font-family: latosb;
+    font-size: 16px;
+}
+.session-tab-div  .nav-tabs {
+    border-bottom: 0px solid #ddd;
+    margin-bottom: 20px;
+}
+.session-tab-div  .tab-content>.tab-pane {
+    background-color: white;
+    padding: 0px;
+}
+.tab-head-div{
+	    padding-top: 12px;
+    padding-left: 20px;
+    border-bottom: 1px solid lightgray;
+        margin-bottom: 25px;
+}
+.tab-head-text{
+	font-family:lato;
+	font-size:18px;
+	color:#9b9b9b;
+}
+.tab-content-div{
+	padding-left: 20px;
+    margin: 0px;
+    padding-right: 20px;
+}
+.each-session-div{
+	padding: 16px 16px 16px 20px;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+}
+.each-session-div .adv-img {
+    height: 48px;
+    width: 48px;
+}
+.each-session-div  .adv-name {
+    font-size: 14px;
+     margin-top: -6px;
+    margin-left: 8px;
+    float: left;
+    }
+.subject{
+    color: #4a4a4a;
+    font-size: 13px;
+    margin-top: -13px;
+    margin-left: 11px;
+    display: block;
+    float: left;
+
+}  
+.session-status{
+	display: inline-block;
+    font-family: 'Open SansR';
+    color: #9b9b9b;
+    font-size: 12px;
+    float: left;
+    clear: left;
+    margin-left: 57px;
+    margin-top: -18px;
+}  
+.condition i {
+    color: white;
+    background-color: #50AF00;
+    border-radius: 50%;
+    font-size: 11px;
+    padding: 2px;
+}
+.condition{
+color:#4a4a4a;
+font-size:12px;
+    margin-right: 12px;
+    margin-left: 5px;
+
+}
+.mode-div{
+	text-align:right;
+}
+.mode-img{
+	width: 16px;
+}
+.mode-type{
+	color: #4a4a4a;
+    font-size: 13px;
+}
+.session-id{
+color:#37b7b3;
+font-size:12px;
+}
+.due-time-div{
+	background-color: #efefef;
+    border-radius: 0px 0px 6px 6px;
+    border: 1px solid #8177c5;
+    max-width: 155px;
+    max-height: 25px;
+    position: absolute;
+    top: -17px;
+    right: 18px;
+    width: 155px;
+    text-align: center;
+    height: 25px;
+
+}
+.due-time{
+	color:#6c6c6c;
+	font-size:13px;
+}
+.each-rv-div{
+	border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
+}
+.each-rv-div .adv-img {
+    height: 32px;
+    width: 32px;}
+.each-rv-div .adv-name {
+    font-size: 14px;
+     margin-top: -6px;
+    margin-left: 8px;
+    float: left;
+    }    
+
+.each-rv-div .adv-date {
+    font-size: 14px;
+     margin-top: -6px;
+    margin-left: 8px;
+    float: left;
+    }   
+.each-rv-div .rating-md {
+    font-size: 14px;
+    margin-top: -15px;
+    margin-left: 8px;
+    float: right;
+}     
+.each-rv-div .subject {
+    margin-top: -16px;
+    margin-left: 40px;
+}
+.posted-on{
+	display: inline-block;
+    font-family: 'Open SansR';
+    color: #9b9b9b;
+    font-size: 12px;
+    float: left;
+    clear: left;
+    margin-left: 39px;
+    margin-top: -5px;
+}
+.each-rv-div .session-id{
+	float: right;
+    margin-top: -5px;
+}

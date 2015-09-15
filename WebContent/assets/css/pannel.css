@@ -22,6 +22,9 @@
 @font-face {
   font-family: "Latob";src:url("../fonts/Lato-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Latosb";src:url("../fonts/Lato-Semibold.ttf") format("truetype");
+}
 body {
     font-family: "Open SansR";
 }
