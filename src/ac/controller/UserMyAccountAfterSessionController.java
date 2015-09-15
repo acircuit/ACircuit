@@ -56,11 +56,7 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 			
 		
 		}
-		
-		
-		
-		
-		
+	
 		logger.info("Entered doGet method of UserMyAccountAfterSessionController");
 	}
 
@@ -68,7 +64,26 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger.info("Entered doPost method of UserMyAccountAfterSessionController");
+		int userId = 0;
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		//Getting the sessiondetails for the user
+		if(userId != 0){
+		  String review = request.getParameter("review");
+		  String rating = request.getParameter("rating");
+		  String sid = request.getParameter("id");
+		  
+		  //Inserting the reviews given b the user
+		  SessionDAO  review1= new SessionDAO();
+		  Boolean isCommit = review1.SetSesionReviews(sid,rating,review);
+		}
+		
+		logger.info("Entered doPost method of UserMyAccountAfterSessionController");
 	}
 
 }

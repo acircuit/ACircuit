@@ -78,19 +78,16 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 							   		<br style="line-height: 32px;">
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 						   		</div>
-						   		<div class="col-xs-5 no-padding">
-						   			<button type="button" class="btn submit-button" >Join call</button>
-						   		</div>
 					   		</div>
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">${sessionDetails.getDuration()}, ${sessionDetails.getDuration()}</span>
+					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   			<div class="col-xs-4 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
+					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
 					   			</div>
 					   			<div class="col-xs-4 ">
 					   				<span class="total-cost-text">Wallet Balance</span><br>
@@ -104,12 +101,15 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   		<div class="col-xs-12 no-padding">
 					   			<span class="prop-time-text">Write Review</span>
 					   		</div>
+					   		<form action="useraftersession" method="post">
+					   		<input type="hidden" value="${sessionDetails.getSessionid() }" name="id">
 					   		<div class="write-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
-					   				<textarea rows="5" cols="" class="form-control"></textarea>
+					   				<textarea rows="5" cols="" class="form-control" name="review"></textarea>
 					   				<br>
 					   				<div class="col-xs-2 no-padding"><span class="rating">Your Rating :</span></div><div class="col-xs-5 no-padding"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="0"></div>
-					   			<div class="col-xs-5 no-padding"><button type="button" class="btn submit-button" >Submit</button></div>
+					   			<div class="col-xs-5 no-padding"><button type="submit" class="btn submit-button" >Submit</button></div>
 					   			</div>
+					   		</form>	
 					   		<div class="next-step-div col-xs-12 ">
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
@@ -118,7 +118,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 							   			<span class="more-session">Hope you had a great session. Would you like to book another consecutive session with the advisor?</span>
 							   		</div>
 							   		<div class="col-xs-12 new-session-div">
-							   			<span class="book-new">Book New Session</span>
+							   			<a href="advisors?category=all"><span class="book-new">Book New Session</span></a>
 							   		</div>
 					   		</div>
 				   		</div>

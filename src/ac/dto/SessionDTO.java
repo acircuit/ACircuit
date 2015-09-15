@@ -27,6 +27,13 @@ public class SessionDTO {
 	private String status;
 	private Date acceptedDate;
 	private String acceptedTime;
+	private String sessionPlan;
+	public String getSessionPlan() {
+		return sessionPlan;
+	}
+	public void setSessionPlan(String sessionPlan) {
+		this.sessionPlan = sessionPlan;
+	}
 	public Date getAcceptedDate() {
 		return acceptedDate;
 	}
