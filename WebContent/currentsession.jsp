@@ -37,8 +37,19 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
-AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
+                String ids = (String) request.getAttribute("ids");
+                List<String> industries = (List<String>)request.getAttribute("industries");
+                List<String> institutions = (List<String>)request.getAttribute("institutions");
+                List<String> languages = (List<String>)request.getAttribute("languages");
+                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
+                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
+                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
+                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
+                List<String> popCats = (List<String>)request.getAttribute("popCats");
+
+        		pageContext.setAttribute("ids", ids);
 	
 
 %>
@@ -56,36 +67,65 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
+							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with Charlie Dixon</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="${advisorDetails.getImage()}">
+								<img src="assets/img/Abhishek.JPG">
 							</div>
 				   		</div>
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
+		   		    		<div class="col-xs-7 no-padding">
+		   		    		<span class="session-id">Session ID #123456</span>
 		   		    		<br>
-					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
+					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
+		   		    		</div>
+		   		    		<div class="col-xs-5 no-padding" style="padding-top: 21px;">
+		   		    			<span class="due-in-text">Due in</span><br>
+		   		    			<span class="due-in-time">02:45 hrs</span>
+		   		    		</div>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-						   			<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
-							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
-							   		<br style="line-height: 32px;">
-							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
-						   		</div>
-						   		<div class="col-xs-5 no-padding">
-						   			<button type="button" class="btn submit-button" >Join call</button>
-						   		</div>
+							   		<span class="btext name">Aasfsfd</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span>
+							   		<br>
+							   		<span class="mode">Duration</span>	<span class="mode-type">30 Minutes</span>
+					   			</div>
+					   			<div class="col-xs-5 no-padding" style="padding-top: 40px;">
+					   			<button type="button" class="btn submit-button" >Join call</button>
+					   			</div>
 					   		</div>
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">${sessionDetails.getDuration()}, ${sessionDetails.getDuration()}</span>
+					   		<span class="session-date">23rd September 2015, 7:30 pm</span>
+					   		</div>
+					   		<div class="advisor-description-div col-xs-12 no-padding">
+					   			<span class="advisor-description-head">Advisor Instructions</span>
+					   			<p class="q-description">
+					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
+					   			</p>
+					   		</div>
+					   		<div class="query-description-div col-xs-12 no-padding">
+					   			<span class="query-description-head">Query Details</span><br>
+					   			<span class="query-description-small-text">Description</span><br>
+					   			<p class="q-description">
+					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
+					   			</p>
+					   		</div>
+					   		<div class="attached-file-div col-xs-12">
+					   			<span class="attachd-text">Attached File</span>
+					   			<a class="link btext">resume.txt</a>
+					   		</div>
+					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
+					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
+					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
+					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
+					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   			<div class="col-xs-4 no-padding">
@@ -99,27 +139,13 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			<div class="col-xs-4" style="padding-top:25px;">
 					   						<button type="button" class="btn recharg-button">Recharge</button>
 					   			</div>
-					   				
 					   		</div>
-					   		<div class="col-xs-12 no-padding">
-					   			<span class="prop-time-text">Write Review</span>
-					   		</div>
-					   		<div class="write-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
-					   				<textarea rows="5" cols="" class="form-control"></textarea>
-					   				<br>
-					   				<div class="col-xs-2 no-padding"><span class="rating">Your Rating :</span></div><div class="col-xs-5 no-padding"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="0"></div>
-					   			<div class="col-xs-5 no-padding"><button type="button" class="btn submit-button" >Submit</button></div>
-					   			</div>
+					   		
 					   		<div class="next-step-div col-xs-12 ">
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
-							   		<div class="col-xs-12 more-session-div">
-							   			<span class="more-session">Hope you had a great session. Would you like to book another consecutive session with the advisor?</span>
-							   		</div>
-							   		<div class="col-xs-12 new-session-div">
-							   			<span class="book-new">Book New Session</span>
-							   		</div>
+							   		
 					   		</div>
 				   		</div>
 				   	</div>
