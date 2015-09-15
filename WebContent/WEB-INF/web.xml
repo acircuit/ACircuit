@@ -102,4 +102,28 @@
     <servlet-name>advisordashboard</servlet-name>
     <url-pattern>/advisordashboard</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>bookasession</servlet-name>
+    <servlet-class>ac.controller.BookASessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bookasession</servlet-name>
+    <url-pattern>/bookasession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>approvesession</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountApproveSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>approvesession</servlet-name>
+    <url-pattern>/approvesession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DownloadFile</servlet-name>
+    <servlet-class>ac.util.DownloadFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadFile</servlet-name>
+    <url-pattern>/DownloadFile</url-pattern>
+  </servlet-mapping>
 </web-app>
