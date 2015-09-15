@@ -37,19 +37,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
+SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
+AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 	
 
 %>
@@ -67,31 +56,31 @@
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with Charlie Dixon</span>
+							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="assets/img/Abhishek.JPG">
+								<img src="${advisorDetails.getImage()}">
 							</div>
 				   		</div>
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<span class="session-id">Session ID #123456</span>
+		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">Aasfsfd</span> <span class="name-other-text">| User Email/summary background</span><br><br>
-						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
+						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png">${sessionDetails.getMode()} session</span><br>
 						   		<br>
-						   		<span class="mode">Duration</span>	<span class="mode-type">30 Minutes</span>
+						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   		</div>
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">23rd September 2015, 7:30 pm</span>
+					   		<span class="session-date">${sessionDetails.getDuration()}, ${sessionDetails.getDuration()}</span>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   			<div class="col-xs-4 no-padding">

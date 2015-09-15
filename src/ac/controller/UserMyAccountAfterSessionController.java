@@ -51,10 +51,10 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 			
 			  request.setAttribute("sessionDetails", sessionDetails);
 			   request.setAttribute("advisorDetails", advisorDetails);
-			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorrequestviewdetails.jsp");
+			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/aftersession.jsp");
 	          rd.forward(request, response);
 			
-			
+		
 		}
 		
 		

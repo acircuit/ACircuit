@@ -61,6 +61,8 @@ public class SessionDAO {
 				dto.setTime3(results.getString("TIME3"));
 				dto.setPrice(results.getDouble("PRICE"));
 				dto.setStatus(results.getString("STATUS"));
+				dto.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
+				dto.setAcceptedTime(results.getString("ACCEPTED_TIME"));
 
 			}
 		} catch (SQLException e) {
