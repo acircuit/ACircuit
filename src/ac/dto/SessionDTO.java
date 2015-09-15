@@ -25,6 +25,27 @@ public class SessionDTO {
 	private Double price;
 	private String resume;
 	private String status;
+	private Date acceptedDate;
+	private String acceptedTime;
+	private String sessionPlan;
+	public String getSessionPlan() {
+		return sessionPlan;
+	}
+	public void setSessionPlan(String sessionPlan) {
+		this.sessionPlan = sessionPlan;
+	}
+	public Date getAcceptedDate() {
+		return acceptedDate;
+	}
+	public void setAcceptedDate(Date acceptedDate) {
+		this.acceptedDate = acceptedDate;
+	}
+	public String getAcceptedTime() {
+		return acceptedTime;
+	}
+	public void setAcceptedTime(String acceptedTime) {
+		this.acceptedTime = acceptedTime;
+	}
 	public int getSessionid() {
 		return sessionid;
 	}

@@ -61,6 +61,9 @@ public class SessionDAO {
 				dto.setTime3(results.getString("TIME3"));
 				dto.setPrice(results.getDouble("PRICE"));
 				dto.setStatus(results.getString("STATUS"));
+				dto.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
+				dto.setAcceptedTime(results.getString("ACCEPTED_TIME"));
+				dto.setSessionPlan(results.getString("SESSIONPLAN"));
 
 			}
 		} catch (SQLException e) {
@@ -242,44 +245,7 @@ public class SessionDAO {
 		}
 	
 	
-	public UserDetailsDTO GetSessionDetails(int uid){
-		logger.info("Entered GetSessionDetails method of SessionDAO");
-		List<SessionDTO> list = new ArrayList<SessionDTO>();
- 	try {
-			conn =ConnectionFactory.getConnection();
-			conn.setAutoCommit(false);
-			String query ="SELECT FULL_NAME,IMAGE FROM userdetails WHERE USER_ID=?";
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, uid);
-			ResultSet results = pstmt.executeQuery();
-			while(results.next()){
-				SessionDTO dto = new SessionDTO();
-				dto.set
-				dto.setImage(results.getString("IMAGE"));
 
-			}
-		} catch (SQLException e) {
-			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
-			e.printStackTrace();
-		} catch (PropertyVetoException e) {
-			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
-			e.printStackTrace();
-		}finally{
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
-				e.printStackTrace();
-			}
-		}
-				
-		logger.info("Entered GetSessionDetails method of SessionDAO");
-		return dto;
-	}
-	
 	public String getCvPath(String sid){
 		logger.info("Entered getCvPath method of SessionDAO");
 		String resume = "";
@@ -322,7 +288,7 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT NAME,IMAGE FROM advisordetails WHERE SESSION_ID=?";
+			String query ="SELECT NAME,IMAGE FROM advisordetails WHERE ADVISOR_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, sid);
 			ResultSet results = pstmt.executeQuery();
@@ -352,6 +318,51 @@ public class SessionDAO {
 		logger.info("Entered GetAdvisorDetails method of SessionDAO");
 		return advisor;
 	}
+	
+	public Boolean SetSesionReviews(String sid ,String rating, String review){
+		logger.info("Entered SetSesionReviews method of SessionDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into sessionreviews"+"(SESSION_ID,REVIEW,RATING) values" + "(?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sid);
+			pstmt.setString(2, review);
+			pstmt.setString(3, rating);
+
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch (SQLException e) {
+			    try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					logger.error("SetSesionReviews method of SessionDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("SetSesionReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("SetSesionReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("SetSesionReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("SetSesionReviews method of SessionDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			logger.info("Entered SetSesionReviews method of SessionDAO");
+			return isCommit;
+
+		}
 	
 	
 }

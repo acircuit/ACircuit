@@ -65,7 +65,7 @@
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<span class="session-id">Session ID ${sessionDetails.getSessionid()}</span>
+		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
 					   		<br>

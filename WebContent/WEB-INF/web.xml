@@ -126,4 +126,21 @@
     <servlet-name>DownloadFile</servlet-name>
     <url-pattern>/DownloadFile</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>useraftersession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountAfterSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>useraftersession</servlet-name>
+    <url-pattern>/useraftersession</url-pattern>
+  </servlet-mapping>
+      <servlet>
+    <servlet-name>usercurrentsession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountCurrentSessionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usercurrentsession</servlet-name>
+    <url-pattern>/usercurrentsession</url-pattern>
+  </servlet-mapping>
+
 </web-app>
