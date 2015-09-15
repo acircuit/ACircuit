@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
@@ -315,7 +316,42 @@ public class SessionDAO {
 		return resume;
 	}
 	
-	
+	public AdvisorDTO GetAdvisorDetails(int sid){
+		logger.info("Entered GetAdvisorDetails method of SessionDAO");
+		AdvisorDTO advisor = new AdvisorDTO();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT NAME,IMAGE FROM advisordetails WHERE SESSION_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sid);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				advisor.setName(results.getString("NAME"));
+				advisor.setImage(results.getString("IMAGE"));
+
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetAdvisorDetails method of SessionDAO");
+		return advisor;
+	}
 	
 	
 }
