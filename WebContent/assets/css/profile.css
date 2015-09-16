@@ -1,0 +1,107 @@
+@CHARSET "ISO-8859-1";
+.profile-owner-info{
+	    margin-bottom: 10px;
+}
+.dp-div-profile{
+	text-align: center;
+}
+.profile-dp{
+	width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.change-do{
+	font-size:13px;
+	    line-height: 30px;
+}
+.info-div-profile{
+	
+}
+.name-profile{
+	font-size:24px;
+	color:#4a4a4a;
+	font-family:lato;
+	 line-height: 50px;
+}
+.email-profile{
+	font-size:14px;
+	color:#6c6c6c;
+	font-family:latol;
+	 line-height: 15px;
+}
+.pno-profile{
+	font-size:14px;
+	color:#6c6c6c;
+	font-family:latol;
+	 line-height: 26px;
+}
+.profile-form-div{
+	margin-top: 10px;
+    background-color: white;
+}
+.profil-form-head-div{
+	padding: 12px 12px 12px 20px;
+    border-bottom: 1px solid lightgray;
+}
+.profil-form-head{
+	color: #9b9b9b;
+    font-size: 18px;
+    font-family: lato;
+}
+
+.profile-form{
+	padding: 20px 12px 12px 20px;
+}
+.profile-form-head{
+	color:#9b9b9b;
+	font-size:16px;
+	display: block;
+    margin-bottom: 17px;
+}
+.each-form-div label{
+	padding-top: 7px;
+}
+.each-form-div {
+    padding-top: 0px;
+}
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  color: #4a4a4a;
+  font-size: 13px;
+  font-weight: 100;
+}
+
+input[type="radio"] + label span {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+input[type="radio"] + label span {
+ background-color: #FFFFFF;
+    border: 1px solid lightgray;
+}
+
+input[type="radio"]:checked + label span {
+ background-color: #37b7b3;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
+.add-more-interest{
+	font-size:14px;
+	cursor:pointer;
+}
