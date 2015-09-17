@@ -67,7 +67,7 @@
 	   		    		<div class="col-xs-12 container-div-all">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
-		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
+		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;" data-toggle="modal" data-target="#booksession">Reject Session</button>
 					   		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request waiting for your approval</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
@@ -182,6 +182,27 @@
    			</div>
    	 </div>
    	 <%@include file="/footer.jsp" %>
+   	 <div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="booksession">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								    	<div class="modal-head-bsession">
+								    		<span class="modal-head-text">Write A Note</span>
+								    	</div>
+								    	<form action="approvesession" method="post">
+								    	<input type="hidden" name="sid" value="${sessionDetails.getSessionid()}">
+								    	<div class="modal-main-body row">
+								    		<textarea class="form-control reason-input" rows="5" cols="" placeholder="Write you reason" name="reason"></textarea>
+								    		<div class="col-xs-12 no-padding">
+								    			<button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 120px;margin-top: 10px;float: right">Send</button>
+								    		</div>
+								    	</div>
+								    	</form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 </div>
 
 

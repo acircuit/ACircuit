@@ -126,7 +126,7 @@
     <servlet-name>DownloadFile</servlet-name>
     <url-pattern>/DownloadFile</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>useraftersession</servlet-name>
     <servlet-class>ac.controller.UserMyAccountAfterSessionController</servlet-class>
   </servlet>
@@ -134,7 +134,7 @@
     <servlet-name>useraftersession</servlet-name>
     <url-pattern>/useraftersession</url-pattern>
   </servlet-mapping>
-      <servlet>
+  <servlet>
     <servlet-name>usercurrentsession</servlet-name>
     <servlet-class>ac.controller.UserMyAccountCurrentSessionsController</servlet-class>
   </servlet>
@@ -142,5 +142,92 @@
     <servlet-name>usercurrentsession</servlet-name>
     <url-pattern>/usercurrentsession</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <servlet-name>advisorcurrentsession</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountCurrentSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorcurrentsession</servlet-name>
+    <url-pattern>/advisorcurrentsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>usercancelledsession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountCancelledSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usercancelledsession</servlet-name>
+    <url-pattern>/usercancelledsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorcancelledsession</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountCancelledSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorcancelledsession</servlet-name>
+    <url-pattern>/advisorcancelledsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userpastsession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountPastSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userpastsession</servlet-name>
+    <url-pattern>/userpastsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorpastsession</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountPastSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorpastsession</servlet-name>
+    <url-pattern>/advisorpastsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>usersessions</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountSessionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usersessions</servlet-name>
+    <url-pattern>/usersessions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>useracceptsession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountSessionAcceptedController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>useracceptsession</servlet-name>
+    <url-pattern>/useracceptsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userrequestviewdetails</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountRequestViewDetailsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userrequestviewdetails</servlet-name>
+    <url-pattern>/userrequestviewdetails</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorsessions</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountSessionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorsessions</servlet-name>
+    <url-pattern>/advisorsessions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userpayment</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountPaymentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userpayment</servlet-name>
+    <url-pattern>/userpayment</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>payment</servlet-name>
+    <jsp-file>/ccavRequestHandler.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>payment</servlet-name>
+    <url-pattern>/payment</url-pattern>
+  </servlet-mapping>
 </web-app>

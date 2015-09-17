@@ -38,7 +38,9 @@ public class BookASessionController extends HttpServlet {
 		String slot3Time = request.getParameter("slot3time");
         String approxprice = request.getParameter("approxprice");
         String aId = request.getParameter("aId");
+        System.out.println(query);
 		int userId = 0;
+		int sessionId = 0;
 		Boolean isError =false;
 		try{
 			userId = (int) request.getSession().getAttribute("userId");
@@ -46,7 +48,7 @@ public class BookASessionController extends HttpServlet {
 			isError = true;
 		}
         if(mode != null && duration != null && slot1Date != null && slot2Date != null
-        		&& slot3Date != null && slot1Time != null && slot2Time != null && slot3Time != null && approxprice != null 
+        		&& slot3Date != null && slot1Time != null && slot2Time != null && slot3Time != null && approxprice != null && query!= null
         		&& aId != null && !aId.isEmpty() && !mode.isEmpty() && !duration.isEmpty() && !query.isEmpty() && !slot1Date.isEmpty() && !slot2Date.isEmpty()
         		&& !slot3Date.isEmpty() && !slot1Time.isEmpty() && !slot2Time.isEmpty() && !slot3Time.isEmpty() && !approxprice.isEmpty()
         		){
@@ -58,9 +60,11 @@ public class BookASessionController extends HttpServlet {
         	if(absoluteURL != null && !absoluteURL.equals("")){
 	        	//Inserting the session details 
 	        	BookASessionDAO session = new BookASessionDAO();
-	        	int sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
+	        	sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	}
-        	
+        	if(sessionId != 0){
+        		response.sendRedirect("userdashboard?request=booked");
+        	}
 
 
         	

@@ -158,9 +158,9 @@
 			</div>
 			<div class="session-info col-xs-12">
 				<div class="session-div">
-					<span class="session-head-type">Book A Session</span><br>
+					<span class="session-head-type" >Book A Session</span><br>
 					<span class="session-head-text">Rs 500/session</span>
-					<button type="button" class="btn red-button ">Book a session</button>
+					<button type="button" class="btn red-button " onclick="CheckLoggedIn()">Book a session</button>
 				</div>
 				<div class="session-div">
 					<span class="session-head-type">Ask A Question</span><br>
@@ -530,7 +530,6 @@ $('body').on('click', '.lessR', function(e){
 });
 	
 function CheckLoggedIn(){
-	alert(<%=isUserLoggedIn%>);
 	if(<%=isUserLoggedIn%>){
 		$('#booksession').modal('show');
 	}else{

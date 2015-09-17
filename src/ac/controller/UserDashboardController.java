@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.SessionDAO;
+import ac.dto.AdvisorDTO;
+import ac.dto.UserDetailsDTO;
+
 /**
  * Servlet implementation class UserDashboardController
  */
@@ -33,7 +37,10 @@ public class UserDashboardController extends HttpServlet {
 			isError = true;
 		}
 		if(userId != 0){
-			//Getting all the information needed for the dashboard
+			//Getting user information 
+			SessionDAO user = new SessionDAO();
+			UserDetailsDTO userDetails =  user.GetUserDetails(userId);
+			request.setAttribute("userDetails", userDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userdashboard.jsp");
 	        rd.forward(request, response);
 		}

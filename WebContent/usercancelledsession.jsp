@@ -25,6 +25,7 @@
 <link href="assets/css/star-rating.css" rel="stylesheet">
 <link href="assets/css/nav-mobile.css" rel="stylesheet">
 <link href="assets/css/qa.css" rel="stylesheet">
+
 <link href="assets/css/ud.css" rel="stylesheet">
 <link href="assets/css/session.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -71,12 +72,9 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 		   		    		<div class="col-xs-7 no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
-					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
+					   		<span class="status"><i class="fa fa-check"></i> Session cancelled by advisor</span>
 		   		    		</div>
-		   		    		<div class="col-xs-5 no-padding" style="padding-top: 21px;">
-		   		    			<span class="due-in-text">Due in</span><br>
-		   		    			<span class="due-in-time">02:45 hrs</span>
-		   		    		</div>
+		   		    		
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
 							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
@@ -84,17 +82,11 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
-					   			<div class="col-xs-5 no-padding" style="padding-top: 40px;">
-					   			<button type="button" class="btn submit-button" >Join call</button>
-					   			</div>
+					   			
 					   		</div>
-					   		<div class="col-xs-12 no-padding session-date-div">
-					   		<span class="prop-time-text">Session Date</span><br>
-					   		
-					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
-					   		</div>
+					   	
 					   		<div class="advisor-description-div col-xs-12 no-padding">
-					   			<span class="advisor-description-head">Advisor Instructions</span>
+					   			<span class="advisor-description-head">Advisor Reply</span>
 					   			<p class="q-description">
 					   			${sessionDetails.getSessionPlan()}
 					   			</p>
@@ -108,7 +100,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   		</div>
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
-					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
+					   			<a class="link btext" href="href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
 					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
 					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
@@ -123,7 +115,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			</div>
 					   			<div class="col-xs-4 ">
 					   				<span class="total-cost-text">Wallet Balance</span><br>
-					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
+					   				<span class="total-cost-rs">Rs 500</span>
 					   			</div>
 					   			<div class="col-xs-4" style="padding-top:25px;">
 					   						<button type="button" class="btn recharg-button">Recharge</button>
@@ -134,7 +126,41 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
-							   		
+							   		<div class="col-xs-12 more-session-div">
+							   			<span class="more-session">Hope you had a great session. Would you like to book another consecutive session with the advisor?</span>
+							   		</div>
+							   		<div class="col-xs-12 similar-profiles-div">
+							   			<div class="similar-profile-head">
+							   				<span>SIMILAR PROFILES</span>
+							   			</div>
+							   			<div class="similar-profile-content">
+							   				<div class="advisor_details col-xs-6  no-padding" >
+			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
+			                                    <p class="adv-name">Doris Weaver</p><br>
+			                                    <p class="adv-field">Marketing</p><br>
+			                                    <p class="written-on" >23 Answers</p>
+			                                </div>
+			                                <div class="advisor_details col-xs-6  no-padding" >
+			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
+			                                    <p class="adv-name">Doris Weaver</p><br>
+			                                    <p class="adv-field">Marketing</p><br>
+			                                    <p class="written-on" >23 Answers</p>
+			                                </div>
+			                                <div class="advisor_details col-xs-6  no-padding" >
+			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
+			                                    <p class="adv-name">Doris Weaver</p><br>
+			                                    <p class="adv-field">Marketing</p><br>
+			                                    <p class="written-on" >23 Answers</p>
+			                                </div>
+			                                <div class="advisor_details col-xs-6  no-padding" >
+			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
+			                                    <p class="adv-name">Doris Weaver</p><br>
+			                                    <p class="adv-field">Marketing</p><br>
+			                                    <p class="written-on" >23 Answers</p>
+			                                </div>
+			                                
+							   			</div>
+							   		</div>
 					   		</div>
 				   		</div>
 				   	</div>

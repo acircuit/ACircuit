@@ -34,20 +34,7 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
-	
+      AdvisorDTO advisorDetails = (AdvisorDTO) request.getAttribute("advisorDetails");
 
 %>
 </head>
@@ -70,11 +57,11 @@
    		    		<div class="col-xs-12 col-md-3 four-cards no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="assets/img/Abhishek.JPG">
+								<img src="${advisorDetails.getImage()}">
 							</div>
 							<div class="user-name-info" style="text-align:center;">
-								<span class="user-name">Angela Dixon</span><br>
-								<span class="user-email">angeladixon@gmail.com</span><br>
+								<span class="user-name">${advisorDetails.getName()}</span><br>
+								<span class="user-email">${advisorDetails.getEmail()}</span><br>
 								<span class="user-settings">Edit Profile Settings</span>
 							</div>
 				   		</div>
@@ -94,7 +81,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View All Sessions</span>
+							<a href="advisorsessions"><span class="btext">View All Sessions</span></a>
 						</div>
 				   	</div>
 				   	<div class="col-xs-12 col-md-3 four-cards no-padding">
@@ -208,11 +195,6 @@
 			   		</div>
 	   			
 	   			<div class="col-xs-12 col-sm-3">
-	   			<div class="col-xs-12 text-center no-padding-xs">
-							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
-							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
-						</div>
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
 	                        <h2>MOST VIEWED QUESTIONS</h2>

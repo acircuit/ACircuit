@@ -14,21 +14,22 @@ import org.apache.log4j.Logger;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
-import ac.dto.UserDetailsDTO;
 
 /**
- * Servlet implementation class UserMyAccountAfterSessionController
+ * Servlet implementation class UserMyAccountSessionAcceptedController
  */
-@WebServlet("/UserMyAccountAfterSessionController")
-public class UserMyAccountAfterSessionController extends HttpServlet {
+@WebServlet("/UserMyAccountSessionAcceptedController")
+public class UserMyAccountSessionAcceptedController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(UserMyAccountAfterSessionController.class);
+	private static final Logger logger = Logger.getLogger(UserMyAccountSessionAcceptedController.class);
+
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Entered doGet method of UserMyAccountAfterSessionController");
+		logger.info("Entered doGet method of UserMyAccountSessionAcceptedController");
 		int userId = 0;
 		Boolean isError =false;
 		try{
@@ -46,40 +47,46 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
-			
+			  SessionDTO dates = new SessionDTO();
+			  if(sessionDetails.getAcceptedDate() != null){
+				 SessionDAO newDates = new SessionDAO();
+				 dates = newDates.GetAdvisorNewDates(sid);
+			  }
+			  //Getting wallet details
+			  SessionDAO user = new SessionDAO();
+			  double amount = user.GetWalletDetails(userId);
+			  
 			  request.setAttribute("sessionDetails", sessionDetails);
-			   request.setAttribute("advisorDetails", advisorDetails);
-			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/aftersession.jsp");
+			  request.setAttribute("advisorDetails", advisorDetails);
+			  request.setAttribute("newDates", dates);
+			  request.setAttribute("wallet", amount);
+			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/approve.jsp");
 	          rd.forward(request, response);
 		}
-	
-		logger.info("Entered doGet method of UserMyAccountAfterSessionController");
+		
+		
+		
+		logger.info("Entered doGet method of UserMyAccountSessionAcceptedController");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Entered doPost method of UserMyAccountAfterSessionController");
-		int userId = 0;
-		Boolean isError =false;
-		try{
-			userId = (int) request.getSession().getAttribute("userId");
-		}catch(Exception e){
-			isError = true;
+		String reason =  request.getParameter("reason");
+		String sId =  request.getParameter("sid");
+		Boolean isStatusCommit = false;
+        //Inserting the reason of cancelling the session
+		SessionDAO reject = new SessionDAO();
+		Boolean isCommit = reject.InsertRejectionReason(sId,reason);
+		//Updating the status of the session 
+		if(isCommit){
+			SessionDAO status = new SessionDAO();
+			isStatusCommit = status.UpdateStatus("SESSION CANCELLED BY USER",sId);
 		}
-		//Getting the sessiondetails for the user
-		if(userId != 0){
-		  String review = request.getParameter("review");
-		  String rating = request.getParameter("rating");
-		  String sid = request.getParameter("id");
-		  
-		  //Inserting the reviews given b the user
-		  SessionDAO  review1= new SessionDAO();
-		  Boolean isCommit = review1.SetSesionReviews(sid,rating,review);
+		if(isStatusCommit){
+			response.sendRedirect("usercancelledsession?sId="+sId);
 		}
-		
-		logger.info("Entered doPost method of UserMyAccountAfterSessionController");
 	}
 
 }

@@ -25,7 +25,6 @@
 <link href="assets/css/star-rating.css" rel="stylesheet">
 <link href="assets/css/nav-mobile.css" rel="stylesheet">
 <link href="assets/css/qa.css" rel="stylesheet">
-
 <link href="assets/css/ud.css" rel="stylesheet">
 <link href="assets/css/session.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -38,19 +37,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
+SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
+AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 	
 
 %>
@@ -68,111 +56,67 @@
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with Charlie Dixon</span>
+							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="assets/img/Abhishek.JPG">
+								<img src="${advisorDetails.getImage()}">
 							</div>
 				   		</div>
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<div class="col-xs-7 no-padding">
-		   		    		<span class="session-id">Session ID #123456</span>
+		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
-					   		<span class="status"><i class="fa fa-check"></i> Session cancelled by advisor</span>
-		   		    		</div>
-		   		    		
+					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">Aasfsfd</span> <span class="name-other-text">| User Email/summary background</span><br>
-							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span>
-							   		<br>
-							   		<span class="mode">Duration</span>	<span class="mode-type">30 Minutes</span>
-					   			</div>
-					   			
+						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span><br>
+						   		<br>
+						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   		</div>
-					   	
-					   		<div class="advisor-description-div col-xs-12 no-padding">
-					   			<span class="advisor-description-head">Advisor Reply</span>
-					   			<p class="q-description">
-					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
-					   			</p>
+					   		<div class="col-xs-12 no-padding session-date-div">
+					   		<span class="prop-time-text">Session Date</span><br>
+					   		
+					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
+					   		</div>
+					   		<div class="total-cost-div col-xs-12 no-padding">
+					   				<span class="total-cost-text">Total cost</span><br>
+					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
 					   		</div>
 					   		<div class="query-description-div col-xs-12 no-padding">
-					   			<span class="query-description-head">Query Details</span><br>
-					   			<span class="query-description-small-text">Description</span><br>
+					   			<span class="query-description-head">Query Description</span>
 					   			<p class="q-description">
-					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
+					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
-					   			<a class="link btext">resume.txt</a>
-					   		</div>
-					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
-					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
-					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
-					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
-					   			<span class="timeslots-proposed">23rd September 2015, 7:30 pm</span>
-					   		</div>
-					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
-					   			<div class="col-xs-4 no-padding">
-					   				<span class="total-cost-text">Total cost</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
-					   			</div>
-					   			<div class="col-xs-4 ">
-					   				<span class="total-cost-text">Wallet Balance</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
-					   			</div>
-					   			<div class="col-xs-4" style="padding-top:25px;">
-					   						<button type="button" class="btn recharg-button">Recharge</button>
-					   			</div>
+					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
 					   		
-					   		<div class="next-step-div col-xs-12 ">
-					   				<div class="col-xs-12">
-							   			<span class="next-step-text btext">Next Steps</span>
-							   		</div>
-							   		<div class="col-xs-12 more-session-div">
-							   			<span class="more-session">Hope you had a great session. Would you like to book another consecutive session with the advisor?</span>
-							   		</div>
-							   		<div class="col-xs-12 similar-profiles-div">
-							   			<div class="similar-profile-head">
-							   				<span>SIMILAR PROFILES</span>
-							   			</div>
-							   			<div class="similar-profile-content">
-							   				<div class="advisor_details col-xs-6  no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                </div>
-			                                <div class="advisor_details col-xs-6  no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                </div>
-			                                <div class="advisor_details col-xs-6  no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                </div>
-			                                <div class="advisor_details col-xs-6  no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                </div>
-			                                
-							   			</div>
-							   		</div>
+					   		
+					   		
+							<div class="col-xs-12 no-padding">
+					   			<span class="prop-time-text">Session Plan</span>
 					   		</div>
+					   			<div class="prop-time-div col-xs-12 no-padding">
+					   				<p class="q-description">
+					   				${sessionDetails.getSessionPlan()}
+					   			</p>
+					   			</div>
+					   			
+					   			<div class="col-xs-12 no-padding">
+					   			<span class="prop-time-text">Review</span>
+					   		</div>
+					   			<div class="review-div col-xs-12 no-padding">
+					   			<span class="posted-date">Posted on Sepetember 3 2015</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled>
+					   			<p class="q-description">
+					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
+					   			</p>
+					   			</div>
 				   		</div>
 				   	</div>
 				   

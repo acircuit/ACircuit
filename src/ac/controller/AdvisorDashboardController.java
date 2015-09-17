@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.SessionDAO;
+import ac.dto.AdvisorDTO;
+
 /**
  * Servlet implementation class AdvisorDashboardController
  */
@@ -35,7 +38,10 @@ public class AdvisorDashboardController extends HttpServlet {
 			isError = true;
 		}
 		if(advisorId != 0){
-			//Getting all the information needed for the dashboard
+			//Getting advisor information 
+			SessionDAO advisor = new SessionDAO();
+			AdvisorDTO advisorDetails =  advisor.GetAdvisorDetails(advisorId);
+			request.setAttribute("advisorDetails", advisorDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisordashboard.jsp");
 	        rd.forward(request, response);
 		}

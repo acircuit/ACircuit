@@ -39,7 +39,7 @@ public class BookASessionDAO {
 			try {
 				conn =ConnectionFactory.getConnection();
 				conn.setAutoCommit(false);
-				String query1 = "insert into sessiondetails"+"(ADVISOR_ID,USER_ID,CV,MODE,DURATION,DATE1,TIME1,DATE2,TIME2,DATE3,TIME3,PRICE,STATUS) values" + "(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String query1 = "insert into sessiondetails"+"(ADVISOR_ID,USER_ID,CV,MODE,DURATION,DATE1,TIME1,DATE2,TIME2,DATE3,TIME3,PRICE,STATUS,QUERY) values" + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement pstmt = conn.prepareStatement(query1,Statement.RETURN_GENERATED_KEYS);
 				pstmt.setInt(1, Integer.valueOf(aid));
 				pstmt.setInt(2, uid);
@@ -54,6 +54,7 @@ public class BookASessionDAO {
 				pstmt.setString(11, slot3Time);
 				pstmt.setString(12, approxprice);
 				pstmt.setString(13, "PENDING APPROVAL");
+				pstmt.setString(14, query);
 				int result = pstmt.executeUpdate(); 
 				if(result >0) {
 					ResultSet generatedKeys = pstmt.getGeneratedKeys();

@@ -67,6 +67,7 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
 		}
 		if(advisorId != 0){
           String sessionId = request.getParameter("sId");
+          String reason= request.getParameter("reason");
           String sessionPlan = request.getParameter("sessionplan");
           String date1 = request.getParameter("newdate1");
           String date2 = request.getParameter("newdate2");
@@ -89,8 +90,23 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
          SessionDAO session = new SessionDAO();
           Boolean isCommit = session.UpdateSessionPlan(sessionId,sessionPlan,isNewDatesCommit,acceptedDate,acceptedTime);
           if(isCommit){
-        	
+        	response.sendRedirect("advisorcurrentsession?sId="+sessionId);
           }
+         }else{
+        	 //Session is rejected
+        	 //Updating the session status
+        	 SessionDAO update = new SessionDAO();
+        	 Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY ADVISOR", sessionId);
+        	 Boolean isReasonCommit = false;
+             if(isCommit){
+            	 //Inserting the rejection reason
+            	 SessionDAO reject = new SessionDAO();
+            	 isReasonCommit = reject.InsertRejectionReason(sessionId, reason);
+             }
+             if(isReasonCommit){
+            	 response.sendRedirect("advisorcancelledsession?sId="+sessionId);
+             }
+        	 
          }
 		}
 		logger.info("Entered doPost method of AdvisorMyAccountApproveSessionController");

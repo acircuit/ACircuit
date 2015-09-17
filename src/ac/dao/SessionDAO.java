@@ -24,6 +24,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.CostDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
@@ -95,14 +96,14 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT FULL_NAME,IMAGE FROM userdetails WHERE USER_ID=?";
+			String query ="SELECT FULL_NAME,IMAGE,EMAIL FROM userdetails WHERE USER_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uid);
 			ResultSet results = pstmt.executeQuery();
 			if(results.first()){
 				dto.setFullName(results.getString("FULL_NAME"));
 				dto.setImage(results.getString("IMAGE"));
-
+                dto.setEmail(results.getString("EMAIL"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
@@ -282,20 +283,22 @@ public class SessionDAO {
 		return resume;
 	}
 	
-	public AdvisorDTO GetAdvisorDetails(int sid){
+	public AdvisorDTO GetAdvisorDetails(int aid){
 		logger.info("Entered GetAdvisorDetails method of SessionDAO");
 		AdvisorDTO advisor = new AdvisorDTO();
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT NAME,IMAGE FROM advisordetails WHERE ADVISOR_ID=?";
+			String query ="SELECT NAME,IMAGE,ADVISOR_ID,EMAIL,PHONE_NUMBER FROM advisordetails WHERE ADVISOR_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, sid);
+			pstmt.setInt(1, aid);
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
 				advisor.setName(results.getString("NAME"));
 				advisor.setImage(results.getString("IMAGE"));
-
+                advisor.setId(results.getInt("ADVISOR_ID"));
+                advisor.setEmail(results.getString("EMAIL"));
+                advisor.setPhoneNo(results.getString("PHONE_NUMBER"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
@@ -363,6 +366,718 @@ public class SessionDAO {
 			return isCommit;
 
 		}
+	public List<SessionDTO> GetSessionDetails(int userId){
+		logger.info("Entered GetSessionDetails method of SessionDAO");
+		List<SessionDTO> sessions = new ArrayList<SessionDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM sessiondetails WHERE USER_ID=? AND STATUS IN (?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userId);
+			pstmt.setString(2,"PENDING APPROVAL");
+			pstmt.setString(3,"ACCEPTED");
+			pstmt.setString(4,"ACCEPTED WITH NEW DATES");
+			pstmt.setString(5,"SESSION ON SCHEDULE");
+            ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				SessionDTO session = new SessionDTO();
+				session.setSessionid(results.getInt("SESSION_ID"));
+				session.setAdvisorid(results.getInt("ADVISOR_ID"));
+				session.setMode(results.getString("MODE"));
+				session.setQuery(results.getString("QUERY"));
+				session.setStatus(results.getString("STATUS"));
+				sessions.add(session);
+
+			}
+		} catch (SQLException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return sessions;
+	}
 	
+	public List<AdvisorDTO> GetAdvisorDetails(List<SessionDTO> sessions){
+		logger.info("Entered GetAdvisorDetails method of SessionDAO");
+		List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(sessions.size());
+			System.out.println(q4in);
+			String query = "SELECT NAME,IMAGE,ADVISOR_ID FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (SessionDTO session : sessions) {
+				pstmt.setInt(i++, session.getAdvisorid());
+			}
+			System.out.println(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				AdvisorDTO advisor = new AdvisorDTO();
+				advisor.setName(results.getString("NAME"));
+				advisor.setImage(results.getString("IMAGE"));
+				advisor.setId(results.getInt("ADVISOR_ID"));
+				advisors.add(advisor);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return advisors;
+	}
+	
+	
+	public SessionDTO GetAdvisorNewDates(String sid){
+		logger.info("Entered GetAdvisorNewDates method of SessionDAO");
+		SessionDTO dates = new SessionDTO();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM advisornewdates WHERE SESSION_ID= ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, sid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				dates.setSessionid(results.getInt("SESSION_ID"));
+				dates.setDate1(results.getDate("DATE1"));
+				dates.setDate2(results.getDate("DATE2"));
+                dates.setTime1(results.getString("TIME1"));
+                dates.setTime1(results.getString("TIME2"));
+
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAdvisorNewDates method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorNewDates method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorNewDates method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorNewDates method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return dates;
+	}
+	
+	public Boolean InsertRejectionReason(String sid ,String reason){
+		logger.info("Entered InsertRejectionReason method of SessionDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into sessionrejection"+"(SESSION_ID,REASON) values" + "(?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sid);
+			pstmt.setString(2, reason);
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch (SQLException e) {
+			    try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					logger.error("InsertRejectionReason method of SessionDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("InsertRejectionReason method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("InsertRejectionReason method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("InsertRejectionReason method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("InsertRejectionReason method of SessionDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			logger.info("Entered InsertRejectionReason method of SessionDAO");
+			return isCommit;
+
+		}
+	
+	
+	
+	public Boolean  UpdateStatus(String status,String sId) { 
+		logger.info("Entered UpdateStatus method of SessionDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE sessiondetails SET STATUS=? WHERE SESSION_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, status);
+			pstmt.setString(2, sId);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateStatus method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateStatus method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateStatus method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateStatus method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateStatus method of SessionDAO");
+		return isCommit;
+	}
+	
+	public List<SessionDTO> GetSessionDetailsUsingAdvisorId(int advisorId){
+		logger.info("Entered GetSessionDetails method of SessionDAO");
+		List<SessionDTO> sessions = new ArrayList<SessionDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM sessiondetails WHERE ADVISOR_ID=? AND STATUS IN (?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, advisorId);
+			pstmt.setString(2,"PENDING APPROVAL");
+			pstmt.setString(3,"ACCEPTED");
+			pstmt.setString(4,"ACCEPTED WITH NEW DATES");
+			pstmt.setString(5,"SESSION ON SCHEDULE");
+            ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				SessionDTO session = new SessionDTO();
+				session.setSessionid(results.getInt("SESSION_ID"));
+				session.setAdvisorid(results.getInt("ADVISOR_ID"));
+				session.setUserid(results.getInt("USER_ID"));
+				session.setMode(results.getString("MODE"));
+				session.setQuery(results.getString("QUERY"));
+				session.setStatus(results.getString("STATUS"));
+				sessions.add(session);
+
+			}
+		} catch (SQLException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetSessionDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return sessions;
+	}
+	
+	public List<UserDetailsDTO> GetUserDetails(List<SessionDTO> sessions){
+		logger.info("Entered GetUserDetails method of SessionDAO");
+		List<UserDetailsDTO> users = new ArrayList<UserDetailsDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(sessions.size());
+			System.out.println(q4in);
+			String query = "SELECT FULL_NAME,IMAGE,USER_ID FROM userdetails WHERE USER_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (SessionDTO session : sessions) {
+				pstmt.setInt(i++, session.getUserid());
+			}
+			System.out.println(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				UserDetailsDTO user = new UserDetailsDTO();
+				user.setFullName(results.getString("FULL_NAME"));
+				user.setImage(results.getString("IMAGE"));
+				user.setUserId(results.getInt("USER_ID"));
+				users.add(user);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return users;
+	}
+	
+	public double GetWalletDetails(int uid){
+		logger.info("Entered GetWalletDetails method of SessionDAO");
+		double amount=0;
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT AMOUNT FROM userwallet WHERE USER_ID =?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, uid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				amount = results.getDouble("AMOUNT");
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetWalletDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetWalletDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetWalletDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetWalletDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return amount;
+	}
+	
+	public String GetUserPhoneNumber(int uid){
+		logger.info("Entered GetUserPhoneNumber method of SessionDAO");
+		String phone = "";
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT PHONE_NUMBER FROM userdetails WHERE USER_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				phone = results.getString("PHONE_NUMBER");
+			}
+		} catch (SQLException e) {
+			logger.error("GetUserPhoneNumber method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserPhoneNumber method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserPhoneNumber method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserPhoneNumber method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetUserPhoneNumber method of SessionDAO");
+		return phone;
+	}
+	
+	public void UpdateCallSid(String userSid, String advisorSid,String sId){
+		logger.info("Entered UpdateCallSid method of SessionDAO");
+		Boolean isEducationCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into twilliocalls"+"(USER_CALL_SID,ADVISOR_CALL_SID,SESSION_ID) values" + "(?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userSid);
+			pstmt.setString(2,advisorSid);
+			pstmt.setString(3, sId);
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+			}
+		}catch (SQLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Entered UpdateCallSid method of SessionDAO");
+	}
+    
+	
+	public String GetAdvisorCallSid(String sId){
+		logger.info("Entered GetAdvisorCallSid method of SessionDAO");
+		String advisorSid = "";
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ADVISOR_CALL_SID FROM twilliocalls WHERE USER_CALL_SID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sId);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				advisorSid = results.getString("ADVISOR_CALL_SID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		logger.info("Entered GetAdvisorCallSid method of SessionDAO");
+		return advisorSid;
+	}
+	
+	public String GetUserCallSid(String sId){
+		logger.info("Entered GetAdvisorCallSid method of SessionDAO");
+		String userSid = "";
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT USER_CALL_SID FROM twilliocalls WHERE ADVISOR_CALL_SID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sId);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				userSid = results.getString("USER_CALL_SID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		logger.info("Entered GetAdvisorCallSid method of SessionDAO");
+		return userSid;
+	}
+	
+	public void UpdateDuration(String duration, String type,String Sid){
+		logger.info("Entered UpdateDuration method of SessionDAO");
+		try {
+			String query="";
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			if(type.equals("user")){
+			query = "UPDATE twilliocalls SET USER_DURATION = ? WHERE USER_CALL_SID = ?";
+			}else{
+				query = "UPDATE twilliocalls SET ADVISOR_DURATION = ? WHERE ADVISOR_CALL_SID = ?";	
+			}
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, duration);
+			pstmt.setString(2, Sid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}	
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		logger.info("Exit UpdateDuration method of SessionDAO");
+	}
+	
+	public List<CostDTO> GetDuration(String sId){
+		logger.info("Exit UpdateDuration method of SessionDAO");
+		List<CostDTO> list = new ArrayList<CostDTO>();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ADVISOR_DURATION,USER_DURATION FROM twilliocalls WHERE SESSION_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sId);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				CostDTO cost = new CostDTO();
+				cost.setAdvisorTime(results.getInt("ADVISOR_DURATION"));
+				cost.setUserTime(results.getInt("USER_DURATION"));
+				list.add(cost);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateDuration method of SessionDAO");
+		return list;
+	}
+	
+	public int GetAdvisorId(String sId){
+		logger.info("Entered GetAdvisorId method of SessionDAO");
+		int id=0;
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ADVISOR_ID FROM sessiondetails WHERE SESSION_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sId);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				id = results.getInt("ADVISOR_ID");
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorId method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorId method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorId method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorId method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetAdvisorId method of SessionDAO");
+		return id;
+	}
+	public Double GetAdvisorPrice(int advId, String mode){
+		logger.info("Entered GetAdvisorPrice method of SessionDAO");
+		String query = "";
+		Double price = 0.0;
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			if(mode.equals("phone")){
+				query ="SELECT PHONE_PRICE FROM advisordetails WHERE ADVISOR_ID=?";
+			}else{
+				query ="SELECT VIDEO_PRICE FROM advisordetails WHERE ADVISOR_ID=?";
+			}
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, advId);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				if(mode.equals("phone")){
+					price = results.getDouble("PHONE_PRICE");
+				}else{
+					price = results.getDouble("VIDEO_PRICE");
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorPrice method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorPrice method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorPrice method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorPrice method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetAdvisorPrice method of SessionDAO");
+		return price;
+	}
+	
+	public Boolean  UpdateWallet(String uid,String amount) { 
+		logger.info("Entered UpdateWallet method of SessionDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE userwallet SET AMOUNT= AMOUNT-? WHERE USER_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, amount);
+			pstmt.setString(2, uid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateWallet method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateWallet method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateWallet method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateWallet method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateWallet method of SessionDAO");
+		return isCommit;
+	}
+	
+	public Boolean  UpdateSessionDetails(String cost,String duration,String sid) { 
+		logger.info("Entered UpdateSessionDetails method of SessionDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE sessiondetails SET SESSION_DURATION= ?,SESSION_PRICE=?,STATUS=? WHERE SESSION_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, duration);
+			pstmt.setString(2, cost);
+			pstmt.setString(3, "SESSION SUCCESSFULLY COMPLETED");
+			pstmt.setString(4, sid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateSessionDetails method of SessionDAO");
+		return isCommit;
+	}
+	
+	private String generateQsForIn(int numQs) {
+		String items = "";
+		for (int i = 0; i < numQs; i++) {
+			if (i != 0)
+				items += ", ";
+			items += "?";
+		}
+		return items;
+	}
 	
 }

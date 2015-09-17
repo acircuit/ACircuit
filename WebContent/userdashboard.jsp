@@ -34,20 +34,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
-	
+UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
+         
 
 %>
 </head>
@@ -70,11 +58,11 @@
    		    		<div class="col-xs-12 col-md-3 four-cards no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
-								<img src="assets/img/Abhishek.JPG">
+								<img src="${userDetails.getImage()}">
 							</div>
 							<div class="user-name-info" style="text-align:center;">
-								<span class="user-name">Angela Dixon</span><br>
-								<span class="user-email">angeladixon@gmail.com</span><br>
+								<span class="user-name">${userDetails.getFullName()}</span><br>
+								<span class="user-email">${userDetails.getEmail()}</span><br>
 								<span class="user-settings">Edit Profile Settings</span>
 							</div>
 				   		</div>
@@ -94,7 +82,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View All Sessions</span>
+							<a href="usersessions"><span class="btext">View All Sessions</span></a>
 						</div>
 				   	</div>
 				   	<div class="col-xs-12 col-md-3 four-cards no-padding">
@@ -209,7 +197,7 @@
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
+							<a href="advisors?category=all" class="btn red-button " style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
 						</div>
@@ -235,128 +223,6 @@
    	 </div>
    	 <%@include file="/footer.jsp" %>
 </div>
-<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								    	<div class="modal-head-bsession">
-								    		<span class="modal-head-text">Book A Session</span>
-								    	</div>
-								    	<div class="modal-main-body row">
-								    		<span class="modal-body-text">Session with Charles Dixon</span>
-								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data">
-								    			<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
-											       <div class="col-xs-9 form-group">
-				                                         <div class="col-xs-6">
-				                                         	 <div class="roundedOne">
-																<input type="checkbox" value="" id="phone" name="check" />
-																<label for="phone"></label>
-																<span class="available-type-text">Phone</span>
-																
-															</div>
-														</div>
-														<div class="col-xs-6">
-				                                         	 <div class="roundedOne">
-																<input type="checkbox" value="" id="video" name="check" />
-																<label for="video"></label>
-																<span class="available-type-text">video</span>
-																
-															</div>
-														</div>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
-											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button inpt-mw" id="duration">
-														  <option value="1">30 minutes</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
-														 
-														</select> 
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
-											       <div class="col-xs-9 form-group">
-				                                       <span class="session-cost">Rs 500</span><br>
-				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Query Description</label>
-											       <div class="col-xs-9 form-group">
-				                                       <textarea class="form-control"></textarea>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Attachments</label>
-											       <div class="col-xs-9 form-group">
-				                                      <input type="file" class="custom-file-input">
-											 		</div>
-											 	</div>
-											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw">
-														  <option value="1">4:30pm</option>
-														  <option value="2">Industry</option>
-														  <option value="3">Courses</option>
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="col-xs-12 button-div" >
-											 	<button type="button" class="btn book-button" >Book</button>
-											 	<button type="button" class="btn cancel-button" data-dismiss="modal">Cancel</button>
-											 	
-											 	</div>
-								    		</form>
-								    	</div>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">

@@ -27,7 +27,11 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Entered doGet method of UserMyAccountCurrentSessionsController");
 		int userId = 0;
+		String userPhone="";
+		String advisorPhone="";
+		
 		Boolean isError =false;
 		try{
 			userId = (int) request.getSession().getAttribute("userId");
@@ -44,14 +48,49 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
-			
+			  if(sessionDetails.getMode().equals("phone")){
+				  advisorPhone = advisorDetails.getPhoneNo();
+                  //Retrieving the user phone number
+				  SessionDAO phone = new SessionDAO();
+				  userPhone = phone.GetUserPhoneNumber(userId);
+			  }
+			  //Getting wallet details
+			  SessionDAO user = new SessionDAO();
+			  double amount = user.GetWalletDetails(userId);
+			  
 			  request.setAttribute("sessionDetails", sessionDetails);
-			   request.setAttribute("advisorDetails", advisorDetails);
-			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/currentsession.jsp");
+			  request.setAttribute("advisorDetails", advisorDetails);
+			  request.setAttribute("userPhone", userPhone);
+			  request.setAttribute("advisorPhone", advisorPhone);
+			  request.setAttribute("wallet", amount);
+			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/usercurrentsession.jsp");
 	          rd.forward(request, response);
-			
-			
-			
 		}
+		if(isError){
+			response.sendRedirect("error");
+		}
+		logger.info("Exit doGet method of UserMyAccountCurrentSessionsController");
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Entered doPost method of UserMyAccountCurrentSessionsController");
+			  String sid = request.getParameter("sId");
+			  String cost = request.getParameter("cost");
+			  String duration = request.getParameter("duration");
+			  String uId = request.getParameter("uId");
+			  Boolean isSessionDetailsUdated = false;
+			  //Updating the user wallet
+			  SessionDAO wallet = new SessionDAO();
+			  Boolean isUpdated = wallet.UpdateWallet(cost,uId);
+			  if(isUpdated){
+				//Updating the session details
+				  SessionDAO session = new SessionDAO();
+				  isSessionDetailsUdated = session.UpdateSessionDetails(cost,duration,sid);
+			  }
+			  if(isSessionDetailsUdated){
+				  response.sendRedirect("userpastsession?sId="+sid);
+			  }
+		logger.info("Entered doPost method of UserMyAccountCurrentSessionsController");
+	}
+
 }
