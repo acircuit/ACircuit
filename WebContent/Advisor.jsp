@@ -124,7 +124,7 @@
 	<div class="body-content">
 		<div class="col-xs-12 col-sm-3 advisor-left-pannel">
 			<div class="verified-green-div">
-				<span>Verified Expert</span>
+				<span> <img src="assets/img/verified.png" style="width: 32px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> Verified Expert </span> <img src="assets/img/info.png" style="width: 17px;margin-right: 6px;margin-left: 5px;margin-top: 4px;float:right;">
 			</div>
 			<div class="can-help-container">
 				<div class="can-help-div">
@@ -150,10 +150,10 @@
 			<div class="available-div col-xs-12">
 				<span class="available-head">Available on</span>
 				<div class="col-xs-6 no-padding">
-				<i class="fa fa-phone"></i><span class="available-type-text">Phone</span>
+				<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
 				</div>
 				<div class="col-xs-6 no-padding">
-				<i class="fa fa-video-camera"></i><span class="available-type-text">Video Chat</span>
+				<img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text">Video Chat</span>
 				</div>
 			</div>
 			<div class="session-info col-xs-12">
@@ -341,18 +341,17 @@
 											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
 											       <div class="col-xs-9 form-group">
 				                                         <div class="col-xs-6">
-				                                         	 <div class="roundedOne">
+				                                         	 <div class="">
 																<input type="radio" value="phone" id="phone" name="mode" />
-																<label for="phone"></label>
-																<span class="available-type-text">Phone</span>
+																<label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
 																
 															</div>
 														</div>
 														<div class="col-xs-6">
-				                                         	 <div class="roundedOne">
+				                                         	 <div class="">
 																<input type="radio" value="video" id="video" name="mode" />
-																<label for="video"></label>
-																<span class="available-type-text">video</span>
+																<label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
+																
 																
 															</div>
 														</div>
@@ -361,7 +360,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
 											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button inpt-mw" id="duration" name="duration">
+				                                        <select class="collapsed-filter-button" id="duration" name="duration">
 														</select> 
 											 		</div>
 											 	</div>
@@ -496,11 +495,18 @@ $(document).ready(function () {
 	    startDate: '-3d'
 	});
 	var i=0;
-	var html=""
+	var html="";
 	for(i=0;i<25;i++){
 		html='<option value="'+i+':00">'+i+':00 Hours</option>'
 			+'<option value="'+i+':30">'+i+':30 Hours</option>';
 		$('.inpt-mw').append(html);
+	}
+	var j=0;
+	var htmld="";
+	for(j=15;j<91;){
+		htmld='<option value="'+j+'">'+j+' Minutes</option>';
+		$('#duration').append(htmld);
+		j=j+15;
 	}
 	starinputconversion();
 });

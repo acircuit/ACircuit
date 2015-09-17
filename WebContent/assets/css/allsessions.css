@@ -87,20 +87,22 @@
 .each-session-div .adv-img {
     height: 48px;
     width: 48px;
+    float: none;
 }
 .each-session-div  .adv-name {
-    font-size: 14px;
-     margin-top: -6px;
-    margin-left: 8px;
-    float: left;
+   font-size: 14px;
+    margin-top: -52px;
+    margin-left: 59px;
+    /* float: left; */
+    display: block;
     }
 .subject{
     color: #4a4a4a;
     font-size: 13px;
-    margin-top: -13px;
-    margin-left: 11px;
-    display: block;
-    float: left;
+    margin-top: -28px;
+    margin-left: 61px;
+    /* display: block; */
+    /* float: left; */
 
 }  
 .session-status{

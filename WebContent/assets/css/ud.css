@@ -54,6 +54,7 @@
     color: #9b9b9b;
     font-family: lato;
     font-weight: 100;
+    word-wrap: break-word;
 }
 .user-settings{
 	font-size: 13px;
@@ -379,9 +380,48 @@ input[type=file] {
     padding-bottom: 14px;
 }
 
+.change-interest{
+	font-size:13px;
+	    margin-left: 20px;
+}
 
+input[type="radio"] {
+  display: none;
+}
 
+input[type="radio"] + label {
+  color: #4a4a4a;
+  font-size: 13px;
+  font-weight: 100;
+}
 
+input[type="radio"] + label span {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+input[type="radio"] + label span {
+ background-color: #FFFFFF;
+    border: 1px solid lightgray;
+}
+
+input[type="radio"]:checked + label span {
+ background-color: #37b7b3;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
 
 
 
@@ -402,7 +442,7 @@ input[type=file] {
 
 @media (min-width: 992px) and (max-width: 1237px) {
 .four-cards{
-  max-width: 400px;
+  max-width: 265px;
     margin-right: 5px;
 }
 .ask-div {
@@ -412,6 +452,15 @@ input[type=file] {
     width: 60px;
     height: 60px;
 }
+.bamount {
+    font-size: 20px;
+}
+.Adp img {
+    width: 90px;
+    height: 90px;
+    margin-top: 38px;
+}
+
 }
 
 
@@ -431,7 +480,7 @@ input[type=file] {
     min-height: 277px;
 }	
 .dp-container {
-    max-width: 190px;
+    /* max-width: 190px; */
 }
 .bamount {
     font-size: 17px;
@@ -443,8 +492,8 @@ input[type=file] {
 }
 @media (min-width: 320px) and (max-width: 992px) {
 .main-body-div {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .Adp img {
     width: 100px;
@@ -454,29 +503,82 @@ input[type=file] {
     min-height: 277px;
 }	
 .dp-container {
-    max-width: 790px;
-}
+   max-width: 100%;
+  }
 .blueT4 {
     background-position-y: -223px;}
     
-.bamount {
-    font-size: 17px;
-}
+
 .card-content img {
-    width: 37px;
-    height: 37px;
+    width: 50px;
+    height: 50px;
+}
+.card-content-xs{
+	padding: 11px 11px 8px 20px;
 }
 .card-text {
     max-width: 700px;
    
 }
 .four-cards {
-    min-height: 197px;
+    min-height: 136px;
         margin-top: 10px;
     padding-bottom: 10px;
 }
 .card-footer {
     margin-top: 14px;
     margin-bottom: 0px;
+}
+.user-email {
+    font-size: 14px;}
+.gborder-text-big {
+    font-size: 12px;
+}    
+.recharg-button {
+    width: 65px;
+    font-size: 12px;
+    padding: 0px 0px 0px 0px;
+    height: 30px;
+}
+.new-expert-head {
+    line-height: 25px;
+    font-size: 12px;
+}
+.new-expert-card img {
+    width: 36px;
+    height: 36px;
+}
+.question {
+    font-size: 13px;
+    line-height: 16px;
+}
+.n-expert-name {
+    font-size: 14px;
+}
+.rfrom {
+    margin-left: 8px;
+}
+.review-text {
+    font-size: 12px;
+        margin-top: -17px;
+    margin-left: 44px;
+}
+.userr-card img {
+    width: 36px;
+    height: 36px;
+}
+.ud-left-section {
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+.b-session{
+	    height: 34px;
+    padding-top: 8px
+}
+.body-content-head {
+    font-size: 15px;
+}
+.change-interest{
+	font-size:12px;
 }
 }

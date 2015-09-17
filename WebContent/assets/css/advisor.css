@@ -296,6 +296,7 @@ padding: 6px 0px 0px 19px;
     display: block;
     margin-top: -24px;
     margin-left: 31px;
+    float: none;
 }
 
 .session-info{

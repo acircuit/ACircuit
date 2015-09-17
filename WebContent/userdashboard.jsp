@@ -55,7 +55,7 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 							<span class="body-head-text">Dashboard</span>
 	</div>
    		   <div class="col-xs-12 no-padding">
-   		    		<div class="col-xs-12 col-md-3 four-cards no-padding dp-container">
+   		    		<div class="col-xs-12 col-md-2 four-cards no-padding dp-container">
 	   		    		<div class="col-xs-12 blueT4">
 		   		    		<div class="Adp" style="text-align:center;">
 								<img src="${userDetails.getImage()}">
@@ -71,11 +71,11 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 		   		    	<div class="top-bar-div backp">
 								<span class="top-bar-text">CURRENT SESSIONS</span>
 						</div>
-						<div class="card-content col-xs-12">
+						<div class="card-content col-xs-2 col-sm-12">
 							<img src="assets/img/current_session.png">
-							<span class="card-text">Hope your session was great! Please review the advisor to help others.  <span class="btext">Review Now</span></span>
+							<span class="card-text hidden-xs">Hope your session was great! Please review the advisor to help others.  <span class="btext">Review Now</span></span>
 						</div>
-						<div class="col-xs-12">
+						<div class="col-xs-10 col-sm-12 card-content-xs">
 							<div class="gborder-div col-xs-12">
 								<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 								<span class="gborder-time">23 September 5:00 pm</span>
@@ -89,16 +89,16 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 		   		    	<div class="top-bar-div backg">
 								<span class="top-bar-text">PAYMENT WALLET</span>
 						</div>
-						<div class="card-content col-xs-12">
+						<div class="card-content col-xs-2 col-sm-12">
 							<img src="assets/img/payment_wallet.png">
-							<span class="card-text">Recharge now for <span class="rtext">Rs 500</span> to get <span class="rtext">10%</span> off on your next session. <span class="btext">View More Offers</span></span>
+							<span class="card-text hidden-xs">Recharge now for <span class="rtext">Rs 500</span> to get <span class="rtext">10%</span> off on your next session. <span class="btext">View More Offers</span></span>
 						</div>
-						<div class="col-xs-12">
-							<div class="col-xs-6 no-padding">
+						<div class="col-xs-10 col-sm-12 card-content-xs">
+							<div class="col-xs-8 col-sm-6 no-padding">
 								<span class="balance-text">Current Balance</span><br>
 								<span class="bamount">Rs 1240.00</span><br>
 							</div>
-							<div class="col-xs-6 no-padding r-button-div">
+							<div class="col-xs-4 col-sm-6 no-padding r-button-div">
 								<button type="button" class="btn recharg-button">Recharge</button>
 							</div>
 						</div>
@@ -110,11 +110,11 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 		   		    	<div class="top-bar-div backb">
 								<span class="top-bar-text">QUESTIONS ASKED</span>
 						</div>
-						<div class="card-content col-xs-12">
+						<div class="card-content col-xs-2 col-sm-12">
 							<img src="assets/img/questions.png">
-							<span class="card-text">Its been 2 weeks since you asked your last question.  <span class="btext">Ask New Question</span></span>
+							<span class="card-text hidden-xs">Its been 2 weeks since you asked your last question.  <span class="btext">Ask New Question</span></span>
 						</div>
-						<div class="col-xs-12 ask-div">
+						<div class="col-xs-10 col-sm-12 card-content-xs ask-div">
 							<span class="ask-text-big"><span class="btext">Doris Weaver</span> answered your question.</span><br>
 							<span class="ask-text-small">Posted on 3rd August</span>
 						</div>
@@ -197,7 +197,7 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<a href="advisors?category=all" class="btn red-button " style="width: 100%;margin-bottom: 10px;" >Book a session</a>
+							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
 						</div>

@@ -91,42 +91,42 @@
 					   		<div class="col-xs-12 no-padding">
 					   		<span class="prop-time-text">Proposed Time Slots</span>
 					   		</div>
-					   		<div class="prop-time-div col-xs-12 no-padding">
+					   		<div class="prop-time-div col-xs-12 no-padding ">
 					   			
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
-											<input type="checkbox" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="video" name="date1" />
-											<label for="video"></label>
+					   					<div class="">
+											<input type="radio" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="s1" name="slot" />
+											<label for="s1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
-											<input type="checkbox" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="video" name="date1" />
-											<label for="video"></label>
+					   					<div class="">
+											<input type="radio" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="s2" name="slot"  />
+											<label for="s2"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 2</span><span class="slot-asked-time">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
-											<input type="checkbox" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="video" name="date1" />
-											<label for="video"></label>
+					   					<div class="">
+											<input type="radio" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="s3" name="slot"  />
+											<label for="s3"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 3</span><span class="slot-asked-time">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span></span>
 					   				</div>
-					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
-											<input type="checkbox" value="" id="video" name="check" />
-											<label for="video"></label>
+					   				<div class="col-xs-12 radio-button-div no-padding">
+					   					<div class="">
+											<input type="radio" value="pradio" id="p1" name="slot"  />
+											<label for="p1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Propose Revised Time Slots</span></span>
 					   				</div>
 										
 					   		</div>
-					   		<div class="col-xs-12 no-padding">
+					   		<div class="col-xs-12 no-padding new-slotsp">
 					   			<span class="prop-time-text">Propose Revised Time Slots</span>
 					   		</div>
-					   		<div class="prop-time-div col-xs-12 no-padding">
+					   		<div class="prop-time-div col-xs-12 no-padding new-slotsp">
 					   			<div class=" col-xs-12 no-padding">
 											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
 											       <div class="col-xs-9 form-group">
@@ -219,7 +219,16 @@ $(document).ready(function () {
 			+'<option value="'+i+':30">'+i+':30 Hours</option>';
 		$('.inpt-mw').append(html);
 	}
-	starinputconversion();
+	$('input:radio[name="slot"]').change(
+		    function(){
+		        if ($(this).val() == 'pradio') {
+		            $('.new-slotsp').slideDown();
+		        }
+		        else {
+		        	 $('.new-slotsp').slideUp();
+		        }
+		    });
+	
 });
 
 function AcceptSession(){

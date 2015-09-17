@@ -94,7 +94,7 @@
 }
 .slot-asked-for{
 	float: left;
-    margin-top: -18px;
+    margin-top: -23px;
     margin-left: 25px;
 }
 .slot-no{
@@ -160,6 +160,7 @@
     float: right;
     width: 120px;
     height: 40px;
+        margin-right: 10px;
 }
 .next-step-div{
 	background-color:#f2f2f2;
@@ -292,4 +293,7 @@ color: #9b9b9b;
 }
 #booksession .modal-body {
     background-color: #e7e7e7;
+}
+.new-slotsp{
+	display:none;
 }
