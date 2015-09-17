@@ -222,6 +222,7 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
    			</div>
    	 </div>
    	 <%@include file="/footer.jsp" %>
+   	
 </div>
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">

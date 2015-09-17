@@ -18,7 +18,7 @@
 					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
-					          <li><a href="#">Login In</a></li>
+					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login In</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
@@ -45,7 +45,7 @@
 					                    <a href="#">How it Works</a>
 					                </li>
 					                <li>
-					                    <a href="#">Login In</a>
+					                    <a data-toggle="modal" data-target="#loginmodal">Login In</a>
 					                </li>
 					               
 					            </ul>
@@ -62,6 +62,7 @@
 					        <!--  <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
+			          	
    	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),

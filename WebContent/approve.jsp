@@ -56,7 +56,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 	  
 	</div>
 </div>
-   	<div class="main-body-div container no-padding"  id="page-content-wrapper">
+   	<div class="main-body-div container"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
 							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
 	</div>

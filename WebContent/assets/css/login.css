@@ -1,0 +1,79 @@
+@CHARSET "ISO-8859-1";
+ .modal-content {
+	border-radius:0px;
+	border-top: 5px solid #37b7b3;
+}
+.modal-dialog {
+ max-width:380px;
+ }
+#loginmodal  .modal-body {
+    padding: 10px 20px 10px 20px;
+}
+ .modal-head-div{
+ 	border-bottom: 2px solid #e7e7e7;
+    padding-bottom: 10px;
+ }
+ .modal-head-text{
+ color:#4a4a4a;
+ font-size:18px;
+ font-family:latol;
+ }
+ .login-form-div{
+     padding: 25px 20px 0px 20px;
+ }
+ .login-form{
+ }
+ .login-form .form-group{
+ margin-bottom:30px;
+ }
+ 
+ .login-form-el{
+ }
+ .login-form-el input[type="radio"] + label {
+    color: #6c6c6c;
+    font-size: 16px;
+    font-family: latol;
+    font-weight: 100;
+}
+.login-form-el .form-control{
+    border-radius: 0px;
+    font-size: 13px;
+    color: #9b9b9b;
+}
+#loginmodal .form-group {
+    margin-bottom: 30px;
+}
+.policy-text{
+	font-size:12px;
+	color:#9b9b9b;
+}
+.gt-started{
+background-color: #fd6d64;
+    color: white;
+    width: 100%;
+    margin-top: -10px;
+    height: 40px;
+}
+.option-signin{
+	margin-top: -16px;
+    text-align: center;
+}
+.option-text{
+	color: #6c6c6c;
+    font-size: 16px;
+    font-family: latol;
+}
+.already-signup{
+	
+}
+.forgot{
+	    font-size: 12px;
+    font-family: latol;
+    margin-top: 5px;
+}
+.already-signup-text{
+	font-size: 12px;
+}
+.move-to-signup{
+	cursor:pointer;
+}

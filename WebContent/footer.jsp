@@ -44,6 +44,7 @@
 		<img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo">
 	</div>
 </div>
+  <%@include file="/login-modal.jsp" %>
 <script>
 $('body').on('click', '.list-head', function(e){
 	var forxs = $(window).width();
