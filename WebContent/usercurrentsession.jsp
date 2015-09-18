@@ -52,7 +52,7 @@ Double wallet = (Double)request.getAttribute("wallet");
  <div id="wrapper">
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
-			       <%@include file="/Header.jsp" %>
+			       <%@include file="/header-inner.jsp" %>
 	  
 	</div>
 </div>
@@ -158,19 +158,20 @@ Double wallet = (Double)request.getAttribute("wallet");
    	 <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="booksession">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
-								      <div class="modal-body">
-								    	<div class="modal-head-bsession">
-								    		<span class="modal-head-text">Write A Note</span>
+								      <div class="modal-body" style="padding:20px;">
+								    	<div style="border-bottom: 1px solid lightgray;padding-bottom: 10px;margin-bottom: 10px;">
+								    		<span class="modal-head-text" style="color:#9b9b9b;">Write A Note</span>
 								    	</div>
-								    	<div class="col-xs-12 no-padding session-info-div">
-						   		           <div class="col-xs-7 no-padding">
-							   		          <span class="mode">DURATION:</span><span class="mode-type" id="duration"></span>
-							   		          <span class="mode">ADVISOR PRICE:</span><span class="mode-type" id="advprice"></span>
-							   		          <span class="mode">TOTAL COST:</span><span class="mode-type" id="cost"></span>
+								    	<div class="row">
+						   		           <div class="col-xs-12">
+							   		          <span class="mode">DURATION:</span><span class="mode-type" id="duration"></span><br>
+							   		          <span class="mode">ADVISOR PRICE:</span><span class="mode-type" id="advprice"></span><br>
+							   		          <span class="mode">TOTAL COST:</span><span class="mode-type" id="cost"></span><br>
 							   		          
 					   			            </div>
 					   			
 					   		           </div>
+					   		           <div class="row">
 					   		           <form action="usercurrentsession" method="post">
 					   		               <input type="hidden" name="cost" id="sessioncost" value="">
 					   		               <input type="hidden" name="duration" id="sessionduration" value="">
@@ -178,6 +179,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		                <input type="hidden" name="uId" value="${sessionDetails.getUserid()}">
 					   		                <button type="submit" class="btn submit-button">Continue</button>
 					   		           </form>
+					   		              </div>
 								      </div>
 								      
 								    </div>
@@ -200,13 +202,13 @@ $(document).ready(function () {
 		$('.inpt-mw').append(html);
 	}
 	starinputconversion();
-	
+/* 	$('#details').modal('show'); */
 	
 });
 function CallSSE(){
 	$.ajax({
 	    url : 'UserCurrentSessionSSE', // Your Servlet mapping or JSP(not suggested)
-	    data : {"sId" :"${sessionDetails.getSessionid()}",},
+	    data : {"sId" :"${sessionDetails.getSessionid()}"},
 	    type : 'POST',
 	    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	    success : function(response) {
@@ -224,7 +226,7 @@ function CallTwilio(){
 	}else{
 		$.ajax({
 		    url : 'ClickToCall', // Your Servlet mapping or JSP(not suggested)
-		    data : {"sId" :"${sessionDetails.getSessionid()}","user": ${userPhone}, "advisor" :${advisorPhone}},
+		    data : {"sId" :"${sessionDetails.getSessionid()}","user": "${userPhone}", "advisor" :"${advisorPhone}"},
 		    type : 'POST',
 		    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		    success : function(response) {
