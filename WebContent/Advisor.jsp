@@ -43,6 +43,9 @@
                    AdvisorDTO advisor = (AdvisorDTO) request.getAttribute("advisor");
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
                    String currentCompany = (String) request.getAttribute("currentCompany");
+                   String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
+                   List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
+                   List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
        			   int userId = 0;
        			   if(request.getSession().getAttribute("userId") != null){
        				userId = (Integer)request.getSession().getAttribute("userId");
