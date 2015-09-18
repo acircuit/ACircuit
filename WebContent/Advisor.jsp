@@ -362,7 +362,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
 											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button" id="duration" name="duration">
+				                                        <select class="collapsed-filter-button" id="duration" name="duration" title="Please select time duration" required="" aria-required="true">
 														</select> 
 											 		</div>
 											 	</div>
@@ -378,13 +378,13 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Query Description</label>
 											       <div class="col-xs-9 form-group">
-				                                       <textarea class="form-control" name="query" type="text" required></textarea>
+				                                       <textarea class="form-control" name="query" required></textarea>
 											 		</div>
 											 	</div>
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Attachments</label>
 											       <div class="col-xs-9 form-group">
-				                                      <input type="file" class="custom-file-input" name="resume">
+				                                      <input type="file" class="custom-file-input required" name="resume" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" aria-required="true">
 											 		</div>
 											 	</div>
 											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
@@ -392,10 +392,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot1time">
+											        <select class="collapsed-filter-button inpt-mw" name="slot1time" title="Please select slot 1" required="" aria-required="true">
 														  
 														  
 													</select> 
@@ -407,10 +407,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot2time">
+											        <select class="collapsed-filter-button inpt-mw" name="slot2time" title="Please  select slot 2" required="" aria-required="true">
 														
 													</select> 
 											       </div>
@@ -421,10 +421,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot3time">
+											        <select class="collapsed-filter-button inpt-mw" name="slot3time" title="Please  select slot 3" required="" aria-required="true">
 														
 													</select> 
 											       </div>
@@ -433,7 +433,7 @@
 											 	</div>
 											 	<div class="col-xs-12 button-div" >
 											 	<button type="submit" class="btn book-button" >Book</button>
-											 	<button type="button" class="btn cancel-button" data-dismiss="modal">Cancel</button>
+											 	<button type="button" class="btn cancel-button" data-dismiss="modal" id="cancel-booksession">Cancel</button>
 											 	
 											 	</div>
 								    		</form>
@@ -513,7 +513,10 @@ $(document).ready(function () {
 	$("#book-session-form").validate();
 	starinputconversion();
 });
-
+$('body').on('click', '#cancel-booksession', function(e){
+	var validator=$("#book-session-form").validate();
+	validator.resetForm();
+});
 $('body').on('click', '.more', function(e){
 	var id = $(this).closest('.each-question-div').attr('id');
 	var data="I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA orI am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ";

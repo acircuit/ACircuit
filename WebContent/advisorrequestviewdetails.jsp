@@ -190,11 +190,11 @@
 								    	<div class="modal-head-bsession">
 								    		<span class="modal-head-text">Write A Note</span>
 								    	</div>
-								    	<form action="approvesession" method="post">
+								    	<form action="approvesession" method="post" id="reject-reason-form">
 								    	<input type="hidden" name="sid" value="${sessionDetails.getSessionid()}">
 								    	<input type="hidden" name="uid" value="${sessionDetails.getUserid()}">
 								    	<div class="modal-main-body row">
-								    		<textarea class="form-control reason-input" rows="5" cols="" placeholder="Write you reason" name="reason"></textarea>
+								    		<textarea class="form-control reason-input" rows="5" cols="" placeholder="Write you reason" name="reason" required></textarea>
 								    		<div class="col-xs-12 no-padding">
 								    			<button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 120px;margin-top: 10px;float: right">Send</button>
 								    		</div>
@@ -214,6 +214,7 @@ $(document).ready(function () {
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
 	});
+	$("#reject-reason-form").validate();
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){

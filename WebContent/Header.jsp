@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
      <div class="div-container-navbar">
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
@@ -18,7 +17,7 @@
 					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
-					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login In</a></li>
+					          <li><a href="#" data-toggle="modal" data-target="#signupmodal">Login In</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
