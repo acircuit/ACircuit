@@ -1,15 +1,15 @@
 @CHARSET "ISO-8859-1";
- .modal-content {
+#signupmodal .modal-content,#loginmoda .modal-content{
 	border-radius:0px;
 	border-top: 5px solid #37b7b3;
 }
-.modal-dialog {
+#signupmodal .modal-dialog,#loginmoda .modal-dialog {
  max-width:380px;
  }
 #loginmodal  .modal-body {
     padding: 10px 20px 10px 20px;
 }
- .modal-head-div{
+#signupmodal .modal-head-div,#loginmoda .modal-head-div{
  	border-bottom: 2px solid #e7e7e7;
     padding-bottom: 10px;
  }

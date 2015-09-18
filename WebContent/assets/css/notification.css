@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+.notify-div{
+	    position: absolute;
+    top: 10px;
+    width: 100%;
+    z-index:1;
+}
+.notify-text{
+	color: #4a4a4a;
+    font-size: 14px;
+}
+.notify-text-div{
+	padding: 11px;
+    background-color: #5dc9f0;
+}
+.cross-noti{
+	float: right;
+    margin-right: 9px;
+    font-size: 14px;
+    color: #6c6c6c;
+    cursor: pointer;
+}

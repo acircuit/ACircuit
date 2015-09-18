@@ -1,4 +1,4 @@
-\<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="ac.dto.*"%>
@@ -49,6 +49,7 @@ List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("adviso
 </head>
 <body>
  <div id="wrapper">
+  <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -62,7 +63,7 @@ List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("adviso
    		  
    			<div class="body-content col-xs-12 no-padding">
    			
-   				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
+   				<div class="col-xs-12 col-sm-9 " style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding">
 			   			<div class="col-xs-6">
 			   				<img class="noti-img" src="assets/img/current_session.png">

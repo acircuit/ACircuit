@@ -235,6 +235,10 @@
 	    font-size: 13px;
     color: #4a4a4a;
 }
+.review-text-profile{
+	font-size: 13px;
+    color: #4a4a4a;
+}
 .moreR, .lessR {
     font-size: 13px;
     color: #37b7b3;
@@ -366,7 +370,11 @@ padding: 6px 0px 0px 19px;
     border-bottom: 1px solid lightgray;
     padding-bottom: 8.5px;
 }
-
+.review-stars-on-advisor{
+	float: right;
+    /* margin-top: -5px; */
+    font-size: 10px;
+}
 
 
 

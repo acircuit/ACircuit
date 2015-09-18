@@ -158,18 +158,14 @@
 										       <div class="col-xs-9">
 											       <div class="col-xs-6">
 												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														  <option value="volvo">Volvo</option>
-														  <option value="saab">Saab</option>
-														  <option value="mercedes">Mercedes</option>
-														  <option value="audi">Audi</option>
+														   <option value="higherstudies">Higher studies</option>
+														  <option value="industry">Industry</option>
+														  <option value="options">Courses</option>
 														</select>
 											       </div>
 											       <div class="col-xs-6">
 												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															  <option value="volvo">Volvo</option>
-															  <option value="saab">Saab</option>
-															  <option value="mercedes">Mercedes</option>
-															  <option value="audi">Audi</option>
+															  
 														</select>
 														
 											       </div>
@@ -320,7 +316,38 @@ $('body').on('click', '.less', function(e){
 		        }
 		    });
 	}
+	$('#category-menu-on-modal').on('change', function() {
+		 var values= ( this.value ); // or $(this).val()
+		if(values=='higherstudies')
+		 {
+				var option1="";
+		 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
+		   option1=option1 + '<option value="${sub}">${sub}</option>';
+		   console.log(option1);
+		   $('#subcategory-menu-on-modal').html(option1);
+		 	</c:forEach>
+		 	
+		 }
+		else if(values=='industry')
+		 {  
+			var option2="";
+			<c:forEach items="${industrySubCategory}" var="sub">
+		   option2=option2 + '<option value="${sub}">${sub}</option>';
+		 
+		   $('#subcategory-menu-on-modal').html(option2);
+		 	</c:forEach>
+		 }
+		else
+		{
+			var option3="";
+			<c:forEach items="${optionsSubCategory}" var="sub">
+		   option3=option3 + '<option value="${sub}">${sub}</option>';
+		 
+		   $('#subcategory-menu-on-modal').html(option3);
+		 	</c:forEach>
 
+		}
+		});
 </script>
 </body>
 </html>

@@ -190,6 +190,7 @@ font-size:12px;
 .each-rv-div .subject {
     margin-top: -16px;
     margin-left: 40px;
+    float:left;
 }
 .posted-on{
 	display: inline-block;
