@@ -119,7 +119,7 @@ List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activit
 							<span class="ask-text-small">Posted on 3rd August</span>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<a href=""><span class="btext">View All Questions</span></a>
+							<a href="userquestions"><span class="btext">View All Questions</span></a>
 						</div>
 				   	</div>
 		   	</div>

@@ -43,12 +43,23 @@ public class AdvisorProfileController extends HttpServlet {
             		 currentCompany = pro.getCompany();
             	 }
              }
+     		//Getting the sub categories
+     		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+     		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+     		
+     		MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+     		List<String> industrySubCategory = industry.getIndustrySubCategory();
+     		
+     		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+     		List<String> optionsSubCategory = option.getOpionsSubCategory();
              
              
      		 request.setAttribute("advisor", advisor);
      		 request.setAttribute("currentDesignation", currentDesignation);
      		 request.setAttribute("currentCompany", currentCompany);
-
+     		 request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+    		 request.setAttribute("industrySubCategory", industrySubCategory);
+    		 request.setAttribute("optionsSubCategory", optionsSubCategory);
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/Advisor.jsp");
              rd.forward(request, response);
 		}	

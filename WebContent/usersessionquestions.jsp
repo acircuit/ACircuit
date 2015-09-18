@@ -38,19 +38,10 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
 
-        		pageContext.setAttribute("ids", ids);
+                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
+
 	
 
 %>
@@ -99,65 +90,62 @@
 				
 				  <!-- Tab panes -->
 				  <div class="tab-content">
-				    <div role="tabpanel" class="tab-pane fade in active" id="ans">
-				    	<div class="tab-head-div ">
+				   	<div class="tab-head-div ">
 				    		<span class="tab-head-text">New Answers Added</span>
 				    	</div>
+				    <c:forEach items="${questions}" var="question">
+				          <c:forEach items="${advisorDetails}" var="advisor">
+				            <c:if test="${question.getAdvisor_id() == advisor.getId()}">
+				            <c:if test="${question.getIsAnswered() }">
+				             <div role="tabpanel" class="tab-pane fade in active" id="ans">
+				   
 				    	<div class="tab-content-div row">
 				    		<div class="each-question-div row" id="1">
 				   				<div class="col-xs-12 question-div">
-									<a href="#"><span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span></a>
+									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
 				   					<br>
-				   					<span class="count-answers">Posted on 3rd August to <span class="btext">Q&A Forum</span> </span>
+				   					<c:if test="${question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOn()} to <span class="btext">Q&A Forum</span> </span>
+				   					</c:if>
+				   					<c:if test="${!question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOn()} to <span class="btext">${advisor.getName()}</span> </span>
+				   					</c:if>
 				   				</div> 
 				   				<div class="col-xs-9 answer-div">
 									<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span>
-				                                    <p class="subject">“ I would like to know more about the admission process and the prospects after the particular course.”</p><br>
+				                                    <img class="adv-img" src="${advisor.getImage()}">
+				                                    <span class="adv-name">${advisor.getName()}</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
+				                                    <p class="subject">“${question.getAnswer()}”</p><br>
 				                         </div>
-				    			</div>
-				    			<div class="col-xs-12 see-all-div">
-				    			<span class="btext">See all answers from other advisors</span>
-				    			</div>
-				   			</div>
-				   			<div class="each-question-div row" id="1">
-				   				<div class="col-xs-12 question-div">
-									<a href="#"><span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span></a>
-				   					<br>
-				   					<span class="count-answers">Posted on 3rd August to <span class="btext">Q&A Forum</span> </span>
-				   				</div> 
-				   				<div class="col-xs-9 answer-div">
-									<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span>
-				                                    <p class="subject">“ I would like to know more about the admission process and the prospects after the particular course.”</p><br>
-				                         </div>
-				    			</div>
-				    			
-				   			</div>
-				   			<div class="each-question-div row" id="1">
-				   				<div class="col-xs-12 question-div">
-									<a href="#"><span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span></a>
-				   					<br>
-				   					<span class="count-answers">Posted on 3rd August to <span class="btext">Q&A Forum</span> </span>
-				   				</div> 
-				   				<div class="col-xs-9 answer-div">
-									<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span>
-				                                    <p class="subject">“ I would like to know more about the admission process and the prospects after the particular course.”</p><br>
-				                         </div>
-				    			</div>
-				    			
-				   			</div>
-				   				
-						</div>	
-				    			
-				    			
+				    			    </div>
+				   			    </div>
+						    </div>	
 				    	</div>
+				    	</c:if>
+				    	</c:if>
+			    	
+				    	<c:if test="${!question.getIsAnswered() }">
+				    	<div role="tabpanel" class="tab-pane fade" id="pen">'
+				               				    	<div class="tab-content-div row">
+				    		<div class="each-question-div row" id="1">
+				   				<div class="col-xs-12 question-div">
+									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
+				   					<br>
+				   					<c:if test="${question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOn()} to <span class="btext">Q&A Forum</span> </span>
+				   					</c:if>
+				   					<c:if test="${!question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOn()} to <span class="btext">${advisor.getName()}</span> </span>
+				   					</c:if>
+				   				</div> 
+				   			    </div>
+						    </div>	
+				        </div>
+				        </c:if>
+				        </c:forEach>
+				   </c:forEach>
 				   
-				    <div role="tabpanel" class="tab-pane fade" id="pen">...</div>
+				    
 				   
 				  
 				  </div>

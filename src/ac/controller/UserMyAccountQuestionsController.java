@@ -1,9 +1,11 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.dao.QuestionsDAO;
+import ac.dto.AdvisorDTO;
+import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 
 /**
@@ -42,6 +46,44 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 			QuestionsDAO questions = new QuestionsDAO();
 			list = questions.GetUserQuestions(userId);
 			
+			//Getting all the answers for the questions which are answered.
+			//Getting the question ids which have been answered
+			List<Integer> qids = new ArrayList<Integer>();
+			List<Integer> qid = new ArrayList<Integer>();
+			for(QuestionsDTO question : list){
+				if(question.getIsAnswered()){
+					qids.add(question.getQuestionId());
+				}
+			
+			}
+			//Getting all the answers
+			SimpleDateFormat format = new SimpleDateFormat("dd MMM");
+			List<AnswerDTO> advisorAnswers = new ArrayList<AnswerDTO>();
+			QuestionsDAO answers = new QuestionsDAO();
+			advisorAnswers = answers.GetAnswersFromQuestionIds(qids);
+			for(QuestionsDTO question : list){
+				for(AnswerDTO answer : advisorAnswers){
+					if(answer.getQuestionId() == question.getQuestionId()){
+						question.setAnswer(answer.getAnswer());
+						question.setLastUpdated(format.format(answer.getTime()));
+						question.setAdvisor_id(answer.getAdvisor_id());
+					}
+				}
+			
+			}
+			//Getting the advisorname from the advisor ids
+			QuestionsDAO ids = new QuestionsDAO();
+			List<AdvisorDTO> advisorDetails  = ids.GetAdvisorName(advisorAnswers);
+			
+
+			
+			System.out.println(list.size());
+			System.out.println(advisorAnswers.size());
+			System.out.println(advisorDetails.size());
+			request.setAttribute("questions", list);
+			request.setAttribute("advisorDetails", advisorDetails);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/usersessionquestions.jsp");
+	        rd.forward(request, response);
 		}
 	}
 
