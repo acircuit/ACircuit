@@ -218,7 +218,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 								   			         <div class="advisor_details" >
 					                                    <img class="adv-img" src="${advisor.getImage()}">
 					                                    <span class="adv-name">Session with ${advisor.getName()}</span><span class="adv-date"> on ${dates.getAcceptedDate()}</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${review.getRating() }" disabled><br>
-					                                    <p class="subject">${review.getReview() }</p><br>
+					                                    <br><p class="subject">${review.getReview() }</p>
 					                                    <p class="posted-on" >Posted on ${review.getPostedOn()}</p><span class="session-id">Session ID ${review.getSessionId()}</span>
 					                                 </div>
 					   				           </div>
