@@ -659,7 +659,7 @@ public class QuestionsDAO {
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(ids.size());
 			String query = "SELECT * FROM answers WHERE QID IN ( "
-					+ q4in + " ) GROUP BY TIMESTAMP";
+					+ q4in + " ) ";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			int i = 1;
