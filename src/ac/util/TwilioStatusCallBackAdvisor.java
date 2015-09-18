@@ -60,7 +60,10 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 					e.printStackTrace();
 				} 
 			    SessionDAO dao1 = new SessionDAO();
-				dao1.UpdateDuration(callDuration,"user",callSid);
+			    dao1.UpdateCallStatus(call.getStatus(),call.getDuration(),callDuration,callStatus,call.getSid());
+		    }else{
+		    	SessionDAO dao1 = new SessionDAO();
+				dao1.UpdateDuration(callDuration,"advisor",callSid,callStatus);
 		    }
 		}else if (callStatus.equals("busy") || callStatus.equals("failed") || callStatus.equals("no-answer")) {
 			
@@ -81,10 +84,10 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 			}
 			
 		    SessionDAO dao1 = new SessionDAO();
-			dao1.UpdateDuration(callDuration,"user",callSid);
+		    dao1.UpdateCallStatus(call.getStatus(),call.getDuration(),callDuration,callStatus,call.getSid());
 		}else if (callStatus.equals("completed") ) {
 			SessionDAO dao1 = new SessionDAO();
-			dao1.UpdateDuration(callDuration,"user",callSid);
+			dao1.UpdateDuration(callDuration,"advisor",callSid,callStatus);
 		}
 	}
 

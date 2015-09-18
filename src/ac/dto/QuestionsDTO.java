@@ -1,9 +1,12 @@
 package ac.dto;
 
+import java.sql.Timestamp;
+
 public class QuestionsDTO {
 	
 	private int questionId;
 	private int advisor_id;
+	private int user_id;
 	public int getAdvisor_id() {
 		return advisor_id;
 	}
@@ -16,6 +19,48 @@ public class QuestionsDTO {
 	private String subcategory;
 	private String lastUpdated; 
 	private int count;
+	private Boolean isAnswered;
+	private Boolean isAnonymous;
+	private Timestamp postedOn;
+	private int hits;
+	private Boolean toForum;
+
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public Boolean getIsAnswered() {
+		return isAnswered;
+	}
+	public void setIsAnswered(Boolean isAnswered) {
+		this.isAnswered = isAnswered;
+	}
+	public Boolean getIsAnonymous() {
+		return isAnonymous;
+	}
+	public void setIsAnonymous(Boolean isAnonymous) {
+		this.isAnonymous = isAnonymous;
+	}
+	public Timestamp getPostedOn() {
+		return postedOn;
+	}
+	public void setPostedOn(Timestamp postedOn) {
+		this.postedOn = postedOn;
+	}
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	public Boolean getToForum() {
+		return toForum;
+	}
+	public void setToForum(Boolean toForum) {
+		this.toForum = toForum;
+	}
 	public int getCount() {
 		return count;
 	}

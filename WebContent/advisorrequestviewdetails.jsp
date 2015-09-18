@@ -166,6 +166,7 @@
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
 					   			</div>
+					   			<input type="hidden" name="uid" value="${sessionDetails.getUserid()}">
 					   			<div class="col-xs-12 no-padding">
 					   			<button type="submit" class="btn two-buttons" style="background-color: #f2624d;color:white;">Accept Session</button>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
@@ -191,6 +192,7 @@
 								    	</div>
 								    	<form action="approvesession" method="post">
 								    	<input type="hidden" name="sid" value="${sessionDetails.getSessionid()}">
+								    	<input type="hidden" name="uid" value="${sessionDetails.getUserid()}">
 								    	<div class="modal-main-body row">
 								    		<textarea class="form-control reason-input" rows="5" cols="" placeholder="Write you reason" name="reason"></textarea>
 								    		<div class="col-xs-12 no-padding">

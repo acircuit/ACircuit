@@ -24,6 +24,7 @@ import com.twilio.sdk.resource.instance.Call;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
@@ -74,7 +75,10 @@ public class TwilioStatusCallBackUser extends HttpServlet {
 					e.printStackTrace();
 				} 
 			    SessionDAO dao1 = new SessionDAO();
-				dao1.UpdateDuration(callDuration,"user",callSid);
+			    dao1.UpdateCallStatus(callDuration,callStatus,call.getStatus(),call.getDuration(),callSid);
+		    }else{
+		    	SessionDAO dao1 = new SessionDAO();
+				dao1.UpdateDuration(callDuration,"user",callSid,callStatus);
 		    }
 		}else if (callStatus.equals("busy") || callStatus.equals("failed") || callStatus.equals("no-answer")) {
 			TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
@@ -90,12 +94,11 @@ public class TwilioStatusCallBackUser extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		    SessionDAO dao1 = new SessionDAO();
-			dao1.UpdateDuration(callDuration,"user",callSid);
-		}else if (callStatus.equals("completed")){
+		    dao1.UpdateCallStatus(callDuration,callStatus,call.getStatus(),call.getDuration(),callSid);
+			}else if (callStatus.equals("completed")){
 			SessionDAO dao1 = new SessionDAO();
-			dao1.UpdateDuration(callDuration,"user",callSid);
+			dao1.UpdateDuration(callDuration,"user",callSid,callStatus);
 		}
 		logger.info("Entered doPost method of GetAdvisorController");
 	}
