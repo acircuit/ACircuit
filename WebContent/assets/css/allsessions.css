@@ -227,6 +227,7 @@ font-size:12px;
 .answer-div .subject {
     margin-top: -19px;
     margin-left: 41px;
+        float: left;
 }    
 .answer-div .adv-date {
     font-size: 14px;

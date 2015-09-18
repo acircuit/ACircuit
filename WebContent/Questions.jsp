@@ -89,7 +89,7 @@
 				   					<br>
 				   					<span class="count-answers">${question.getCount()} answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>
 				   				</div> 
-				   				<div class="col-xs-9 answer-div">
+				   				<div class="col-xs-9 answer-div" >
 									<span class="by-whom">
 									<span class="nameA">Raghu Venkat </span> answered
 									</span>

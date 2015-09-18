@@ -74,7 +74,7 @@
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#">Login In</a></li>
-					          
+					          <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Join us </span></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->

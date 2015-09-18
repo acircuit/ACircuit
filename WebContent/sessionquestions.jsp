@@ -157,7 +157,41 @@
 				    			
 				    	</div>
 				   
-				    <div role="tabpanel" class="tab-pane fade" id="pen">...</div>
+				    <div role="tabpanel" class="tab-pane fade" id="pen">
+				    	<div class="tab-head-div ">
+				    		<span class="tab-head-text">Pending</span>
+				    	</div>
+				    	<div class="tab-content-div row">
+				    		<div class="each-question-div row" id="1">
+				   				<div class="col-xs-12 question-div">
+									<a href="#"><span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span></a>
+				   					<br>
+				   					<span class="count-answers">Posted on 3rd August to <span class="btext">Q&A Forum</span> </span>
+				   				</div> 
+				   				<div class="col-xs-9 answer-div">
+									<button type="button" class="btn red-button " style="width: 90px;margin-bottom: 10px;" data-toggle="modal" data-target="#answerquestion">Answer</button>
+				    			</div>
+				    			<div class="col-xs-12 see-all-div">
+				    			
+				    			</div>
+				   			</div>
+				   			<div class="each-question-div row" id="1">
+				   				<div class="col-xs-12 question-div">
+									<a href="#"><span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span></a>
+				   					<br>
+				   					<span class="count-answers">Posted on 3rd August to <span class="btext">Q&A Forum</span> </span>
+				   				</div> 
+				   				<div class="col-xs-9 answer-div">
+									<button type="button" class="btn red-button " style="width: 90px;margin-bottom: 10px;" data-toggle="modal" data-target="#answerquestion">Answer</button>
+				    			</div>
+				    			<div class="col-xs-12 see-all-div">
+				    			
+				    			</div>
+				   			</div>
+				   			
+				   				
+						</div>
+				    </div>
 				   
 				  
 				  </div>
@@ -373,6 +407,27 @@
 													<button type="button" class="btn red-button ask-question-button">Ask question</button>
 										       </div>
 									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
+								<div class="modal fade" id="answerquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Answer Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="button" class="btn red-button ask-question-button">Answer question</button>
+										       </div>
+									      
 								        </form>
 								      </div>
 								      

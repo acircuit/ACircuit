@@ -99,7 +99,7 @@ List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activit
 								<span class="bamount">Rs 1240.00</span><br>
 							</div>
 							<div class="col-xs-4 col-sm-6 no-padding r-button-div">
-								<button type="button" class="btn recharg-button">Recharge</button>
+								<button type="button" class="btn recharg-button" data-toggle="modal" data-target="#rechargemodal">Recharge</button>
 							</div>
 						</div>
 						<div class="col-xs-12 card-footer">
@@ -310,6 +310,27 @@ List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activit
 													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
 										       </div>
 									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
+								<div class="modal fade" id="rechargemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Enter recharge amount</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<input  class="form-control ask-question"  placeholder="Type your amount" >
+								      
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="button" class="btn red-button ask-question-button">Recharge</button>
+										       </div>
+									      
 								        </form>
 								      </div>
 								      
