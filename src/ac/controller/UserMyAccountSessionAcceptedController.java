@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdvisorNotificationDAO;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
@@ -84,7 +85,14 @@ public class UserMyAccountSessionAcceptedController extends HttpServlet {
 			SessionDAO status = new SessionDAO();
 			isStatusCommit = status.UpdateStatus("SESSION CANCELLED BY USER",sId);
 		}
+		SessionDAO id = new SessionDAO();
+		int advId = id.GetAdvisorId(sId);
 		if(isStatusCommit){
+			//Notify advisor
+			String advisorComment = "We're sorry but the User has declined the session. You will get a mail regarding this soon.";
+			String advisorHref = "advisorcancelledsession?sId="+sId;
+			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
+			advisor.InsertNotification(advisorComment, String.valueOf(advId), advisorHref);
 			response.sendRedirect("usercancelledsession?sId="+sId);
 		}
 	}

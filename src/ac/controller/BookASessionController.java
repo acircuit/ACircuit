@@ -1,6 +1,9 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdvisorNotificationDAO;
 import ac.dao.BookASessionDAO;
+import ac.util.SendMail;
 import ac.util.SetCV;
 
 /**
@@ -63,6 +68,21 @@ public class BookASessionController extends HttpServlet {
 	        	sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	}
         	if(sessionId != 0){
+        		Properties prop = new Properties();
+        		InputStream resourceAsStream = Thread.currentThread()
+        				.getContextClassLoader()
+        				.getResourceAsStream("ac/resources/mail.properties");
+        		prop.load(resourceAsStream);
+        		String comment = "You've got a new Session request";
+				String href = "approvesession?sId="+sessionId;
+				//Notification for Admin
+				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
+				notify.InsertNotification(comment,href,aId);
+				//Send Mail to Admin
+				String subject = "A new session request!";
+				String content = "Hi, <br><br>A new SESSION REQUEST by the user ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+				SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+				mail.start();
         		response.sendRedirect("userdashboard?request=booked");
         	}
 

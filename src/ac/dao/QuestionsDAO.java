@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
+
 
 
 import ac.dto.AdvisorDTO;
@@ -75,9 +77,9 @@ public class QuestionsDAO {
 
 	}
 	
-	public Boolean SubmitQuestion(String question,String category,String subcategory){
+	public int SubmitQuestion(int userId,String question,String category,String subcategory){
 		logger.info("Entered SubmitQuestion method of QuestionsDAO");
-		Boolean isCommit = false;
+		int id = 0;
 		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
         mbCal.setTimeInMillis(new Date().getTime());      
         Calendar cal = Calendar.getInstance();  
@@ -92,18 +94,21 @@ public class QuestionsDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP) values" + "(?,?,?,?)";
-			PreparedStatement pstmt = conn.prepareStatement(query);
+			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID) values" + "(?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, question);
 			pstmt.setString(2, category);
 			pstmt.setString(3, subcategory);
 			pstmt.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
+			pstmt.setInt(5, userId);
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (null != generatedKeys && generatedKeys.next()) {
+					id = generatedKeys.getInt(1);
+				}
 				conn.commit();
-				isCommit = true;
 			}else{
-				isCommit = false;
 				conn.rollback();
 			}
 		}catch (SQLException e) {
@@ -123,7 +128,7 @@ public class QuestionsDAO {
 				}
 			}
 		logger.info("Exit SubmitQuestion method of QuestionsDAO");
-		return isCommit;	
+		return id;	
 	}
 	
 	public List<AnswerDTO> GetAnswers(List<QuestionsDTO> questions) {
@@ -501,8 +506,149 @@ public class QuestionsDAO {
 		logger.info("Exit GetQuestionsAccordingToSubcategory method of QuestionsDAO");
 		return questions;
 	}
+	
+	public int SubmitQuestionToAdvisor(String question,String category,String subcategory,int userId){
+		logger.info("Entered SubmitQuestion method of QuestionsDAO");
+		int id = 0;
+		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+        mbCal.setTimeInMillis(new Date().getTime());      
+        Calendar cal = Calendar.getInstance();  
+        cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+        cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+        cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+        cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+        cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+        cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+        cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+        Date date = cal.getTime();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID,TOFORUM) values" + "(?,?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, question);
+			pstmt.setString(2, category);
+			pstmt.setString(3, subcategory);
+			pstmt.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
+			pstmt.setInt(5, userId);
+			pstmt.setBoolean(6, false);
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (null != generatedKeys && generatedKeys.next()) {
+					id = generatedKeys.getInt(1);
+				}
+				conn.commit();
+			}else{
+				conn.rollback();
+			}
+		}catch (SQLException e) {
+				logger.error("SubmitQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("SubmitQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("SubmitQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Exit SubmitQuestion method of QuestionsDAO");
+		return id;	
+	}
+	
+	public Boolean SetAdvisorIdForQuestion(int qid,String aid){
+		logger.info("Entered SetAdvisorIdForQuestion method of QuestionsDAO");
+        Boolean isInserted = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into questiontoadvisor "+"(Q_ID,A_ID) values" + "(?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, qid);
+			pstmt.setString(2, aid);
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isInserted = true;
+			}else{
+				conn.rollback();
+			}
+		}catch (SQLException e) {
+				logger.error("SetAdvisorIdForQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("SetAdvisorIdForQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("SetAdvisorIdForQuestion method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Exit SetAdvisorIdForQuestion method of QuestionsDAO");
+		return isInserted;	
+	}
+	
+	public List<QuestionsDTO> GetUserQuestions(int uid){
+		logger.info("Entered GetUserQuestions method of QuestionsDAO");
+		List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
 
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			//String q4in = generateQsForIn(words.size());
+			query = "SELECT Q_ID,QUESTION,TIMESTAMP,TOFORUM  FROM questions WHERE U_ID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, uid);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+			QuestionsDTO question = new QuestionsDTO();
+			question.setQuestionId(results.getInt("Q_ID"));
+			question.setQuestion(results.getString("QUESTION"));
+			question.setPostedOn(results.getTimestamp("TIMESTAMP"));
+			question.setToForum(results.getBoolean("TOFORUM"));
+			list.add(question);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetUserQuestions method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetUserQuestions method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserQuestions method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserQuestions method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserQuestions method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetUserQuestions method of QuestionsDAO");
+		return list;
 
+	}
+
+	
 	private String generateQsForIn(int numQs) {
 		String items = "";
 		for (int i = 0; i < numQs; i++) {

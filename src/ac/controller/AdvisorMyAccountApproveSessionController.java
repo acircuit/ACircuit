@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.dao.SessionDAO;
+import ac.dao.UserNotificationDAO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
 
@@ -67,6 +68,7 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
 		}
 		if(advisorId != 0){
           String sessionId = request.getParameter("sId");
+          String userId = request.getParameter("uid");
           String reason= request.getParameter("reason");
           String sessionPlan = request.getParameter("sessionplan");
           String date1 = request.getParameter("newdate1");
@@ -90,6 +92,11 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
          SessionDAO session = new SessionDAO();
           Boolean isCommit = session.UpdateSessionPlan(sessionId,sessionPlan,isNewDatesCommit,acceptedDate,acceptedTime);
           if(isCommit){
+        		//Notify the user 
+				String comment = "Your request has been accepted by the Advisor with revised dates! Choose 1 date and Pay to confirm the session";
+				String href = "useracceptsession?sId="+sessionId;
+				UserNotificationDAO userNotification = new UserNotificationDAO();
+				userNotification.InsertNotification(comment, href, userId);
         	response.sendRedirect("advisorcurrentsession?sId="+sessionId);
           }
          }else{
@@ -104,6 +111,11 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
             	 isReasonCommit = reject.InsertRejectionReason(sessionId, reason);
              }
              if(isReasonCommit){
+ 				//Notify the user 
+ 				String comment = "We're sorry but the Advisor has declined the session. You will get a mail regarding this soon.";
+ 				String href = "usercancelledsession?sId="+sessionId;
+ 				UserNotificationDAO userNotification = new UserNotificationDAO();
+ 				userNotification.InsertNotification(comment, href, userId);
             	 response.sendRedirect("advisorcancelledsession?sId="+sessionId);
              }
         	 

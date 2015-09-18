@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.cache.MyCacheBuilder;
+import ac.dao.FeedDAO;
 import ac.dao.QuestionsDAO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
@@ -99,12 +100,36 @@ public class QuestionsController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of QuestionsController");
+		int userId = 0;
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		//Getting the sessiondetails for the user
+		if(userId != 0){
 		String question = request.getParameter("question");
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		QuestionsDAO ques = new QuestionsDAO();
-		Boolean isCommit = ques.SubmitQuestion(question,category,subcategory);
-		response.getWriter().write("Your Question has been submitted");
+		int id = ques.SubmitQuestion(userId,question,category,subcategory);
+		if(id !=0){
+		    //Adding to the feeds table
+			FeedDAO feed = new FeedDAO();
+			int feedId = feed.InsertFeedType("question");
+			if(feedId != 0){
+				//Inserting feed content
+			    FeedDAO questions = new FeedDAO();
+			    Boolean isCommit = questions.InsertQuestionFeed(feedId,id,question,category,subcategory);
+			    if(isCommit){
+					response.getWriter().write("Your Question has been submitted");
+			    }
+			}
+		}
+		}
+		
+		
 		
 		logger.info("Exit doPost method of QuestionsController");
 	}

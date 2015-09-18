@@ -92,7 +92,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
 					   			</c:if>
 					   			<c:if test="${sessionDetails.getMode().equals('video')}">
-					   					<button type="button" class="btn submit-button" >Join Conference</button>
+					   			        <a href="UserAccessTokenController?name=${advisorDetails.getName()}" target="blank" class="btn submit-button">Join Conference</a>
 					   			</c:if>
 					   			</div>
 					   		</div>
@@ -200,7 +200,22 @@ $(document).ready(function () {
 		$('.inpt-mw').append(html);
 	}
 	starinputconversion();
+	
+	
 });
+function CallSSE(){
+	$.ajax({
+	    url : 'UserCurrentSessionSSE', // Your Servlet mapping or JSP(not suggested)
+	    data : {"sId" :"${sessionDetails.getSessionid()}",},
+	    type : 'POST',
+	    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	    success : function(response) {
+	    },
+	    error : function(request, textStatus, errorThrown) {
+	        alert(errorThrown);
+	    }
+	}); 
+}
 	
 function CallTwilio(){
 	

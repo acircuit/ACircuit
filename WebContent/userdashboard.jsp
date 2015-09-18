@@ -35,7 +35,7 @@
     type="text/css">
 <%
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
-         
+List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activities");        
 
 %>
 </head>
@@ -119,7 +119,7 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 							<span class="ask-text-small">Posted on 3rd August</span>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View All Questions</span>
+							<a href=""><span class="btext">View All Questions</span></a>
 						</div>
 				   	</div>
 		   	</div>
@@ -132,8 +132,53 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 		   			<div class="col-xs-12 ud-left-section-head-div ">
 							<span class="ud-left-section-head">Activity Feed </span>
 					</div>
-			   			
-			   			<div class="col-xs-12 new-expert-div no-padding">
+					<c:forEach items="${activities }" var="activity">
+					     <c:if test="${activity.getFeedType().equals('question')}">
+					     <div class="col-xs-12 no-padding">
+						    <div class="each-question-div col-xs-12">
+							<span class="new-expert-head">New Question Posted in Q&A Forum</span><br>
+				   				<div class="col-xs-12 tag-div no-padding">
+									<span class="tag">${activity.getCategory()}</span>
+									<span class="tag">${activity.getSubcategory()}</span>
+				   				</div>
+				   				<div class="col-xs-12 question-div no-padding">
+									<span class="question">${activity.getQuestion()}</span>
+				   					<br>
+				   					<span class="updated-on">Posted on ${activity.getQuestionPostedOn()}</span>
+				   				</div> 
+				   				<div class="col-xs-11 no-padding" style="margin-top: 10px;">
+				   					<div style="border-bottom: 1px solid lightgray;"></div>
+				   				</div>
+				   				
+			   				</div>
+						</div>
+					     </c:if>
+					     <c:if test="${activity.getFeedType().equals('review')}">
+					      <div class="col-xs-12 review-div-container no-padding">
+							<div class="col-xs-12 userr-card ">
+							<span class="new-expert-head">New Review Added</span><br>
+									<img src="${activity.getImage()}">
+									<span class="btext rfrom">${activity.getUserName()}</span><span class="rto btext"> ${activity.getAdvisorName()}</span>
+									<br>
+									<span class="review-text">${activity.getReview()}</span>
+									
+							</div>
+							<div class="col-xs-12 ">
+							<span class="all-r btext">See all reviews</span>
+							</div>
+							<div class="col-xs-11" style="margin-top: 10px;">
+				   					<div style="border-bottom: 1px solid lightgray;"></div>
+				   				</div>
+						</div>
+					     
+					     
+					     </c:if>
+					     
+					
+					
+					
+					</c:forEach>
+			   		<div class="col-xs-12 new-expert-div no-padding">
 							<div class="col-xs-12 new-expert-card ">
 								<span class="new-expert-head">New Expert Added to Category <span class="btext"> MBA India </span></span><br>
 									<img src="assets/img/Abhishek.JPG">
@@ -193,7 +238,8 @@ UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails"
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
 						</div>
-			   		</div>
+			   		</div>	
+			   			
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">

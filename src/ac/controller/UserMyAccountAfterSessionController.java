@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdvisorNotificationDAO;
+import ac.dao.FeedDAO;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
@@ -73,10 +75,45 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 		  String review = request.getParameter("review");
 		  String rating = request.getParameter("rating");
 		  String sid = request.getParameter("id");
-		  
+		  int[] ids;
 		  //Inserting the reviews given b the user
 		  SessionDAO  review1= new SessionDAO();
-		  Boolean isCommit = review1.SetSesionReviews(sid,rating,review);
+		  int reviewId = review1.SetSesionReviews(sid,rating,review);
+		  if(reviewId != 0){
+			//Update session status
+				SessionDAO status = new SessionDAO();
+				Boolean isStatusCommit =  status.UpdateStatus("SESSION COMPLETE", sid);
+				if(isStatusCommit){
+			           //Getting userid and advisorid from sessionid
+			            SessionDAO session = new SessionDAO();
+			            ids = session.GetUserAdvisorIds(sid);
+			  
+			           //Getting the username and the advisor name
+			           SessionDAO name = new SessionDAO();
+			           String advName = name.GetAdvisorName(ids[0]);
+			  
+			            SessionDAO uname = new SessionDAO();
+			            UserDetailsDTO user = uname.GetUserName(ids[1]); 
+			  
+			           //Adding to the feeds table
+				       FeedDAO feed = new FeedDAO();
+				       int feedId = feed.InsertFeedType("review");
+				       if(feedId != 0){
+					      //Inserting feed content
+				          FeedDAO reviews = new FeedDAO();
+				          Boolean isCommit = reviews.InsertReviewFeed(feedId,reviewId,advName,user.getFullName(),user.getImage(),review,rating );
+				          if(isCommit){
+				        	//Notify advisor
+				  			String advisorComment = "User just gave feedback for the session with session id :"+sid;
+				  			String advisorHref = "advisorprofile?a="+ids[0];
+				  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
+				  			advisor.InsertNotification(advisorComment, String.valueOf(ids[0]), advisorHref);
+				        	 response.sendRedirect("userpastsession?sId="+sid); 
+				          }
+
+				        }
+				}
+		  }
 		}
 		
 		logger.info("Entered doPost method of UserMyAccountAfterSessionController");
