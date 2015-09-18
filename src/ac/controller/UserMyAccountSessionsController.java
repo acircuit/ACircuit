@@ -1,7 +1,9 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 
 /**
@@ -43,18 +46,56 @@ public class UserMyAccountSessionsController extends HttpServlet {
 			  List<SessionDTO> sessions = new ArrayList<SessionDTO>();
 			  //Getting all sessions for the user 
 			  SessionDAO session = new SessionDAO();
-			  sessions = session.GetSessionDetails(userId);
+			  sessions = session.GetCurrentSessionDetails(userId);
 			  System.out.println(userId);
 			  System.out.println(sessions.size());
+			  List<SessionDTO> pastSessions = new ArrayList<SessionDTO>();
+
+			  SessionDAO past = new SessionDAO();
+			  pastSessions = past.GetPastSessionDetails(userId);
 			  
 			  //Getting Advisor Details
+			  List<AdvisorDTO> advisorDetails1 = new ArrayList<AdvisorDTO>();
 			  SessionDAO advisor = new SessionDAO();
 			  List<AdvisorDTO> advisorDetails= advisor.GetAdvisorDetails(sessions);
-			  System.out.println(advisorDetails.size());
+			  if(pastSessions.size() > 0){
+			    SessionDAO advisors = new SessionDAO();
+			    advisorDetails1= advisors.GetAdvisorDetails(pastSessions);
+			  }
 			  
-			
+			  //Getting Reviews given by the user
+				List<ReviewsDTO> userReviews = new ArrayList<ReviewsDTO>();
+			  SessionDAO reviews = new SessionDAO();
+			  userReviews = reviews.GetUserReviews(userId);
+			  List<Date> list = new ArrayList<Date>();
+			  List<Integer> sIds = new ArrayList<Integer>();
+			  List<Integer> aIds = new ArrayList<Integer>();
+
+			  for(ReviewsDTO rev :userReviews){
+				  System.out.println(rev.getSessionId() + ":" + rev.getAdvisorId());
+				  sIds.add(rev.getSessionId());
+				  aIds.add(rev.getAdvisorId());
+			  }
+			  List<SessionDTO> dates = new ArrayList<SessionDTO>();
+			  SessionDAO time = new SessionDAO();
+			  dates = time.GetSessionDate(sIds);
+			  
+				List<AdvisorDTO> advisorsForReviews = new ArrayList<AdvisorDTO>();
+
+			  //Getting advisor details
+			  SessionDAO advDetails = new SessionDAO();
+			  advisorsForReviews = advDetails.GetDetailsForReviews(aIds);
+			  
+
+
 			  request.setAttribute("sessions", sessions);
 			   request.setAttribute("advisorDetails", advisorDetails);
+			   request.setAttribute("pastSessions", pastSessions);
+			   request.setAttribute("advisorDetails1", advisorDetails1);
+			   request.setAttribute("userReviews", userReviews);
+			   request.setAttribute("sessionDates", dates);
+			   request.setAttribute("advisorsForReviews", advisorsForReviews);
+
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/usersessions.jsp");
 	          rd.forward(request, response);
 		}

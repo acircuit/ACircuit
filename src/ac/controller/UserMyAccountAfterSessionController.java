@@ -75,25 +75,23 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 		  String review = request.getParameter("review");
 		  String rating = request.getParameter("rating");
 		  String sid = request.getParameter("id");
+		  String aId = request.getParameter("aid");
 		  int[] ids;
 		  //Inserting the reviews given b the user
 		  SessionDAO  review1= new SessionDAO();
-		  int reviewId = review1.SetSesionReviews(sid,rating,review);
+		  int reviewId = review1.SetSesionReviews(sid,rating,review,userId,aId);
 		  if(reviewId != 0){
 			//Update session status
 				SessionDAO status = new SessionDAO();
 				Boolean isStatusCommit =  status.UpdateStatus("SESSION COMPLETE", sid);
 				if(isStatusCommit){
-			           //Getting userid and advisorid from sessionid
-			            SessionDAO session = new SessionDAO();
-			            ids = session.GetUserAdvisorIds(sid);
 			  
 			           //Getting the username and the advisor name
 			           SessionDAO name = new SessionDAO();
-			           String advName = name.GetAdvisorName(ids[0]);
+			           String advName = name.GetAdvisorName(Integer.valueOf(aId));
 			  
 			            SessionDAO uname = new SessionDAO();
-			            UserDetailsDTO user = uname.GetUserName(ids[1]); 
+			            UserDetailsDTO user = uname.GetUserName(userId); 
 			  
 			           //Adding to the feeds table
 				       FeedDAO feed = new FeedDAO();
@@ -105,9 +103,9 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 				          if(isCommit){
 				        	//Notify advisor
 				  			String advisorComment = "User just gave feedback for the session with session id :"+sid;
-				  			String advisorHref = "advisorprofile?a="+ids[0];
+				  			String advisorHref = "advisorprofile?a="+aId;
 				  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
-				  			advisor.InsertNotification(advisorComment, String.valueOf(ids[0]), advisorHref);
+				  			advisor.InsertNotification(advisorComment,aId, advisorHref);
 				        	 response.sendRedirect("userpastsession?sId="+sid); 
 				          }
 

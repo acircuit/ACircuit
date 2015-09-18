@@ -103,6 +103,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   		</div>
 					   		<form action="useraftersession" method="post">
 					   		<input type="hidden" value="${sessionDetails.getSessionid() }" name="id">
+					   		<input type="hidden" value="${advisorDetails.getId()}" name="aid">
 					   		<div class="write-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   				<textarea rows="5" cols="" class="form-control" name="review"></textarea>
 					   				<br>

@@ -40,7 +40,15 @@
 <%
 List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
 List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-	
+List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
+List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
+List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
+List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
+List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
+pageContext.setAttribute("userReviews", userReviews);
+pageContext.setAttribute("sessionDates", sessionDates);
+pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
+
 
 %>
 </head>
@@ -93,19 +101,16 @@ List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("adviso
 				    	<div class="tab-head-div ">
 				    		<span class="tab-head-text">Current Sessions</span>
 				    	</div>
-				    	<div class="tab-content-div row">
-					       <c:forEach items="${sessions}" var="session">
+				    	    <c:forEach items="${sessions}" var="session">
 					           <c:forEach items="${advisorDetails}" var="advisor">
 					             <c:if test="${session.getAdvisorid() == advisor.getId()}">
-				    		     <div class="each-session-div col-xs-12">
+				    	         <div class="tab-content-div row">
+					              <div class="each-session-div col-xs-12">
 				    		     <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
 				    		        <c:set value="userrequestviewdetails?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                 <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
 				    		        <c:set value="useracceptsession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				    		        <c:set value="usercancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                 <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
 				    		        <c:set value="usercurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
@@ -142,54 +147,89 @@ List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("adviso
 					    			</div>
 					    			</a>
 				    			</div>
-				    			</c:if>
-				    		   </c:forEach>	
-				    		</c:forEach>
-				    	</div>
+				    	     </div>
+				    	     </c:if>
+				    		</c:forEach>	
+		    		      </c:forEach>
 				    </div>
-				    <div role="tabpanel" class="tab-pane fade" id="ps">...</div>
+				    <div role="tabpanel" class="tab-pane fade" id="ps">
+				    <div class="tab-head-div ">
+				    		<span class="tab-head-text">Past Sessions</span>
+				    	</div>
+				     <c:forEach items="${pastSessions}" var="session">
+					           <c:forEach items="${advisorDetails1}" var="advisor">
+					             <c:if test="${session.getAdvisorid() == advisor.getId()}">
+				                  <div class="tab-content-div row">
+					              <div class="each-session-div col-xs-12">
+				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
+				    		        <c:set value="usercancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                 </c:if>
+				                  <c:if test="${session.getStatus() == 'SESSION COMPLETE'}">
+				    		        <c:set value="userpastsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                 </c:if>
+				    		        <a href="${sess}">
+					    			<div class="col-xs-10">
+					    				      <div class="advisor_details" >
+				                                    <img class="adv-img" src="${advisor.getImage()}">
+				                                    <p class="adv-name">${advisor.getName()}</p><br>
+				                                    <p class="subject">“${session.getQuery()}”</p><br>
+				                                    <p class="session-status" >Status: 
+				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
+				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                    </c:if>
+				                                    <c:if test="${session.getStatus() == 'SESSION COMPLETE' }">
+				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><span class="time"> 23 min ago</span>
+				                                    </c:if>
+				                                    </p>
+				                               </div>
+										<div class="due-time-div">
+					    					<span class="due-time">Due in 02:45 hrs</span>
+					    				</div>
+					    			</div>
+					    			<div class="col-xs-2 mode-div">
+					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>
+					    				<br>
+					    				<span class="session-id">Session ID ${session.getSessionid()}</span>
+					    			</div>
+					    			</a>
+				    			</div>
+				    	     </div>
+				    
+				                 </c:if>
+				    		</c:forEach>	
+		    		  </c:forEach>
+				    
+				    </div>
+
+				    
+				    
 				    <div role="tabpanel" class="tab-pane fade" id="rv">
 				    	<div class="tab-head-div ">
 				    		<span class="tab-head-text">Reviews</span>
 				    	</div>
 				    	<div class="tab-content-div row">
-				    		<div class="each-rv-div col-xs-12">
-					    			<div class="review-div col-xs-12 no-padding">
-							   			<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Session with Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled><br>
-				                                    <p class="subject">I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015). Let me share a personal perspective that I have shared with countless young MBA.</p><br>
-				                                    <p class="posted-on" >Posted on Sepetember 3 2015</p><span class="session-id">Session ID 1214113</span>
-				                                 
-										</div>
-					   				</div>
-				    		</div>
-				    		<div class="each-rv-div col-xs-12">
-					    			<div class="review-div col-xs-12 no-padding">
-							   			<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Session with Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled><br>
-				                                    <p class="subject">I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015). Let me share a personal perspective that I have shared with countless young MBA.</p><br>
-				                                    <p class="posted-on" >Posted on Sepetember 3 2015</p><span class="session-id">Session ID 1214113</span>
-				                                 
-										</div>
-					   				</div>
-				    		</div>
-				    		<div class="each-rv-div col-xs-12">
-					    			<div class="review-div col-xs-12 no-padding">
-							   			<div class="advisor_details" >
-				                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-				                                    <span class="adv-name">Session with Charles Dixon</span><span class="adv-date"> on 23rd March 2015</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled><br>
-				                                    <p class="subject">I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015). Let me share a personal perspective that I have shared with countless young MBA.</p><br>
-				                                    <p class="posted-on" >Posted on Sepetember 3 2015</p><span class="session-id">Session ID 1214113</span>
-				                                 
-										</div>
-					   				</div>
-				    		</div>
-				    			
-				    			
+				    	<c:forEach items="${userReviews}" var="review">
+				    	    <c:forEach items="${sessionDates}" var="dates">
+				    	       <c:if test="${review.getSessionId() == dates.getSessionid()}">
+				    	        <c:forEach items="${advisorsForReviews}" var="advisor">
+				    	            <c:if test="${advisor.getId() == review.getAdvisorId()}">
+				    	                   <div class="each-rv-div col-xs-12">
+					    			          <div class="review-div col-xs-12 no-padding">
+								   			         <div class="advisor_details" >
+					                                    <img class="adv-img" src="${advisor.getImage()}">
+					                                    <span class="adv-name">Session with ${advisor.getName()}</span><span class="adv-date"> on ${dates.getAcceptedDate()}</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${review.getRating() }" disabled><br>
+					                                    <p class="subject">${review.getReview() }</p><br>
+					                                    <p class="posted-on" >Posted on ${review.getPostedOn()}</p><span class="session-id">Session ID ${review.getSessionId()}</span>
+					                                 </div>
+					   				           </div>
+				    		               </div>
+				    	            </c:if>
+				    	        </c:forEach>
+				    	        </c:if>
+				    	    </c:forEach>
+				    	</c:forEach>
 				    	</div>
-				    
+			    
 				    </div>
 				  
 				  </div>
