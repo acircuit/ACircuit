@@ -632,7 +632,10 @@ color: white;
 .footer-div-bottom {
     background-color: #EEEEEE!important;}
 
-
+.error{
+color: #e92629;
+    font-size: 12px;
+    font-weight: 100;}
 
 
 

@@ -37,6 +37,8 @@
     rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <%
                    AdvisorDTO advisor = (AdvisorDTO) request.getAttribute("advisor");
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
@@ -336,20 +338,20 @@
 								    	</div>
 								    	<div class="modal-main-body row">
 								    		<span class="modal-body-text">Session with Charles Dixon</span>
-								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession">
+								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession" id="book-session-form">
 								    			<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
 											       <div class="col-xs-9 form-group">
 				                                         <div class="col-xs-6">
 				                                         	 <div class="">
-																<input type="radio" value="phone" id="phone" name="mode" />
+																<input type="radio" value="phone" id="phone" name="mode" aria-required="true" required/>
 																<label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
 																
 															</div>
 														</div>
 														<div class="col-xs-6">
 				                                         	 <div class="">
-																<input type="radio" value="video" id="video" name="mode" />
+																<input type="radio" value="video" id="video" name="mode"/>
 																<label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
 																
 																
@@ -376,7 +378,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Query Description</label>
 											       <div class="col-xs-9 form-group">
-				                                       <textarea class="form-control" name="query"></textarea>
+				                                       <textarea class="form-control" name="query" type="text" required></textarea>
 											 		</div>
 											 	</div>
 											 	<div class="form-group each-form-div">
@@ -508,6 +510,7 @@ $(document).ready(function () {
 		$('#duration').append(htmld);
 		j=j+15;
 	}
+	$("#book-session-form").validate();
 	starinputconversion();
 });
 
