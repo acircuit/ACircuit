@@ -73,73 +73,72 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Contact Us</span>
+							<span class="body-head-text">FAQs</span>
 	</div>
    		  
-   			<div class="body-content col-xs-12">
-   			<div class="contact-us-head-div">
-   				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
-   			</div>
-   			<div class="col-xs-8">
-   				<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession" id="contact-form">
-   					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Name</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" name="name" type="text" placeholder="Name" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Email Address</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" placeholder="Email" type="email" name="email" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Phone Number</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" type="text" placeholder="Phone Number" name="pno" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Message</label>
-											       <div class="col-xs-10 form-group">
-				                                       <textarea class="form-control" name="query" required  placeholder="Message"></textarea>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label"></label>
-											       <div class="col-xs-10 form-group">
-				                                      <button type="submit" class="btn send-contact-request" >Send</button>
-											 		</div>
-					</div>
-   				</form>
-   				</div>
-   				<div class="col-xs-4 right-info-div">
-   				<div class="info-div-contact">
-   				<span class="red-contact-title">Email</span><br>
-				<span class="contact-detail-info"> email@advisorcircuit.com</span>
-   				</div>
-   				<div class="info-div-contact">
-   				<span class="red-contact-title">PHONE</span><br>
-						<span class="contact-detail-info"> 01234-54367-00</span>	
-   				</div>
-   				<div class="info-div-contact">
-   					<span class="red-contact-title">ON THE WEB</span>	
-								<div class="social-icons">
-								<img src="assets/img/Facebook.png">
-								<img src="assets/img/Google Plus.png">
-								<img src="assets/img/LinkedIn.png">
-								<img src="assets/img/Twitter.png">
-				   			</div>
-   				</div>
-   				
+   			<div class="body-content faq-tabs col-xs-12">
+   					 <ul class="nav nav-tabs" role="tablist">
+					    <li role="presentation" class="active"><a href="#customer" aria-controls="customer" role="tab" data-toggle="tab">CUSTOMER</a></li>
+					    <li role="presentation"><a href="#advisor" aria-controls="advisor" role="tab" data-toggle="tab">ADVISOR</a></li>
+					    
+					  </ul>
 					
-							
-							
-					
-   	 </div>
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane active" id="customer" style="padding-top: 20px;">
+					    <div class="contact-us-head-div" style="margin-top: 12px;border: 0px;">
+			   				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
+			   			</div>
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingOne">
+								      <h4 class="panel-title">
+								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								          Collapsible Group Item #1
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								      <div class="panel-body">
+								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingTwo">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								          Collapsible Group Item #2
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+								      <div class="panel-body">
+								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingThree">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								          Collapsible Group Item #3
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+								      <div class="panel-body">
+								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								      </div>
+								    </div>
+								  </div>
+								</div>					    
+					    </div>
+					    <div role="tabpanel" class="tab-pane" id="advisor">...</div>
+					    
+					  </div>
    
-</div>
+			</div>
 	 <%@include file="/footer.jsp" %>
 </div>
 
