@@ -90,3 +90,33 @@
     padding-left: 0px;
     margin-top: -25px;
 }
+
+
+
+.body-error {
+    background-color: #37b7b3;
+    min-height: 400px;
+   padding: 90px 80px;
+    text-align: center;
+}
+.remove-padding{
+	padding-top: 0px!important;
+	padding-left: 0px!important;
+	padding-right: 0px!important;
+	padding-bottom: 0px!important;
+}
+.error-message-big{
+	font-size:64px;
+	color:white;
+	font-family:latol;
+}
+.page-error{
+	font-size:24px;
+	color:white;
+	font-family:latol;
+}
+.error-message-text{
+	font-size:18px;
+	color:white;
+	font-family:latol;
+}
