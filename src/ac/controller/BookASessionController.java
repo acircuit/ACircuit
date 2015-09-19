@@ -71,7 +71,7 @@ public class BookASessionController extends HttpServlet {
         		Properties prop = new Properties();
         		InputStream resourceAsStream = Thread.currentThread()
         				.getContextClassLoader()
-        				.getResourceAsStream("ac/resources/mail.properties");
+        				.getResourceAsStream("ac/resources/Mail.properties");
         		prop.load(resourceAsStream);
         		String comment = "You've got a new Session request";
 				String href = "approvesession?sId="+sessionId;
@@ -83,7 +83,7 @@ public class BookASessionController extends HttpServlet {
 				String content = "Hi, <br><br>A new SESSION REQUEST by the user ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 				SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
 				mail.start();
-        		response.sendRedirect("userdashboard?request=booked");
+        		response.sendRedirect("usersessions?session=booked");
         	}
 
 

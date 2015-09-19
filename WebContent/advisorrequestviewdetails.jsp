@@ -95,21 +95,21 @@
 					   			
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="">
-											<input type="radio" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="s1" name="slot" />
+											<input type="radio" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="s1" name="date1" />
 											<label for="s1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="">
-											<input type="radio" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="s2" name="slot"  />
+											<input type="radio" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="s2" name="date1"  />
 											<label for="s2"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 2</span><span class="slot-asked-time">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
 					   					<div class="">
-											<input type="radio" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="s3" name="slot"  />
+											<input type="radio" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="s3" name="date1"  />
 											<label for="s3"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 3</span><span class="slot-asked-time">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span></span>

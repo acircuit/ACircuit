@@ -27,6 +27,7 @@
 <link href="assets/css/qa.css" rel="stylesheet">
 <link href="assets/css/ud.css" rel="stylesheet">
 <link href="assets/css/advisor.css" rel="stylesheet">
+<link href="assets/css/notification.css" rel="stylesheet">
 <link href="assets/css/allsessions.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
@@ -38,6 +39,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
+String sessionStatus = (String)request.getParameter("session");
+out.println(sessionStatus);
 List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
 List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
 List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
@@ -45,6 +48,7 @@ List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advis
 List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
 List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
 List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
+pageContext.setAttribute("sessionStatus", sessionStatus);
 pageContext.setAttribute("userReviews", userReviews);
 pageContext.setAttribute("sessionDates", sessionDates);
 pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
@@ -58,10 +62,11 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 <body>
  <div id="wrapper">
   <%@include file="/notify.jsp" %>
-	<div class="do-not-scroll " style="width:100%">
+ 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
+		  
 			       <%@include file="/Header.jsp" %>
-	  
+			       	  
 	</div>
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
@@ -293,6 +298,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
 
 <script>
+
 $(document).ready(function () {
 	starinputconversion();
 });

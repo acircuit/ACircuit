@@ -35,7 +35,7 @@
     type="text/css">
 <%
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
-List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activities");        
+Double amount = (Double) request.getAttribute("amount");        
 
 %>
 </head>
@@ -96,14 +96,14 @@ List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activit
 						<div class="col-xs-10 col-sm-12 card-content-xs">
 							<div class="col-xs-8 col-sm-6 no-padding">
 								<span class="balance-text">Current Balance</span><br>
-								<span class="bamount">Rs 1240.00</span><br>
+								<span class="bamount">Rs ${amount }</span><br>
 							</div>
 							<div class="col-xs-4 col-sm-6 no-padding r-button-div">
 								<button type="button" class="btn recharg-button" data-toggle="modal" data-target="#rechargemodal">Recharge</button>
 							</div>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View Payment History</span>
+							<a href="userpaymenthistory"><span class="btext">View Payment History</span></a>
 						</div>
 				   	</div>
 				   	<div class="col-xs-12 col-md-3 four-cards no-padding">
@@ -322,13 +322,14 @@ List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activit
 								      <div class="modal-body">
 								      <span class="ask-question-modal-head">Enter recharge amount</span><br>
 								      <br>
-								      <form class="ask-form"> 
-								      	<input  class="form-control ask-question"  placeholder="Type your amount" >
-								      
+								      <form class="ask-form" action="userrecharge"> 
+								      	<input  class="form-control "  placeholder="Type your amount" name="amount" >
+								        <input type="hidden" name="merchant_param1" value="${userDetails.getUserId()}">
+								        <input type="hidden" name="merchant_param2" value="recharge">
 									       <br><br>
 									       <div class="row" style="padding:10px;">
 										       
-													<button type="button" class="btn red-button ask-question-button">Recharge</button>
+													<button type="submit" class="btn red-button ask-question-button">Recharge</button>
 										       </div>
 									      
 								        </form>

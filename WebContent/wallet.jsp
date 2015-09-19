@@ -39,19 +39,6 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
 	
 
 %>

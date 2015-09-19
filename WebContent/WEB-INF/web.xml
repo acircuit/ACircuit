@@ -222,13 +222,29 @@
     <servlet-name>userpayment</servlet-name>
     <url-pattern>/userpayment</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>userquestions</servlet-name>
     <servlet-class>ac.controller.UserMyAccountQuestionsController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>userquestions</servlet-name>
     <url-pattern>/userquestions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userpaymenthistory</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountPaymentHistroryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userpaymenthistory</servlet-name>
+    <url-pattern>/userpaymenthistory</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>userrecharge</servlet-name>
+    <servlet-class>ac.controller.UserRechargeController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userrecharge</servlet-name>
+    <url-pattern>/userrecharge</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>payment</servlet-name>

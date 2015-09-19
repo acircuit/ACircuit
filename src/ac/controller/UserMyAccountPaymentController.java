@@ -43,6 +43,7 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			String order_status = "";
 			String sId ="";
 			String uid="";
+			String type = "";
 			String pair=null, pname=null, pvalue=null;
 			String amount = "",trackingId="",paymentMode="",accDate="";
 			while (tokenizer.hasMoreTokens()) {
@@ -72,6 +73,9 @@ public class UserMyAccountPaymentController extends HttpServlet {
 							if(pname.equals("merchant_param1")){
 								uid = pvalue;
 							}
+							if(pname.equals("merchant_param2")){
+								type = pvalue;
+							}
 							
 					}
 				}
@@ -81,19 +85,25 @@ public class UserMyAccountPaymentController extends HttpServlet {
 				Boolean isStatusCommit = false;
 				//Entering the details of the transaction
 				PaymentDAO transactionDetails = new PaymentDAO();
-				Boolean isCommit =  transactionDetails.SetTransactionDetails(sId,order_status,amount,trackingId,paymentMode);
+				Boolean isCommit =  transactionDetails.SetTransactionDetails(sId,order_status,amount,trackingId,paymentMode,uid);
 				if(isCommit){
 					PaymentDAO wallet = new PaymentDAO();
 					isWalletUpdated = wallet.UpdateWallet(uid,amount);
 				}
-				if(isWalletUpdated){
-					//Update session status
-					SessionDAO status = new SessionDAO();
-					isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
-				}
-				if(isStatusCommit){
-					response.sendRedirect("usercurrentsession?sId="+sId);
-				}
+				
+				
+					if(type.equals("recharge")){
+						  response.sendRedirect("userpaymenthistory?recharge="+order_status);
+					}else{
+						if(isWalletUpdated){
+							//Update session status
+							SessionDAO status = new SessionDAO();
+							isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
+						}
+						if(isStatusCommit){
+					          response.sendRedirect("usercurrentsession?sId="+sId+"$recharge="+order_status);
+						}
+					}
 				
 			}else{
 				//Transaction was not successfull

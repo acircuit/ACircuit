@@ -141,10 +141,9 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			<div class="col-xs-6" style="padding-top:25px;">
 					   						<button type="button" class="btn recharg-button" style="width: 120px;" data-toggle="modal" data-target="#booksession">Cancel Session</button>
 					   					<c:choose>
-                                               <c:when test="${wallet <= sessionDetails.getPrice()}">
+                                               <c:when test="${wallet < sessionDetails.getPrice()}">
                                                         <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>
-                                                        <c:url var="pay" value="payment">
-															<c:param  name="order_id" value="${sessionDetails.getSessionid()}"></c:param>
+                                                        <c:url var="pay" value="userrecharge">
 															<c:param  name="amount" value="${amountdue}"></c:param>
 															<c:param  name="merchant_param1" value="${sessionDetails.getUserid()}"></c:param>
 														</c:url>

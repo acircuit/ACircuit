@@ -100,7 +100,7 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT FULL_NAME,IMAGE,EMAIL FROM userdetails WHERE USER_ID=?";
+			String query ="SELECT FULL_NAME,IMAGE,EMAIL,USER_ID FROM userdetails WHERE USER_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uid);
 			ResultSet results = pstmt.executeQuery();
@@ -108,6 +108,7 @@ public class SessionDAO {
 				dto.setFullName(results.getString("FULL_NAME"));
 				dto.setImage(results.getString("IMAGE"));
                 dto.setEmail(results.getString("EMAIL"));
+                dto.setUserId(results.getInt("USER_ID"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());

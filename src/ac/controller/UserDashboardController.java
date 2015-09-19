@@ -84,9 +84,13 @@ public class UserDashboardController extends HttpServlet {
 				
 				
 			}
+			//Getting wallet amount
+			SessionDAO wallet = new SessionDAO();
+			Double amount = wallet.GetWalletDetails(userId);
 			
 			request.setAttribute("userDetails", userDetails);
 			request.setAttribute("activities", activities);
+			request.setAttribute("amount", amount);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userdashboard.jsp");
 	        rd.forward(request, response);
 		}
