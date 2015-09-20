@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,9 +22,13 @@ import org.apache.log4j.Logger;
 
 
 
+
+
+
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
+import ac.dto.SessionDTO;
 import ac.jdbc.ConnectionFactory;
 
 public class QuestionsDAO {
@@ -750,6 +755,108 @@ public class QuestionsDAO {
 		logger.info("Exit GetAnswers method of QuestionsDAO");
 		return list;
 	}
+	
+	public List<QuestionsDTO> GetQuestionIds(int advisorId){
+		logger.info("Entered GetQuestionIds method of QuestionsDAO");
+		List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			//String q4in = generateQsForIn(words.size());
+			query = "SELECT * FROM questiontoadvisor WHERE A_ID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+			QuestionsDTO question = new QuestionsDTO();
+			question.setQuestionId(results.getInt("Q_ID"));
+			list.add(question);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetQuestionIds method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetQuestionIds method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestionIds method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestionIds method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestionIds method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetQuestionIds method of QuestionsDAO");
+		return list;
+
+	}
+	
+	public List<QuestionsDTO> GetQuestions(List<QuestionsDTO> list) {
+		logger.info("Entered GetQuestions method of QuestionsDAO");
+		List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
+	    SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(list.size());
+			String query = "SELECT * FROM questions WHERE Q_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (QuestionsDTO question : list) {
+				pstmt.setInt(i++, question.getQuestionId());
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				QuestionsDTO question = new QuestionsDTO();
+				question.setQuestionId(results.getInt("Q_ID"));
+				question.setQuestion(results.getString("QUESTION"));
+				question.setCategory(results.getString("CATEGORY"));
+				question.setSubcategory(results.getString("SUBCATEGORY"));
+				question.setIsAnswered(results.getBoolean("ISANSWERED"));
+				question.setPostedOnDate(sdf.format(results.getTimestamp("TIMESTAMP")));
+				question.setToForum(results.getBoolean("TOFORUM"));
+				questions.add(question);
+			}
+			logger.info("Exit GetQuestions method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetQuestions method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestions method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestions method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestions method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetQuestionsAccordingToSubcategory method of QuestionsDAO");
+		return questions;
+	}
+	
+
 
 
 

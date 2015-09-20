@@ -47,8 +47,6 @@ public class UserMyAccountSessionsController extends HttpServlet {
 			  //Getting all sessions for the user 
 			  SessionDAO session = new SessionDAO();
 			  sessions = session.GetCurrentSessionDetails(userId);
-			  System.out.println(userId);
-			  System.out.println(sessions.size());
 			  List<SessionDTO> pastSessions = new ArrayList<SessionDTO>();
 
 			  SessionDAO past = new SessionDAO();

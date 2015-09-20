@@ -87,9 +87,9 @@
 				   	</div>
 				   	<div class="col-xs-12 col-md-3 four-cards no-padding">
 		   		    	<div class="top-bar-div backg">
-								<span class="top-bar-text">PAYMENT WALLET</span>
+								<span class="top-bar-text">PAYMENT</span>
 						</div>
-						<div class="card-content col-xs-2 col-sm-12">
+				<!-- 		<div class="card-content col-xs-2 col-sm-12">
 							<img src="assets/img/payment_wallet.png">
 							<span class="card-text hidden-xs">Recharge now for <span class="rtext">Rs 500</span> to get <span class="rtext">10%</span> off on your next session. <span class="btext">View More Offers</span></span>
 						</div>
@@ -101,9 +101,9 @@
 							<div class="col-xs-4 col-sm-6 no-padding r-button-div">
 								<button type="button" class="btn recharg-button">Recharge</button>
 							</div>
-						</div>
+						</div>  -->
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View Payment History</span>
+							<a href="advisorpaymenthistory"><span class="btext">View Payment History</span></a>
 						</div>
 				   	</div>
 				   	<div class="col-xs-12 col-md-3 four-cards no-padding">
@@ -119,7 +119,7 @@
 							<span class="ask-text-small">Posted on 3rd August</span>
 						</div>
 						<div class="col-xs-12 card-footer">
-							<span class="btext">View All Questions</span>
+							<a href="advisorquestions"><span class="btext">View All Questions</span></a>
 						</div>
 				   	</div>
 		   	</div>

@@ -28,6 +28,28 @@ public class SessionDTO {
 	private Date acceptedDate;
 	private String acceptedTime;
 	private String sessionPlan;
+	private String sessionDuration;
+	private String sessionPrice;
+	private String accepDate;
+	
+	public String getSessionDuration() {
+		return sessionDuration;
+	}
+	public void setSessionDuration(String sessionDuration) {
+		this.sessionDuration = sessionDuration;
+	}
+	public String getSessionPrice() {
+		return sessionPrice;
+	}
+	public void setSessionPrice(String sessionPrice) {
+		this.sessionPrice = sessionPrice;
+	}
+	public String getAccepDate() {
+		return accepDate;
+	}
+	public void setAccepDate(String accepDate) {
+		this.accepDate = accepDate;
+	}
 	public String getSessionPlan() {
 		return sessionPlan;
 	}

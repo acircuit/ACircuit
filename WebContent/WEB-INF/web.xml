@@ -238,13 +238,29 @@
     <servlet-name>userpaymenthistory</servlet-name>
     <url-pattern>/userpaymenthistory</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>userrecharge</servlet-name>
     <servlet-class>ac.controller.UserRechargeController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>userrecharge</servlet-name>
     <url-pattern>/userrecharge</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorpaymenthistory</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountPaymentHistroryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorpaymenthistory</servlet-name>
+    <url-pattern>/advisorpaymenthistory</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorquestions</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountQuestionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorquestions</servlet-name>
+    <url-pattern>/advisorquestions</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>payment</servlet-name>

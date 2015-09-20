@@ -74,12 +74,7 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 			//Getting the advisorname from the advisor ids
 			QuestionsDAO ids = new QuestionsDAO();
 			List<AdvisorDTO> advisorDetails  = ids.GetAdvisorName(advisorAnswers);
-			
 
-			
-			System.out.println(list.size());
-			System.out.println(advisorAnswers.size());
-			System.out.println(advisorDetails.size());
 			request.setAttribute("questions", list);
 			request.setAttribute("advisorDetails", advisorDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/usersessionquestions.jsp");

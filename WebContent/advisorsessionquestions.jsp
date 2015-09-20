@@ -38,17 +38,10 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>)request.getAttribute("userDetails");
 
-List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
-List<UserDetailsDTO> userDetails1 = (List<UserDetailsDTO>)request.getAttribute("userDetails1");
-List<ReviewsDTO> advisorReviews = (List<ReviewsDTO>)request.getAttribute("advisorReviews");
-List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
-List<AdvisorDTO> usersForReviews = (List<AdvisorDTO>)request.getAttribute("usersForReviews");
-pageContext.setAttribute("advisorReviews", advisorReviews);
-pageContext.setAttribute("sessionDates", sessionDates);
-pageContext.setAttribute("usersForReviews", usersForReviews);
+                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                    AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
+
 	
 
 %>
@@ -66,7 +59,7 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard > Sessions</span>
+							<span class="body-head-text">Dashboard > Questions</span>
 	</div>
    		  
    			<div class="body-content col-xs-12 no-padding">
@@ -74,7 +67,7 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding">
 			   			<div class="col-xs-6">
-			   				<img class="noti-img" src="assets/img/current_session.png">
+			   				<img class="noti-img" src="assets/img/questions.png">
 			   				<div class="gborder-div">
 									<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 									<span class="gborder-time">23 September 5:00 pm</span>
@@ -90,142 +83,76 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 		   			</div>
 				<div class="session-tab-div col-xs-12">
 					<ul class="nav nav-tabs" role="tablist">
-				    <li role="presentation" class="active"><a href="#cs" aria-controls="cs" role="tab" data-toggle="tab">CURRENT SESSIONS</a></li>
-				    <li role="presentation"><a href="#ps" aria-controls="ps" role="tab" data-toggle="tab">PAST SESSIONS</a></li>
-				    <li role="presentation"><a href="#rv" aria-controls="rv" role="tab" data-toggle="tab">REVIEWS</a></li>
+				    <li role="presentation" class="active"><a href="#ans" aria-controls="ans" role="tab" data-toggle="tab">PENDING</a></li>
+				    <li role="presentation"><a href="#pen" aria-controls="pen" role="tab" data-toggle="tab">ANSWERED</a></li>
 				    
 				  </ul>
 				
 				  <!-- Tab panes -->
 				  <div class="tab-content">
-				    <div role="tabpanel" class="tab-pane fade in active" id="cs">
-				    	<div class="tab-head-div ">
-				    		<span class="tab-head-text">Current Sessions</span>
+				   	<div class="tab-head-div ">
+				    		<span class="tab-head-text">New Questions Added</span>
 				    	</div>
+				    	 
+				    	<c:forEach items="${questions}" var="question">
+				    	<c:if test="${!question.getIsAnswered() }">
+				    	dfifdshkj${question.getQuestionId()}
+				    	<div role="tabpanel" class="tab-pane fade" id="pen">
+				           	<div class="tab-content-div row">
+				    		<div class="each-question-div row" id="1">
+				   				<div class="col-xs-12 question-div">
+									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
+				   					<br>
+				   					<c:if test="${question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
+				   					</c:if>
+				   					<c:if test="${!question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span></span>
+				   					</c:if>
+				   				</div> 
+				   			    </div>
+						    </div>	
+				        </div>
+				        </c:if>
+				  
+				  
+				  
+				  	<div class="tab-head-div ">
+				    		<span class="tab-head-text">Questions Answered by you</span>
+				    	</div>
+				  
+				            <c:if test="${question.getIsAnswered() }">
+				             <div role="tabpanel" class="tab-pane fade in active" id="ans">
+				   
 				    	<div class="tab-content-div row">
-					       <c:forEach items="${sessions}" var="session">
-					           <c:forEach items="${userDetails}" var="user">
-					             <c:if test="${session.getUserid() == user.getUserId()}">
-					             <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
-				    		        <c:set value="approvesession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				                 <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
-				    		        <c:set value="advisorcurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				    		        <c:set value="advisorcancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				    		        <a href="${sess}">
-				    		     <div class="each-session-div col-xs-12">
-					    			<div class="col-xs-10">
-					    				      <div class="advisor_details" >
-				                                    <img class="adv-img" src="${user.getImage()}">
-				                                    <p class="adv-name">${user.getFullName()}</p><br>
-				                                    <p class="subject">“${session.getQuery()}”</p><br>
-				                                    <p class="session-status" >Status: 
-				                                    <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
-				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><span class="time"> 23 min ago</span>
-				                                    </c:if>
-				                                    <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><span class="time"> 23 min ago</span>
-				                                    </c:if>
-				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
-				                                    </c:if>
-				                                    </p>
-				                               </div>
-										<div class="due-time-div">
-					    					<span class="due-time">Due in 02:45 hrs</span>
-					    				</div>
-					    			</div>
-					    			<div class="col-xs-2 mode-div">
-					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>
-					    				<br>
-					    				<span class="session-id">Session ID ${session.getSessionid()}</span>
-					    			</div>
-				    			</div>
-				    			</a>
-				    			</c:if>
-				    		   </c:forEach>	
-				    		</c:forEach>
+				    		<div class="each-question-div row" id="1">
+				   				<div class="col-xs-12 question-div">
+									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
+				   					<br>
+				   					<c:if test="${question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
+				   					</c:if>
+				   					<c:if test="${!question.getToForum()}">
+				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span> </span>
+				   					</c:if>
+				   				</div> 
+				   				<div class="col-xs-9 answer-div">
+									<div class="advisor_details" >
+				                                    <img class="adv-img" src="${advisorDetails.getImage()}">
+				                                    <span class="adv-name">You wrote</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
+				                                    <p class="subject">“${question.getAnswer()}”</p><br>
+				                         </div>
+				    			    </div>
+				   			    </div>
+						    </div>	
 				    	</div>
-				    </div>
-				    			    <div role="tabpanel" class="tab-pane fade" id="ps">
-				    <div class="tab-head-div ">
-				    		<span class="tab-head-text">Past Sessions</span>
-				    	</div>
-				     <c:forEach items="${pastSessions}" var="session">
-					           <c:forEach items="${userDetails1}" var="user">
-					             <c:if test="${session.getUserid() == user.getUserId()}">
-				                  <div class="tab-content-div row">
-					              <div class="each-session-div col-xs-12">
-				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				    		        <c:set value="advisorcancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				                  <c:if test="${session.getStatus() == 'SESSION COMPLETE'}">
-				    		        <c:set value="advisorpastsession?sId=${session.getSessionid()}" var="sess"></c:set>
-				                 </c:if>
-				    		        <a href="${sess}">
-					    			<div class="col-xs-10">
-					    				      <div class="advisor_details" >
-				                                    <img class="adv-img" src="${user.getImage()}">
-				                                    <p class="adv-name">${user.getFullName()}</p><br>
-				                                    <p class="subject">“${session.getQuery()}”</p><br>
-				                                    <p class="session-status" >Status: 
-				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
-				                                    </c:if>
-				                                    <c:if test="${session.getStatus() == 'SESSION COMPLETE' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><span class="time"> 23 min ago</span>
-				                                    </c:if>
-				                                    </p>
-				                               </div>
-										<div class="due-time-div">
-					    					<span class="due-time">Due in 02:45 hrs</span>
-					    				</div>
-					    			</div>
-					    			<div class="col-xs-2 mode-div">
-					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>
-					    				<br>
-					    				<span class="session-id">Session ID ${session.getSessionid()}</span>
-					    			</div>
-					    			</a>
-				    			</div>
-				    	     </div>
+				    	</c:if>
+			    	
+				    	
+				   </c:forEach>
+				   
 				    
-				                 </c:if>
-				    		</c:forEach>	
-		    		  </c:forEach>
-				    
-				    </div>
-				   		<div role="tabpanel" class="tab-pane fade" id="rv">
-				    	<div class="tab-head-div ">
-				    		<span class="tab-head-text">Reviews</span>
-				    	</div>
-				    	<div class="tab-content-div row">
-				    	<c:forEach items="${advisorReviews}" var="review">
-				    	    <c:forEach items="${sessionDates}" var="dates">
-				    	       <c:if test="${review.getSessionId() == dates.getSessionid()}">
-				    	        <c:forEach items="${usersForReviews}" var="user">
-				    	            <c:if test="${user.getUserId() == review.getUserId()}">
-				    	                   <div class="each-rv-div col-xs-12">
-					    			          <div class="review-div col-xs-12 no-padding">
-								   			         <div class="advisor_details" >
-					                                    <img class="adv-img" src="${user.getImage()}">
-					                                    <span class="adv-name">Session with ${user.getFullName()}</span><span class="adv-date"> on ${dates.getAcceptedDate()}</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${review.getRating() }" disabled><br>
-					                                    <br><p class="subject">${review.getReview() }</p>
-					                                    <p class="posted-on" >Posted on ${review.getPostedOn()}</p><span class="session-id">Session ID ${review.getSessionId()}</span>
-					                                 </div>
-					   				           </div>
-				    		               </div>
-				    	            </c:if>
-				    	        </c:forEach>
-				    	        </c:if>
-				    	    </c:forEach>
-				    	</c:forEach>
-				    	</div>
-			    
-				    </div>
+				   
 				  
 				  </div>
 				</div>
@@ -233,8 +160,13 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 			   	</div>
 	   			
 	   			<div class="col-xs-12 col-sm-3">
+<!-- 	   			<div class="col-xs-12 text-center no-padding-xs">
+							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
+							<br>
+							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
+						</div>
 						
-<!-- 						<div class="col-xs-12" style="margin-top:10px;">
+						<div class="col-xs-12" style="margin-top:10px;">
 		<div class="right-head">SIMILAR PROFILES</div>
 			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
 			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
@@ -281,7 +213,166 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
    	 <%@include file="/footer.jsp" %>
 </div>
 
-
+<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="booksession">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								    	<div class="modal-head-bsession">
+								    		<span class="modal-head-text">Book A Session</span>
+								    	</div>
+								    	<div class="modal-main-body row">
+								    		<span class="modal-body-text">Session with Charles Dixon</span>
+								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession">
+								    			<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
+											       <div class="col-xs-9 form-group">
+				                                         <div class="col-xs-6">
+				                                         	 <div class="roundedOne">
+																<input type="radio" value="phone" id="phone" name="mode" />
+																<label for="phone"></label>
+																<span class="available-type-text">Phone</span>
+																
+															</div>
+														</div>
+														<div class="col-xs-6">
+				                                         	 <div class="roundedOne">
+																<input type="radio" value="video" id="video" name="mode" />
+																<label for="video"></label>
+																<span class="available-type-text">video</span>
+																
+															</div>
+														</div>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
+											       <div class="col-xs-9 form-group">
+				                                        <select class="collapsed-filter-button inpt-mw" id="duration" name="duration">
+														</select> 
+											 		</div>
+											 	</div>
+											 	<input type="hidden" name="aId" value="${advisor.getId()}">
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
+											       <div class="col-xs-9 form-group">
+											           <input type="hidden" name="approxprice" value="500">
+				                                       <span class="session-cost">Rs 500</span><br>
+				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Query Description</label>
+											       <div class="col-xs-9 form-group">
+				                                       <textarea class="form-control" name="query"></textarea>
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Attachments</label>
+											       <div class="col-xs-9 form-group">
+				                                      <input type="file" class="custom-file-input" name="resume">
+											 		</div>
+											 	</div>
+											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw" name="slot1time">
+														  
+														  
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw" name="slot2time">
+														
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
+											       <div class="col-xs-9 form-group">
+											       <div class="col-xs-6">
+											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date">
+											       </div>
+											       <div class="col-xs-6">
+											        <select class="collapsed-filter-button inpt-mw" name="slot3time">
+														
+													</select> 
+											       </div>
+				                                     
+											 		</div>
+											 	</div>
+											 	<div class="col-xs-12 button-div" >
+											 	<button type="submit" class="btn book-button" >Book</button>
+											 	<button type="button" class="btn cancel-button" data-dismiss="modal">Cancel</button>
+											 	
+											 	</div>
+								    		</form>
+								    	</div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
+<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Ask Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row">
+										       <div class="col-xs-3"><span>Select category :</span></div>
+										       <div class="col-xs-9">
+											       <div class="col-xs-6">
+												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
+														  <option value="volvo">Volvo</option>
+														  <option value="saab">Saab</option>
+														  <option value="mercedes">Mercedes</option>
+														  <option value="audi">Audi</option>
+														</select>
+											       </div>
+											       <div class="col-xs-6">
+												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
+															  <option value="volvo">Volvo</option>
+															  <option value="saab">Saab</option>
+															  <option value="mercedes">Mercedes</option>
+															  <option value="audi">Audi</option>
+														</select>
+														
+											       </div>
+											      <br>
+											      <br>
+											        <div class="form-group squaredThree" >
+														  	<input type="checkbox" id="21" name="Post anonymously" />
+															<label for="2l"></label><span>Post anonymously</span>
+													</div>
+													<button type="button" class="btn red-button ask-question-button">Ask question</button>
+										       </div>
+									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 <script>
 $(document).ready(function () {
 	starinputconversion();

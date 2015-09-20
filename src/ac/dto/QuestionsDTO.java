@@ -24,7 +24,14 @@ public class QuestionsDTO {
 	private Timestamp postedOn;
 	private int hits;
 	private Boolean toForum;
+	private String postedOnDate;
 
+	public String getPostedOnDate() {
+		return postedOnDate;
+	}
+	public void setPostedOnDate(String postedOnDate) {
+		this.postedOnDate = postedOnDate;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

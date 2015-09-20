@@ -39,7 +39,9 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-	int userId = (int)request.getAttribute("userId");
+     Integer userId = (Integer)request.getAttribute("userId");
+     List<PaymentDTO> payments = (List<PaymentDTO>)request.getAttribute("payments");
+     Double amount = (Double)request.getAttribute("amount"); 
 
 %>
 </head>
@@ -70,7 +72,7 @@
 			   			
 			   				<div class="current-balance-div col-xs-9 col-sm-3 no-padding">
 			   					<span class="current-balance-text-s">Current Balance </span><br>
-			   					<span class="amount-text">Rs 1240.00</span>
+			   					<span class="amount-text">Rs ${amount}</span>
 			   				</div>
 			   				<form action="userrecharge">
 				   				<div class="recharg-div col-xs-7 col-sm-3 no-padding">
@@ -109,39 +111,20 @@
 							<table style="width:100%">
 								<tbody><tr class="table-row-headings">
 									<th>Date</th>
-									<th>Session ID</th>
-									<th>Debit</th>		
-									<th>Credit</th>
-									<th>Refund</th>
+									<th>Recharge ID</th>
+									<th>Amount</th>		
+									<th>Payment Mode</th>
+									<th>Tracking Id</th>
 								</tr>
+								<c:forEach items="${payments}" var="pay">
 								<tr class="payment-row">
-									<td>1</td>
-									<td>Eve</td>
-									<td>Jackson</td>		
-									<td>94</td>
-									<td>94</td>
+									<td>${pay.getDate()}</td>
+									<td>${pay.getRechargeId()}</td>
+									<td>${pay.getAmount()}</td>		
+									<td>${pay.getPaymentMode()}</td>
+									<td>${pay.getTrackinId()}</td>
 								</tr>
-								<tr class="payment-row btd">
-									<td>2</td>
-									<td>John</td>
-									<td>Doe</td>		
-									<td>94</td>
-									<td>94</td>
-								</tr>
-								<tr class="payment-row">
-									<td>3</td>
-									<td>Adam</td>
-									<td>Johnson</td>		
-									<td>94</td>
-									<td>94</td>
-								</tr>
-								<tr class="payment-row btd">
-									<td>4</td>
-									<td>Jill</td>
-									<td>Smith</td>		
-									<td>94</td>
-									<td>94</td>
-								</tr>
+								</c:forEach>
 								</tbody></table>
 						</div>
 					</div>

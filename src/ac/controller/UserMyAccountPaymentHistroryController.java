@@ -1,6 +1,8 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.dao.PaymentDAO;
+import ac.dao.SessionDAO;
+import ac.dto.PaymentDTO;
 
 /**
  * Servlet implementation class UserMyAccountPaymentHistroryController
@@ -32,9 +36,17 @@ public class UserMyAccountPaymentHistroryController extends HttpServlet {
 		}
 		if(userId != 0){
 			//Getting the user Payment history
+			List<PaymentDTO> payments = new ArrayList<PaymentDTO>();
 			PaymentDAO payment = new PaymentDAO();
-			payment.GetPaymentHistory(userId);
+			payments = payment.GetPaymentHistory(userId);
+			
+			//Getting wallet amount
+			SessionDAO wallet = new SessionDAO();
+			Double amount = wallet.GetWalletDetails(userId);
+			
 			request.setAttribute("userId", userId);
+			request.setAttribute("payments", payments);
+			request.setAttribute("amount", amount);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userwallet.jsp");
 	        rd.forward(request, response);
 		}

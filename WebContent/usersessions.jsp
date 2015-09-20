@@ -47,7 +47,6 @@ List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advis
 List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
 List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
 List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
-pageContext.setAttribute("sessionStatus", sessionStatus);
 pageContext.setAttribute("userReviews", userReviews);
 pageContext.setAttribute("sessionDates", sessionDates);
 pageContext.setAttribute("advisorsForReviews", advisorsForReviews);

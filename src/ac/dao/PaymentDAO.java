@@ -19,6 +19,8 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.PaymentDTO;
+import ac.dto.SessionDTO;
 import ac.jdbc.ConnectionFactory;
 
 public class PaymentDAO {
@@ -128,48 +130,88 @@ public class PaymentDAO {
 		return isCommit;
 	}
 	
-/*	public List<AdvisorDTO> GetDetailsForReviews(List<Integer> ids){
-		logger.info("Entered GetDetailsForReviews method of SessionDAO");
-		List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
+	public List<PaymentDTO> GetPaymentHistory(int userId){
+		logger.info("Entered GetPaymentHistory method of PaymentDAO");
+		List<PaymentDTO> payments = new ArrayList<PaymentDTO>();
+		SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String q4in = generateQsForIn(ids.size());
-			System.out.println(q4in);
-			String query = "SELECT ADVISOR_ID,NAME,IMAGE FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + ")";
+			String query = "SELECT RECHARGE_ID,TIMESTAMP,AMOUNT,PAYMENT_MODE,TRACKING_ID FROM sessionrecharge WHERE USER_ID = ?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			int i = 1;
-			for (int id : ids) {
-				pstmt.setInt(i++, id);
-			}
+			pstmt.setInt(1, userId);
 			System.out.println(query);
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
-				AdvisorDTO advisor = new AdvisorDTO();
-				advisor.setId(results.getInt("ADVISOR_ID"));
-				advisor.setName(results.getString("NAME"));
-				advisor.setImage(results.getString("IMAGE"));
-				advisors.add(advisor);
+				PaymentDTO payment = new PaymentDTO();
+				payment.setRechargeId(results.getInt("RECHARGE_ID"));
+				payment.setAmount(results.getDouble("AMOUNT"));
+				payment.setTime(results.getTimestamp("TIMESTAMP"));
+				payment.setPaymentMode(results.getString("PAYMENT_MODE"));
+				payment.setTrackinId(results.getString("TRACKING_ID"));
+				payment.setDate(format.format(results.getTimestamp("TIMESTAMP")));
+				payments.add(payment);
 			}
 		
 		} catch (SQLException e) {
-			logger.error("GetDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			logger.error("GetPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			logger.error("GetDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			logger.error("GetPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		} catch (PropertyVetoException e) {
-			logger.error("GetDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			logger.error("GetPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		}finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("GetDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+				logger.error("GetPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
 				e.printStackTrace();
 			}
 		}
-	return advisors;
-	}*/
+	return payments;
+	}
 	
+	public List<SessionDTO> GetAdvisorPaymentHistory(int userId){
+		logger.info("Entered GetAdvisorPaymentHistory method of PaymentDAO");
+		List<SessionDTO> payments = new ArrayList<SessionDTO>();
+		SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT SESSION_ID,MODE,ACCEPTED_DATE,SESSION_DURATION,SESSION_PRICE FROM sessiondetails WHERE ADVISOR_ID = ? AND STATUS=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userId);
+			pstmt.setString(2, "SESSION COMPLETE");
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				SessionDTO payment = new SessionDTO();
+				payment.setSessionid(results.getInt("SESSION_ID"));
+				payment.setMode(results.getString("MODE"));
+				payment.setSessionDuration(results.getString("SESSION_DURATION"));
+				payment.setSessionPrice(results.getString("SESSION_PRICE"));
+				payment.setAccepDate(format.format(results.getDate("ACCEPTED_DATE")));
+				payments.add(payment);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAdvisorPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorPaymentHistory method of PaymentDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return payments;
+	}
 }
