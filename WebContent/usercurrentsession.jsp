@@ -42,6 +42,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 String userPhone = (String)request.getAttribute("userPhone");
 String advisorPhone = (String)request.getAttribute("advisorPhone");
 Double wallet = (Double)request.getAttribute("wallet");
+Integer userId = (Integer)request.getAttribute("userId");
 String sess = (String)request.getParameter("session");
 pageContext.setAttribute("sess", sess);
 
@@ -94,7 +95,8 @@ pageContext.setAttribute("sess", sess);
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
 					   			</c:if>
 					   			<c:if test="${sessionDetails.getMode().equals('video')}">
-					   			        <a href="UserAccessTokenController?name=${advisorDetails.getName()}" target="blank" class="btn submit-button">Join Conference</a>
+					   			        <a href="UserAccessTokenController?name=${advisorDetails.getName()}&sid=${sessionDetails.getSessionid()}" target="blank" class="btn submit-button">Join Conference</a>
+					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
 					   			</c:if>
 					   			</div>
 					   		</div>
@@ -133,10 +135,10 @@ pageContext.setAttribute("sess", sess);
 					   			</div>
 					   			<div class="col-xs-4 ">
 					   				<span class="total-cost-text">Wallet Balance</span><br>
-					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
+					   				<span class="total-cost-rs">Rs ${wallet}</span>
 					   			</div>
 					   			<div class="col-xs-4" style="padding-top:25px;">
-					   						<button type="button" class="btn recharg-button">Recharge</button>
+					   						<button type="button" class="btn recharg-button" data-toggle="modal" data-target="#rechargemodal">Recharge</button>
 					   			</div>
 					   		</div>
 					   		
@@ -187,11 +189,38 @@ pageContext.setAttribute("sess", sess);
 								    </div>
 								  </div>
 								</div>
+								<div class="modal fade" id="rechargemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Enter recharge amount</span><br>
+								      <br>
+								      <form class="ask-form" action="userrecharge"> 
+								      	<input  class="form-control "  placeholder="Type your amount" name="amount" >
+								        <input type="hidden" name="merchant_param1" value="${userId}">
+								        <input type="hidden" name="merchant_param2" value="recharge">
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="submit" class="btn red-button ask-question-button">Recharge</button>
+										       </div>
+									      
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 </div>
 
 
 <script>
 $(document).ready(function () {
+	if("${sess.equals('booked') }"){
+		document.getElementById("sessionconfirmedbyuser").style.display = "block";
+	}else{
+		document.getElementById("sessionconfirmedbyuser").style.display = "none";
+	}
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
@@ -258,7 +287,6 @@ function GetCost(){
 	}); 
 }
 function ShowModal(details){
-
 	document.getElementById("duration").innerHTML = details[0];
 	document.getElementById("advprice").innerHTML = details[1];
 	document.getElementById("cost").innerHTML = details[2];

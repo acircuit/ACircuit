@@ -45,6 +45,8 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 		}
 		if(advisorId != 0){
 			List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+			List<QuestionsDTO> newQuestions = new ArrayList<QuestionsDTO>();
+			List<QuestionsDTO> answeredQuestions = new ArrayList<QuestionsDTO>();
 			List<Integer> ids = new ArrayList<Integer>();
 			QuestionsDAO answers = new QuestionsDAO();
 			list = answers.GetQuestionIds(advisorId);
@@ -54,6 +56,9 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 			for(QuestionsDTO advQuestions : questions){
 				if(advQuestions.getIsAnswered()){
 					ids.add(advQuestions.getQuestionId());
+					answeredQuestions.add(advQuestions);
+				}else{
+					newQuestions.add(advQuestions);
 				}
 			}
 			QuestionsDAO ans = new QuestionsDAO();
@@ -70,8 +75,11 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 			//Get Advisor Image
 			SessionDAO adv = new SessionDAO();
 			 AdvisorDTO advisorDetails =  adv.GetAdvisorDetails(advisorId);
-			System.out.println("qy" + ids.size());
-			request.setAttribute("questions", questions);
+			 
+			 System.out.println("ans"+answeredQuestions.size());
+			 System.out.println("new"+newQuestions.size());
+			request.setAttribute("answeredQuestions", answeredQuestions);
+			request.setAttribute("newQuestions", newQuestions);
 			request.setAttribute("advisorDetails", advisorDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorsessionquestions.jsp");
 	        rd.forward(request, response);

@@ -28,6 +28,7 @@ public class UserAccessTokenController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
+		String sId = request.getParameter("sid");
 		name= name.replaceAll(" ", "");
 		name = name.toLowerCase();
 		System.out.println(name);
@@ -35,6 +36,7 @@ public class UserAccessTokenController extends HttpServlet {
 		token.addGrant(new EndpointGrant(name));
 		token.enableNTS();
 		request.setAttribute("token", token.toJWT());
+		request.setAttribute("sId",sId);
 		RequestDispatcher rd = getServletContext()
 				.getRequestDispatcher("/VideoCallUser.jsp");
 		rd.forward(request, response);

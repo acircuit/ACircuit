@@ -148,7 +148,7 @@ Double wallet = (Double)request.getAttribute("wallet");
                                         </c:otherwise>  
                                     </c:choose>  	
 					   			</div>
-								<input type="hidden"id="usrDates" name="merchant_param4" value="">
+								<input type="hidden" id="usrDates" name="merchant_param4" value="">
 					   			<div class="col-xs-6" style="padding-top:25px;">
 					   						<button type="button" class="btn recharg-button" style="width: 120px;" data-toggle="modal" data-target="#booksession">Cancel Session</button>
 					   					<c:choose>
@@ -254,6 +254,7 @@ $(document).ready(function () {
 });
 
 function ConfirmSession(){
+	
 	if(document.getElementById('date1').checked) {
 		  $("#usrDates").val(document.getElementById('date1').value);
 		}else if(document.getElementById('date2').checked) {

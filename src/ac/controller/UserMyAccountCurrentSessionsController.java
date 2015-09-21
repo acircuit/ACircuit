@@ -63,6 +63,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  request.setAttribute("userPhone", userPhone);
 			  request.setAttribute("advisorPhone", advisorPhone);
 			  request.setAttribute("wallet", amount);
+			  request.setAttribute("userId", userId);
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/usercurrentsession.jsp");
 	          rd.forward(request, response);
 		}
@@ -81,14 +82,14 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  Boolean isSessionDetailsUdated = false;
 			  //Updating the user wallet
 			  SessionDAO wallet = new SessionDAO();
-			  Boolean isUpdated = wallet.UpdateWallet(cost,uId);
+			  Boolean isUpdated = wallet.UpdateWallet(uId,cost);
 			  if(isUpdated){
 				//Updating the session details
 				  SessionDAO session = new SessionDAO();
 				  isSessionDetailsUdated = session.UpdateSessionDetails(cost,duration,sid);
 			  }
 			  if(isSessionDetailsUdated){
-				  response.sendRedirect("userpastsession?sId="+sid);
+				  response.sendRedirect("useraftersession?sId="+sid);
 			  }
 		logger.info("Entered doPost method of UserMyAccountCurrentSessionsController");
 	}

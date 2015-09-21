@@ -3,8 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Twilio Conversations - Video Quickstart</title>
     <link rel="stylesheet" href="https://media.twiliocdn.com/sdk/quickstart/rtc-conversations-quickstart.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
     <%
     	String token = (String)request.getAttribute("token");
+        String sId = (String)request.getAttribute("sId");
     %>
   </head>
   <body>
@@ -83,6 +86,7 @@
 
   // conversation is live
   function conversationStarted(conversation) {
+	
     log('In an active Conversation');
     activeConversation = conversation;
     // draw local video, if not already previewing
@@ -93,7 +97,7 @@
     conversation.on('participantConnected', function (participant) {
       log("Participant '" + participant.address + "' connected");
       participant.media.attach('#remote-media');
-  	alert("joined");
+      SetConversationDetails();  
     });
     // when a participant disconnects, note in log
     conversation.on('participantDisconnected', function (participant) {
@@ -105,7 +109,7 @@
       conversation.localMedia.stop();
       conversation.disconnect();
       activeConversation = null;
-  	alert(123);
+  	  SetConversationEnd();
     });
   };
 
@@ -130,6 +134,42 @@
   function log(message) {
     document.getElementById('log-content').innerHTML = message;
   };
+  var called = false;
+  function SetConversationDetails(){
+	  debugger;
+		$.ajax({
+		    url : 'SetTwilioVideoCallDetails', // Your Servlet mapping or JSP(not suggested)
+		    data : {"sId" :"${sId}","type" : "start"},
+		    type : 'POST',
+		    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+		    success : function(response) {
+		    	if(response == "true"){
+		    		alert("Please start the conversation");
+		    		called = true;
+		    	}
+		    },
+		    error : function(request, textStatus, errorThrown) {
+		        alert(errorThrown);
+		    }
+		}); 
+	  
+  }
+  function SetConversationEnd(){
+		$.ajax({
+		    url : 'SetTwilioVideoCallDetails', // Your Servlet mapping or JSP(not suggested)
+		    data : {"sId" :"${sId}","type" : "end"},
+		    type : 'POST',
+		    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+		    success : function(response) {
+		    	if(response == "true"){
+		    		alert("Hope you had a wonderfull session");
+		    	}
+		    },
+		    error : function(request, textStatus, errorThrown) {
+		        alert(errorThrown);
+		    }
+		}); 
+  }
   
   </script> 
   </body>

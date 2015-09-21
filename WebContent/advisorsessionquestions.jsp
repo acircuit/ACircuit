@@ -39,8 +39,9 @@
     type="text/css">
 <%
 
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+                List<QuestionsDTO> answeredQuestions = (List<QuestionsDTO>)request.getAttribute("answeredQuestions");
                     AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
+                    List<QuestionsDTO> newQuestions = (List<QuestionsDTO>)request.getAttribute("newQuestions");
 
 	
 
@@ -94,7 +95,7 @@
 											<div class="tab-head-div ">
 									    		<span class="tab-head-text">New Questions Added</span>
 									    	</div>
-										<c:forEach items="${questions}" var="question">
+										<c:forEach items="${newQuestions}" var="question">
 									    	<c:if test="${!question.getIsAnswered() }">
 									
 									    	
@@ -122,8 +123,7 @@
 											<div class="tab-head-div ">
 									    		<span class="tab-head-text">Questions Answered by you</span>
 									    	</div>
-										<c:forEach items="${questions}" var="question">
-									    	<c:if test="${!question.getIsAnswered() }">
+										<c:forEach items="${answeredQuestions}" var="question">
 									
 									    	<div class="tab-content-div row">
 									    		<div class="each-question-div row" id="1">
@@ -148,11 +148,11 @@
 											    </div>	
 									    	
 									       
-									        </c:if>
 									        </c:forEach>
 								
 									</div>
 							</div>
+
 						
 			   	</div>
 	   			

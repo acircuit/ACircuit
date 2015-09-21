@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 
 /**
@@ -46,9 +47,12 @@ public class UserMyAccountPastSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
+			  SessionDAO reviews = new SessionDAO();
+			  ReviewsDTO review = reviews.GetReviews(sid);
 			
 			  request.setAttribute("sessionDetails", sessionDetails);
 			   request.setAttribute("advisorDetails", advisorDetails);
+			   request.setAttribute("review", review);
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/userpastsession.jsp");
 	          rd.forward(request, response);
 		}

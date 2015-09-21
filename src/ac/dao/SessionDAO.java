@@ -30,6 +30,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.CostDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
+import ac.dto.TwilioVideoDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
 
@@ -341,13 +342,14 @@ public class SessionDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into sessionreviews"+"(SESSION_ID,REVIEW,RATING,USER_ID,ADVISOR_ID) values" + "(?,?,?,?,?)";
+			String query = "insert into sessionreviews"+"(SESSION_ID,REVIEW,RATING,USER_ID,ADVISOR_ID,POSTED_ON) values" + "(?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, sid);
 			pstmt.setString(2, review);
 			pstmt.setString(3, rating);
             pstmt.setInt(4, userId);
             pstmt.setString(5, aId);
+            pstmt.setDate(6, new java.sql.Date(new Date().getTime()));
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -1647,6 +1649,194 @@ public class SessionDAO {
 		logger.info("Exit UpdateSessionDetails method of SessionDAO");
 		return isCommit;
 	}
+	
+	
+	public Boolean SetTwilioConversationDetails(String sid){
+		logger.info("Entered SetTwilioConversationDetails method of SessionDAO");
+		Boolean isCommit = false;
+		 Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+         mbCal.setTimeInMillis(new Date().getTime());      
+         Calendar cal = Calendar.getInstance();  
+         cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+         cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+         cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+         cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+         cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+         cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+         cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+         Date date = cal.getTime();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into twiliovideo"+"(SESSION_ID,CONVERSATION_START) values" + "(?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sid);
+			pstmt.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch (SQLException e) {
+			    try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					logger.error("SetTwilioConversationDetails method of SessionDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("SetTwilioConversationDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("SetTwilioConversationDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("SetTwilioConversationDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("SetTwilioConversationDetails method of SessionDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			logger.info("Entered SetTwilioConversationDetails method of SessionDAO");
+			return isCommit;
+
+		}
+	
+	public Boolean  SetTwilioConversationEnd(String sId) { 
+		logger.info("Entered SetTwilioConversationEnd method of SessionDAO");
+		Boolean isCommit = false ;
+		 Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+         mbCal.setTimeInMillis(new Date().getTime());      
+         Calendar cal = Calendar.getInstance();  
+         cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+         cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+         cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+         cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+         cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+         cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+         cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+         Date date = cal.getTime();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE twiliovideo SET CONVERSATION_END=? WHERE SESSION_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+			pstmt.setString(2, sId);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("SetTwilioConversationEnd method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("SetTwilioConversationEnd method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("SetTwilioConversationEnd method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("SetTwilioConversationEnd method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit SetTwilioConversationEnd method of SessionDAO");
+		return isCommit;
+	}
+	
+	public List<TwilioVideoDTO> GetTwilioVideoConversationTimings(String sid){
+		logger.info("Entered GetTwilioVideoConversationTimings method of SessionDAO");
+		List<TwilioVideoDTO> video =  new ArrayList<TwilioVideoDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT CONVERSATION_START,CONVERSATION_END FROM twiliovideo WHERE SESSION_ID= ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, sid);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				TwilioVideoDTO twil = new TwilioVideoDTO();
+				twil.setStart(results.getTimestamp("CONVERSATION_START"));
+				twil.setEnd(results.getTimestamp("CONVERSATION_END"));
+				video.add(twil);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetTwilioVideoConversationTimings method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetTwilioVideoConversationTimings method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetTwilioVideoConversationTimings method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetTwilioVideoConversationTimings method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return video;
+	}
+	
+	
+	public ReviewsDTO GetReviews(String sid){
+		logger.info("Entered GetReviews method of SessionDAO");
+		ReviewsDTO reviews = new ReviewsDTO();
+		 SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT RATING,REVIEW,POSTED_ON FROM sessionreviews WHERE SESSION_ID= ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, sid);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				reviews.setRating(results.getString("RATING"));
+				reviews.setReview(results.getString("REVIEW"));
+				reviews.setDate(sdf.format(results.getDate("POSTED_ON")));
+
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return reviews;
+	}
+	
+	
+	
 	
 	
 	private String generateQsForIn(int numQs) {
