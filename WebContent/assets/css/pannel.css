@@ -28,6 +28,17 @@
 body {
     font-family: "Open SansR";
 }
+.notify-div-dropdown .badge{
+	display: inline;
+    float: none;
+    min-width: 10px;
+    padding: 1px 5px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+   margin-left: 2px;
+}
 .scrollable-content::-webkit-scrollbar {
   background:transparent;
   width:5px;

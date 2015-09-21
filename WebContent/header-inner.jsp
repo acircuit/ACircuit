@@ -22,12 +22,12 @@
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div></form></li>
-					          	<ul class="nav navbar-nav navbar-right">
+					          	<ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge">2</span></a>
-							          <ul class="dropdown-menu" style="min-width: 273px;padding: 0px;border: 0px;">
-										  <a href="#" class="list-group-item">Dapibus ac facilisis in <span class="badge">9:30pm</span></a>
-										  <a href="#" class="list-group-item">Morbi leo risus</a>
+							          <ul class="dropdown-menu notify-div-dropdown" style="min-width: 273px;padding: 0px;border: 0px;">
+										  <a href="#" class="list-group-item">Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in nhjnjjkjnk <span class="badge">9:30pm</span></a>
+										  <a href="#" class="list-group-item">Morbi leo risus <span class="badge">9:30pm</span></a>
 										  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
 										  <a href="#" class="list-group-item">Vestibulum at eros</a>
 							          </ul>
