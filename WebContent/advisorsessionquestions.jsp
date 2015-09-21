@@ -111,6 +111,9 @@
 									   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span></span>
 									   					</c:if>
 									   				</div> 
+									   				<div class="col-xs-9 answer-div">
+															<button type="button" class="btn red-button " style="width: 90px;margin-bottom: 10px;" data-toggle="modal" data-target="#answerquestion">Answer</button>
+										    			</div>
 									   			    </div>
 											    </div>	
 									       
@@ -335,6 +338,48 @@
 													<button type="button" class="btn red-button ask-question-button">Ask question</button>
 										       </div>
 									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
+								
+								<div class="modal fade" id="answerquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Answer Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="button" class="btn red-button ask-question-button">Answer question</button>
+										       </div>
+									      
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div><div class="modal fade" id="answerquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Answer Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="button" class="btn red-button ask-question-button">Answer question</button>
+										       </div>
+									      
 								        </form>
 								      </div>
 								      
