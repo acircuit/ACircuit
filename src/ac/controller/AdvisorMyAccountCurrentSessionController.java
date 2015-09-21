@@ -41,6 +41,7 @@ public class AdvisorMyAccountCurrentSessionController extends HttpServlet {
 		//Getting the sessiondetails for the user
 		if(advisorId != 0){
 			  String sid = request.getParameter("sId");
+			  String action = request.getParameter("action");
 			  //Getting the session details for the page
 			  SessionDAO session = new SessionDAO();
 			  SessionDTO sessionDetails= session.GetSessionDetails(sid);
@@ -48,11 +49,20 @@ public class AdvisorMyAccountCurrentSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO user = new SessionDAO();
 			  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());
+			  SessionDTO dates= null;
+			  if(sessionDetails.getStatus().equals("ACCEPTED WITH NEW DATES")){
+				  SessionDAO newDates = new SessionDAO();
+				  dates = newDates.GetAdvisorNewDates(sid); 
+			  }
 			
 			  request.setAttribute("sessionDetails", sessionDetails);
 			   request.setAttribute("userDetails", userDetails);
+			   request.setAttribute("newdates", dates);
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorcurrentsession.jsp");
 	          rd.forward(request, response);
+		}
+		if(isError){
+			response.sendRedirect("error");
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountCurrentSessionController");
 

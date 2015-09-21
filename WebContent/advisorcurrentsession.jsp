@@ -39,6 +39,9 @@
 <%
 SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
 UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
+SessionDTO newdates = (SessionDTO)request.getAttribute("newdates");
+pageContext.setAttribute("newdates", newdates);
+
 
 
 %>
@@ -71,7 +74,12 @@ UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails")
 		   		    		<div class="col-xs-7 no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
-					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
+		   		    		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED') || sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES')}">
+					   		 <span class="status"><i class="fa fa-check"></i> Waiting for Payment</span>
+					   		 </c:if>
+					   		 <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
+					   		 <span class="status"><i class="fa fa-check"></i> Session on schedule</span>
+					   		 </c:if>
 		   		    		</div>
 		   		    		<div class="col-xs-5 no-padding" style="padding-top: 21px;">
 		   		    			<span class="due-in-text">Due in</span><br>
@@ -89,11 +97,13 @@ UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails")
 					   			</c:if>
 
 					   		</div>
-					   		<div class="col-xs-12 no-padding session-date-div">
-					   		<span class="prop-time-text">Session Date</span><br>
+					   		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED')}">
+					   		  <div class="col-xs-12 no-padding session-date-div">
+					   		  <span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
-					   		</div>
+					   		   <span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
+					   		   </div>
+					   		</c:if>
 					   		<div class="advisor-description-div col-xs-12 no-padding">
 					   			<span class="advisor-description-head">Advisor Instructions</span>
 					   			<p class="q-description">
@@ -116,6 +126,13 @@ UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails")
 					   			<span class="timeslots-proposed">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span>
 					   			<span class="timeslots-proposed">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span>
 					   			<span class="timeslots-proposed">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span>
+					   		</div>
+					   		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES')}">
+					   		<span class="propsed-time-slots-head">Time Slots proposed by you</span><br>
+					   			<span class="timeslots-proposed">${newdates.getDate1()}, ${newdates.getTime1()}</span>
+					   			<span class="timeslots-proposed">${newdates.getDate2()}, ${newdates.getTime2()}</span>
+					   		</c:if>
+				   			
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   			<div class="col-xs-4 no-padding">

@@ -43,13 +43,20 @@ public class UserRechargeController extends HttpServlet {
 		String amount = request.getParameter("amount");
 		String merchant_param1 = request.getParameter("merchant_param1");
 		String merchant_param2 = request.getParameter("merchant_param2");
+		String merchant_param3 = request.getParameter("merchant_param3");
+		String merchant_param4 = request.getParameter("merchant_param4");
 		RechargeIdGenerator generate = new RechargeIdGenerator();
 		int id =generate.gen();
-		if(merchant_param2 != null){
+		/*if(merchant_param2 != null && merchant_param3 != null){
+		     response.sendRedirect("payment?order_id="+id+"&amount="+amount+"&merchant_param1="+merchant_param1+"&merchant_param2=recharge&merchant_param3="+merchant_param3);
+		}else if (merchant_param2 != null ) {
+		     response.sendRedirect("payment?order_id="+id+"&amount="+amount+"&merchant_param1="+merchant_param1+"&merchant_param3="+merchant_param3);
+		}else if (merchant_param3 != null) {
 		     response.sendRedirect("payment?order_id="+id+"&amount="+amount+"&merchant_param1="+merchant_param1+"&merchant_param2=recharge");
 		}else{
 			 response.sendRedirect("payment?order_id="+id+"&amount="+amount+"&merchant_param1="+merchant_param1);
-		}
+		}*/
+	     response.sendRedirect("payment?order_id="+id+"&amount="+amount+"&merchant_param1="+merchant_param1+"&merchant_param2=recharge&merchant_param3="+merchant_param3+"&merchant_param4="+merchant_param4);
 		logger.info("Exit doPost method of UserMyAccountPaymentHistroryController");
 	}
 

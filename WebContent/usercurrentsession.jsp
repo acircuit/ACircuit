@@ -42,6 +42,8 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 String userPhone = (String)request.getAttribute("userPhone");
 String advisorPhone = (String)request.getAttribute("advisorPhone");
 Double wallet = (Double)request.getAttribute("wallet");
+String sess = (String)request.getParameter("session");
+pageContext.setAttribute("sess", sess);
 
 %>
 </head>

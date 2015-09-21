@@ -34,6 +34,7 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
+String type = request.getParameter("type");
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
 Double amount = (Double) request.getAttribute("amount");        
 
@@ -44,6 +45,8 @@ Double amount = (Double) request.getAttribute("amount");
 </head>
 <body>
  <div id="wrapper">
+ 			       <%@include file="/notify.jsp" %>
+ 
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -339,6 +342,15 @@ Double amount = (Double) request.getAttribute("amount");
 								  </div>
 								</div>
 <script>
+$(document).ready(function () {
+	
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+	
+});
 $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',
     startDate: '-3d'
@@ -385,6 +397,7 @@ $('body').on('click', '.less', function(e){
 	var res = data.substring(0,200);
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');
 });
+
 
 	function GetResultAccordingToSubCategory(elem){
 		$('.black-screen').show();

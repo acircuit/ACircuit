@@ -11,15 +11,15 @@
       		<span class="modal-head-text">SIGN IN</span>
       	</div>
       	<div class="login-form-div row">
-      		<form class="login-form col-xs-12 no-padding" method="post" enctype="multipart/form-data" id="signupform">
+      		<form class="login-form col-xs-12 no-padding" method="post" id="signupform" action="registration">
       			<div class="form-group login-form-el col-xs-12 no-padding">
       						<div class="col-xs-6" style="text-align: center;">
-									<input type="radio" value="phone" id="user" name="loginmode" aria-required="true" required/>
+									<input type="radio" value="user" id="user" name="type" aria-required="true" required/>
 									<label for="user"><span></span> User</label>
 									
 							</div>
 							<div class="col-xs-6" style="text-align: left;">
-									<input type="radio" value="video" id="advisor" name="loginmode" />
+									<input type="radio" value="advisor" id="advisor" name="type" />
 									<label for="advisor"><span></span> Advisor</label>
 									
 				 			</div>
@@ -42,7 +42,7 @@
       						<button type="submit" class="btn gt-started" >Get Started</button>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
-      						 <input type="checkbox" value="" id="updates" name="updates" />
+      						 <input type="checkbox" value="true" id="updates" name="updates" />
 								<label for="updates"></label>
 								<span class="policy-text">I wish to receive updates from new offers</span>
 				 	</div>
@@ -78,7 +78,7 @@
       		<span class="modal-head-text">LOG IN</span>
       	</div>
       	<div class="login-form-div row">
-      		<form class="login-form col-xs-12 no-padding" method="post" id="loginform">
+      		<form class="login-form col-xs-12 no-padding" method="post" id="loginform" action="login">
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" type="email" name="email" required aria-required="true" placeholder="Email">
 				 	</div>
