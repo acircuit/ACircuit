@@ -1,5 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-     <div class="div-container-navbar">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+Boolean isLoggedIn=false;
+String username="";
+int  userd =0;
+int advisord = 0;
+if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
+	isLoggedIn=true;
+	username = "Admin";
+}
+else if(session.getAttribute("userId") !=null ){
+		isLoggedIn=true;
+		username=(String)session.getAttribute("username");
+		userd = (Integer)session.getAttribute("userId");
+}
+else if( session.getAttribute("advisorId") !=null){
+		isLoggedIn=true;
+		username=(String)session.getAttribute("username");
+		advisord = (Integer)session.getAttribute("advisorId");
+}
+
+%>
+
+<c:choose>
+				<c:when test="<%=isLoggedIn %>">
+                       <%@include file="/header-inner.jsp" %>
+				</c:when>
+				<c:otherwise>
+					     <div class="div-container-navbar">
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
 					    <div class="navbar-header">
@@ -17,7 +45,7 @@
 					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="#">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
-					          <li><a href="#" data-toggle="modal" data-target="#signupmodal">Login In</a></li>
+					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
@@ -61,6 +89,9 @@
 					        <!--  <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
+				</c:otherwise>
+</c:choose>
+     
 			          	
    	<script>
    	$(document).ready(function () {
@@ -93,6 +124,8 @@
 
    		
 	});
+  		
+
    	</script>
    	<script type="text/javascript">
    	function FindSuggestions(s) {

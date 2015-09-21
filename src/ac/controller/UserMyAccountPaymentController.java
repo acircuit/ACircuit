@@ -32,6 +32,9 @@ public class UserMyAccountPaymentController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of UserMyAccountPaymentController");
 		String encResp= request.getParameter("encResp");
+		String sessionPrice= request.getParameter("amount");
+		String sid= request.getParameter("sid");
+
 		Properties prop = new Properties();
 	    InputStream resourceAsStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Path.properties");
 	    prop.load(resourceAsStream1);
@@ -41,9 +44,10 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			String decResp = aesUtil.decrypt(encResp);
 			StringTokenizer tokenizer = new StringTokenizer(decResp, "&");
 			String order_status = "";
-			String sId ="";
+			String oId ="";String sId = "";
 			String uid="";
 			String type = "";
+			String date = "";
 			String pair=null, pname=null, pvalue=null;
 			String amount = "",trackingId="",paymentMode="",accDate="";
 			while (tokenizer.hasMoreTokens()) {
@@ -56,7 +60,7 @@ public class UserMyAccountPaymentController extends HttpServlet {
 						if(strTok.hasMoreTokens())
 							pvalue=(String)strTok.nextToken();
 							if(pname.equals("order_id")){
-								sId = pvalue;
+								oId = pvalue;
 							}
 							if(pname.equals("order_status")){
 								order_status = pvalue;
@@ -76,16 +80,22 @@ public class UserMyAccountPaymentController extends HttpServlet {
 							if(pname.equals("merchant_param2")){
 								type = pvalue;
 							}
+							if(pname.equals("merchant_param3")){
+								sId = pvalue;
+							}
+							if(pname.equals("merchant_param4")){
+								date = pvalue;
+							}
 							
 					}
 				}
 			}
-			if(sId != null && !sId.equals("") && order_status.equals("Success")){
+			if(oId != null && !oId.equals("") && order_status.equals("Success")){
 				Boolean isWalletUpdated = false;
 				Boolean isStatusCommit = false;
 				//Entering the details of the transaction
 				PaymentDAO transactionDetails = new PaymentDAO();
-				Boolean isCommit =  transactionDetails.SetTransactionDetails(sId,order_status,amount,trackingId,paymentMode,uid);
+				Boolean isCommit =  transactionDetails.SetTransactionDetails(oId,order_status,amount,trackingId,paymentMode,uid);
 				if(isCommit){
 					PaymentDAO wallet = new PaymentDAO();
 					isWalletUpdated = wallet.UpdateWallet(uid,amount);
@@ -96,12 +106,21 @@ public class UserMyAccountPaymentController extends HttpServlet {
 						  response.sendRedirect("userpaymenthistory?recharge="+order_status);
 					}else{
 						if(isWalletUpdated){
-							//Update session status
-							SessionDAO status = new SessionDAO();
-							isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
+							if(date != null ){
+								String[] acceptedDate = date.split(",");
+								//Update Date and status
+								SessionDAO update = new SessionDAO();
+								isStatusCommit =  update.UpdateSessionDetails("SESSION ON SCHEDULE", sId,acceptedDate);
+								
+							}else{
+								//Update session status
+								SessionDAO status = new SessionDAO();
+								isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
+							}
+							
 						}
 						if(isStatusCommit){
-					          response.sendRedirect("usercurrentsession?sId="+sId+"$recharge="+order_status);
+					          response.sendRedirect("usercurrentsession?sId="+sId+"&session="+order_status);
 						}
 					}
 				
@@ -110,7 +129,45 @@ public class UserMyAccountPaymentController extends HttpServlet {
 				response.sendRedirect("useracceptsession?sId="+sId);
 			}
 		
-		  logger.info("Entered doPost method of UserMyAccountPaymentController");
+		}else{
+			int userId = 0;
+			Boolean isError =false;
+			try{
+				userId = (int) request.getSession().getAttribute("userId");
+			}catch(Exception e){
+				isError = true;
+			}
+			//Getting the sessiondetails for the user
+			if(userId != 0){
+
+				String date = request.getParameter("merchant_param4");
+				Boolean isWalletUpdated =false;
+				Boolean isStatusCommit =false;
+
+				String amount = request.getParameter("amount");
+				String sId = request.getParameter("sid");
+					if(date != null ){
+						String[] acceptedDate = date.split(",");
+						//Update Date and status
+						SessionDAO update = new SessionDAO();
+						isStatusCommit =  update.UpdateSessionDetails("SESSION ON SCHEDULE", sId,acceptedDate);
+						
+					}else{
+						//Update session status
+						SessionDAO status = new SessionDAO();
+						isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
+					}
+					
+				if(isStatusCommit){
+			          response.sendRedirect("usercurrentsession?sId="+sId+"&session=Success");
+				}
+			}
+			if(isError){
+				response.sendRedirect("error");
+			}
+			
+			
 		}
+		  logger.info("Entered doPost method of UserMyAccountPaymentController");
 	}
 }

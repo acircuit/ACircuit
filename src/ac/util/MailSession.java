@@ -13,7 +13,7 @@ public class MailSession {
 	
 	public MailSession() throws IOException {
 		  Properties prop = new Properties();
-	      java.io.InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Resources/mail.properties");
+	      java.io.InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Mail.properties");
 	      prop.load(resourceAsStream);
 		 // Get system properties
 	      properties = System.getProperties();
@@ -27,7 +27,7 @@ public class MailSession {
 
 	public Session GetSession() throws IOException{
 		  final Properties prop1 = new Properties();
-	      java.io.InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Resources/mail.properties");
+	      java.io.InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Mail.properties");
 	      prop1.load(resourceAsStream);
 		  new MailSession();
 	      Session session = Session.getDefaultInstance(properties ,new javax.mail.Authenticator(){

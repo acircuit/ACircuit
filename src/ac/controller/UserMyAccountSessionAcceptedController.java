@@ -49,7 +49,7 @@ public class UserMyAccountSessionAcceptedController extends HttpServlet {
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
 			  SessionDTO dates = new SessionDTO();
-			  if(sessionDetails.getAcceptedDate() != null){
+			  if(sessionDetails.getStatus().equals("ACCEPTED WITH NEW DATES")){
 				 SessionDAO newDates = new SessionDAO();
 				 dates = newDates.GetAdvisorNewDates(sid);
 			  }
@@ -65,7 +65,9 @@ public class UserMyAccountSessionAcceptedController extends HttpServlet {
 	          rd.forward(request, response);
 		}
 		
-		
+		if(isError){
+			response.sendRedirect("error");
+		}
 		
 		logger.info("Entered doGet method of UserMyAccountSessionAcceptedController");
 	}

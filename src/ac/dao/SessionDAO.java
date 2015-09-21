@@ -136,30 +136,38 @@ public class SessionDAO {
 		logger.info("Entered UpdateSessionPlan method of SessionDAO");
 		Boolean isCommit = false ;
 		Date date1=null;
-	    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
-	    try {
-			date1 = sdf.parse(date);
-		} catch (ParseException e3) {
-			// TODO Auto-generated catch block
-			e3.printStackTrace();
+		if(!isNewDates){
+	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+	       try {
+		    	date1 = sdf.parse(date);
+		   } catch (ParseException e3) {
+			    // TODO Auto-generated catch block
+			    e3.printStackTrace();
+		  }
 		}
-	    
-	    System.out.println(new java.sql.Date(date1.getTime()));
+
 	    
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="UPDATE sessiondetails SET SESSIONPLAN = ?,STATUS=?,ACCEPTED_DATE=?,ACCEPTED_TIME=? WHERE SESSION_ID = ? ";
+			String query ="";
+			if(isNewDates){
+			    query ="UPDATE sessiondetails SET SESSIONPLAN = ?,STATUS=? WHERE SESSION_ID = ? ";
+			}else{
+			    query ="UPDATE sessiondetails SET SESSIONPLAN = ?,STATUS=?,ACCEPTED_DATE=?,ACCEPTED_TIME=? WHERE SESSION_ID = ? ";
+			}
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, sessionPlan);
-			if(isNewDates){
-				pstmt.setString(2, "ACCEPTED WITH NEW DATES");
-			}else{
+			if(!isNewDates){
 				pstmt.setString(2, "ACCEPTED");
+				pstmt.setDate(3, new java.sql.Date(date1.getTime()));
+				pstmt.setString(4, time);
+				pstmt.setString(5, sId);
+			}else{
+				pstmt.setString(2, "ACCEPTED WITH NEW DATES");
+				pstmt.setString(3, sId);
 			}
-			pstmt.setDate(3, new java.sql.Date(date1.getTime()));
-			pstmt.setString(4, time);
-			pstmt.setString(5, sId);
+		
 			int result = pstmt.executeUpdate(); 
 			if(result >0) {
 				conn.commit();
@@ -527,7 +535,7 @@ public class SessionDAO {
 				dates.setDate1(results.getDate("DATE1"));
 				dates.setDate2(results.getDate("DATE2"));
                 dates.setTime1(results.getString("TIME1"));
-                dates.setTime1(results.getString("TIME2"));
+                dates.setTime2(results.getString("TIME2"));
 
 			}
 		
@@ -1557,6 +1565,87 @@ public class SessionDAO {
 			}
 		}
 	return users;
+	}
+	
+	public Double[] GetAdvisorPrices(String aid){
+		logger.info("Entered GetAdvisorPrices method of SessionDAO");
+		Double[] prices = new Double[2];
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT PHONE_PRICE,VIDEO_PRICE FROM advisordetails WHERE ADVISOR_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				prices[0] = results.getDouble("PHONE_PRICE");
+				prices[1] = results.getDouble("VIDEO_PRICE");
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorPrices method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorPrices method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorPrices method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorPrices method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetAdvisorPrices method of SessionDAO");
+		return prices;
+	}
+	
+	public Boolean  UpdateSessionDetails(String status,String sId,String[] date) { 
+		logger.info("Entered UpdateStatus method of SessionDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE sessiondetails SET STATUS=?,ACCEPTED_DATE=?,ACCEPTED_TIME=? WHERE SESSION_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, status);
+			pstmt.setString(2,date[0]); 
+			pstmt.setString(3,date[1]); 
+			pstmt.setString(4, sId);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateSessionDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateSessionDetails method of SessionDAO");
+		return isCommit;
 	}
 	
 	

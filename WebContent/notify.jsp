@@ -2,12 +2,14 @@
 <link href="assets/css/notification.css" rel="stylesheet">
 <div class="notify-div">
 	<div class="container">
-	  <c:if test="${sessionStatus != null && sessionStatus.equals('booked')}">
-		<div class="notify-text-div">
-			<span class="notify-text">Success : Your request has been sent to the advisor for approval</span>
+		<div class="notify-text-div" style="display: none" id="sessionbooked">
+			<span class="notify-text">Success : Your session has been booked and wallet has been updated</span>
 			<span class="cross-noti">X</span>
 		</div>
-	 </c:if>
+	    <div class="notify-text-div" id="verifyaccount" style="display: none" >
+			<span class="notify-text">Success : Thankyou for registring. Please verify your Account to book session.<a>Resend Mail</a></span>
+			<span class="cross-noti">X</span>
+		</div>
 	</div>
 </div>
 <script>

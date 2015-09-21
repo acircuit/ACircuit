@@ -46,6 +46,7 @@
                    String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
                    List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                    List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+                   String advisorId = request.getParameter("a");
        			   int userId = 0;
        			   if(request.getSession().getAttribute("userId") != null){
        				userId = (Integer)request.getSession().getAttribute("userId");
@@ -54,7 +55,7 @@
        			   if(userId != 0){
        				isUserLoggedIn = true;
        			   }
-
+       			   pageContext.setAttribute("advisorId", advisorId);
 %>
 
 </head>
@@ -366,7 +367,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
 											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button" id="duration" name="duration" title="Please select time duration" required="" aria-required="true">
+				                                        <select class="collapsed-filter-button" id="duration" name="duration" title="Please select time duration" required="" aria-required="true" onchange="GetAdvisorPrice()">
 														</select> 
 											 		</div>
 											 	</div>
@@ -374,8 +375,8 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
 											       <div class="col-xs-9 form-group">
-											           <input type="hidden" name="approxprice" value="500">
-				                                       <span class="session-cost">Rs 500</span><br>
+											           <input type="hidden" id="approxprice" name="approxprice" value="500">
+				                                       <span class="session-cost" id="price"></span><br>
 				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
 											 		</div>
 											 	</div>
@@ -488,6 +489,7 @@
 								    </div>
 								  </div>
 								</div>
+				   	 <%@include file="/footer.jsp" %>
 								
 <script>
 
@@ -497,7 +499,6 @@ $(document).ready(function () {
 	    startDate: '-3d'
 	});
 	var i=0;
-	var html="";
 	for(i=0;i<25;i++){
 		html='<option value="'+i+':00">'+i+':00 Hours</option>'
 			+'<option value="'+i+':30">'+i+':30 Hours</option>';
@@ -540,12 +541,31 @@ $('body').on('click', '.lessR', function(e){
 	var res = data.substring(0,200);
 	$(this).closest('.review-each-div').find('.review-text').html(res+'<span class="moreR"> more</span>');
 });
+function GetAdvisorPrice(){
+	var duration = $("#duration").val();
+	$.ajax({
+        url : 'GetAdvisorPriceController', // Your Servlet mapping or JSP(not suggested)
+        data : {"advisorId":"${advisorId}", "duration": duration,"isPhone" :$("#phone").val(),"isVideo":$("#video").val()},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	document.getElementById('price').innerHTML = "Rs. " +response;
+			 $("#approxprice").val(response);
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}	
 	
 function CheckLoggedIn(){
 	if(<%=isUserLoggedIn%>){
 		$('#booksession').modal('show');
 	}else{
-		 window.location.href = "Sample.jsp";
+   		$('#loginmodal').modal('show');
 	}
 
 }	
@@ -553,7 +573,7 @@ function CheckLoggedInForQuestions(){
 	if(<%=isUserLoggedIn%>){
 		$('#askquestion').modal('show');
 	}else{
-		 window.location.href = "Sample.jsp";
+		$('#loginmodal').modal('show');
 	}
 }
 function SubmitQuestion(){

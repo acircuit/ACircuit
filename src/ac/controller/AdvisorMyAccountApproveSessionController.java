@@ -76,10 +76,15 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
           String time1 = request.getParameter("newtime1");
           String time2 = request.getParameter("newtime2");
           String acceptedDateTime = request.getParameter("date1");
-          String[] dateTime = acceptedDateTime.split("::");
-          String acceptedDate = dateTime[0];
-          System.out.println(acceptedDate);
-          String acceptedTime = dateTime[1];
+          String[] dateTime = null ;
+          String acceptedDate="";
+          String acceptedTime=""; 
+          if(acceptedDateTime != null){
+           dateTime = acceptedDateTime.split("::");
+           acceptedDate = dateTime[0];
+           acceptedTime = dateTime[1];
+          }
+
           Boolean isNewDatesCommit = false;
           if(sessionPlan != null && sessionId != null){
         	 if(date1 != null && date2 != null  && time1 != null && time2 != null
@@ -89,15 +94,25 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
         		 isNewDatesCommit = newDates.InsertNewDates(sessionId,date1,date2,time1,time2);
         	 }
           //Update the sessionplan
-         SessionDAO session = new SessionDAO();
-          Boolean isCommit = session.UpdateSessionPlan(sessionId,sessionPlan,isNewDatesCommit,acceptedDate,acceptedTime);
+             SessionDAO session = new SessionDAO();
+             Boolean isCommit = session.UpdateSessionPlan(sessionId,sessionPlan,isNewDatesCommit,acceptedDate,acceptedTime);
           if(isCommit){
+        	  if(isNewDatesCommit){
+          		//Notify the user 
+  				String comment = "Your request has been accepted by the Advisor with revised dates! Choose 1 date and Pay to confirm the session";
+  				String href = "useracceptsession?sId="+sessionId;
+  				UserNotificationDAO userNotification = new UserNotificationDAO();
+  				userNotification.InsertNotification(comment, href, userId);
+          	    response.sendRedirect("advisorcurrentsession?sId="+sessionId+"&action=newdates");
+        	  }else{
         		//Notify the user 
-				String comment = "Your request has been accepted by the Advisor with revised dates! Choose 1 date and Pay to confirm the session";
-				String href = "useracceptsession?sId="+sessionId;
-				UserNotificationDAO userNotification = new UserNotificationDAO();
-				userNotification.InsertNotification(comment, href, userId);
-        	response.sendRedirect("advisorcurrentsession?sId="+sessionId);
+  				String comment = "Your request has been accepted by the Advisor! Pay to confirm the session";
+  				String href = "useracceptsession?sId="+sessionId;
+  				UserNotificationDAO userNotification = new UserNotificationDAO();
+  				userNotification.InsertNotification(comment, href, userId);
+          	    response.sendRedirect("advisorcurrentsession?sId="+sessionId);
+        	  }
+        		
           }
          }else{
         	 //Session is rejected
