@@ -82,114 +82,84 @@
 			   			<span class="ask-for-review col-xs-12">Hope your session was great! Please review the advisor to help others.<span class="btext"> Review Now</span></span>	
 		   			</div>
 				<div class="session-tab-div col-xs-12">
-					<ul class="nav nav-tabs" role="tablist">
-				    <li role="presentation" class="active"><a href="#ans" aria-controls="ans" role="tab" data-toggle="tab">PENDING</a></li>
-				    <li role="presentation"><a href="#pen" aria-controls="pen" role="tab" data-toggle="tab">ANSWERED</a></li>
-				    
-				  </ul>
-				
-				  <!-- Tab panes -->
-				  <div class="tab-content">
-				   	<div class="tab-head-div ">
-				    		<span class="tab-head-text">New Questions Added</span>
-				    	</div>
-				    	 
-				    	<c:forEach items="${questions}" var="question">
-				    	<c:if test="${!question.getIsAnswered() }">
-				    	dfifdshkj${question.getQuestionId()}
-				    	<div role="tabpanel" class="tab-pane fade" id="pen">
-				           	<div class="tab-content-div row">
-				    		<div class="each-question-div row" id="1">
-				   				<div class="col-xs-12 question-div">
-									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
-				   					<br>
-				   					<c:if test="${question.getToForum()}">
-				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
-				   					</c:if>
-				   					<c:if test="${!question.getToForum()}">
-				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span></span>
-				   					</c:if>
-				   				</div> 
-				   			    </div>
-						    </div>	
-				        </div>
-				        </c:if>
-				  
-				  
-				  
-				  	<div class="tab-head-div ">
-				    		<span class="tab-head-text">Questions Answered by you</span>
-				    	</div>
-				  
-				            <c:if test="${question.getIsAnswered() }">
-				             <div role="tabpanel" class="tab-pane fade in active" id="ans">
-				   
-				    	<div class="tab-content-div row">
-				    		<div class="each-question-div row" id="1">
-				   				<div class="col-xs-12 question-div">
-									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
-				   					<br>
-				   					<c:if test="${question.getToForum()}">
-				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
-				   					</c:if>
-				   					<c:if test="${!question.getToForum()}">
-				   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span> </span>
-				   					</c:if>
-				   				</div> 
-				   				<div class="col-xs-9 answer-div">
-									<div class="advisor_details" >
-				                                    <img class="adv-img" src="${advisorDetails.getImage()}">
-				                                    <span class="adv-name">You wrote</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
-				                                    <p class="subject">“${question.getAnswer()}”</p><br>
-				                         </div>
-				    			    </div>
-				   			    </div>
-						    </div>	
-				    	</div>
-				    	</c:if>
-			    	
-				    	
-				   </c:forEach>
-				   
-				    
-				   
-				  
-				  </div>
-				</div>
+								<ul class="nav nav-tabs" role="tablist">
+							    <li role="presentation" class="active"><a href="#pen" aria-controls="pen" role="tab" data-toggle="tab">PENDING</a></li>
+							    <li role="presentation"><a href="#ans" aria-controls="ans" role="tab" data-toggle="tab">ANSWERED </a></li>
+							    
+							  </ul>
+							 <div class="tab-content" style="background-color: white;">
+							  <!-- Tab panes -->
+								<div role="tabpanel" class="tab-pane fade in active" id="pen">
+									
+											<div class="tab-head-div ">
+									    		<span class="tab-head-text">New Questions Added</span>
+									    	</div>
+										<c:forEach items="${questions}" var="question">
+									    	<c:if test="${!question.getIsAnswered() }">
+									
+									    	
+									           	<div class="tab-content-div row">
+									    		<div class="each-question-div row" id="1">
+									   				<div class="col-xs-12 question-div">
+														<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
+									   					<br>
+									   					<c:if test="${question.getToForum()}">
+									   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
+									   					</c:if>
+									   					<c:if test="${!question.getToForum()}">
+									   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span></span>
+									   					</c:if>
+									   				</div> 
+									   			    </div>
+											    </div>	
+									       
+									        </c:if>
+									        </c:forEach>
+									</div>
+								
+								 <div role="tabpanel" class="tab-pane fade" id="ans">
+								
+											<div class="tab-head-div ">
+									    		<span class="tab-head-text">Questions Answered by you</span>
+									    	</div>
+										<c:forEach items="${questions}" var="question">
+									    	<c:if test="${!question.getIsAnswered() }">
+									
+									    	<div class="tab-content-div row">
+									    		<div class="each-question-div row" id="1">
+									   				<div class="col-xs-12 question-div">
+														<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
+									   					<br>
+									   					<c:if test="${question.getToForum()}">
+									   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">Q&A Forum</span> </span>
+									   					</c:if>
+									   					<c:if test="${!question.getToForum()}">
+									   					  <span class="count-answers">Posted on ${question.getPostedOnDate()} to <span class="btext">You</span> </span>
+									   					</c:if>
+									   				</div> 
+									   				<div class="col-xs-9 answer-div">
+														<div class="advisor_details" >
+									                                    <img class="adv-img" src="${advisorDetails.getImage()}">
+									                                    <span class="adv-name">You wrote</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
+									                                    <p class="subject">“${question.getAnswer()}”</p><br>
+									                         </div>
+									    			    </div>
+									   			    </div>
+											    </div>	
+									    	
+									       
+									        </c:if>
+									        </c:forEach>
+								
+									</div>
+							</div>
 						
 			   	</div>
 	   			
+   			
+   			</div>
+   			
 	   			<div class="col-xs-12 col-sm-3">
-<!-- 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
-							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
-						</div>
-						
-						<div class="col-xs-12" style="margin-top:10px;">
-		<div class="right-head">SIMILAR PROFILES</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-		</div> -->
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
@@ -206,8 +176,6 @@
 	                    </c:forEach>
                     </div>
 	   			</div>
-   			</div>
-   			
    			</div>
    	 </div>
    	 <%@include file="/footer.jsp" %>

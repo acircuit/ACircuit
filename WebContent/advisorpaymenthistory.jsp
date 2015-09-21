@@ -61,56 +61,9 @@ List<PaymentDTO> payments = (List<PaymentDTO>) request.getAttribute("payments");
 	</div>
 
    			<div class="body-content col-xs-12 no-padding">
-   			   		  	   			 	<div  class="related col-xs-12">
-	                    <div class="rel-section">
-	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
-	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
-	                          </c:forEach>
-	                    </div>
-					</div>
-					<div class="related col-xs-12">
-                    <div class="rel-section">
-                        <h2>POPULAR CATEGORIES</h2>
-                        <c:forEach items="${popCats}" var="pop">
-                            <a class="rel-category">${pop}</a>
-	                    </c:forEach>
-                    </div>
-   			
-   				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
-<!-- 		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #85a956;">
-		   				<div class="col-xs-12 col-sm-8 ">
-		   				<div class="col-xs-3 col-sm-3  no-padding">
-		   						<img class="noti-img" src="assets/img/payment_wallet.png">
-			   				</div>
-			   			
-			   				<div class="current-balance-div col-xs-9 col-sm-3 no-padding">
-			   					<span class="current-balance-text-s">Current Balance </span><br>
-			   					<span class="amount-text">Rs 1240.00</span>
-			   				</div>
-			   				<div class="recharg-div col-xs-7 col-sm-3 no-padding">
-			   					<span class="current-balance-text-s">Add Money To Wallet</span><br>
-			   					<input class="form-control" name="" placeholder="Enter Amount">
-			   				</div>
-			   				<div class="recharg-button-div col-xs-5 col-sm-3 no-padding">
-			   					<button type="button" class="btn d-button" style="width: 100%;">Recharge</button>
-														
-			   				</div>
-			   			</div>
-			   			<div class="col-xs-12 col-sm-4 ">
-			   			<div class="refund-policy-div col-xs-7 col-sm-6 no-padding">
-			   					<span class="current-balance-text-s">Refund</span><br>
-			   					<img class="" src="assets/img/info_refund.png"><span class="refund-policy-text-s">The refund policy text/descriptopn</span><br>
-														
-			   				</div>
-			   				<div class="recharg-button-div col-xs-5 col-sm-6 no-padding">
-			   					<button type="button" class="btn d-button" style="width: 100%;">Refund</button>
-														
-			   				</div>
-			   			</div>
-			   				
-			   		<span class="ask-for-review col-xs-12">Hope your session was great! Please review the advisor to help others.<span class="btext"> Review Now</span></span>	
-		   			</div> -->
+   			   		  	   			
+	   			<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
+
 		   			
 					<div class="col-xs-12 table-div-container no-padding">
 						<div class="table-div-head">
@@ -138,9 +91,25 @@ List<PaymentDTO> payments = (List<PaymentDTO>) request.getAttribute("payments");
 						</div>
 					</div>
 						
-			   	</div>
-	   			
 
+	   			</div>
+	   			<div class="col-xs-12 col-sm-3">
+	   				 	<div  class="related col-xs-12">
+	                    <div class="rel-section">
+	                        <h2>MOST VIEWED QUESTIONS</h2>
+	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
+	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
+	                          </c:forEach>
+	                    </div>
+					</div>
+					<div class="related col-xs-12">
+                    <div class="rel-section">
+                        <h2>POPULAR CATEGORIES</h2>
+                        <c:forEach items="${popCats}" var="pop">
+                            <a class="rel-category">${pop}</a>
+	                    </c:forEach>
+                    </div>
+   				</div>
 	   			</div>
    			</div>
    			
