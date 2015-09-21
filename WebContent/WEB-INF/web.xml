@@ -46,6 +46,14 @@
     <servlet-name>GetAdvisorController</servlet-name>
     <url-pattern>/advisors</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>contactus</servlet-name>
+    <servlet-class>ac.controller.ContactUsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>contactus</servlet-name>
+    <url-pattern>/contactus</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>FilterController</servlet-name>
     <servlet-class>ac.controller.FilterController</servlet-class>
@@ -167,12 +175,28 @@
     <url-pattern>/usercancelledsession</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>usercancelsession</servlet-name>
+    <servlet-class>ac.controller.UserMyAccountCancelSessionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usercancelsession</servlet-name>
+    <url-pattern>/usercancelsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>advisorcancelledsession</servlet-name>
     <servlet-class>ac.controller.AdvisorMyAccountCancelledSessionController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>advisorcancelledsession</servlet-name>
     <url-pattern>/advisorcancelledsession</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorcancelsession</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountCancelSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorcancelsession</servlet-name>
+    <url-pattern>/advisorcancelsession</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>userpastsession</servlet-name>
@@ -254,6 +278,22 @@
     <servlet-name>userrecharge</servlet-name>
     <url-pattern>/userrecharge</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>adminuser</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountUserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminuser</servlet-name>
+    <url-pattern>/adminuser</url-pattern>
+  </servlet-mapping>
+      <servlet>
+    <servlet-name>adminadvisor</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountAdvisorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminadvisor</servlet-name>
+    <url-pattern>/adminadvisor</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>advisorpaymenthistory</servlet-name>
     <servlet-class>ac.controller.AdvisorMyAccountPaymentHistroryController</servlet-class>
@@ -271,12 +311,28 @@
     <url-pattern>/advisorquestions</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>advisoranswerquestion</servlet-name>
+    <servlet-class>ac.controller.AdvisorMyAccountAnswerQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisoranswerquestion</servlet-name>
+    <url-pattern>/advisoranswerquestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>logout</servlet-name>
     <servlet-class>ac.controller.LogoutController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>logout</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>adminviewuserprofile</servlet-name>
+    <servlet-class>ac.controller.AdminViewUserProfileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminviewuserprofile</servlet-name>
+    <url-pattern>/adminviewuserprofile</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>login</servlet-name>
@@ -294,6 +350,14 @@
     <servlet-name>registration</servlet-name>
     <url-pattern>/registration</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>admincontactus</servlet-name>
+    <servlet-class>ac.controller.AdminContactUsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>admincontactus</servlet-name>
+    <url-pattern>/admincontactus</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
@@ -303,12 +367,12 @@
     <url-pattern>/payment</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>contactus</servlet-name>
+    <servlet-name>contact</servlet-name>
     <jsp-file>/contact.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>contactus</servlet-name>
-    <url-pattern>/contactus</url-pattern>
+    <servlet-name>contact</servlet-name>
+    <url-pattern>/contact</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>error</servlet-name>
@@ -325,5 +389,13 @@
   <servlet-mapping>
     <servlet-name>faq</servlet-name>
     <url-pattern>/faq</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>thankyou</servlet-name>
+    <jsp-file>/thankyou.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>thankyou</servlet-name>
+    <url-pattern>/thankyou</url-pattern>
   </servlet-mapping>
 </web-app>

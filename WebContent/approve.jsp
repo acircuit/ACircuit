@@ -150,7 +150,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			</div>
 								<input type="hidden" id="usrDates" name="merchant_param4" value="">
 					   			<div class="col-xs-6" style="padding-top:25px;">
-					   						<button type="button" class="btn recharg-button" style="width: 120px;" data-toggle="modal" data-target="#booksession">Cancel Session</button>
+					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 120px;">Cancel Session</a>
 					   					<c:choose>
                                                <c:when test="${wallet < sessionDetails.getPrice()}">
                                                         <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>

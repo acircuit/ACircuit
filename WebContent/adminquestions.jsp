@@ -41,19 +41,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-String sessionStatus = (String)request.getParameter("session");
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
-List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
-List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
-List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
-List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
-pageContext.setAttribute("sessionStatus", sessionStatus);
-pageContext.setAttribute("userReviews", userReviews);
-pageContext.setAttribute("sessionDates", sessionDates);
-pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
+List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>)request.getAttribute("userDetails");
 
 %>
 
@@ -81,46 +70,40 @@ position:absolute;
    			<div class="body-error col-xs-12" style="background-color: #EEEEEE;text-align:left;">
    					<div class="col-xs-4 link-div-on-right" style="max-width: 320px;">
    						<div class="list-group">
-						<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-						  <a href="#" class="list-group-item">Morbi leo risus</a>
-						  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-						  <a href="#" class="list-group-item">Vestibulum at eros</a>
+						<a href="#" class="list-group-item">Approve Question</a>
+						  <a href="#" class="list-group-item">Approve Session</a>
+						  <a href="adminuser" class="list-group-item">User</a>
+						  <a href="adminadvisor" class="list-group-item">Advisor</a>
+						  <a href="#" class="list-group-item">Reviews</a>
+						  <a href="#" class="list-group-item">Contact US</a>
+						  <a href="#" class="list-group-item">Promotions</a>
 						</div>
    					</div>
    					<div class="col-xs-8 col-xs-offset-4">
    						<div class="panel panel-default">
 						      <!-- Default panel contents -->
-						      <div class="panel-heading">Panel heading</div>
+						      <div class="panel-heading">Users</div>
 						
 						      <!-- Table -->
 						      <table class="table">
 						        <thead>
 						          <tr>
-						            <th>#</th>
-						            <th>First Name</th>
-						            <th>Last Name</th>
-						            <th>Username</th>
+						            <th>ID</th>
+						            <th>Name</th>
+						            <th>Email</th>
+						            <th>Phone No</th>
+						            <th>Action</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						          <tr>
-						            <th scope="row">1</th>
-						            <td>Mark</td>
-						            <td>Otto</td>
-						            <td>@mdo</td>
+						        <c:forEach items="${userDetails}" var="user">
+						           <tr>
+						            <th scope="row">${user.getUserId()}</th>
+						            <td>${user.getFullName()}</td>
+						            <td>${user.getEmail()}</td>
+						            <td>@${user.getPhone()}</td>
 						          </tr>
-						          <tr>
-						            <th scope="row">2</th>
-						            <td>Jacob</td>
-						            <td>Thornton</td>
-						            <td>@fat</td>
-						          </tr>
-						          <tr>
-						            <th scope="row">3</th>
-						            <td>Larry</td>
-						            <td>the Bird</td>
-						            <td>@twitter</td>
-						          </tr>
+						        </c:forEach>
 						        </tbody>
 						      </table>
 						    </div>

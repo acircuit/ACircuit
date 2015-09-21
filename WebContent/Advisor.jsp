@@ -437,7 +437,7 @@
 											 		</div>
 											 	</div>
 											 	<div class="col-xs-12 button-div" >
-											 	<button type="submit" class="btn book-button" >Book</button>
+											 	<button type="submit" class="btn book-button" id="book-booksession" >Book</button>
 											 	<button type="button" class="btn cancel-button" data-dismiss="modal" id="cancel-booksession">Cancel</button>
 											 	
 											 	</div>
@@ -514,7 +514,7 @@ $(document).ready(function () {
 	$("#book-session-form").validate();
 	starinputconversion();
 });
-$('body').on('click', '#cancel-booksession', function(e){
+$('body').on('click', '#book-booksession', function(e){
 	var validator=$("#book-session-form").validate();
 	validator.resetForm();
 });

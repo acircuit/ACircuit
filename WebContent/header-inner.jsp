@@ -1,4 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+String source="";
+if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
+	source = "admin";
+}else if(session.getAttribute("userId") !=null ){
+	source="user";
+	}else if( session.getAttribute("advisorId") !=null){
+		source="advisor";
+	} 
+
+
+%>
      <div class="div-container-navbar">
 			   	<nav class="navbar navbar-default">
 					  <div class="container-fluid">
@@ -24,12 +36,9 @@
 					          	</div></form></li>
 					          	<ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge">2</span></a>
-							          <ul class="dropdown-menu notify-div-dropdown" style="min-width: 273px;padding: 0px;border: 0px;">
-										  <a href="#" class="list-group-item">Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in Dapibus ac facilisis in nhjnjjkjnk <span class="badge">9:30pm</span></a>
-										  <a href="#" class="list-group-item">Morbi leo risus <span class="badge">9:30pm</span></a>
-										  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-										  <a href="#" class="list-group-item">Vestibulum at eros</a>
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
+							          <ul id="notifications" class="dropdown-menu notify-div-dropdown" style="min-width: 273px;padding: 0px;border: 0px;">
+										
 							          </ul>
 							        </li>
 							          <li><a href="#"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a></li>
@@ -161,5 +170,47 @@
    		$('.search-box').val(suge);
    		$('.hsuggestion').hide();
     });
+	if(<%=source.equals("admin")%>){
+		var eventSource = new EventSource("AdminNotificationSSE");
+		eventSource.addEventListener('notify', function(event) {
+		        document.getElementById('notifications').innerHTML = event.data;
+		    }, false);
+		eventSource.addEventListener('count', function(event) {
+			
+			if(event.data >0){
+				 document.getElementById('notification_count').style.display = 'block';
+		        document.getElementById('notification_count').innerHTML = event.data;
+			}
+	    }, false);
+		eventSource.addEventListener('id', function(event) {
+			id1= event.data;
+	    }, false);
+	}
+	else if(<%=source.equals("user")%>){
+		var eventSource = new EventSource("UserNotificationSSE");
+		eventSource.addEventListener('notify', function(event) {
+		        document.getElementById('notifications').innerHTML = event.data;
+		    }, false);
+		eventSource.addEventListener('count', function(event) {
+			if(event.data >0){
+				 document.getElementById('notification_count').style.display = 'block';
+				document.getElementById('notification_count').innerHTML = event.data;
+			}
+	    }, false);
+	
+	}else if (<%=source.equals("advisor")%>) {
+		var eventSource = new EventSource("AdvisorNotificationSSE");
+		eventSource.addEventListener('notify', function(event) {
+		        document.getElementById('notifications').innerHTML = event.data;
+		    }, false);
+		eventSource.addEventListener('count', function(event) {
+			if(event.data >0){
+				 document.getElementById('notification_count').style.display = 'block';
+		        document.getElementById('notification_count').innerHTML = event.data;
+			}
+	    }, false);
+
+	}
+
    	
    	</script>

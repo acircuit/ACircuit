@@ -250,7 +250,7 @@ public class QuestionsDAO {
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				AnswerDTO que = new AnswerDTO();
-				que.setAdvisor_id(results.getInt("AID"));
+				que.setAdvisor_id(results.getInt("ADVISOR_ID"));
 				que.setQuestionId(results.getInt("QID"));
 				que.setAnswer(results.getString("ANSWER"));
 				que.setTime(results.getTimestamp("TIMESTAMP"));
@@ -854,6 +854,101 @@ public class QuestionsDAO {
 
 		logger.info("Exit GetQuestionsAccordingToSubcategory method of QuestionsDAO");
 		return questions;
+	}
+	
+	public int SubmitAnswer(String qid,String aid,String answer){
+		logger.info("Entered SubmitAnswer method of QuestionsDAO");
+		int id = 0;
+		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+        mbCal.setTimeInMillis(new Date().getTime());      
+        Calendar cal = Calendar.getInstance();  
+        cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+        cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+        cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+        cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+        cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+        cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+        cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+        Date date = cal.getTime();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into answers "+"(QID,ADVISOR_ID,ANSWER,TIMESTAMP) values" + "(?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, qid);
+			pstmt.setString(2, aid);
+			pstmt.setString(3, answer);
+			pstmt.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (null != generatedKeys && generatedKeys.next()) {
+					id = generatedKeys.getInt(1);
+				}
+				conn.commit();
+			}else{
+				conn.rollback();
+			}
+		}catch (SQLException e) {
+				logger.error("SubmitAnswer method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("SubmitAnswer method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("SubmitAnswer method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Exit SubmitQuestion method of QuestionsDAO");
+		return id;	
+	}
+	
+	public Boolean UpdateDetails(String qid){
+		logger.info("Entered UpdateDetails method of QuestionsDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "UPDATE questions SET COUNT=COUNT+1,ISANSWERED=? WHERE Q_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1,true);
+            pstmt.setInt(2, Integer.valueOf(qid));
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("UpdateDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e1.printStackTrace();
+			}	
+			logger.error("UpdateDetails method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("UpdateDetails method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("UpdateDetails method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}		
+		logger.info("Entered UpdateDetails method of QuestionsDAO");
+		return isCommit;
 	}
 	
 

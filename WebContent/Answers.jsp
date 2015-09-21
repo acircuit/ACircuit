@@ -95,7 +95,8 @@
 				   				
 			   				</div>
 			   				<c:forEach items="${answers}" var="answer">
-			   					<c:forEach items="${advisors }" var="advisor">
+			   					<c:forEach items="${advisors}" var="advisor">
+			   			
 			   						<c:if test="${answer.getAdvisor_id() == advisor.getId()}">
 						   				<div class="each-answer-div row">
 						   				<div class="col-xs-12 col-sm-12  answer-div">

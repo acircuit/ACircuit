@@ -53,6 +53,9 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
 		  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorrequestviewdetails.jsp");
           rd.forward(request, response);
 		}
+		if(isError){
+			response.sendRedirect("error");
+		}
 		
 		logger.info("Entered doGet method of AdvisorMyAccountApproveSessionController");
 	}
@@ -135,6 +138,9 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
              }
         	 
          }
+		}
+		if(isError){
+			response.sendRedirect("error");
 		}
 		logger.info("Entered doPost method of AdvisorMyAccountApproveSessionController");
 	}

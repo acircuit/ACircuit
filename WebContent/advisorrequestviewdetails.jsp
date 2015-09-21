@@ -67,7 +67,7 @@
 	   		    		<div class="col-xs-12 container-div-all">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
-		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;" data-toggle="modal" data-target="#booksession">Reject Session</button>
+		   		    		<a href="advisorcancelsession?sId=${sessionDetails.getSessionid()}" class="btn two-buttons" style="background-color: #6c6c6c;color:white;"></a>
 					   		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request waiting for your approval</span>
 					   		<div class="col-xs-12 no-padding session-info-div">

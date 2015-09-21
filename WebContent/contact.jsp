@@ -40,22 +40,7 @@
     rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
-<%
-String sessionStatus = (String)request.getParameter("session");
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
-List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
-List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
-List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
-List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
-pageContext.setAttribute("sessionStatus", sessionStatus);
-pageContext.setAttribute("userReviews", userReviews);
-pageContext.setAttribute("sessionDates", sessionDates);
-pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
-
-%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
@@ -81,7 +66,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
    			</div>
    			<div class="col-xs-8">
-   				<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession" id="contact-form">
+   				<form class="book-session no-padding" method="post" action="contactus" id="contact-form">
    					<div class="form-group each-form-div">
 											     <label class="col-xs-2 no-padding form-label">Name</label>
 											       <div class="col-xs-10 form-group">
@@ -97,13 +82,13 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 					<div class="form-group each-form-div">
 											     <label class="col-xs-2 no-padding form-label">Phone Number</label>
 											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" type="text" placeholder="Phone Number" name="pno" required>
+				                                       <input class="form-control" type="text" placeholder="Phone Number" name="phone" required>
 											 		</div>
 					</div>
 					<div class="form-group each-form-div">
 											     <label class="col-xs-2 no-padding form-label">Message</label>
 											       <div class="col-xs-10 form-group">
-				                                       <textarea class="form-control" name="query" required  placeholder="Message"></textarea>
+				                                       <textarea class="form-control" name="message" required  placeholder="Message" ></textarea>
 											 		</div>
 					</div>
 					<div class="form-group each-form-div">

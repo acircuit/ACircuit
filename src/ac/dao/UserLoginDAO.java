@@ -31,10 +31,11 @@ public class UserLoginDAO {
 
 				conn =ConnectionFactory.getConnection();
 				conn.setAutoCommit(false);
-				String query ="SELECT USER_ID,FULL_NAME,ISACTIVE,EMAIL FROM userdetails WHERE EMAIL = ? AND PASSWORD = ?";
+				String query ="SELECT USER_ID,FULL_NAME,ISACTIVE,EMAIL FROM userdetails WHERE EMAIL = ? AND PASSWORD = ? AND ISACTIVE=?";
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1,username);
 				pstmt.setString(2,securedPassword);
+				pstmt.setBoolean(3, true);
 			    results = pstmt.executeQuery();
 			    if(results.first()){
 			    	user.setUserId(results.getInt("USER_ID"));
