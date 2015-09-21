@@ -39,7 +39,8 @@
 <%
 SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
 AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
-	
+Double wallet = (Double)request.getAttribute("wallet");
+
 
 %>
 </head>
@@ -91,10 +92,10 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			</div>
 					   			<div class="col-xs-4 ">
 					   				<span class="total-cost-text">Wallet Balance</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
+					   				<span class="total-cost-rs">Rs ${wallet }</span>
 					   			</div>
 					   			<div class="col-xs-4" style="padding-top:25px;">
-					   						<button type="button" class="btn recharg-button">Recharge</button>
+					   						<button type="button" class="btn recharg-button" data-toggle="modal" data-target="#rechargemodal">Recharge</button>
 					   			</div>
 					   				
 					   		</div>
@@ -127,6 +128,28 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 				   
 				   
 		   	</div>
+		   							<div class="modal fade" id="rechargemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Enter recharge amount</span><br>
+								      <br>
+								      <form class="ask-form" action="userrecharge"> 
+								      	<input  class="form-control "  placeholder="Type your amount" name="amount" >
+								        <input type="hidden" name="merchant_param1" value="${userId}">
+								        <input type="hidden" name="merchant_param2" value="recharge">
+									       <br><br>
+									       <div class="row" style="padding:10px;">
+										       
+													<button type="submit" class="btn red-button ask-question-button">Recharge</button>
+										       </div>
+									      
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
    		  
    			<div class="body-content col-xs-12 no-padding">
    			

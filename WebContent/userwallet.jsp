@@ -42,6 +42,9 @@
      Integer userId = (Integer)request.getAttribute("userId");
      List<PaymentDTO> payments = (List<PaymentDTO>)request.getAttribute("payments");
      Double amount = (Double)request.getAttribute("amount"); 
+		String recharge = (String)request.getParameter("recharge");
+		pageContext.setAttribute("recharge", recharge);
+
 
 %>
 </head>
@@ -50,7 +53,8 @@
 </head>
 <body>
  <div id="wrapper">
-	<div class="do-not-scroll " style="width:100%">
+     <%@include file="/notify.jsp" %>
+ 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
 	  
@@ -58,7 +62,7 @@
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard > Payment Wallet</span>
+							<span class="body-head-text"><a href="userdashboard">Dashboard </a>> Payment Wallet</span>
 	</div>
    		  
    			<div class="body-content col-xs-12 no-padding">
@@ -188,6 +192,12 @@
 
 <script>
 $(document).ready(function () {
+	if("${recharge.equals('Success') }"){
+		document.getElementById("rechargesuccess").style.display = "block";
+	}else{
+		document.getElementById("rechargesuccess").style.display = "none";
+	}
+	
 	var kcyear = document.getElementsByName("year")[0],
 	kcmonth = document.getElementsByName("month")[0],
 	kcday = document.getElementsByName("day")[0];
@@ -217,6 +227,7 @@ $(document).ready(function () {
 				}
 	}
 	starinputconversion();
+	
 });
 $('body').on('click', '.add-more-interest', function(e){
 	var html='<div class="col-xs-12 no-padding">'

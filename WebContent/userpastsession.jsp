@@ -39,7 +39,8 @@
 <%
 SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
 AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
-	
+ReviewsDTO review = (ReviewsDTO)request.getAttribute("review");	
+pageContext.setAttribute("review", review);
 
 %>
 </head>
@@ -70,7 +71,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 	   		    		<div class="col-xs-12 container-div-all">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
-					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
+					   		<span class="status"><i class="fa fa-check"></i> SESSION COMPLETE</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span><br>
@@ -112,10 +113,12 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			<span class="prop-time-text">Review</span>
 					   		</div>
 					   			<div class="review-div col-xs-12 no-padding">
-					   			<span class="posted-date">Posted on Sepetember 3 2015</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled>
-					   			<p class="q-description">
-					   			Fixie tote bag ethnic keytar. Neutra vinyl American Apparel kale chips tofu art party, cardigan raw denim quinoa. Cray paleo tattooed, Truffaut skateboard street art PBR jean shorts Shoreditch farm-to-table Austin lo-fi Odd Future occupy. Chia semiotics skateboard, Schlitz messenger bag master cleanse High Life occupy vegan polaroid tote bag leggings. Single-origin coffee mumblecore deep v salvia mlkshk. Organic photo booth cray tofu, vegan fixie bitters sriracha. Blog Austin Wes Anderson, deep v pour-over trust fund vinyl mlkshk +1.
-					   			</p>
+					   			<span class="posted-date">Posted on Sepetember ${review.getDate()}</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${review.getRating() }" disabled>
+					   			<c:if test="${review.getReview() != null}">
+					   			   <p class="q-description">
+                                       ${review.getReview()}
+					   			   </p>
+					   			</c:if>
 					   			</div>
 				   		</div>
 				   	</div>

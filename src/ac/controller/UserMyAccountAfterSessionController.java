@@ -48,6 +48,11 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
+			  //Getting wallet details
+			  SessionDAO user = new SessionDAO();
+			  double amount = user.GetWalletDetails(userId);
+			  request.setAttribute("wallet", amount);
+
 			
 			  request.setAttribute("sessionDetails", sessionDetails);
 			   request.setAttribute("advisorDetails", advisorDetails);
@@ -112,6 +117,9 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 				        }
 				}
 		  }
+		}
+		if(isError){
+			response.sendRedirect("error");
 		}
 		
 		logger.info("Entered doPost method of UserMyAccountAfterSessionController");

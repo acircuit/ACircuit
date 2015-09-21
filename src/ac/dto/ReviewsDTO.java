@@ -10,7 +10,14 @@ public class ReviewsDTO {
 	 private String review;
 	 private String rating;
 	 private Date postedOn;
+	 private String date;
 	 
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public Date getPostedOn() {
 		return postedOn;
 	}

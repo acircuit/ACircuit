@@ -24,9 +24,11 @@ import com.twilio.sdk.resource.list.CallList;
 
 
 
+
 import ac.controller.UserMyAccountCurrentSessionsController;
 import ac.dao.SessionDAO;
 import ac.dto.CostDTO;
+import ac.dto.TwilioVideoDTO;
 
 /**
  * Servlet implementation class ClickToCall
@@ -46,27 +48,36 @@ public class ClickToCall extends HttpServlet {
 		String mode = request.getParameter("mode");
 		String userPhone = request.getParameter("user");
 		String advisorPhone = request.getParameter("advisor");
+		List<TwilioVideoDTO> timings =  new ArrayList<TwilioVideoDTO>();
 		Properties prop = new Properties();
 	    InputStream resourceAsStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Path.properties");
 	    prop.load(resourceAsStream1);
 	    if(mode != null){
-	    	int totalDuration =0;
-			SessionDAO dao = new SessionDAO();
-			List<CostDTO> costs = dao.GetDuration(sId);
-			for(CostDTO cost :costs){
-				if(cost.getAdvisorTime() >= cost.getUserTime() ){
-					totalDuration = totalDuration + cost.getUserTime(); 
-				}else if (cost.getAdvisorTime() < cost.getUserTime()) {
-					totalDuration = totalDuration + cost.getAdvisorTime(); 
+	    	long totalDuration =0;
+	    	if(mode.equals("phone")){
+				SessionDAO dao = new SessionDAO();
+				List<CostDTO> costs = dao.GetDuration(sId);
+				for(CostDTO cost :costs){
+					if(cost.getAdvisorTime() >= cost.getUserTime() ){
+						totalDuration = totalDuration + cost.getUserTime(); 
+					}else if (cost.getAdvisorTime() < cost.getUserTime()) {
+						totalDuration = totalDuration + cost.getAdvisorTime(); 
+					}
 				}
+	    	}else if (mode.equals("video")) {
+				 SessionDAO video = new SessionDAO();
+				  timings =  video.GetTwilioVideoConversationTimings(sId);
+				  CalculateTwilioVideoDuration time = new CalculateTwilioVideoDuration();
+				  totalDuration = time.GetVideoDuration(timings);
 			}
+
 			//Getting the advisor id
 			SessionDAO advisor = new SessionDAO();
 			int advId = advisor.GetAdvisorId(sId);
 			SessionDAO price = new SessionDAO();
 			Double advPrice = price.GetAdvisorPrice(advId, mode);
-			int durationInMinutes = totalDuration / 60;
-			int remainder = totalDuration % 60;
+			int durationInMinutes = (int) (totalDuration / 60);
+			int remainder = (int) (totalDuration % 60);
 			if(remainder != 0){
 				durationInMinutes = durationInMinutes +1;
 			}

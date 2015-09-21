@@ -115,6 +115,9 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
 				    		        <c:set value="advisorcancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
+				                 <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
+				    		        <c:set value="advisorcurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                 </c:if>
 				    		        <a href="${sess}">
 				    		     <div class="each-session-div col-xs-12">
 					    			<div class="col-xs-10">
@@ -131,6 +134,9 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 				                                    </c:if>
 				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
 				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                    </c:if>
+				                                     <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
+				                                      <span class="condition"><i class="fa fa-check"></i> On Schedule</span><span class="time"> 23 min ago</span>
 				                                    </c:if>
 				                                    </p>
 				                               </div>

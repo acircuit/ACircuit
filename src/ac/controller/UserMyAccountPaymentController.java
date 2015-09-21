@@ -141,6 +141,7 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			if(userId != 0){
 
 				String date = request.getParameter("merchant_param4");
+				System.out.println(date);
 				Boolean isWalletUpdated =false;
 				Boolean isStatusCommit =false;
 
