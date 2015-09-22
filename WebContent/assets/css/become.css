@@ -1,0 +1,62 @@
+@CHARSET "ISO-8859-1";
+.become-head-div{
+	font-size:42px;
+	color:#fd6d64;
+	font-family:latol;
+}
+.become-text-s{
+	color:#555555;
+	font-size:18px;
+	font-family:latol;
+	display: block;
+    margin-top: 30px;
+}
+.special-div{
+	background-color:#f6f8fa;
+	padding-top: 66px;
+    padding-bottom: 60px;
+}
+.f-div{
+	text-align:center;
+	    margin-bottom: 60px;
+}
+.f-div img{
+	width: 126px;
+}
+.f-dive-head{
+	font-size: 15px;
+    color: #4a4a4a;
+    font-family: lato;
+    margin-bottom: 20px;
+}
+.f-div-text{
+	font-size: 14px;
+    color: #4a4a4a;
+    font-family: lato;
+    display: block;
+    margin-top: 8px;
+}
+.become-form-container{
+	
+}
+.form-div{
+	padding-top: 50px;
+    padding-bottom: 70px;
+}
+.form-group {
+  /*   max-width: 380px; */
+}
+.form-head-text-b{
+	color:#555555;
+	font-family: latol;
+	font-size:18px;
+}
+.form-footer-text-b{
+	color:#4a4a4a;
+	font-family: latol;
+	font-size:16px;
+}
+.import-text{
+	color:#777777;
+	font-size:13px;
+}
