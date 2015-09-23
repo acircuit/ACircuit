@@ -114,9 +114,9 @@ pageContext.setAttribute("review", review);
 					   		</div>
 					   			<div class="review-div col-xs-12 no-padding">
 					   			<span class="posted-date">Posted on Sepetember ${review.getDate()}</span><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${review.getRating() }" disabled>
-					   			<c:if test="${review.getReview() != null}">
+					   			<c:if test="${review.getReview() != null && review.getStatus().equals('APPROVED')}">
 					   			   <p class="q-description">
-                                       ${review.getReview()}
+                                     ${review.getReview()}
 					   			   </p>
 					   			</c:if>
 					   			</div>

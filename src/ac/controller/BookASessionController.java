@@ -77,7 +77,7 @@ public class BookASessionController extends HttpServlet {
 				String href = "approvesession?sId="+sessionId;
 				//Notification for Admin
 				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
-				notify.InsertNotification(comment,href,aId);
+				notify.InsertNotification(comment,aId,href);
 				//Send Mail to Admin
 				String subject = "A new session request!";
 				String content = "Hi, <br><br>A new SESSION REQUEST by the user ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";

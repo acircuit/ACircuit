@@ -115,18 +115,9 @@ public class QuestionsController extends HttpServlet {
 		QuestionsDAO ques = new QuestionsDAO();
 		int id = ques.SubmitQuestion(userId,question,category,subcategory);
 		if(id !=0){
-		    //Adding to the feeds table
-			FeedDAO feed = new FeedDAO();
-			int feedId = feed.InsertFeedType("question");
-			if(feedId != 0){
-				//Inserting feed content
-			    FeedDAO questions = new FeedDAO();
-			    Boolean isCommit = questions.InsertQuestionFeed(feedId,id,question,category,subcategory);
-			    if(isCommit){
-					response.getWriter().write("Your Question has been submitted");
-			    }
+		   response.getWriter().write("Your Question has been submitted");
 			}
-		}
+		
 		}
 		
 		

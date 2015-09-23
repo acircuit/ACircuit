@@ -43,7 +43,7 @@ else if( session.getAttribute("advisorId") !=null){
 
 					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
-					        <li><a href="#">Be an Advisor</a></li>
+					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
@@ -60,13 +60,13 @@ else if( session.getAttribute("advisorId") !=null){
 					            <ul class="nav sidebar-nav">
 					                
 					                <li>
-					                    <a href="#">Experts</a>
+					                    <a href="advisors?category=all">Experts</a>
 					                </li>
 					                <li>
-					                    <a href="#">Q&A</a>
+					                    <a href="questions">Q&A</a>
 					                </li>
 					                <li>
-					                    <a href="#">Be an Advisor</a>
+					                    <a href="becomeanadvisor">Be an Advisor</a>
 					                </li>
 					                <li>
 					                    <a href="#">How it Works</a>
@@ -181,4 +181,25 @@ else if( session.getAttribute("advisorId") !=null){
    		$('.hsuggestion').hide();
     });
    	
+   	
+   	function ResendLink(){
+   		var email = $("#session-email").val();
+   		var id = <%=userd%>;
+   		$.ajax({
+   	        url : 'ResendLinkController', // Your Servlet mapping or JSP(not suggested)
+   	        data : {"resendLink" :email,"id":id},
+   	        type : 'POST',
+   	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+   	        success : function(response) {
+   	        	if(response == "true"){
+   			         alert("We have resent the verification mail on your Email Id. Please activate your account to book sessions.");
+   	        	}
+   	           					// create an empty div in your page with some id
+   	        },
+   	        error : function(request, textStatus, errorThrown) {
+   	            alert(errorThrown);
+   	            
+   	        }
+   	    });	
+   	}
    	</script>

@@ -44,7 +44,7 @@ public class AdminLoginController extends HttpServlet {
 					if(isAuthenticated){
 						HttpSession session=request.getSession(); 
 						session.setAttribute("admin", true);
-						response.sendRedirect("adminquestions.jsp");
+						response.sendRedirect("adminquestions");
 					}else{
 						request.setAttribute("loginverificationfailed","true");
 						RequestDispatcher rd = getServletContext().getRequestDispatcher("/AdminLogin.jsp");

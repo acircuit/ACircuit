@@ -1,4 +1,8 @@
+<%@page import="ac.dto.AnswerDTO"%>
+<%@page import="ac.dto.UserDetailsDTO"%>
+<%@page import="ac.dto.ReviewsDTO"%>
 <%@page import="ac.dto.AdvisorDTO"%>
+<%@page import="ac.dto.QuestionsDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -43,9 +47,16 @@
                    AdvisorDTO advisor = (AdvisorDTO) request.getAttribute("advisor");
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
                    String currentCompany = (String) request.getAttribute("currentCompany");
+                   List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>) request.getAttribute("userDetails");
                    String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
                    List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
                    List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+                   List<ReviewsDTO> advisorReviews = (List<ReviewsDTO>)request.getAttribute("advisorReviews");
+                   List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
+                   List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+
+                   Integer reviewCount = (Integer) request.getAttribute("reviewCount");
+                   Integer answerCount = (Integer) request.getAttribute("answerCount");
                    String advisorId = request.getParameter("a");
        			   int userId = 0;
        			   if(request.getSession().getAttribute("userId") != null){
@@ -84,12 +95,16 @@
 						</div>
 					
 					</div>
+					<c:set value="" var="category"></c:set>
+					<c:set value="" var="subcategory"></c:set>
 					<div class="col-xs-12 col-sm-9 padding-l-xs">
 						<div class="Apinfo">
 							<span class="Aname">${advisor.getName()} <br class="visible-xs">
 							<c:forEach items="${advisor.getCategories()}" var="category">
 							    <c:forEach items="${advisor.getSubCategories()}" var="subcategory">
 							         <c:if test="${category.getCatId() == subcategory.getCategoryId()}">
+							         <c:set value="${category.getCategory()}" var="advisorCategory"></c:set>
+					                 <c:set value="${subcategory.getSubCategory()}" var="advisorSubcategory"></c:set>
 							              <span class="designation"><span class="hidden-xs">|</span>	${category.getCategory()}, ${subcategory.getSubCategory()}</span>
 							         </c:if>     
 							    </c:forEach>
@@ -114,8 +129,8 @@
 							<span class="stars-xs hidden-xs"><span class="rating-no">4.5</span>
 							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
 							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Consultations</span></span>
-							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Answers</span></span>
-							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Reviews</span></span>
+							<span class="ad-stats"><span class="no-blue">${answerCount }</span><span class="no-type">Answers</span></span>
+							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Reviews</span></span>
 						
 						</div>
 						<div class="col-xs-12 col-sm-4 text-right text-center-xs no-padding-xs">
@@ -215,8 +230,8 @@
 			</div>
 			<div class="ar-tab-div ">
 				   	<ul class="nav nav-tabs" role="tablist">
-				    <li role="presentation" class="active"><a href="#answers" aria-controls="answers" role="tab" data-toggle="tab">ANSWERS (68)</a></li>
-				    <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">REVIEWS (23)</a></li>
+				    <li role="presentation" class="active"><a href="#answers" aria-controls="answers" role="tab" data-toggle="tab">ANSWERS (${answerCount})</a></li>
+				    <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">REVIEWS (${reviewCount})</a></li>
 				   
 				  </ul>
 				
@@ -224,82 +239,50 @@
 				  <div class="tab-content">
 				    <div role="tabpanel" class="tab-pane fade in active" id="answers">
 					     <div class="answers">
-						     <div class="each-question-div row" id="1">
-					   				<div class="col-xs-12 question-div">
-										<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
-					   					<br>
-					   					<span class="updated-on">Last Updated on 3rd August</span>
-					   				</div> 
-					   				<div class="col-xs-12 answer-div">
+					         <c:forEach items="${questions}" var="question">
+					           
+					                         <div class="each-question-div row" id="1">
+					   				           <div class="col-xs-12 question-div">
+										          <span class="question">${question.getQuestion()}</span>
+					   					          <br>
+					   					          <span class="updated-on">Posted on ${question.getPostedOnDate()}</span>
+					   				           </div>
+					   				            <c:forEach items="${answers}" var="answer">
+					                               <c:if test="${question.getQuestionId() == answer.getQuestionId()}"> 
+					   				                   <div class="col-xs-12 answer-div">
 										
-										<p class="answer-to-question">
-										I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
-										</p>
-					   				</div>
-					   				<div class="col-xs-12">
-					   					<div style="border-bottom: 1px solid lightgray;"></div>
-					   				</div>
-				   				</div>
-				   				<div class="each-question-div row" id="2">
-					   				<div class="col-xs-12 question-div">
-										<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
-					   					<br>
-					   					<span class="updated-on">Last Updated on 3rd August</span>
-					   				</div> 
-					   				<div class="col-xs-12 answer-div">
-										
-										<p class="answer-to-question">
-										I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
-										</p>
-					   				</div>
-					   				<div class="col-xs-12">
-					   					<div style="border-bottom: 1px solid lightgray;"></div>
-					   				</div>
-				   				</div>
-				   				<div class="each-question-div row" id="3">
-					   				<div class="col-xs-12 question-div">
-										<span class="question">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ percentile?</span>
-					   					<br>
-					   					<span class="updated-on">Last Updated on 3rd August</span>
-					   				</div> 
-					   				<div class="col-xs-12 answer-div">
-										
-										<p class="answer-to-question">
-										I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="more">more</span>
-										</p>
-					   				</div>
-					   				<div class="col-xs-12">
-					   					<div style="border-bottom: 1px solid lightgray;"></div>
-					   				</div>
-				   				</div>
+										                  <p class="answer-to-question">
+										                   ${answer.getAnswer()}
+										                  </p>
+					   				                  </div>
+					   				               </c:if>
+					                           </c:forEach>
+					   				          <div class="col-xs-12">
+					   					      <div style="border-bottom: 1px solid lightgray;"></div>
+					   				          </div>
+				   				          </div>
+					                
+					         </c:forEach>
 					     </div>
 				    </div>
 				    <div role="tabpanel" class="tab-pane fade" id="reviews">
 				    	<div class="reviews-container">
-					    	<div class="review-each-div" id="r1">
-					    		<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> wrote on Sepetember 3 2015
-									</span><span class="review-stars-on-advisor"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
+				    	<c:forEach items="${advisorReviews}" var="reviews">
+				    	  <c:forEach items="${userDetails}" var="user">
+				    	    <c:if test="${reviews.getUserId() == user.getUserId() && reviews.getReview() != null}">
+				    	             <div class="review-each-div" id="r1">
+					    		     <span class="by-whom">
+									<span class="nameA">${user.getFullName()} </span> wrote on ${reviews.getPostedOn()}
+									</span><span class="review-stars-on-advisor"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${reviews.getRating() }" disabled></span>
 									<p class="review-text-profile">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="moreR">more</span>
+									${reviews.getReview()}
 									</p>
-					    	</div>
-					    	<div class="review-each-div" id="r2">
-					    		<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> wrote on Sepetember 3 2015
-									</span>
-									<p class="review-text-profile">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="moreR">more</span>
-									</p>
-					    	</div>
-					    	<div class="review-each-div" id="r3">
-					    		<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> wrote on Sepetember 3 2015
-									</span>
-									<p class="review-text-profile">
-									I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015 Let me share a personal perspective that I have shared with countless young MBA or ... <span class="moreR">more</span>
-									</p>
-					    	</div>
+					    	        </div>
+				    	     </c:if>
+				    	    </c:forEach>
+				    	</c:forEach>
+					    	
+					    
 				    	</div>
 				    </div>
 				  </div>
@@ -308,28 +291,8 @@
 			
 		</div>
 		<div class="col-xs-12 col-sm-3 advisor-right-pannel">
-		<div class="right-head">SIMILAR PROFILES</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
+		<div class="right-head similar">SIMILAR PROFILES</div>
+
 		</div>
 	</div>
 	</div>
@@ -513,7 +476,40 @@ $(document).ready(function () {
 	}
 	$("#book-session-form").validate();
 	starinputconversion();
+	
+	$.ajax({
+        url : 'GetSimilarProfilesController', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		similarprofile(value);
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
+	
 });
+
+
+function similarprofile(value){
+	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	           +'<img class="adv-img" src="'+value.image+'"></img>' 
+		       +'<p class="adv-name">'+value.name+'</p><br>'
+		       +'<p class="adv-field">'+value.industry+'</p><br>'  
+               +'</div>';		
+               $('.similar').append(html);
+ }
+
+
 $('body').on('click', '#book-booksession', function(e){
 	var validator=$("#book-session-form").validate();
 	validator.resetForm();

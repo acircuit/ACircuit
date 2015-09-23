@@ -7,7 +7,7 @@
 			<span class="cross-noti">X</span>
 		</div>
 	    <div class="notify-text-div" id="verifyaccount" style="display: none" >
-			<span class="notify-text">Success : Thankyou for registring. Please verify your Account to book session.<a>Resend Mail</a></span>
+			<span class="notify-text">Success : Thankyou for registring. Please verify your Account to book session.<a onclick="ResendLink()">Resend Mail</a></span>
 			<span class="cross-noti">X</span>
 		</div>
 		 <div class="notify-text-div" id="sessionconfirmedbyuser" style="display: none" >
@@ -24,4 +24,5 @@
 $('body').on('click', '.cross-noti', function(e){
 	$('.notify-div').slideUp();
 });
+
 </script>

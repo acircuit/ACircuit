@@ -42,8 +42,8 @@
     type="text/css">
 <%
 
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-pageContext.setAttribute("advisorDetails", advisorDetails);
+List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
+pageContext.setAttribute("sessions", sessions);
 
 
 %>
@@ -78,45 +78,34 @@ position:absolute;
 						  <a href="adminadvisor" class="list-group-item">Advisor</a>
 						  <a href="adminreviews" class="list-group-item">Reviews</a>
 						  <a href="admincontactus" class="list-group-item">Contact US</a>
-						  <a href="admincontactus" class="list-group-item">Payment History</a>
+						  <a href="adminpaymenthistory" class="list-group-item">Payment History</a>
 						  <a href="#" class="list-group-item">Promotions</a>
 						</div>
    					</div>
    					<div class="col-xs-8 col-xs-offset-4">
    						<div class="panel panel-default">
 						      <!-- Default panel contents -->
-						      <div class="panel-heading">Advisors</div>
+						      <div class="panel-heading">Payment History</div>
 						
 						      <!-- Table -->
 						      <table class="table">
 						        <thead>
 						          <tr>
-						            <th>ID</th>
-						            <th>Name</th>
-						            <th>Email</th>
-						            <th>Phone No</th>
-						            <th>ISACTIVE</th>
+						            <th>Session Id</th>
+						            <th>Date</th>
+						            <th>Session Duration</th>
+						            <th>Session Price</th>
 						            <th>Action</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						         <c:forEach items="${advisorDetails}" var="advisor">
+						         <c:forEach items="${sessions}" var="session">
 						           <tr>
-						            <th scope="row">${advisor.getId()}</th>
-						            <td>${advisor.getName()}</td>
-						            <td>${advisor.getEmail()}</td>
-						            <td>${advisor.getPhoneNo()}</td>
-						            <td>${advisor.getIsActive()}</td>
-						            <td>
-						              <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
-							          <ul class="dropdown-menu " style="min-width: 273px;padding: 0px;border: 0px;">
-										 <a id="${advisor.getId()}" class="list-group-item" onclick="DeactivateAdvisor(this)">Deactivate Profile</a>
-										 <a id="${advisor.getId()}" href="" class="list-group-item" onclick="ActivateAdvisor(this)">Activate Profile</a>
-										 <a id="${advisor.getId()}" target="blank" href="adminviewuserprofile?email=${user.getEmail()}" class="list-group-item">View Profile</a>
-							          </ul>
-							        </li>                    
-                                   </td>
+						            <th scope="row">${session.getSessionid()}</th>
+						            <td>${session.getAcceptedDate()}</td>
+						            <td>${session.getSessionDuration()}</td>
+						            <td>${session.getSessionPrice()}</td>
+                                    <td><a href="adminsessionviewdetails?sid=${session.getSessionid()}" target="blank">View Details</a></td>
 						          </tr>
 						        </c:forEach>
 						        </tbody>
@@ -128,84 +117,5 @@ position:absolute;
 </div>
 </div>
 
-<script>
-
-$(document).ready(function () {
-	
-});
-function DeactivateUser(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
-        data : {"userId":id, "action": "deactivate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-function ActivateUser(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
-        data : {"userId":id, "action": "activate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-function DeactivateAdvisor(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
-        data : {"advisorId":id, "action": "deactivate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-
-function ActivateAdvisor(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
-        data : {"advisorId":id, "action": "activate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-</script>
 </body>
 </html>

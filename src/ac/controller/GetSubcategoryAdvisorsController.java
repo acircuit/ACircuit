@@ -147,8 +147,11 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 				jo.put("name", "noadv");
 				array.add(jo);
 			}
-			 int pos = adId.lastIndexOf(':');
-			 adId = adId.substring(0, pos);
+			if(!adId.equals("")){
+				 int pos = adId.lastIndexOf(':');
+				 adId = adId.substring(0, pos);
+			}
+			
 			 JSONObject jo = new JSONObject();
 				jo.put("name", "id");
 				jo.put("ids", adId);

@@ -74,13 +74,14 @@ border-top:0px !important;
    	
    			<div class="body-error col-xs-12" style="background-color: #EEEEEE;text-align:left;">
    					<div class="col-xs-4 link-div-on-right" style="max-width: 320px;">
-   						<div class="list-group">
-						<a href="#" class="list-group-item">Approve Question</a>
-						  <a href="#" class="list-group-item">Approve Session</a>
+   						 <div class="list-group">
+						  <a href="adminquestions" class="list-group-item">Questions</a>
+						  <a href="adminsessions" class="list-group-item">Sessions</a>
 						  <a href="adminuser" class="list-group-item">User</a>
 						  <a href="adminadvisor" class="list-group-item">Advisor</a>
-						  <a href="#" class="list-group-item">Reviews</a>
+						  <a href="adminreviews" class="list-group-item">Reviews</a>
 						  <a href="admincontactus" class="list-group-item">Contact US</a>
+						  <a href="adminpaymenthistory" class="list-group-item">Payment History</a>
 						  <a href="#" class="list-group-item">Promotions</a>
 						</div>
    					</div>
@@ -107,7 +108,7 @@ border-top:0px !important;
                                     <td>${contact.getEmail()}</td>
                                     <td>${contact.getPhone()}</td>
                                     <td>
-                                            <a data-toggle="modal" data-target="#contact${contact.getId()}">User Message</a>
+                                            <a data-toggle="modal" data-target="#contact${contact.getId()}">User Question</a>
                                     </td>
                                 </tr>
 						            <td>

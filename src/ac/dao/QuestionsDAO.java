@@ -44,9 +44,10 @@ public class QuestionsDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT * FROM questions WHERE ISANSWERED=?";	
+			query = "SELECT * FROM questions WHERE ISANSWERED=? AND STATUS=?";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			QuestionsDTO question = new QuestionsDTO();
@@ -101,13 +102,14 @@ public class QuestionsDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID) values" + "(?,?,?,?,?)";
+			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID,STATUS) values" + "(?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, question);
 			pstmt.setString(2, category);
 			pstmt.setString(3, subcategory);
 			pstmt.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
 			pstmt.setInt(5, userId);
+			pstmt.setString(6, "WAITING FOR APPROVAL");
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -198,9 +200,10 @@ public class QuestionsDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT * FROM questions WHERE Q_ID=?";	
+			query = "SELECT * FROM questions WHERE Q_ID=? AND STATUS=?";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1,Integer.valueOf(qid) );
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			question.setQuestionId(results.getInt("Q_ID"));
@@ -380,10 +383,11 @@ public class QuestionsDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT QUESTION,Q_ID FROM questions WHERE ISANSWERED=? ORDER BY HITS DESC LIMIT 5";
+			String query = "SELECT QUESTION,Q_ID FROM questions WHERE ISANSWERED=? AND STATUS=? ORDER BY HITS DESC LIMIT 5";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				QuestionsDTO question = new QuestionsDTO();
@@ -425,10 +429,11 @@ public class QuestionsDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT DISTINCT CATEGORY FROM questions WHERE ISANSWERED=?  ORDER BY HITS DESC LIMIT 4";
+			String query = "SELECT DISTINCT CATEGORY FROM questions WHERE ISANSWERED=? AND STATUS=?  ORDER BY HITS DESC LIMIT 4";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				list.add(results.getString("CATEGORY"));
@@ -466,7 +471,7 @@ public class QuestionsDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT * FROM questions WHERE ISANSWERED=?  AND CATEGORY=? AND SUBCATEGORY=?";
+			String query = "SELECT * FROM questions WHERE ISANSWERED=?  AND CATEGORY=? AND SUBCATEGORY=? AND STATUS=?";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
@@ -478,6 +483,7 @@ public class QuestionsDAO {
 				pstmt.setString(2,"options");
 			}
 			pstmt.setString(3, subcategory.toLowerCase());
+			pstmt.setString(4, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				QuestionsDTO question = new QuestionsDTO();
@@ -615,9 +621,10 @@ public class QuestionsDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT Q_ID,QUESTION,TIMESTAMP,TOFORUM,ISANSWERED  FROM questions WHERE U_ID=?";	
+			query = "SELECT Q_ID,QUESTION,TIMESTAMP,TOFORUM,ISANSWERED  FROM questions WHERE U_ID=? AND STATUS=?";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uid);
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			QuestionsDTO question = new QuestionsDTO();
@@ -810,10 +817,11 @@ public class QuestionsDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(list.size());
-			String query = "SELECT * FROM questions WHERE Q_ID IN ( "+ q4in + ")";
+			String query = "SELECT * FROM questions WHERE STATUS=? AND Q_ID IN ( "+ q4in + ")";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
-			int i = 1;
+			pstmt.setString(1, "APPROVED");
+			int i = 2;
 			for (QuestionsDTO question : list) {
 				pstmt.setInt(i++, question.getQuestionId());
 			}
@@ -949,6 +957,51 @@ public class QuestionsDAO {
 		}		
 		logger.info("Entered UpdateDetails method of QuestionsDAO");
 		return isCommit;
+	}
+	
+	public List<Integer> GetSimilarProfiles(String aid,String category,String subcategory) {
+		logger.info("Entered GetSimilarProfiles method of QuestionsDAO");
+		List<Integer> aids = new ArrayList<Integer>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category"
+					+ " INNER JOIN advisor_subcategory ON advisor_category.CATEGORY_ID=advisor_subcategory.CATEGORY_ID "
+					+ "WHERE advisor_category.CATEGORY = ? && advisor_subcategory.SUBCATEGORY=? && advisor_category.ADVISOR_ID != ? LIMIT 5;";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setString(2, subcategory);
+			pstmt.setString(3, aid);
+            ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				aids.add(results.getInt("ADVISOR_ID"));
+			}
+			logger.info("Exit GetSimilarProfiles method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetSimilarProfiles method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetSimilarProfiles method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetSimilarProfiles method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetSimilarProfiles method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetSimilarProfiles method of QuestionsDAO");
+		return aids;
 	}
 	
 

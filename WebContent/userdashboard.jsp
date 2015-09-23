@@ -37,6 +37,7 @@
 String type = request.getParameter("type");
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
 Double amount = (Double) request.getAttribute("amount");        
+pageContext.setAttribute("type", type);
 
 %>
 </head>
@@ -248,22 +249,16 @@ Double amount = (Double) request.getAttribute("amount");
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
-	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
-	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
-	                          </c:forEach>
+	                        <h2 class="mostviewed">MOST VIEWED QUESTIONS</h2>
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
                     <div class="rel-section">
-                        <h2>POPULAR CATEGORIES</h2>
-                        <c:forEach items="${popCats}" var="pop">
-                            <a class="rel-category">${pop}</a>
-	                    </c:forEach>
+                        <h2 class="poptags">POPULAR CATEGORIES</h2>
                     </div>
 	   			</div>
    			</div>
@@ -273,6 +268,48 @@ Double amount = (Double) request.getAttribute("amount");
    	 <%@include file="/footer.jsp" %>
    	
 </div>
+<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span class="ask-question-modal-head">Ask Question</span><br>
+								      <br>
+								      <form class="ask-form"> 
+								      	<textarea id="question"  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
+								      
+									       <br><br>
+									       <div class="row">
+										       <div class="col-xs-3"><span>Select category :</span></div>
+										       <div class="col-xs-9">
+											       <div class="col-xs-6">
+												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
+														   <option value="higherstudies">Higher studies</option>
+														  <option value="industry">Industry</option>
+														  <option value="options">Courses</option>
+														</select>
+											       </div>
+											       <div class="col-xs-6">
+												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
+															  
+														</select>
+														
+											       </div>
+											      <br>
+											      <br>
+											        <div class="form-group squaredThree" >
+														  	<input type="checkbox" id="21" name="Post anonymously" />
+															<label for="2l"></label><span>Post anonymously</span>
+													</div>
+
+													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
+										       </div>
+									       </div>
+								        </form>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -350,7 +387,60 @@ $(document).ready(function () {
 		document.getElementById("verifyaccount").style.display = "none";
 	}
 	
+	
+	$.ajax({
+        url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		if(value.type == "question"){
+              		MostViewedQuestionsCard(value);
+      			}else if (value.type == "category") {
+      				Populartags(value);
+				}
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
 });
+function SubmitQuestion(){
+	$('.black-screen').show();
+	var question =$("#question").val();
+	var category = $("#category-menu-on-modal").val();
+	var subcategory = $("#subcategory-menu-on-modal").val();
+	$.ajax({
+        url : 'QuestionsController', // Your Servlet mapping or JSP(not suggested)
+        data : {"question":question,"category" :category,"subcategory":subcategory},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+			 alert(response);
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+function MostViewedQuestionsCard(value){
+	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
+	 $('.mostviewed').append(html);
+} 
+function Populartags(value){
+	var html = '<a class="rel-category">'+value.category+'</a>';
+	 $('.poptags').append(html);
+}
 $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',
     startDate: '-3d'

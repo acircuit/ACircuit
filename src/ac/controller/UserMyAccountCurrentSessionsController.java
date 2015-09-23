@@ -79,6 +79,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  String cost = request.getParameter("cost");
 			  String duration = request.getParameter("duration");
 			  String uId = request.getParameter("uId");
+			  String admin = request.getParameter("admin");
 			  Boolean isSessionDetailsUdated = false;
 			  //Updating the user wallet
 			  SessionDAO wallet = new SessionDAO();
@@ -89,7 +90,13 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 				  isSessionDetailsUdated = session.UpdateSessionDetails(cost,duration,sid);
 			  }
 			  if(isSessionDetailsUdated){
-				  response.sendRedirect("useraftersession?sId="+sid);
+				  if(admin != null && admin.equals("true")){
+					  response.sendRedirect("adminsessions");
+					  
+				  }else{
+					  response.sendRedirect("useraftersession?sId="+sid);
+					  
+				  }
 			  }
 		logger.info("Entered doPost method of UserMyAccountCurrentSessionsController");
 	}

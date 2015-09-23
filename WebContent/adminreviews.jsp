@@ -42,8 +42,8 @@
     type="text/css">
 <%
 
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-pageContext.setAttribute("advisorDetails", advisorDetails);
+List<ReviewsDTO> reviews = (List<ReviewsDTO>)request.getAttribute("reviews");
+pageContext.setAttribute("reviews", reviews);
 
 
 %>
@@ -71,7 +71,7 @@ position:absolute;
    	
    			<div class="body-error col-xs-12" style="background-color: #EEEEEE;text-align:left;">
    					<div class="col-xs-4 link-div-on-right" style="max-width: 320px;">
-   						 <div class="list-group">
+   						<div class="list-group">
 						  <a href="adminquestions" class="list-group-item">Questions</a>
 						  <a href="adminsessions" class="list-group-item">Sessions</a>
 						  <a href="adminuser" class="list-group-item">User</a>
@@ -85,36 +85,44 @@ position:absolute;
    					<div class="col-xs-8 col-xs-offset-4">
    						<div class="panel panel-default">
 						      <!-- Default panel contents -->
-						      <div class="panel-heading">Advisors</div>
+						      <div class="panel-heading">Reviews</div>
 						
 						      <!-- Table -->
 						      <table class="table">
 						        <thead>
 						          <tr>
-						            <th>ID</th>
-						            <th>Name</th>
-						            <th>Email</th>
-						            <th>Phone No</th>
-						            <th>ISACTIVE</th>
-						            <th>Action</th>
+						            <th>Session Id</th>
+						            <th>Review</th>
+						            <th>Rating</th>
+						            <th>Posted On</th>
+						            <th>Status</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						         <c:forEach items="${advisorDetails}" var="advisor">
+						         <c:forEach items="${reviews}" var="review">
 						           <tr>
-						            <th scope="row">${advisor.getId()}</th>
-						            <td>${advisor.getName()}</td>
-						            <td>${advisor.getEmail()}</td>
-						            <td>${advisor.getPhoneNo()}</td>
-						            <td>${advisor.getIsActive()}</td>
+						            <th scope="row">${review.getSessionId()}</th>
+						            <td><a  data-toggle="modal" data-target="#review${review.getSessionId()}">View Review</a></td>
+						            <td>${review.getRating()}</td>
+						            <td>${review.getDate()}</td>
+						            <td>${review.getStatus()}</td>
 						            <td>
-						              <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
-							          <ul class="dropdown-menu " style="min-width: 273px;padding: 0px;border: 0px;">
-										 <a id="${advisor.getId()}" class="list-group-item" onclick="DeactivateAdvisor(this)">Deactivate Profile</a>
-										 <a id="${advisor.getId()}" href="" class="list-group-item" onclick="ActivateAdvisor(this)">Activate Profile</a>
-										 <a id="${advisor.getId()}" target="blank" href="adminviewuserprofile?email=${user.getEmail()}" class="list-group-item">View Profile</a>
-							          </ul>
+						             <div class="modal fade" id="review${review.getSessionId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span id="ques${question.getQuestionId()}" class="ask-question-modal-head">User Review</span><br>
+								      <br>
+								      <p>${review.getReview()}</p>
+								      <div class="row" style="padding:10px;">
+										    <a id="${review.getSessionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
+										    <a id="${review.getSessionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   
+									  </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 							        </li>                    
                                    </td>
 						          </tr>
@@ -129,56 +137,16 @@ position:absolute;
 </div>
 
 <script>
-
-$(document).ready(function () {
-	
-});
-function DeactivateUser(elem){
+function UpdateStatus(elem,status){
 	var id = elem.id;
+
 	$.ajax({
-        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
-        data : {"userId":id, "action": "deactivate"},
+        url : 'adminreviews', // Your Servlet mapping or JSP(not suggested)
+        data : {"sessionId":id, "action": status},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-function ActivateUser(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
-        data : {"userId":id, "action": "activate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
-function DeactivateAdvisor(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
-        data : {"advisorId":id, "action": "deactivate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
+        	        location.reload();
 
         },
         error : function(request, textStatus, errorThrown) {
@@ -188,24 +156,6 @@ function DeactivateAdvisor(elem){
     });
 }
 
-function ActivateAdvisor(elem){
-	var id = elem.id;
-	$.ajax({
-        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
-        data : {"advisorId":id, "action": "activate"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	 location.reload();
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
 </script>
 </body>
 </html>

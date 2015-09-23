@@ -20,6 +20,7 @@ import ac.dto.Trie;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
 
 
 public class MyCacheBuilder
@@ -54,10 +55,19 @@ public class MyCacheBuilder
 		cacheManager.addCache("AdvisorProfileCache");
 		cacheManager.addCache("FilterCache");
 		cacheManager.addCache("SubCategoryCache");
+		
 		searchCache = cacheManager.getEhcache( "SearchCache" );
+		CacheConfiguration config = searchCache.getCacheConfiguration(); 
+		config.setEternal(true);
 		advisorProfileCache = cacheManager.getEhcache( "AdvisorProfileCache" );
+		CacheConfiguration config1 = advisorProfileCache.getCacheConfiguration(); 
+		config1.setEternal(true);
 		filterCache = cacheManager.getEhcache( "FilterCache" );
+		CacheConfiguration config2 = filterCache.getCacheConfiguration(); 
+		config2.setEternal(true);
 		subCategoryCache= cacheManager.getEhcache( "SubCategoryCache" );
+		CacheConfiguration config3 = subCategoryCache.getCacheConfiguration(); 
+		config3.setEternal(true);
 	}
 	public void addAdvisor(AdvisorDTO advisor){
 		Element element = new Element( advisor.getId(), advisor );

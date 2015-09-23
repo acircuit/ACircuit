@@ -42,18 +42,6 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-String sessionStatus = (String)request.getParameter("session");
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
-List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
-List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
-List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
-List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
-pageContext.setAttribute("sessionStatus", sessionStatus);
-pageContext.setAttribute("userReviews", userReviews);
-pageContext.setAttribute("sessionDates", sessionDates);
-pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
 
 %>
@@ -116,6 +104,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 									<button type="button" class="btn gt-started" style="background-color: #007ab9;margin-top: 0px;">Linkedin</button>
 				 			
 				 	</div>
+				 	<input type="hidden" name="type" value="advisor">
 				 	<div class="option-signin col-xs-12 no-padding form-group">
 				 		<span class="import-text">We'll import your Linkedin education and employment history to speed up your registration.</span>
 				 	</div>
@@ -139,7 +128,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 				 	
       		</form>
       		<div class="col-xs-12" style="text-align:center;">
-					<span class="form-footer-text-b" >To know more about our process and payments, visit the <span class="btext">FAQ Section</span></span>
+					<span class="form-footer-text-b" >To know more about our process and payments, visit the <a href="faq"><span class="btext">FAQ Section</span></a></span>
 				</div>
 				</div>
 			</div>

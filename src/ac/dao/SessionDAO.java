@@ -27,7 +27,9 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.AnswerDTO;
 import ac.dto.CostDTO;
+import ac.dto.QuestionsDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 import ac.dto.TwilioVideoDTO;
@@ -70,6 +72,8 @@ public class SessionDAO {
 				dto.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
 				dto.setAcceptedTime(results.getString("ACCEPTED_TIME"));
 				dto.setSessionPlan(results.getString("SESSIONPLAN"));
+				dto.setSessionDuration(results.getString("SESSION_DURATION"));
+				dto.setSessionPrice(results.getString("SESSION_PRICE"));
 
 			}
 		} catch (SQLException e) {
@@ -342,7 +346,7 @@ public class SessionDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into sessionreviews"+"(SESSION_ID,REVIEW,RATING,USER_ID,ADVISOR_ID,POSTED_ON) values" + "(?,?,?,?,?,?)";
+			String query = "insert into sessionreviews"+"(SESSION_ID,REVIEW,RATING,USER_ID,ADVISOR_ID,POSTED_ON,STATUS) values" + "(?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, sid);
 			pstmt.setString(2, review);
@@ -350,6 +354,7 @@ public class SessionDAO {
             pstmt.setInt(4, userId);
             pstmt.setString(5, aId);
             pstmt.setDate(6, new java.sql.Date(new Date().getTime()));
+            pstmt.setString(7, "WAITING FOR APPROVAL");
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -391,13 +396,14 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT * FROM sessiondetails WHERE USER_ID=? AND STATUS IN (?,?,?,?)";
+			String query ="SELECT * FROM sessiondetails WHERE USER_ID=? AND STATUS IN (?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, userId);
 			pstmt.setString(2,"PENDING APPROVAL");
 			pstmt.setString(3,"ACCEPTED");
 			pstmt.setString(4,"ACCEPTED WITH NEW DATES");
 			pstmt.setString(5,"SESSION ON SCHEDULE");
+			pstmt.setString(6,"PENDING APPROVAL BY ADMIN");
             ResultSet results = pstmt.executeQuery();
 			while(results.next()){
 				SessionDTO session = new SessionDTO();
@@ -435,12 +441,13 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT * FROM sessiondetails WHERE USER_ID=? AND STATUS IN (?,?,?)";
+			String query ="SELECT * FROM sessiondetails WHERE USER_ID=? AND STATUS IN (?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, userId);
 			pstmt.setString(2,"SESSION CANCELLED BY USER");
 			pstmt.setString(3,"SESSION CANCELLED BY ADVISOR");
 			pstmt.setString(4,"SESSION COMPLETE");
+			pstmt.setString(5,"SESSION CANCELLED BY ADMIN");
             ResultSet results = pstmt.executeQuery();
 			while(results.next()){
 				SessionDTO session = new SessionDTO();
@@ -1804,7 +1811,7 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT RATING,REVIEW,POSTED_ON FROM sessionreviews WHERE SESSION_ID= ?";
+			String query = "SELECT RATING,REVIEW,POSTED_ON,STATUS FROM sessionreviews WHERE SESSION_ID= ?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, sid);
 			ResultSet results = pstmt.executeQuery();
@@ -1812,8 +1819,8 @@ public class SessionDAO {
 				reviews.setRating(results.getString("RATING"));
 				reviews.setReview(results.getString("REVIEW"));
 				reviews.setDate(sdf.format(results.getDate("POSTED_ON")));
-
-			}
+				reviews.setStatus(results.getString("STATUS"));
+            }
 		
 		} catch (SQLException e) {
 			logger.error("GetReviews method of SessionDAO threw error:"+e.getMessage());
@@ -1834,7 +1841,172 @@ public class SessionDAO {
 		}
 	return reviews;
 	}
+	public List<ReviewsDTO> GetAdvisorReviews(String aid){
+		logger.info("Entered GetAdvisorReviews method of SessionDAO");
+		List<ReviewsDTO> reviews = new ArrayList<ReviewsDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM sessionreviews WHERE ADVISOR_ID =?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aid);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				ReviewsDTO review = new ReviewsDTO();
+				review.setSessionId(results.getInt("SESSION_ID"));
+				review.setUserId(results.getInt("USER_ID"));
+				review.setAdvisorId(results.getInt("ADVISOR_ID"));
+				review.setReview(results.getString("REVIEW"));
+				review.setRating(results.getString("RATING"));
+				review.setPostedOn(results.getDate("POSTED_ON"));
+				review.setStatus(results.getString("STATUS"));
+				reviews.add(review);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAdvisorReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return reviews;
+	}
 	
+	public List<UserDetailsDTO> GetUserDetailsForReviews(List<Integer> ids){
+		logger.info("Entered GetUserDetailsForReviews method of SessionDAO");
+		List<UserDetailsDTO> users = new ArrayList<UserDetailsDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(ids.size());
+			System.out.println(q4in);
+			String query = "SELECT USER_ID,FULL_NAME FROM userdetails WHERE USER_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (int id : ids) {
+				pstmt.setInt(i++, id);
+			}
+			System.out.println(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				UserDetailsDTO user = new UserDetailsDTO();
+				user.setUserId(results.getInt("USER_ID"));
+				user.setFullName(results.getString("FULL_NAME"));
+				users.add(user);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetUserDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserDetailsForReviews method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return users;
+	}
+	
+	public List<AnswerDTO> GetAdvisorAnswers(String aid){
+		logger.info("Entered GetAdvisorAnswers method of SessionDAO");
+		 List<AnswerDTO> answers = new ArrayList<AnswerDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT QID,ANSWER FROM answers WHERE ADVISOR_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aid);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				AnswerDTO answer = new AnswerDTO();
+				answer.setQuestionId(results.getInt("QID"));
+				answer.setAnswer(results.getString("ANSWER"));
+				answers.add(answer);
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorAnswers method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorAnswers method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorAnswers method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorAnswers method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetAdvisorAnswers method of SessionDAO");
+		return answers;
+	}
+	
+	public List<QuestionsDTO> GetQuestions(List<Integer> qids){
+		logger.info("Entered GetQuestions method of SessionDAO");
+		List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
+		 SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(qids.size());
+			String query = "SELECT QUESTION,TIMESTAMP,Q_ID FROM questions WHERE STATUS = ? AND Q_ID IN ( "+ q4in + ") ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "APPROVED");
+			int i = 2;
+			for (int id : qids) {
+				pstmt.setInt(i++, id);
+			}
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				QuestionsDTO question = new QuestionsDTO();
+				question.setQuestionId(results.getInt("Q_ID"));
+				question.setQuestion(results.getString("QUESTION"));
+				question.setPostedOnDate(sdf.format(results.getTimestamp("TIMESTAMP")));
+				questions.add(question);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestions method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return questions;
+	}
 	
 	
 	

@@ -214,6 +214,13 @@ function questioncard(value){
 			
 	        $('.white-body-div').append(html);
 }
+
+
+
+
+
+
+
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
 });

@@ -56,6 +56,9 @@ public class UserMyAccountPastSessionController extends HttpServlet {
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/userpastsession.jsp");
 	          rd.forward(request, response);
 		}
+		if(isError){
+			response.sendRedirect("error");
+		}
 		
 		
 		logger.info("Entered doGet method of UserMyAccountPastSessionController");

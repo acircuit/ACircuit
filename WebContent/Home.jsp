@@ -71,7 +71,7 @@
 					     <ul class="nav navbar-nav">
 					        <li class="active"><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
-					        <li><a href="#">Be an Advisor</a></li>
+					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
 					          <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Join us </span></a></li>

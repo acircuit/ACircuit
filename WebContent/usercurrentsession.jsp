@@ -53,6 +53,7 @@ pageContext.setAttribute("sess", sess);
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/header-inner.jsp" %>
@@ -164,7 +165,7 @@ pageContext.setAttribute("sess", sess);
 								    <div class="modal-content">
 								      <div class="modal-body" style="padding:20px;">
 								    	<div style="border-bottom: 1px solid lightgray;padding-bottom: 10px;margin-bottom: 10px;">
-								    		<span class="modal-head-text" style="color:#9b9b9b;">Write A Note</span>
+								    		<span class="modal-head-text" style="color:#9b9b9b;">Session Details</span>
 								    	</div>
 								    	<div class="row">
 						   		           <div class="col-xs-12">
@@ -216,7 +217,7 @@ pageContext.setAttribute("sess", sess);
 
 <script>
 $(document).ready(function () {
-	if("${sess.equals('booked') }"){
+	if("${sess.equals('Success') }"){
 		document.getElementById("sessionconfirmedbyuser").style.display = "block";
 	}else{
 		document.getElementById("sessionconfirmedbyuser").style.display = "none";

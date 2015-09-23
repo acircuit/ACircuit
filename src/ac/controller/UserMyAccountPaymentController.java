@@ -141,13 +141,12 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			if(userId != 0){
 
 				String date = request.getParameter("merchant_param4");
-				System.out.println(date);
 				Boolean isWalletUpdated =false;
 				Boolean isStatusCommit =false;
 
 				String amount = request.getParameter("amount");
 				String sId = request.getParameter("sid");
-					if(date != null ){
+					if(date != null && !date.equals("") ){
 						String[] acceptedDate = date.split(",");
 						//Update Date and status
 						SessionDAO update = new SessionDAO();

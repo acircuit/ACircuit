@@ -72,7 +72,15 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 		   		    		<div class="col-xs-7 no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
+		   		    		<c:if test="${sessionDetails.getStatus().equals('SESSION CANCELLED BY ADVISOR') }">
 					   		<span class="status"><i class="fa fa-check"></i> Session cancelled by advisor</span>
+		   		    		</c:if>
+		   		    		<c:if test="${sessionDetails.getStatus().equals('SESSION CANCELLED BY USER') }">
+					   		<span class="status"><i class="fa fa-check"></i> Session cancelled by you</span>
+		   		    		</c:if>
+		   		    		<c:if test="${sessionDetails.getStatus().equals('SESSION CANCELLED BY ADMIN') }">
+					   		<span class="status"><i class="fa fa-check"></i> Session cancelled by admin</span>
+		   		    		</c:if>
 		   		    		</div>
 		   		    		
 					   		<div class="col-xs-12 no-padding session-info-div">
@@ -84,13 +92,14 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			</div>
 					   			
 					   		</div>
-					   	
+					   	    <c:if test="${sessionDetails.getSessionPlan() != null}">
 					   		<div class="advisor-description-div col-xs-12 no-padding">
 					   			<span class="advisor-description-head">Advisor Reply</span>
 					   			<p class="q-description">
 					   			${sessionDetails.getSessionPlan()}
 					   			</p>
 					   		</div>
+					   		</c:if>
 					   		<div class="query-description-div col-xs-12 no-padding">
 					   			<span class="query-description-head">Query Details</span><br>
 					   			<span class="query-description-small-text">Description</span><br>
@@ -112,13 +121,6 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   			<div class="col-xs-4 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
-					   			</div>
-					   			<div class="col-xs-4 ">
-					   				<span class="total-cost-text">Wallet Balance</span><br>
-					   				<span class="total-cost-rs">Rs 500</span>
-					   			</div>
-					   			<div class="col-xs-4" style="padding-top:25px;">
-					   						<button type="button" class="btn recharg-button">Recharge</button>
 					   			</div>
 					   		</div>
 					   		

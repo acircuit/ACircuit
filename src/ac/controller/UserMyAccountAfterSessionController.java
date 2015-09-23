@@ -76,7 +76,7 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 			isError = true;
 		}
 		//Getting the sessiondetails for the user
-		if(userId != 0){
+		if(userId != 0 && !isError){
 		  String review = request.getParameter("review");
 		  String rating = request.getParameter("rating");
 		  String sid = request.getParameter("id");
@@ -90,7 +90,7 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 				SessionDAO status = new SessionDAO();
 				Boolean isStatusCommit =  status.UpdateStatus("SESSION COMPLETE", sid);
 				if(isStatusCommit){
-			  
+
 			           //Getting the username and the advisor name
 			           SessionDAO name = new SessionDAO();
 			           String advName = name.GetAdvisorName(Integer.valueOf(aId));

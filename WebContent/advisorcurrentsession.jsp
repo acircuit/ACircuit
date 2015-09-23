@@ -92,7 +92,7 @@ pageContext.setAttribute("newdates", newdates);
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
-					   			<c:if test="${sessionDetails.getMode().equals('video')}">
+					   			<c:if test="${sessionDetails.getMode().equals('video') && sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
 					   			        <a href="AdvisorAccessTokenController?name=${userDetails.getFullName()}" target="blank" class="btn submit-button">Join Conference</a>
 					   			</c:if>
 

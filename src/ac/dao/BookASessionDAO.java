@@ -53,7 +53,7 @@ public class BookASessionDAO {
 				pstmt.setDate(10,new java.sql.Date(date3.getTime()));
 				pstmt.setString(11, slot3Time);
 				pstmt.setString(12, approxprice);
-				pstmt.setString(13, "PENDING APPROVAL");
+				pstmt.setString(13, "PENDING APPROVAL BY ADMIN");
 				pstmt.setString(14, query);
 				int result = pstmt.executeUpdate(); 
 				if(result >0) {

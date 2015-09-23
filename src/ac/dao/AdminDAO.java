@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
 import ac.dto.ContactUsDTO;
+import ac.dto.QuestionsDTO;
+import ac.dto.ReviewsDTO;
+import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
 
@@ -350,4 +354,263 @@ public class AdminDAO {
 		}
 		return contactList;
 	}
+	
+	public List<QuestionsDTO> GetQuestions() {
+
+		logger.info("Entered GetQuestions method of AdminDAO");
+		ResultSet results = null;
+		List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
+		 SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM questions";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			results = pstmt.executeQuery();
+			while (results.next()) {
+				QuestionsDTO question = new QuestionsDTO();
+				question.setQuestionId(results.getInt("Q_ID"));
+				question.setQuestion(results.getString("QUESTION"));
+				question.setCategory(results.getString("CATEGORY"));
+				question.setSubcategory(results.getString("SUBCATEGORY"));
+				question.setPostedOnDate(sdf.format(results.getTimestamp("TIMESTAMP") ));
+				question.setStatus(results.getString("STATUS"));
+				questions.add(question);
+			}
+			logger.info("Exit GetQuestions method of AdminDAO");
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("GetQuestions method of AdminDAO threw error:"
+							+ e.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("GetQuestions method of AdminDAO threw error:"
+						+ e.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("GetQuestions method of AdminDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestions method of AdminDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return questions;
+	}
+	
+	public Boolean  UpdateQuestionStatus(String qid,String status) { 
+		logger.info("Entered UpdateQuestionStatus method of AdminDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE questions SET STATUS=? WHERE Q_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, status);
+			pstmt.setString(2, qid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateQuestionStatus method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateQuestionStatus method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateQuestionStatus method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateQuestionStatus method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateQuestionStatus method of AdminDAO");
+		return isCommit;
+	}
+	
+	public List<SessionDTO> GetSessionDetails(){
+		logger.info("Entered GetSessionDetails method of AdminDAO");
+		List<SessionDTO> sessions = new ArrayList<SessionDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM sessiondetails";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				SessionDTO dto = new SessionDTO();
+				dto.setSessionid(results.getInt("SESSION_ID"));
+				dto.setMode(results.getString("MODE"));
+				dto.setDuration(results.getString("DURATION"));
+				dto.setStatus(results.getString("STATUS"));
+				sessions.add(dto);
+			}
+		} catch (SQLException e) {
+			logger.error("GetSessionDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetSessionDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetSessionDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetSessionDetails method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetSessionDetails method of AdminDAO");
+		return sessions;
+	}
+	public List<ReviewsDTO> GetReviews(){
+		logger.info("Entered GetReviews method of AdminDAO");
+		 SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+         List<ReviewsDTO> reviews=  new ArrayList<ReviewsDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT RATING,REVIEW,POSTED_ON,STATUS,SESSION_ID FROM sessionreviews";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				ReviewsDTO review = new ReviewsDTO();
+				review.setRating(results.getString("RATING"));
+				review.setReview(results.getString("REVIEW"));
+				review.setDate(sdf.format(results.getDate("POSTED_ON")));
+				review.setStatus(results.getString("STATUS"));
+				review.setSessionId(results.getInt("SESSION_ID"));
+				reviews.add(review);
+            }
+		
+		} catch (SQLException e) {
+			logger.error("GetReviews method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetReviews method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetReviews method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetReviews method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return reviews;
+	}
+	
+    
+	public Boolean  UpdateReviewsStatus(String sid,String status) { 
+		logger.info("Entered UpdateReviewsStatus method of AdminDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE sessionreviews SET STATUS=? WHERE SESSION_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, status);
+			pstmt.setString(2, sid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateReviewsStatus method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateReviewsStatus method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateReviewsStatus method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateReviewsStatus method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateReviewsStatus method of AdminDAO");
+		return isCommit;
+	}
+	
+	public List<SessionDTO> GetPaymentHistory(){
+		logger.info("Entered GetPaymentHistory method of AdminDAO");
+		List<SessionDTO> sessions = new ArrayList<SessionDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM sessiondetails WHERE STATUS=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "SESSION COMPLETE");
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				SessionDTO dto = new SessionDTO();
+				dto.setSessionid(results.getInt("SESSION_ID"));
+				dto.setMode(results.getString("MODE"));
+				dto.setDuration(results.getString("DURATION"));
+				dto.setStatus(results.getString("STATUS"));
+				dto.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
+				dto.setSessionDuration(results.getString("SESSION_DURATION"));
+				dto.setSessionPrice(results.getString("SESSION_PRICE"));
+				sessions.add(dto);
+			}
+		} catch (SQLException e) {
+			logger.error("GetPaymentHistory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetPaymentHistory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetPaymentHistory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetPaymentHistory method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+ 	return sessions;
+}
 }

@@ -42,7 +42,8 @@
     type="text/css">
 <%
 
-List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>)request.getAttribute("userDetails");
+List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+pageContext.setAttribute("questions", questions);
 
 %>
 
@@ -69,40 +70,61 @@ position:absolute;
    	
    			<div class="body-error col-xs-12" style="background-color: #EEEEEE;text-align:left;">
    					<div class="col-xs-4 link-div-on-right" style="max-width: 320px;">
-   						<div class="list-group">
-						<a href="#" class="list-group-item">Approve Question</a>
-						  <a href="#" class="list-group-item">Approve Session</a>
+   						 <div class="list-group">
+						  <a href="adminquestions" class="list-group-item">Questions</a>
+						  <a href="adminsessions" class="list-group-item">Sessions</a>
 						  <a href="adminuser" class="list-group-item">User</a>
 						  <a href="adminadvisor" class="list-group-item">Advisor</a>
-						  <a href="#" class="list-group-item">Reviews</a>
-						  <a href="#" class="list-group-item">Contact US</a>
+						  <a href="adminreviews" class="list-group-item">Reviews</a>
+						  <a href="admincontactus" class="list-group-item">Contact US</a>
+						  <a href="admincontactus" class="list-group-item">Payment History</a>
 						  <a href="#" class="list-group-item">Promotions</a>
 						</div>
    					</div>
    					<div class="col-xs-8 col-xs-offset-4">
    						<div class="panel panel-default">
 						      <!-- Default panel contents -->
-						      <div class="panel-heading">Users</div>
+						      <div class="panel-heading">Questions</div>
 						
 						      <!-- Table -->
 						      <table class="table">
 						        <thead>
 						          <tr>
 						            <th>ID</th>
-						            <th>Name</th>
-						            <th>Email</th>
-						            <th>Phone No</th>
-						            <th>Action</th>
+						            <th>Questions</th>
+						            <th>Category</th>
+						            <th>Sub Category</th>
+						            <th>Posted On</th>
+						            <th>Status</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						        <c:forEach items="${userDetails}" var="user">
+						        <c:forEach items="${questions}" var="question">
 						           <tr>
-						            <th scope="row">${user.getUserId()}</th>
-						            <td>${user.getFullName()}</td>
-						            <td>${user.getEmail()}</td>
-						            <td>@${user.getPhone()}</td>
+						            <th scope="row">${question.getQuestionId()}</th>
+						            <td><a data-toggle="modal" data-target="#question${question.getQuestionId()}">User Question</a>
+						            </td>
+						            <td id="cat${question.getQuestionId()}">${question.getCategory()}</td>
+						            <td id="sub${question.getQuestionId()}">${question.getSubcategory()}</td>
+						            <td>${question.getPostedOnDate()}</td>
+						            <td>${question.getStatus()}</td>
 						          </tr>
+						           <div class="modal fade" id="question${question.getQuestionId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span id="ques${question.getQuestionId()}" class="ask-question-modal-head">User Question</span><br>
+								      <br>
+								      <p>${question.getQuestion()}</p>
+								      <div class="row" style="padding:10px;">
+										    <a id="${question.getQuestionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
+										    <a id="${question.getQuestionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   
+									  </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 						        </c:forEach>
 						        </tbody>
 						      </table>
@@ -114,10 +136,27 @@ position:absolute;
 </div>
 
 <script>
+function UpdateStatus(elem,status){
+	var id = elem.id;
+	var question = document.getElementById("ques"+id).innerHTML;
+	var category = document.getElementById("cat"+id).innerHTML;
+	var subcategory = document.getElementById("sub"+id).innerHTML;
 
-$(document).ready(function () {
-	
-});
+	$.ajax({
+        url : 'adminquestions', // Your Servlet mapping or JSP(not suggested)
+        data : {"questionId":id, "action": status,"question":question,"category":category,"subcategory":subcategory},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	        location.reload();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
 </script>
 </body>
 </html>

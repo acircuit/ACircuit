@@ -109,7 +109,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 					             <c:if test="${session.getAdvisorid() == advisor.getId()}">
 				    	         <div class="tab-content-div row">
 					              <div class="each-session-div col-xs-12">
-				    		     <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
+				    		     <c:if test="${session.getStatus() == 'PENDING APPROVAL' || session.getStatus() == 'PENDING APPROVAL BY ADMIN'}">
 				    		        <c:set value="userrequestviewdetails?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                 <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
@@ -125,13 +125,13 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				                                    <p class="adv-name">${advisor.getName()}</p><br>
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
-				                                    <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
+				                                    <c:if test="${session.getStatus() == 'PENDING APPROVAL' || session.getStatus() == 'PENDING APPROVAL BY ADMIN'}">
 				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><span class="time"> 23 min ago</span>
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
 				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><span class="time"> 23 min ago</span>
 				                                    </c:if>
-				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
+				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR' || session.getStatus() == 'SESSION CANCELLED BY ADMIN'}">
 				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
@@ -164,7 +164,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 					             <c:if test="${session.getAdvisorid() == advisor.getId()}">
 				                  <div class="tab-content-div row">
 					              <div class="each-session-div col-xs-12">
-				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
+				                 <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR' || session.getStatus() == 'SESSION CANCELLED BY ADMIN'}">
 				    		        <c:set value="usercancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                  <c:if test="${session.getStatus() == 'SESSION COMPLETE'}">
@@ -177,7 +177,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				                                    <p class="adv-name">${advisor.getName()}</p><br>
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
-				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
+				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR' || session.getStatus() == 'SESSION CANCELLED BY ADMIN'}">
 				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'SESSION COMPLETE' }">

@@ -46,7 +46,7 @@
     <servlet-name>GetAdvisorController</servlet-name>
     <url-pattern>/advisors</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>contactus</servlet-name>
     <servlet-class>ac.controller.ContactUsController</servlet-class>
   </servlet>
@@ -278,7 +278,7 @@
     <servlet-name>userrecharge</servlet-name>
     <url-pattern>/userrecharge</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>adminuser</servlet-name>
     <servlet-class>ac.controller.AdminMyAccountUserController</servlet-class>
   </servlet>
@@ -286,7 +286,7 @@
     <servlet-name>adminuser</servlet-name>
     <url-pattern>/adminuser</url-pattern>
   </servlet-mapping>
-      <servlet>
+  <servlet>
     <servlet-name>adminadvisor</servlet-name>
     <servlet-class>ac.controller.AdminMyAccountAdvisorController</servlet-class>
   </servlet>
@@ -326,7 +326,7 @@
     <servlet-name>logout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>adminviewuserprofile</servlet-name>
     <servlet-class>ac.controller.AdminViewUserProfileController</servlet-class>
   </servlet>
@@ -350,13 +350,53 @@
     <servlet-name>registration</servlet-name>
     <url-pattern>/registration</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>admincontactus</servlet-name>
     <servlet-class>ac.controller.AdminContactUsController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>admincontactus</servlet-name>
     <url-pattern>/admincontactus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>adminquestions</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountQuestionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminquestions</servlet-name>
+    <url-pattern>/adminquestions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>adminsessions</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountSessionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminsessions</servlet-name>
+    <url-pattern>/adminsessions</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>adminsessionviewdetails</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountSessionViewDetailsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminsessionviewdetails</servlet-name>
+    <url-pattern>/adminsessionviewdetails</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>adminreviews</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountReviewsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminreviews</servlet-name>
+    <url-pattern>/adminreviews</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>adminpaymenthistory</servlet-name>
+    <servlet-class>ac.controller.AdminMyAccountPaymentHistoryController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminpaymenthistory</servlet-name>
+    <url-pattern>/adminpaymenthistory</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>payment</servlet-name>
@@ -390,12 +430,20 @@
     <servlet-name>faq</servlet-name>
     <url-pattern>/faq</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>thankyou</servlet-name>
     <jsp-file>/thankyou.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>thankyou</servlet-name>
     <url-pattern>/thankyou</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>becomeanadvisor</servlet-name>
+    <jsp-file>/becomeanadvisor.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>becomeanadvisor</servlet-name>
+    <url-pattern>/becomeanadvisor</url-pattern>
   </servlet-mapping>
 </web-app>

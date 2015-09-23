@@ -25,7 +25,14 @@ public class QuestionsDTO {
 	private int hits;
 	private Boolean toForum;
 	private String postedOnDate;
+	private String status;
 
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getPostedOnDate() {
 		return postedOnDate;
 	}
