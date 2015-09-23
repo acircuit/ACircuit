@@ -101,7 +101,49 @@ input[type="radio"]:checked + label span {
   -moz-transition: background-color 0.4s linear;
   transition: background-color 0.4s linear;
 }
-.add-more-interest{
+.add-more-interest,.add-education{
 	font-size:14px;
 	cursor:pointer;
+}
+.education-div-container{
+	
+}
+.each-education-div{
+padding: 10px;
+    border: 1px solid lightgray;
+    margin-bottom: 10px;
+}
+.remove-education{
+	float: right;
+    margin-right: 13px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.each-interest-div{
+	
+}
+.skills-pool{
+	min-height:100px;
+	margin-top: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+    background-color: #FFFFFF;
+	-webkit-box-shadow: inset 0px 0px 8px -1px rgba(156,156,156,1);
+-moz-box-shadow: inset 0px 0px 8px -1px rgba(156,156,156,1);
+box-shadow: inset 0px 0px 8px -1px rgba(156,156,156,1);
+
+}
+.skills-tags{
+	background-color: #EEEEEE;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.remove-skill{
+	display:none;
+font-size: 15px;
+    margin-left: 10px;
+    color: white;
+    font-weight: 700;
 }
