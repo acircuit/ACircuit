@@ -286,6 +286,7 @@
    	 	</div>
    	</div>
    	 <%@include file="/footer.jsp" %>
+   	 </div>
 <script>
 	$(document).ready(function () {
 		$('#timg2').find('.user-name').show();

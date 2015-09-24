@@ -39,10 +39,13 @@
                    SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
                    UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
 %>
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
+<style>
+.r-div input {margin-right: -13px;}
+</style>
+
+<title>Insert title here</title>
 <body>
  <div id="wrapper">
 	<div class="do-not-scroll " style="width:100%">
@@ -94,28 +97,28 @@
 					   		<div class="prop-time-div col-xs-12 no-padding ">
 					   			
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="">
+					   					<div class="r-div">
 											<input type="radio" value="${sessionDetails.getDate1()}::${sessionDetails.getTime1()}" id="s1" name="date1" />
 											<label for="s1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="">
+					   					<div class="r-div">
 											<input type="radio" value="${sessionDetails.getDate2()}::${sessionDetails.getTime2()}" id="s2" name="date1"  />
 											<label for="s2"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 2</span><span class="slot-asked-time">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="">
+					   					<div class="r-div">
 											<input type="radio" value="${sessionDetails.getDate3()}::${sessionDetails.getTime3()}" id="s3" name="date1"  />
 											<label for="s3"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 3</span><span class="slot-asked-time">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span></span>
 					   				</div>
 					   				<div class="col-xs-12 radio-button-div no-padding">
-					   					<div class="">
+					   					<div class="r-div">
 											<input type="radio" value="pradio" id="p1" name="slot"  />
 											<label for="p1"><span></span></label>
 										</div>

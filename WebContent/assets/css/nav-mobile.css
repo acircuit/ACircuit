@@ -57,10 +57,10 @@ html { height: 100%;}
    /* overflow-x: hidden;*/
 }
 
-#wrapper.toggled #page-content-wrapper {
+/* #wrapper.toggled #page-content-wrapper {
     position: absolute;
     margin-right: -220px;
-}
+} */
 
 /*-------------------------------*/
 /*     Sidebar nav styles        */

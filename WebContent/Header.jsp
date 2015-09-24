@@ -89,11 +89,7 @@ else if( session.getAttribute("advisorId") !=null){
 					        <!--  <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
-				</c:otherwise>
-</c:choose>
-     
-			          	
-   	<script>
+					          	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),
       overlay = $('.overlay'),
@@ -127,6 +123,11 @@ else if( session.getAttribute("advisorId") !=null){
   		
 
    	</script>
+				</c:otherwise>
+</c:choose>
+     
+			          	
+   	
    	<script type="text/javascript">
    	function FindSuggestions(s) {
    		var len = s.value.length;

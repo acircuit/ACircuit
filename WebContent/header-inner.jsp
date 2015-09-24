@@ -23,26 +23,26 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					     <ul class="nav navbar-nav">
+					     <ul class="nav navbar-nav first-ul">
 
 					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="logout">Logout</a></li>
-					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
+					          	<li><form class="search-form" action="Search"><input  class="form-control search-box-i" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div></form></li>
-					          	<ul class="nav navbar-nav navbar-right ">
+					          	<li><div><ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
-							          <ul id="notifications" class="dropdown-menu notify-div-dropdown" style="min-width: 273px;padding: 0px;border: 0px;">
+							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 273px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;">
 										
 							          </ul>
 							        </li>
 							          <li><a href="#"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a></li>
-						        </ul>
+						        </ul></div></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -151,18 +151,17 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
    	        }); 
    	    }
    	}
-   	$('body').on('focus', '.search-box', function(e){
+   	$('body').on('focus', '.search-box-i', function(e){
    		$('.hsuggestion').show();
-   		$('#bs-example-navbar-collapse-1 ul li:not(:last)').hide();
-   		$('#bs-example-navbar-collapse-1 ul').addClass('inc-searchulli');
-   		$('#bs-example-navbar-collapse-1 ul li:last').addClass('inc-searchulli');
+   		$('#bs-example-navbar-collapse-1 .first-ul>li:not(li:nth-child(6))').hide();
+   		$('#bs-example-navbar-collapse-1 .first-ul').addClass('inc-searchulli');
+   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(6)').addClass('inc-searchulli');
    		$('.search-form').addClass('inc-searchbox');
     }).on('blur',".search-box", function() {
-    	$('#bs-example-navbar-collapse-1 ul li').show();
-    	/* $('.hsuggestion').hide(); */
-    	$('#bs-example-navbar-collapse-1 ul').removeClass('inc-searchulli');
-   		$('#bs-example-navbar-collapse-1 ul li:last').removeClass('inc-searchulli');
-    	$('.search-form').removeClass('inc-searchbox');
+    	/* $('#bs-example-navbar-collapse-1 .first-ul li').show();
+    	$('#bs-example-navbar-collapse-1 .first-ul').removeClass('inc-searchulli');
+   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(6)').removeClass('inc-searchulli');
+    	$('.search-form').removeClass('inc-searchbox'); */
     });
    	
    	$('body').on('click', '.hsuggestion', function(e){
@@ -178,7 +177,7 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 		eventSource.addEventListener('count', function(event) {
 			
 			if(event.data >0){
-				 document.getElementById('notification_count').style.display = 'block';
+				 document.getElementById('notification_count').style.display = 'inline-block';
 		        document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);
@@ -193,7 +192,7 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 		    }, false);
 		eventSource.addEventListener('count', function(event) {
 			if(event.data >0){
-				 document.getElementById('notification_count').style.display = 'block';
+				 document.getElementById('notification_count').style.display = 'inline-block';
 				document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);
@@ -205,7 +204,7 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 		    }, false);
 		eventSource.addEventListener('count', function(event) {
 			if(event.data >0){
-				 document.getElementById('notification_count').style.display = 'block';
+				 document.getElementById('notification_count').style.display = 'inline-block';
 		        document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);

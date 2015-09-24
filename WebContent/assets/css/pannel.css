@@ -121,12 +121,13 @@ background: url("../img/search.png") no-repeat scroll 4px center;
 	width:70%;
 }
 .inc-searchulli{
-	width:90%;
+	width:83%;
 }
 .homesugg{
 	position: absolute;
     width: 100%;
 }
+.r-div input {margin-right: -13px;}
 .sugg{
 margin-top: 4px;
 }
@@ -441,6 +442,13 @@ input[type=checkbox] {
     margin-top: 9px;}
 .search-box{
     background: url("../img/search.png") no-repeat scroll 4px center;
+    border-radius: 0px;
+    background-color: white;
+    background-size: 22px;
+    padding-left: 32px;
+  }
+.search-box-i{
+  background: url("../img/search.png") no-repeat scroll 4px center;
     border-radius: 0px;
     background-color: white;
     background-size: 22px;
