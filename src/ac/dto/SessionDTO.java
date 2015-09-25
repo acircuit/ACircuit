@@ -31,7 +31,30 @@ public class SessionDTO {
 	private String sessionDuration;
 	private String sessionPrice;
 	private String accepDate;
+	private String days;
+	private String hours;
+	private String minutes;
 	
+
+
+	public String getDays() {
+		return days;
+	}
+	public void setDays(String days) {
+		this.days = days;
+	}
+	public String getHours() {
+		return hours;
+	}
+	public void setHours(String hours) {
+		this.hours = hours;
+	}
+	public String getMinutes() {
+		return minutes;
+	}
+	public void setMinutes(String minutes) {
+		this.minutes = minutes;
+	}
 	public String getSessionDuration() {
 		return sessionDuration;
 	}

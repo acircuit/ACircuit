@@ -413,6 +413,8 @@ public class SessionDAO {
 				session.setMode(results.getString("MODE"));
 				session.setQuery(results.getString("QUERY"));
 				session.setStatus(results.getString("STATUS"));
+				session.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
+				session.setAcceptedTime(results.getString("ACCEPTED_TIME"));
 				sessions.add(session);
 
 			}

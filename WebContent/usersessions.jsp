@@ -139,9 +139,11 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				                                    </c:if>
 				                                    </p>
 				                               </div>
-										<div class="due-time-div">
-					    					<span class="due-time">Due in 02:45 hrs</span>
-					    				</div>
+				                               <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
+										          <div class="due-time-div">
+					    					          <span class="due-time">Due in ${session.getDays()} days and ${session.getHours()}:${session.getMinutes()} hrs</span>
+					    				          </div>
+					    				       </c:if>   
 					    			</div>
 					    			<div class="col-xs-2 mode-div">
 					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>
