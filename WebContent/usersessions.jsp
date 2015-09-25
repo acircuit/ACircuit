@@ -247,44 +247,20 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>
 						
-						<div class="col-xs-12" style="margin-top:10px;">
+						<div class="col-xs-12 similar" style="margin-top:10px;">
 		<div class="right-head">SIMILAR PROFILES</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
-			<div class="advisor_details col-xs-6 col-sm-12 no-padding" >
-			                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
-			                                    <p class="adv-name">Doris Weaver</p><br>
-			                                    <p class="adv-field">Marketing</p><br>
-			                                    <p class="written-on" >23 Answers</p>
-			                                 
-			</div>
+
 		</div>
 		   			<div  class="related col-xs-12">
-	                    <div class="rel-section">
+	                    <div class="rel-section mostviewed">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
-	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
-	                          </c:forEach>
+	                         
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
-                    <div class="rel-section">
+                    <div class="rel-section poptags">
                         <h2>POPULAR CATEGORIES</h2>
-                        <c:forEach items="${popCats}" var="pop">
-                            <a class="rel-category">${pop}</a>
-	                    </c:forEach>
+                       
                     </div>
 	   			</div>
    			</div>
@@ -345,7 +321,65 @@ $(document).ready(function () {
 	}else{
 		document.getElementById("sessionbooked").style.display = "none";
 	}
+	$.ajax({
+        url : 'getsimilarprofiles', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		similarprofile(value);
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	$.ajax({
+        url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
+        data : {},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		if(value.type == "question"){
+              		MostViewedQuestionsCard(value);
+      			}else if (value.type == "category") {
+      				Populartags(value);
+				}
+          	}); 
+       	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
 });
+
+function similarprofile(value){
+	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	           +'<img class="adv-img" src="'+value.image+'"></img>' 
+		       +'<p class="adv-name">'+value.name+'</p><br>'
+		       +'<p class="adv-field">'+value.industry+'</p><br>'  
+               +'</div>';		
+               $('.similar').append(html);
+ }
+function MostViewedQuestionsCard(value){
+	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
+	 $('.mostviewed').append(html);
+} 
+function Populartags(value){
+	var html = '<a class="rel-category">'+value.category+'</a>';
+	 $('.poptags').append(html);
+}
 function SubmitQuestion(){
 	$('.black-screen').show();
 	var question =$("#question").val();
