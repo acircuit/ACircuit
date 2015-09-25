@@ -11,7 +11,7 @@
       		<span class="modal-head-text">SIGN IN</span>
       	</div>
       	<div id="emailerror" class="error-in-modal" style="display: none;">
-      	  <span>This email is already registerd with us. Please try log in.</span>
+      	  <span>This email is already regis  terd with us. Please try log in.</span>
       	</div>
       	<div class="login-form-div row">
       		<form class="login-form col-xs-12 no-padding" method="post" id="signupform" action="registration">
@@ -65,6 +65,7 @@
 				 		<span class="already-signup-text">Already have an account?<span class="btext">Log In </span>here</span>
 				 	</div>
       		</form>
+      		
       	</div>
       </div>
       
@@ -104,6 +105,17 @@
 				 		<span class="already-signup-text">Do not have an account yet? <span class="btext move-to-signup" style="color:#37b7b3;">Create An Account </span>here</span>
 				 	</div>
       		</form>
+      		<form class="login-form col-xs-12 no-padding" method="post" id="resetform" action="">
+      			
+				 	<div class="form-group login-form-el col-xs-12 no-padding">
+      						  <input class="form-control" id="signupemail" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
+				 	</div>
+				 	
+				 	<div class="form-group login-form-el col-xs-12 no-padding">
+      						<button type="submit" class="btn gt-started" >Reset password</button>
+				 	</div>
+				 	
+      		</form>
       	</div>
       </div>
       
@@ -114,6 +126,7 @@
 $(document).ready(function () {
 	$("#loginform").validate();
 	$("#signupform").validate();
+	$("#resetform").validate();
 	});
 $('body').on( 'blur focusout', '#signupemail', function(event) { 
 	var valueenterd=$(this).val();
@@ -126,6 +139,10 @@ $('body').on('click', '.move-to-signup', function(e){
    		$('#loginmodal').modal('hide');
    		$('#signupmodal').modal('show');
     });	
+$('body').on('click', '.forgot', function(e){
+		$('#loginform').slideUp();
+		$('#resetform').slideDown();
+});	
 $( "#loginform" ).submit(function( event ) {
 	  event.preventDefault();
 		$.ajax({

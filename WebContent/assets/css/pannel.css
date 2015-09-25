@@ -28,7 +28,6 @@
 body {
     font-family: "Open SansR";
 }
-.r-div input {margin-right: -13px;}
 .notify-div-dropdown .badge{
 	display: inline;
     float: none;
@@ -656,7 +655,9 @@ color: white;
 color: #e92629;
     font-size: 12px;
     font-weight: 100;}
-
+.hquotes{
+	
+}
 
 
 

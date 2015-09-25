@@ -70,6 +70,7 @@ background-color: #fd6d64;
 	    font-size: 12px;
     font-family: latol;
     margin-top: 5px;
+    cursor:pointer;
 }
 .already-signup-text{
 	font-size: 12px;
@@ -136,4 +137,7 @@ background-color: #fd6d64;
     color: black;
     margin-top: 12px;
         background-color: rgba(253, 109, 100, 0.08);
+}
+#resetform{
+	display:none;
 }
