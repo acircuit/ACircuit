@@ -69,7 +69,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<div class="col-xs-7 no-padding">
+		   		    		<div class="col-xs-12 col-sm-9 no-padding no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
 		   		    		<c:if test="${sessionDetails.getStatus().equals('SESSION CANCELLED BY ADVISOR') }">

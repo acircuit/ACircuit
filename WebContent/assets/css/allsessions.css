@@ -147,12 +147,12 @@ font-size:12px;
 	background-color: #efefef;
     border-radius: 0px 0px 6px 6px;
     border: 1px solid #8177c5;
-    max-width: 155px;
+    max-width: 200px;
     max-height: 25px;
     position: absolute;
     top: -17px;
     right: 18px;
-    width: 155px;
+    width: 200px;
     text-align: center;
     height: 25px;
 
@@ -238,3 +238,63 @@ font-size:12px;
 .see-all-div{
 	font-size: 12px;
 }    
+
+@media (min-width: 320px) and (max-width: 767px) {
+ .noti-img {
+    width: 45px;
+}
+.no-padding-xs{
+	padding-left:0px;
+	padding:-right:0px;
+} 
+.main-body-div {
+    padding-right: 15px;
+}
+.ask-for-review {
+    line-height: 20px;
+    display: block;
+    margin-top: 15px;
+}
+.session-tab-div .nav>li>a {
+       font-size: 12px;
+}
+.session-tab-div .nav>li {
+    margin-right: 8px;
+}
+.gborder-div {
+    margin-top: 10px;
+}
+.tab-head-div {
+    padding-top: 12px;
+    padding-left: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+}
+.tab-content-div {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.each-session-div {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.mode-div {
+    text-align: left;
+    padding-left: 59px;
+}
+.advisor_details {
+    padding-top: 22px;
+}
+.session-status {
+    margin-left: 12px;
+    margin-top: -12px;
+}
+.blueT4 {
+    min-height: 121px;
+}
+}
+@media (min-width: 767px) and (max-width: 962px) {
+	.noti-img {
+    width: 58px;
+}
+}

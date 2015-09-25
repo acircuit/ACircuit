@@ -48,6 +48,13 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
+<style>
+@media (min-width: 320px) and (max-width: 767px) {
+.body-error {
+    padding: 0px;
+}
+}
+</style>
 <title>Insert title here</title>
 
 <body>
@@ -67,24 +74,24 @@
    					<span class="become-text-s">If you're successful in your field; give back, guide others & get paid for it!</span>
 			</div>
 			<div class="special-div col-xs-12" >
-			<div class="container" >
-   					<div class="col-xs-12" >
-   						<div class="col-xs-6 f-div">
+			<div class="container no-padding-xs" >
+   					<div class="col-xs-12 no-padding-xs" >
+   						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/higher_studies.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
-   						<div class="col-xs-6 f-div">
+   						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/higher_studies.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
-   						<div class="col-xs-6 f-div">
+   						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/higher_studies.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
-   						<div class="col-xs-6 f-div">
+   						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/higher_studies.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>

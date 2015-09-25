@@ -74,16 +74,16 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
    		  
    			<div class="body-content col-xs-12 no-padding">
    			
-   				<div class="col-xs-12 col-sm-9 " style="background-color: #EEEEEE;">
+   				<div class="col-xs-12 col-sm-9 no-padding-xs" style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding">
-			   			<div class="col-xs-6">
+			   			<div class="col-xs-12 col-sm-6">
 			   				<img class="noti-img" src="assets/img/current_session.png">
 			   				<div class="gborder-div">
 									<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 									<span class="gborder-time">23 September 5:00 pm</span>
 								</div>
 			   			</div>
-			   			<div class="col-xs-6">
+			   			<div class="col-xs-12 col-sm-6">
 			   				<div class="gborder-div col-xs-12" style="border-left: 6px solid #d0021b;">
 									<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 									<span class="gborder-time">23 September 5:00 pm</span>
@@ -119,7 +119,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				    		        <c:set value="usercurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				    		        <a href="${sess}">
-					    			<div class="col-xs-10">
+					    			<div class="col-xs-12 col-sm-10 no-padding-xs">
 					    				      <div class="advisor_details" >
 				                                    <img class="adv-img" src="${advisor.getImage()}">
 				                                    <p class="adv-name">${advisor.getName()}</p><br>
@@ -145,7 +145,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 					    				          </div>
 					    				       </c:if>   
 					    			</div>
-					    			<div class="col-xs-2 mode-div">
+					    			<div class="col-xs-12 col-sm-2 mode-div">
 					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>
 					    				<br>
 					    				<span class="session-id">Session ID ${session.getSessionid()}</span>

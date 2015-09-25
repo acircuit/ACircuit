@@ -74,7 +74,7 @@ pageContext.setAttribute("sess", sess);
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<div class="col-xs-7 no-padding">
+		   		    		<div class="col-xs-12 col-sm-9 no-padding no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
@@ -84,13 +84,13 @@ pageContext.setAttribute("sess", sess);
 		   		    			<span class="due-in-time">02:45 hrs</span>
 		   		    		</div>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<div class="col-xs-7 no-padding">
+						   		<div class="col-xs-12 col-sm-7 no-padding">
 							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
-					   			<div class="col-xs-5 no-padding" style="padding-top: 40px;">
+					   			<div class="col-xs-12 col-sm-5 no-padding" style="padding-top: 40px;">
 					   			<c:if test="${sessionDetails.getMode().equals('phone')}">
 					   					<button type="button" class="btn submit-button" onclick="CallTwilio();">Join call</button>
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>

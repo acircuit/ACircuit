@@ -29,6 +29,9 @@ body {
     font-family: "Open SansR";
 }
 .r-div input {margin-right: -13px;}
+.unread{
+	background-color: rgba(55, 183, 179, 0.07);
+}
 .notify-div-dropdown .badge{
 	display: inline;
     float: none;
