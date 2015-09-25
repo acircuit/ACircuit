@@ -39,7 +39,7 @@
 <%
 SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
 AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
-String userDetails = (String)request.getAttribute("userDetails");
+UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
 String advisorPhone = (String)request.getAttribute("advisorPhone");
 Double wallet = (Double)request.getAttribute("wallet");
 Integer userId = (Integer)request.getAttribute("userId");

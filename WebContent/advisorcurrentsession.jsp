@@ -88,13 +88,13 @@ pageContext.setAttribute("advName", advName);
 		   		    		</div>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">${advName}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${userDetails.getFullName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
 					   			<c:if test="${sessionDetails.getMode().equals('video') && sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
-					   			        <a href="AdvisorAccessTokenController?name=${userDetails.getFullName()}" target="blank" class="btn submit-button">Join Conference</a>
+					   			        <a href="AdvisorAccessTokenController?name=${advName}" target="blank" class="btn submit-button">Join Conference</a>
 					   			</c:if>
 
 					   		</div>

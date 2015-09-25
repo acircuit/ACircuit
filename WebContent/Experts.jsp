@@ -453,7 +453,6 @@ var filterString = "";
 		       }
 		       var pos = filterString.lastIndexOf('::');
 		       filterString = filterString.substring(0,pos);
-		       debugger;
 		    	$.ajax({
 		            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
 		            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},

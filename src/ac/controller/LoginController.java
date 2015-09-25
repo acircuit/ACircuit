@@ -35,6 +35,29 @@ import ac.util.PasswordHashing;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(LoginController.class);
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Entered doGet method of LoginController");
+        String email = request.getParameter("email");
+        //Check if the email id exists
+        UserLoginDAO user = new UserLoginDAO();
+        int userid =  user.CheckEmailExistsUser(email);
+        if(userid !=0){
+        	response.getWriter().write("true");
+        }else{
+        	
+        	AdvisorLoginDAO advisor = new AdvisorLoginDAO();
+        	int advisorid = advisor.CheckEmailExistsAdvisor(email);
+        	if(advisorid != 0){
+        		response.getWriter().write("true");
+        	}else{
+        		response.getWriter().write("false");
+        	}
+        }
+		
+		
+		logger.info("Entered doGet method of LoginController");
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,7 +86,7 @@ public class LoginController extends HttpServlet {
 						        	
 						        }else{
 						        	request.getSession().setAttribute("isLogin", "user");
-						        	response.sendRedirect("userdashboard");
+						        	response.getWriter().write("userdashboard");
 									
 						        }
 							}else{
@@ -80,7 +103,7 @@ public class LoginController extends HttpServlet {
 								session.setAttribute("email", username);
 								request.getSession().setAttribute("isLogin",
 										"advisor");
-					        	response.sendRedirect("advisordashboard");
+								response.getWriter().write("advisordashboard");
 							
 							}else{
 								response.getWriter().write("invalid");
