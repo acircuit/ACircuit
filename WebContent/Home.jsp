@@ -118,6 +118,7 @@
 					  			</div>
 					  		</div>
    					</div>
+   					
 			   	<form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
 			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSearchSuggestions(this)" name="word" autocomplete="off">
 			   	<div id="homesuggestions" class="dropdown homesugg">
@@ -171,10 +172,12 @@
 		</div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="qnada">
-	   <div class="experts-tab-head">
+	   <div class="experts-tab-head" style="margin-bottom:-10px;">
 		    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
 		</div>
-		<div class="qa-conatiner">
+		<div class="qa-conatiner col-xs-12 no-padding">
+		<!-- <div class="hquotes">
+		</div> -->
 			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
 				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
 				<span class="no-of-answers">15 Answers</span>
