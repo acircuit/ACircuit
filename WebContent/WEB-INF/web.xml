@@ -391,12 +391,36 @@
     <url-pattern>/adminreviews</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>getsimilarprofiles</servlet-name>
+    <servlet-class>ac.controller.GetSimilarProfilesController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getsimilarprofiles</servlet-name>
+    <url-pattern>/getsimilarprofiles</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>adminpaymenthistory</servlet-name>
     <servlet-class>ac.controller.AdminMyAccountPaymentHistoryController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>adminpaymenthistory</servlet-name>
     <url-pattern>/adminpaymenthistory</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userverification</servlet-name>
+    <servlet-class>ac.controller.UserVerificationLinkController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userverification</servlet-name>
+    <url-pattern>/userverification</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>advisorverification</servlet-name>
+    <servlet-class>ac.controller.AdvisorVerificationLinkController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorverification</servlet-name>
+    <url-pattern>/advisorverification</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>payment</servlet-name>
@@ -438,12 +462,28 @@
     <servlet-name>thankyou</servlet-name>
     <url-pattern>/thankyou</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>becomeanadvisor</servlet-name>
     <jsp-file>/becomeanadvisor.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>becomeanadvisor</servlet-name>
     <url-pattern>/becomeanadvisor</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>userprofile</servlet-name>
+    <jsp-file>/userprofile.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userprofile</servlet-name>
+    <url-pattern>/userprofile</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>advisorcreateprofile</servlet-name>
+    <jsp-file>/profile.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorcreateprofile</servlet-name>
+    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -4,14 +4,18 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
+import ac.dto.NotificationDTO;
 import ac.jdbc.ConnectionFactory;
 
 public class AdminNotificationDAO {
@@ -73,4 +77,45 @@ public class AdminNotificationDAO {
 			return isNotification;
 
 		}
+	
+	public List<NotificationDTO> GetNotifications(){
+		logger.info("Entered GetNotifications method of AdminNotificationDAO");
+		List<NotificationDTO> notify = new ArrayList<NotificationDTO>();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM admin_notification ORDER BY DATE  DESC";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				NotificationDTO note = new NotificationDTO();
+				note.setnId(results.getInt("N_ID"));
+				note.setComment(results.getString("COMMENT"));
+				note.setHref(results.getString("HREF"));
+				note.setIsPrevious(results.getBoolean("IS_PREVIOUS"));
+				note.setDate(results.getTimestamp("DATE"));
+				note.setIsViewed(results.getBoolean("IS_VIEWED"));
+				notify.add(note);
+			}
+
+		} catch (SQLException e) {
+			logger.error("GetNotifications method of AdminNotificationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetNotifications method of AdminNotificationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetNotifications method of AdminNotificationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetNotifications method of AdminNotificationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Entered GetNotifications method of AdminNotificationDAO");
+		return notify;
+	}
 }

@@ -254,7 +254,7 @@ function ShowModal(details){
 function UpdateSessionStatus(action){
 	$.ajax({
 	    url : 'adminsessionviewdetails', // Your Servlet mapping or JSP(not suggested)
-	    data : {"sId" :"${sessionDetails.getSessionid()}","action" : action,"uid" : "${userDetails.getUserId()}"},
+	    data : {"sId" :"${sessionDetails.getSessionid()}","action" : action,"uid" : "${userDetails.getUserId()}","aid" :"${advisorDetails.getId()}"},
 	    type : 'POST',
 	    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	    success : function(response) {

@@ -60,7 +60,7 @@
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard > Questions</span>
+							<span class="body-head-text"><a href="advisordashboard">Dashboard</a> > Questions</span>
 	</div>
    		  
    			<div class="body-content col-xs-12 no-padding">

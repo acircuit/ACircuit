@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
+import ac.dto.UserDetailsDTO;
 
 /**
  * Servlet implementation class UserMyAccountCurrentSessionsController
@@ -29,7 +30,6 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doGet method of UserMyAccountCurrentSessionsController");
 		int userId = 0;
-		String userPhone="";
 		String advisorPhone="";
 		
 		Boolean isError =false;
@@ -41,6 +41,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 		//Getting the sessiondetails for the user
 		if(userId != 0){
 			  String sid = request.getParameter("sId");
+			  UserDetailsDTO userDetails = new UserDetailsDTO();
 			  //Getting the session details for the page
 			  SessionDAO session = new SessionDAO();
 			  SessionDTO sessionDetails= session.GetSessionDetails(sid);
@@ -52,7 +53,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 				  advisorPhone = advisorDetails.getPhoneNo();
                   //Retrieving the user phone number
 				  SessionDAO phone = new SessionDAO();
-				  userPhone = phone.GetUserPhoneNumber(userId);
+				  userDetails = phone.GetUserDetails(userId);
 			  }
 			  //Getting wallet details
 			  SessionDAO user = new SessionDAO();
@@ -60,7 +61,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  
 			  request.setAttribute("sessionDetails", sessionDetails);
 			  request.setAttribute("advisorDetails", advisorDetails);
-			  request.setAttribute("userPhone", userPhone);
+			  request.setAttribute("userDetails", userDetails);
 			  request.setAttribute("advisorPhone", advisorPhone);
 			  request.setAttribute("wallet", amount);
 			  request.setAttribute("userId", userId);

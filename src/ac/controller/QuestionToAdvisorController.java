@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
 import ac.dao.FeedDAO;
 import ac.dao.QuestionsDAO;
 
@@ -56,6 +57,10 @@ public class QuestionToAdvisorController extends HttpServlet {
 				    FeedDAO questions = new FeedDAO();
 				    Boolean isCommit = questions.InsertQuestionFeed(feedId,id,question,category,subcategory );
 				    if(isCommit){
+				    	String comment = "New Question posted to advisor";
+						String href = "adminquestions";
+						AdminNotificationDAO notify = new AdminNotificationDAO();
+						notify.InsertNotification(comment, href);
 						response.getWriter().write("Your Question has been submitted");
 				    }
 				}

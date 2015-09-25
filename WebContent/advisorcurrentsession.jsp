@@ -40,8 +40,9 @@
 SessionDTO sessionDetails = (SessionDTO)request.getAttribute("sessionDetails");
 UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
 SessionDTO newdates = (SessionDTO)request.getAttribute("newdates");
+String advName = (String)request.getAttribute("advName");
 pageContext.setAttribute("newdates", newdates);
-
+pageContext.setAttribute("advName", advName);
 
 
 %>
@@ -59,7 +60,7 @@ pageContext.setAttribute("newdates", newdates);
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${userDetails.getFullName()}</span>
+							<span class="body-head-text"><a href="advisordashboard">Dashboard:</a></span><span class="head-path"><a href="advisorsessions">Sessions </a>> Session with ${userDetails.getFullName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
@@ -87,7 +88,7 @@ pageContext.setAttribute("newdates", newdates);
 		   		    		</div>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">${userDetails.getFullName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advName}</span> <span class="name-other-text">| User Email/summary background</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.BookASessionDAO;
 import ac.util.SendMail;
@@ -74,10 +75,9 @@ public class BookASessionController extends HttpServlet {
         				.getResourceAsStream("ac/resources/Mail.properties");
         		prop.load(resourceAsStream);
         		String comment = "You've got a new Session request";
-				String href = "approvesession?sId="+sessionId;
-				//Notification for Admin
-				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
-				notify.InsertNotification(comment,aId,href);
+				String href = "adminsessionviewdetails?sId="+sessionId;
+				AdminNotificationDAO admin = new AdminNotificationDAO();
+				admin.InsertNotification(comment, href);
 				//Send Mail to Admin
 				String subject = "A new session request!";
 				String content = "Hi, <br><br>A new SESSION REQUEST by the user ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";

@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
+import ac.dao.FeedDAO;
 import ac.dao.QuestionsDAO;
+import ac.dao.SessionDAO;
+import ac.dao.UserNotificationDAO;
+import ac.dto.AdvisorDTO;
+import ac.dto.QuestionsDTO;
 
 /**
  * Servlet implementation class AdvisorMyAccountAnswerQuestionController
@@ -43,7 +49,36 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		     QuestionsDAO question = new QuestionsDAO();
 		     Boolean isCommit = question.UpdateDetails(qid);
 		     if(isCommit){
-			     response.sendRedirect("answers?q="+qid);
+		    	 QuestionsDAO user = new QuestionsDAO();
+		    	 int uid = user.GetUserId(qid);
+		    	 String comment = "Your question has been answered";
+					String href = "answers?q="+qid;
+					//Notification for user
+					UserNotificationDAO notify = new UserNotificationDAO();
+					Boolean isNotificationCommit =  notify.InsertNotification(comment,href,String.valueOf(uid)); 
+					if(isNotificationCommit){
+						 //Adding to the feeds table
+						FeedDAO feed = new FeedDAO();
+						int feedId = feed.InsertFeedType("answer");
+						if(feedId != 0){
+							
+							//Getting question details
+							FeedDAO questions = new FeedDAO();
+							QuestionsDTO ques = questions.GetQuestionDetails(qid);
+
+							//Getting question details
+							SessionDAO advisor = new SessionDAO();
+							AdvisorDTO adv = advisor.GetAdvisorDetails(Integer.valueOf(aid));
+							
+							//Inserting feed content
+						    FeedDAO answerfeed = new FeedDAO();
+						    Boolean isCommit1 = answerfeed.InsertAnswerFeed(feedId,ques,adv,answer);
+						    if(isCommit1){
+						    	response.getWriter().write("true");
+						    }
+						}
+					}
+                  response.sendRedirect("answers?q="+qid);
 		     }
 		}
 		if(isError){

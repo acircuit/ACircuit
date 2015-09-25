@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
+
+
 
 
 
@@ -537,7 +540,7 @@ public class QuestionsDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID,TOFORUM) values" + "(?,?,?,?,?,?)";
+			String query = "insert into questions "+"(QUESTION,CATEGORY,SUBCATEGORY,TIMESTAMP,U_ID,TOFORUM,STATUS) values" + "(?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, question);
 			pstmt.setString(2, category);
@@ -545,6 +548,7 @@ public class QuestionsDAO {
 			pstmt.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
 			pstmt.setInt(5, userId);
 			pstmt.setBoolean(6, false);
+			pstmt.setString(7, "WAITING FOR APPROVAL");
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -1004,6 +1008,136 @@ public class QuestionsDAO {
 		return aids;
 	}
 	
+	public List<Integer> GetSimilarAdvisorIds(String category,String subcategory) {
+		logger.info("Entered GetSimilarAdvisorIds method of QuestionsDAO");
+		List<Integer> aids = new ArrayList<Integer>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category"
+					+ " INNER JOIN advisor_subcategory ON advisor_category.CATEGORY_ID=advisor_subcategory.CATEGORY_ID "
+					+ "WHERE advisor_category.CATEGORY = ? && advisor_subcategory.SUBCATEGORY=?;";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setString(2, subcategory);
+            ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				aids.add(results.getInt("ADVISOR_ID"));
+			}
+			logger.info("Exit GetSimilarAdvisorIds method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetSimilarAdvisorIds method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetSimilarAdvisorIds method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetSimilarAdvisorIds method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetSimilarAdvisorIds method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetSimilarAdvisorIds method of QuestionsDAO");
+		return aids;
+	}
+	
+	public Boolean PostQuestionToAdvisors(List<Integer> aids,int qid){
+		logger.info("Entered PostQuestionToAdvisors method of QuestionsDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			for(int aid :aids){
+				String query = "insert into questiontoadvisor "+"(Q_ID,AID) values" + "(?,?)";
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, qid);
+                pstmt.setInt(2, aid);
+				int result = pstmt.executeUpdate();
+				if(result > 0) {
+					isCommit = true;
+					conn.commit();
+				}else{
+					conn.rollback();
+				}
+			}
+		}catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("PostQuestionToAdvisors method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+				logger.error("PostQuestionToAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("PostQuestionToAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("PostQuestionToAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Exit PostQuestionToAdvisors method of QuestionsDAO");
+		return isCommit;	
+	}
+	
+	public int GetUserId( String qid){
+		logger.info("Entered GetUserId method of QuestionsDAO");
+		int uid =0;
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT U_ID FROM questions WHERE Q_ID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,Integer.valueOf(qid) );
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+			uid = results.getInt("U_ID");
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetUserId method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetUserId method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserId method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserId method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserId method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetUserId method of QuestionsDAO");
+		return uid;
+
+	}
 
 
 

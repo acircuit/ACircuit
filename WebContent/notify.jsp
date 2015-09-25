@@ -14,8 +14,16 @@
 			<span class="notify-text">Success : Your Session has been confirmed</span>
 			<span class="cross-noti">X</span>
 		</div>
-			 <div class="notify-text-div" id="rechargesuccess" style="display: none" >
+		 <div class="notify-text-div" id="rechargesuccess" style="display: none" >
 			<span class="notify-text">Success : Your recharge has been successful and your wallet has been successfully updated</span>
+			<span class="cross-noti">X</span>
+		</div>
+		<div class="notify-text-div" id="userverificationsuccess" style="display: none" >
+			<span class="notify-text">Success : You have successfully verified your account. Please complete your profile to book session. </span>
+			<span class="cross-noti">X</span>
+		</div>
+		<div class="notify-text-div" id="advisorverificationsuccess" style="display: none" >
+			<span class="notify-text">Success : You have successfully verified your account. Please complete your registration process b completing our profile.. </span>
 			<span class="cross-noti">X</span>
 		</div>
 	</div>

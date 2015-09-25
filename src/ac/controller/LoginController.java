@@ -82,6 +82,8 @@ public class LoginController extends HttpServlet {
 										"advisor");
 					        	response.sendRedirect("advisordashboard");
 							
+							}else{
+								response.getWriter().write("invalid");
 							}
 						}
 					}

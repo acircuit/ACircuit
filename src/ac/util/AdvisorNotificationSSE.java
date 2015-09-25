@@ -47,7 +47,7 @@ public class AdvisorNotificationSSE extends HttpServlet {
 		List<NotificationDTO> notify = new ArrayList<NotificationDTO>();
         AdvisorNotificationDAO user = new AdvisorNotificationDAO();
         notify = user.GetNotification(advisorId);
-        String data="<ul>";
+        String data="";
         int count = 0;
         String id = "";
         for (NotificationDTO notificationDTO : notify) {
@@ -65,7 +65,6 @@ public class AdvisorNotificationSSE extends HttpServlet {
         	id= id.substring(0, id.length()-1);
         }
   
-        data= data + "</ul>"; 
         writer.write("event:notify\n");
         writer.write("data: " + data + "\n\n");
         writer.write("event:count\n");

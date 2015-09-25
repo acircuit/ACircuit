@@ -89,9 +89,17 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
          String sId = request.getParameter("sId");   
          String action = request.getParameter("action");
          String uid = request.getParameter("uid");
+         String aid = request.getParameter("aid");
          if(action != null && action.equals("approve")){
         	 SessionDAO session = new SessionDAO();
-        	 session.UpdateStatus("PENDING APPROVAL", sId);
+        	 Boolean isCommit =session.UpdateStatus("PENDING APPROVAL", sId);
+        	 if(isCommit){
+        		 String comment = "You have got a session request";
+   				String href = "approvesession?sId="+sId;
+   				//Notification for Advisor
+   				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
+   				notify.InsertNotification(comment,aid,href); 
+        	 }
          }else if (action != null && action.equals("reject")) {
         	 SessionDAO session = new SessionDAO();
         	 Boolean isCommit = session.UpdateStatus("SESSION CANCELLED BY ADMIN", sId);

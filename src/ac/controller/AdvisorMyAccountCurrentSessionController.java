@@ -54,10 +54,13 @@ public class AdvisorMyAccountCurrentSessionController extends HttpServlet {
 				  SessionDAO newDates = new SessionDAO();
 				  dates = newDates.GetAdvisorNewDates(sid); 
 			  }
+			  SessionDAO advisor = new SessionDAO();
+			  String advName  = advisor.GetAdvisorName(advisorId);
 			
 			  request.setAttribute("sessionDetails", sessionDetails);
 			   request.setAttribute("userDetails", userDetails);
 			   request.setAttribute("newdates", dates);
+			   request.setAttribute("advName", advName);
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorcurrentsession.jsp");
 	          rd.forward(request, response);
 		}

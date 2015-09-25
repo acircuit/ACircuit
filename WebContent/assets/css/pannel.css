@@ -28,6 +28,7 @@
 body {
     font-family: "Open SansR";
 }
+.r-div input {margin-right: -13px;}
 .notify-div-dropdown .badge{
 	display: inline;
     float: none;

@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
+import ac.dao.AdvisorNotificationDAO;
 import ac.dao.PaymentDAO;
 import ac.dao.SessionDAO;
+import ac.util.SendMail;
 
 import com.ccavenue.security.AesCryptUtil;
 
@@ -146,19 +149,42 @@ public class UserMyAccountPaymentController extends HttpServlet {
 
 				String amount = request.getParameter("amount");
 				String sId = request.getParameter("sid");
+				SessionDAO advisor = new SessionDAO();
+				int aid = advisor.GetAdvisorId(sId);
 					if(date != null && !date.equals("") ){
 						String[] acceptedDate = date.split(",");
 						//Update Date and status
 						SessionDAO update = new SessionDAO();
 						isStatusCommit =  update.UpdateSessionDetails("SESSION ON SCHEDULE", sId,acceptedDate);
-						
+				   		 String comment = "Your session is on schedule ";
+			   				String href = "advisorcurrentsession?sId="+sId;
+			   				//Notification for Admin
+			   				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
+			   				notify.InsertNotification(comment,String.valueOf(aid),href); 
+			        		String comment1 = "User confirmed the session";
+							String href1 = "adminsessionviewdetails?sId="+sId;
+							AdminNotificationDAO admin = new AdminNotificationDAO();
+							admin.InsertNotification(comment1, href1);
 					}else{
 						//Update session status
 						SessionDAO status = new SessionDAO();
 						isStatusCommit =  status.UpdateStatus("SESSION ON SCHEDULE", sId);
+				   		 String comment = "Your session is on schedule ";
+			   				String href = "advisorcurrentsession?sId="+sId;
+			   				//Notification for Admin
+			   				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
+			   				notify.InsertNotification(comment,String.valueOf(aid),href); 
+			   				String comment1 = "User confirmed the session";
+							String href1 = "adminsessionviewdetails?sId="+sId;
+							AdminNotificationDAO admin = new AdminNotificationDAO();
+							admin.InsertNotification(comment1, href1);
 					}
 					
 				if(isStatusCommit){
+					String subject = "User confirmed the session!";
+					String content = "Hi, <br><br>User has confirmed the session ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+					SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+					mail.start();
 			          response.sendRedirect("usercurrentsession?sId="+sId+"&session=Success");
 				}
 			}

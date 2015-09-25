@@ -47,7 +47,7 @@ public class AdvisorLoginDAO {
 	 ***************************************************************************************************/
 	public AdvisorDTO CheckLoginDetails(String email,
 			String securedPassword) {
-		logger.info("Entered setForgotPasswordDetails method of AdvisorLoginDAO");
+		logger.info("Entered CheckLoginDetails method of AdvisorLoginDAO");
 		ResultSet results = null;
 		AdvisorDTO advisor = new AdvisorDTO();
 		try {
@@ -67,7 +67,7 @@ public class AdvisorLoginDAO {
 				advisor.setIsActive(results.getBoolean("ISACTIVE"));
 				advisor.setIsVerified(results.getBoolean("ISVERIFIED"));
 			}
-			logger.info("Exit setForgotPasswordDetails method of AdvisorLoginDAO");
+			logger.info("Exit CheckLoginDetails method of AdvisorLoginDAO");
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -75,27 +75,101 @@ public class AdvisorLoginDAO {
 				try {
 					conn.rollback();
 				} catch (SQLException e2) {
-					logger.error("setForgotPasswordDetails method of AdvisorLoginDAO threw error:"
+					logger.error("CheckLoginDetails method of AdvisorLoginDAO threw error:"
 							+ e.getMessage());
 					e2.printStackTrace();
 				}
-				logger.error("setForgotPasswordDetails method of UserForgotPasswordDAO threw error:"
+				logger.error("CheckLoginDetails method of AdvisorLoginDAO threw error:"
 						+ e.getMessage());
 				e1.printStackTrace();
 			}
-			logger.error("setForgotPasswordDetails method of UserForgotPasswordDAO threw error:"
+			logger.error("CheckLoginDetails method of AdvisorLoginDAO threw error:"
 					+ e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("setForgotPasswordDetails method of UserForgotPasswordDAO threw error:"
+				logger.error("CheckLoginDetails method of AdvisorLoginDAO threw error:"
 						+ e.getMessage());
 				e.printStackTrace();
 			}
 		}
 		return advisor;
 	}
+	
+
+	public Boolean  UpdateAdvisorVerification(String uid,Boolean value) { 
+		logger.info("Entered UpdateAdvisorVerification method of AdvisorLoginDAO");
+		Boolean isCommit = false ;
+       try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE advisordetails SET ISVERIFIED=? WHERE ADVISOR_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, value);
+			pstmt.setString(2, uid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateAdvisorVerification method of AdvisorLoginDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateAdvisorVerification method of AdvisorLoginDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateAdvisorVerification method of AdvisorLoginDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateAdvisorVerification method of AdvisorLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateAdvisorVerification method of AdvisorLoginDAO");
+		return isCommit;
+	}
+	
+	
+	public String  GetAdvisorEmail(String aid) { 
+		logger.info("Entered GetAdvisorEmail method of AdvisorLoginDAO");
+		ResultSet results = null;
+		String email="";
+		try {
+
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT EMAIL FROM advisordetails WHERE ADVISOR_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,aid);
+		        results = pstmt.executeQuery();
+		    if(results.first()){
+		    	email = results.getString("EMAIL");
+		    }
+		logger.info("Exit GetAdvisorEmail method of AdvisorLoginDAO");
+		}catch(Exception e){
+			logger.error("GetAdvisorEmail method of AdvisorLoginDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorEmail method of AdvisorLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}	
+		return email;
+}
 
 }

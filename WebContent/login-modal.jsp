@@ -77,13 +77,16 @@
       	<div class="modal-head-div">
       		<span class="modal-head-text">LOG IN</span>
       	</div>
+      	<div id="invalidusername" style="display: none;">
+      	  <p> The username/password you enetered is invalid</p>
+      	</div>
       	<div class="login-form-div row">
-      		<form class="login-form col-xs-12 no-padding" method="post" id="loginform" action="login">
+      		<form class="login-form col-xs-12 no-padding" method="post" id="loginform" action="">
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						  <input class="form-control" type="email" name="email" required aria-required="true" placeholder="Email">
+      						<input class="form-control" id="email" type="email" name="email" required aria-required="true" placeholder="Email">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						  <input class="form-control" name="password" placeholder="Password" type="password" required>
+      						  <input class="form-control" id="password" name="password" placeholder="Password" type="password" required>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
       						  <input type="checkbox" value="" id="remember" name="stay" />
@@ -91,7 +94,7 @@
 								<span class="policy-text">Remember Me</span><span class="forgot btext" style="float:right;">Forgot Password</span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button type="submit" class="btn gt-started" >Log In</button>
+      						<button type="submit" class="btn gt-started">Log In</button>
 				 	</div>
 				 	
 				 	<div class="already-signup col-xs-12 no-padding" style="margin-top:-15px;">
@@ -114,5 +117,27 @@ $('body').on('click', '.move-to-signup', function(e){
    		$('#loginmodal').modal('hide');
    		$('#signupmodal').modal('show');
     });	
+$( "#loginform" ).submit(function( event ) {
+	  event.preventDefault();
+		$.ajax({
+	        url : 'login', // Your Servlet mapping or JSP(not suggested)
+	        data : {"email":$("#email").val(),"password":$("#password").val()},
+	        type : 'POST',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	          	if(response == "invalid"){
+	          		document.getElementById("invalidusername").style.display = "block";
+	          	}else{
+	          		document.getElementById("invalidusername").style.display = "none";
+	          	}
+	          	 $('.black-screen').hide();
+
+	          },
+	          error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    });
+	});
 </script>
     

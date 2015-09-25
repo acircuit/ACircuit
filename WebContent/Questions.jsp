@@ -260,7 +260,7 @@ $('body').on('click', '.less', function(e){
 
             },
             error : function(request, textStatus, errorThrown) {
-                alert(errorThrown);
+                alert("Sorry your question could no be posted. Please try again.");
                 
             }
         });

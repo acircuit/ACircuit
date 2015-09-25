@@ -58,4 +58,77 @@ public class UserLoginDAO {
 			return user;
 	}
 	
+		public Boolean  UpdateUserVerification(String uid,Boolean value) { 
+			logger.info("Entered UpdateUserVerification method of UserLoginDAO");
+			Boolean isCommit = false ;
+           try {
+				conn =ConnectionFactory.getConnection();
+				conn.setAutoCommit(false);
+				String query ="UPDATE userdetails SET ISVERIFIED=? WHERE USER_ID = ? ";
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setBoolean(1, value);
+				pstmt.setString(2, uid);
+				int result = pstmt.executeUpdate(); 
+				if(result >0) {
+					conn.commit();
+					isCommit = true;
+				}
+			}catch(Exception e){
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					try {
+						conn.rollback();
+					} catch (SQLException e2) {
+						logger.error("UpdateUserVerification method of UserLoginDAO threw error:"+e2.getMessage());
+						e2.printStackTrace();
+					}
+					logger.error("UpdateUserVerification method of UserLoginDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("UpdateUserVerification method of UserLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("UpdateUserVerification method of UserLoginDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}
+			logger.info("Exit UpdateUserVerification method of UserLoginDAO");
+			return isCommit;
+		}
+		
+		public String  GetUserEmail(String uid) { 
+			logger.info("Entered GetUserEmail method of UserLoginDAO");
+			ResultSet results = null;
+			String email="";
+			try {
+
+				conn =ConnectionFactory.getConnection();
+				conn.setAutoCommit(false);
+				String query ="SELECT EMAIL FROM userdetails WHERE USER_ID=?";
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,uid);
+ 		        results = pstmt.executeQuery();
+			    if(results.first()){
+			    	email = results.getString("EMAIL");
+			    }
+			logger.info("Exit GetUserEmail method of UserLoginDAO");
+			}catch(Exception e){
+				logger.error("GetUserEmail method of UserLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("GetUserEmail method of UserLoginDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			return email;
+	}
+		
+	
 }
