@@ -88,7 +88,7 @@ pageContext.setAttribute("advName", advName);
 		   		    		</div>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">${userDetails.getFullName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advName}</span> <span class="name-other-text">| User Email/summary background</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>

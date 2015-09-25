@@ -447,6 +447,7 @@
     <url-pattern>/newpassword</url-pattern>
   </servlet-mapping>
   <servlet>
+
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
@@ -502,7 +503,7 @@
     <servlet-name>userprofile</servlet-name>
     <url-pattern>/userprofile</url-pattern>
   </servlet-mapping>
-  <servlet>
+    <servlet>
     <servlet-name>advisorcreateprofile</servlet-name>
     <jsp-file>/profile.jsp</jsp-file>
   </servlet>

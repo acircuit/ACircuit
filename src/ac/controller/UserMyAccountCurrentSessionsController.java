@@ -49,10 +49,12 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO advisor = new SessionDAO();
 			  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
-			  advisorPhone = advisorDetails.getPhoneNo();
-              //Retrieving the user phone number
-			  SessionDAO phone = new SessionDAO();
-			  userDetails = phone.GetUserDetails(userId);
+			  if(sessionDetails.getMode().equals("phone")){
+				  advisorPhone = advisorDetails.getPhoneNo();
+                  //Retrieving the user phone number
+				  SessionDAO phone = new SessionDAO();
+				  userDetails = phone.GetUserDetails(userId);
+			  }
 			  //Getting wallet details
 			  SessionDAO user = new SessionDAO();
 			  double amount = user.GetWalletDetails(userId);

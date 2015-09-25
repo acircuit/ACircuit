@@ -380,6 +380,7 @@ function Populartags(value){
 	var html = '<a class="rel-category">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
+
 function SubmitQuestion(){
 	$('.black-screen').show();
 	var question =$("#question").val();
