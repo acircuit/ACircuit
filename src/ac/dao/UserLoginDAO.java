@@ -130,7 +130,6 @@ public class UserLoginDAO {
 			return email;
 	}
 		
-<<<<<<< Updated upstream
 		public int  CheckEmailExistsUser(String email) { 
 			logger.info("Entered CheckEmailExistsUser method of UserLoginDAO");
 			ResultSet results = null;
@@ -160,8 +159,5 @@ public class UserLoginDAO {
 			}	
 			return id;
 	}
-		
-=======
->>>>>>> Stashed changes
-	
+
 }
