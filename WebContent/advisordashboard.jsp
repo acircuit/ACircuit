@@ -272,19 +272,19 @@
 
 	   			<div class="col-xs-12 col-sm-3">
 		   			<div  class="related col-xs-12">
-	                    <div class="rel-section">
-	                        <h2 class="mostviewed">MOST VIEWED QUESTIONS</h2>
+	                    <div class="rel-section mostviewed">
+	                        <h2>MOST VIEWED QUESTIONS</h2>
 	                         
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
-                    <div class="rel-section">
-                        <h2 class="poptags">POPULAR CATEGORIES</h2>
+                    <div class="rel-section poptags">
+                        <h2>POPULAR CATEGORIES</h2>
                       
                     </div>
 	   			</div>
    			</div>
-   			
+
    			</div>
    	 </div>
    	 <%@include file="/footer.jsp" %>
