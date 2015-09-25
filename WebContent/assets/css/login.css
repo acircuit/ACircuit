@@ -3,7 +3,7 @@
 	border-radius:0px;
 	border-top: 5px solid #37b7b3;
 }
-#signupmodal .modal-dialog,#loginmoda .modal-dialog {
+#signupmodal .modal-dialog,#loginmodal .modal-dialog {
  max-width:380px;
  }
 #loginmodal  .modal-body {

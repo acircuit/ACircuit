@@ -48,6 +48,7 @@
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
   <div class="black">
 	  </div>
 	

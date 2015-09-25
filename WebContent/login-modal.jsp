@@ -28,7 +28,7 @@
       						  <input class="form-control" name="name" type="text" placeholder="Name" required aria-required="true">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						  <input class="form-control" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
+      						  <input class="form-control" id="signupemail" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="password" placeholder="Password" required type="password" autocomplete="off">
@@ -112,7 +112,11 @@ $(document).ready(function () {
 	$("#loginform").validate();
 	$("#signupform").validate();
 	});
-	
+$('body').on( 'blur mouseleave focusout', '#signupemail', function(event) { 
+	$('#email-error').remove();
+	var valueenterd=$(this).val();
+	$(this).closest('.form-group').append('<label id="email-error" class="error" for="email">This email is already registerd with us. Please try log in.</label>')
+});	
 $('body').on('click', '.move-to-signup', function(e){
    		$('#loginmodal').modal('hide');
    		$('#signupmodal').modal('show');
