@@ -130,5 +130,35 @@ public class UserLoginDAO {
 			return email;
 	}
 		
+		public int  CheckEmailExistsUser(String email) { 
+			logger.info("Entered CheckEmailExistsUser method of UserLoginDAO");
+			ResultSet results = null;
+			int id =0;
+			try {
+
+				conn =ConnectionFactory.getConnection();
+				conn.setAutoCommit(false);
+				String query ="SELECT USER_ID FROM userdetails WHERE EMAIL = ?";
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,email);
+			    results = pstmt.executeQuery();
+			    if(results.first()){
+			    	id = results.getInt("USER_ID");
+			    }
+			logger.info("Exit CheckEmailExistsUser method of UserLoginDAO");
+			}catch(Exception e){
+				logger.error("CheckEmailExistsUser method of UserLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("CheckEmailExistsUser method of UserLoginDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			return id;
+	}
+		
 	
 }

@@ -171,5 +171,35 @@ public class AdvisorLoginDAO {
 		}	
 		return email;
 }
+	
+	public int  CheckEmailExistsAdvisor(String email) { 
+		logger.info("Entered CheckEmailExistsAdvisor method of AdvisorLoginDAO");
+		ResultSet results = null;
+		int id =0;
+		try {
+
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ADVISOR_ID FROM advisordetails WHERE EMAIL = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,email);
+		    results = pstmt.executeQuery();
+		    if(results.first()){
+		    	id = results.getInt("ADVISOR_ID");
+		    }
+		logger.info("Exit CheckEmailExistsAdvisor method of AdvisorLoginDAO");
+		}catch(Exception e){
+			logger.error("CheckEmailExistsAdvisor method of AdvisorLoginDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("CheckEmailExistsAdvisor method of AdvisorLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}	
+		return id;
+}
 
 }

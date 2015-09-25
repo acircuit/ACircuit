@@ -11,7 +11,7 @@
       		<span class="modal-head-text">SIGN IN</span>
       	</div>
       	<div id="emailerror" class="error-in-modal" style="display: none;">
-      	  <span>This email is already registerd with us. Please try log in.</span>
+      	  <span>This email is already registerd with us. Please try with different email Id.</span>
       	</div>
       	<div class="login-form-div row">
       		<form class="login-form col-xs-12 no-padding" method="post" id="signupform" action="registration">
@@ -42,7 +42,7 @@
 								<span class="policy-text">By registering you accept the Terms & Conditions and Privacy Policy</span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button type="submit" class="btn gt-started" >Get Started</button>
+      						<button id="signup-submit" type="submit" class="btn gt-started" >Get Started</button>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
       						 <input type="checkbox" value="true" id="updates" name="updates" />
@@ -81,8 +81,9 @@
       		<span class="modal-head-text">LOG IN</span>
       	</div>
       	<div id="invalidusername" class="error-in-modal" style="display: none;">
-      	  <p> The username/password you enetered is invalid</p>
+      	  <p> The username/password you entered is invalid</p>
       	</div>
+
       	<div class="login-form-div row">
       		<form class="login-form col-xs-12 no-padding" method="post" id="loginform" action="">
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
@@ -94,7 +95,7 @@
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
       						  <input type="checkbox" value="" id="remember" name="stay" />
 								<label for="stay"></label>
-								<span class="policy-text">Remember Me</span><span class="forgot btext" style="float:right;">Forgot Password</span>
+								<span class="policy-text">Remember Me</span><a><span class="forgot btext" style="float:right;">Forgot Password</span></a>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						<button type="submit" class="btn gt-started">Log In</button>
@@ -117,27 +118,19 @@ $(document).ready(function () {
 	});
 $('body').on( 'blur focusout', '#signupemail', function(event) { 
 	var valueenterd=$(this).val();
-	$('#emailerror').slideDown();
-});	
-$('body').on( 'keyup', '#signupemail', function(event) { 
-	$('#emailerror').slideUp();
-});	
-$('body').on('click', '.move-to-signup', function(e){
-   		$('#loginmodal').modal('hide');
-   		$('#signupmodal').modal('show');
-    });	
-$( "#loginform" ).submit(function( event ) {
-	  event.preventDefault();
+	if(valueenterd.length > 0){
 		$.ajax({
 	        url : 'login', // Your Servlet mapping or JSP(not suggested)
-	        data : {"email":$("#email").val(),"password":$("#password").val()},
-	        type : 'POST',
+	        data : {"email":$("#signupemail").val()},
+	        type : 'GET',
 	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	        success : function(response) {
-	          	if(response == "invalid"){
-	          		document.getElementById("invalidusername").style.display = "block";
+	          	if(response == "true"){
+	          		$('#emailerror').slideDown();
+	          		$('#signup-submit').prop('disabled', true);
 	          	}else{
-	          		document.getElementById("invalidusername").style.display = "none";
+	          		$('#emailerror').slideUp();
+	          		$('#signup-submit').prop('disabled', false);
 	          	}
 	          	 $('.black-screen').hide();
 
@@ -147,6 +140,77 @@ $( "#loginform" ).submit(function( event ) {
 	            
 	        }
 	    });
+	}
+	
+});	
+$('body').on( 'keyup', '#signupemail', function(event) { 
+	$('#emailerror').slideUp();
+});	
+$('body').on('click', '.move-to-signup', function(e){
+   		$('#loginmodal').modal('hide');
+   		$('#signupmodal').modal('show');
+    });
+$( "#signupform" ).submit(function( event ) {
+	  event.preventDefault();
+		$.ajax({
+	        url : 'login', // Your Servlet mapping or JSP(not suggested)
+	        data : {"email":$("#email").val()},
+	        type : 'GET',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	        	debugger;
+	          	if(response == "true"){
+	          		$('#emailerror').slideDown();
+	          		$('#signup-submit').prop('disabled', true);
+	          	}else{
+	          		$('#emailerror').slideUp();
+	          		$('#signup-submit').prop('disabled', false);
+	          		document.getElementById("signupform").submit();
+	          	}
+	          	 $('.black-screen').hide();
+
+	          },
+	          error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    });
+});
+$( "#loginform" ).submit(function( event ) {
+	  event.preventDefault();
+	  var profile = false;
+	  if(window.location.href.indexOf("advisorprofile?a") > -1){
+		  profile = true;
+	  }else{
+		  profile = false;
+	  }
+			$.ajax({
+		        url : 'login', // Your Servlet mapping or JSP(not suggested)
+		        data : {"email":$("#email").val(),"password":$("#password").val()},
+		        type : 'POST',
+		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+		        success : function(response) {
+		          	if(response == "invalid"){
+		          		document.getElementById("invalidusername").style.display = "block";
+		          	}else if (response == "userdashboard" || response == "advisordashboard") {
+		          		if(!profile){
+			          		location.href = response;
+		          		}else{
+		          			location.reload();
+		          		}
+					}
+		          	else{
+		          		document.getElementById("invalidusername").style.display = "none";
+		          	}
+		          	 $('.black-screen').hide();
+
+		          },
+		          error : function(request, textStatus, errorThrown) {
+		            alert(errorThrown);
+		            
+		        }
+		    });
+
 	});
 </script>
     
