@@ -10,6 +10,9 @@
       	<div class="modal-head-div">
       		<span class="modal-head-text">SIGN IN</span>
       	</div>
+      	<div id="emailerror" class="error-in-modal" style="display: none;">
+      	  <span>This email is already registerd with us. Please try log in.</span>
+      	</div>
       	<div class="login-form-div row">
       		<form class="login-form col-xs-12 no-padding" method="post" id="signupform" action="registration">
       			<div class="form-group login-form-el col-xs-12 no-padding">
@@ -77,7 +80,7 @@
       	<div class="modal-head-div">
       		<span class="modal-head-text">LOG IN</span>
       	</div>
-      	<div id="invalidusername" style="display: none;">
+      	<div id="invalidusername" class="error-in-modal" style="display: none;">
       	  <p> The username/password you enetered is invalid</p>
       	</div>
       	<div class="login-form-div row">
@@ -112,10 +115,12 @@ $(document).ready(function () {
 	$("#loginform").validate();
 	$("#signupform").validate();
 	});
-$('body').on( 'blur mouseleave focusout', '#signupemail', function(event) { 
-	$('#email-error').remove();
+$('body').on( 'blur focusout', '#signupemail', function(event) { 
 	var valueenterd=$(this).val();
-	$(this).closest('.form-group').append('<label id="email-error" class="error" for="email">This email is already registerd with us. Please try log in.</label>')
+	$('#emailerror').slideDown();
+});	
+$('body').on( 'keyup', '#signupemail', function(event) { 
+	$('#emailerror').slideUp();
 });	
 $('body').on('click', '.move-to-signup', function(e){
    		$('#loginmodal').modal('hide');

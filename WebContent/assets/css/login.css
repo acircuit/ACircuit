@@ -130,3 +130,10 @@ background-color: #fd6d64;
     top: 38px;
     background-color: rgba(180, 197, 197, 0);
 }
+.error-in-modal{
+	border: 1px solid rgb(253, 109, 100);
+    padding: 5px 5px 1px 5px;
+    color: black;
+    margin-top: 12px;
+        background-color: rgba(253, 109, 100, 0.08);
+}
