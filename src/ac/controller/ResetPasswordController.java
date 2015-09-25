@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.AC.DAO.UserForgotPasswordDAO;
 import org.apache.log4j.Logger;
+
+import ac.dao.ForgotPasswordDAO;
 
 /**
  * Servlet implementation class ResetPasswordController
@@ -31,9 +32,10 @@ public class ResetPasswordController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of ForgotPasswordController");
 		String uId = request.getParameter("ugid");
+		String aId = request.getParameter("agid");
 		try {
 			if (uId != null && !uId.isEmpty() && !("").equals(uId)) {
-				UserForgotPasswordDAO dao = new UserForgotPasswordDAO();
+				ForgotPasswordDAO dao = new ForgotPasswordDAO();
 				Timestamp time = dao.getUserTimestamp(uId);
 				// Adding 1 Day to the timestamp retrived from the database
 				Calendar c = Calendar.getInstance();
@@ -54,9 +56,35 @@ public class ResetPasswordController extends HttpServlet {
 				Date date1 = cal.getTime();
 				int comparision = date1.compareTo(date);
 				if (comparision <= 0) {
-					response.sendRedirect("NewPassword?uId=" + uId);
+					response.sendRedirect("reset?uId=" + uId);
 				} else {
-					response.sendRedirect("DeactivatedLink");
+					response.sendRedirect("deactivated");
+				}
+			}else if (aId != null && !aId.isEmpty() && !("").equals(aId)) {
+				ForgotPasswordDAO dao = new ForgotPasswordDAO();
+				Timestamp time = dao.getAdvisorTimestamp(aId);
+				// Adding 1 Day to the timestamp retrived from the database
+				Calendar c = Calendar.getInstance();
+				c.setTime(new Date(time.getTime()));
+				c.add(Calendar.DATE, 1);
+				Date date = c.getTime();
+				Calendar mbCal = new GregorianCalendar(
+						TimeZone.getTimeZone("IST"));
+				mbCal.setTimeInMillis(new Date().getTime());
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));
+				cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));
+				cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));
+				cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));
+				cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));
+				cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));
+				cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+				Date date1 = cal.getTime();
+				int comparision = date1.compareTo(date);
+				if (comparision <= 0) {
+					response.sendRedirect("reset?aId=" + aId);
+				} else {
+					response.sendRedirect("deactivated");
 				}
 			}
 		} catch (Exception e) {

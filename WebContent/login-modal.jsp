@@ -106,10 +106,16 @@
 				 		<span class="already-signup-text">Do not have an account yet? <span class="btext move-to-signup" style="color:#37b7b3;">Create An Account </span>here</span>
 				 	</div>
       		</form>
-      		<form class="login-form col-xs-12 no-padding" method="post" id="resetform" action="">
+      		<div id="invalidusernamereset" class="error-in-modal" style="display: none;">
+      	         <p> The username/password you entered is invalid</p>
+        	</div>
+        	<div id="resetmail" class="error-in-modal" style="display: none;">
+      	         <p> A mail has been sent to your registered id.</p>
+        	</div>
+      		<form class="login-form col-xs-12 no-padding" method="post" id="resetform">
       			
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						  <input class="form-control" id="signupemail" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
+      						  <input class="form-control" id="resetemail" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
 				 	</div>
 				 	
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
@@ -167,7 +173,29 @@ $('body').on('click', '.forgot', function(e){
 		$('#loginform').slideUp();
 		$('#resetform').slideDown();
 });	
-$( "#loginform" ).submit(function( event ) {
+$( "#resetform" ).submit(function( event ) {
+	event.preventDefault();
+	$.ajax({
+        url : 'forgotpassword', // Your Servlet mapping or JSP(not suggested)
+        data : {"email":$("#resetemail").val()},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+          	if(response == "true"){
+          		$('#resetmail').slideDown();
+          		$('#invalidusernamereset').slideUp();
+          	}else{
+          		$('#invalidusernamereset').slideDown();
+          		$('#resetmail').slideUp();
+          	}
+          	 $('.black-screen').hide();
+
+          },
+          error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
     });
 $( "#signupform" ).submit(function( event ) {
 	  event.preventDefault();
@@ -177,7 +205,6 @@ $( "#signupform" ).submit(function( event ) {
 	        type : 'GET',
 	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	        success : function(response) {
-	        	debugger;
 	          	if(response == "true"){
 	          		$('#emailerror').slideDown();
 	          		$('#signup-submit').prop('disabled', true);

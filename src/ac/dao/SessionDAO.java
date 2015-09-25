@@ -710,7 +710,7 @@ public class SessionDAO {
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(sessions.size());
 			System.out.println(q4in);
-			String query = "SELECT FULL_NAME,IMAGE,USER_ID FROM userdetails WHERE USER_ID IN ( "+ q4in + ")";
+			String query = "SELECT FULL_NAME,IMAGE,USER_ID,EMAIL FROM userdetails WHERE USER_ID IN ( "+ q4in + ")";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			int i = 1;
 			for (SessionDTO session : sessions) {
@@ -723,6 +723,7 @@ public class SessionDAO {
 				user.setFullName(results.getString("FULL_NAME"));
 				user.setImage(results.getString("IMAGE"));
 				user.setUserId(results.getInt("USER_ID"));
+				user.setEmail(results.getString("EMAIL"));
 				users.add(user);
 			}
 		

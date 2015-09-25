@@ -439,6 +439,14 @@
     <url-pattern>/resetpassword</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>newpassword</servlet-name>
+    <servlet-class>ac.controller.NewPasswordController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>newpassword</servlet-name>
+    <url-pattern>/newpassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
@@ -501,5 +509,21 @@
   <servlet-mapping>
     <servlet-name>advisorcreateprofile</servlet-name>
     <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>reset</servlet-name>
+    <jsp-file>/reset.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reset</servlet-name>
+    <url-pattern>/reset</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>deactivated</servlet-name>
+    <jsp-file>/deactivated.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deactivated</servlet-name>
+    <url-pattern>/deactivated</url-pattern>
   </servlet-mapping>
 </web-app>
