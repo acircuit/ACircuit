@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -30,7 +31,6 @@ public class ResendLinkController extends HttpServlet {
 		logger.info("Entered doPost method of ResendLinkController");
 		String resendLink = request.getParameter("resendLink");
 		String id = request.getParameter("id");
-        System.out.println(resendLink);
 		Properties prop = new Properties();
         InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Mail.properties");
         try {
@@ -42,7 +42,7 @@ public class ResendLinkController extends HttpServlet {
 		String subject ="";
 		String content ="";
 		subject = "Thank you for registering on Advisor Circuit";
-		content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the link below to activate your account:<br> <a href='"+prop.getProperty("USER_REGISTRATION_VERIFICATION_LINK")+id+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+		content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the link below to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("USER_REGISTRATION_VERIFICATION_LINK"), id)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 		SendMail mail = new SendMail(subject, content, resendLink,prop.getProperty("MAIL_ADMIN"));
 		mail.start();
 		response.getWriter().write("true");

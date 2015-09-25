@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String source="";
 if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
@@ -8,6 +9,7 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 	}else if( session.getAttribute("advisorId") !=null){
 		source="advisor";
 	} 
+pageContext.setAttribute("source", source);
 
 
 %>
@@ -41,8 +43,16 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 										
 							          </ul>
 							        </li>
-							          <li><a href="#"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a></li>
-						        </ul></div></li>
+							          <li>
+							          <c:if test="${source.equals('user') }">
+							           <a href="userdashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							          </c:if>
+							           <c:if test="${source.equals('advisor') }">
+							           <a href="advisordashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							          </c:if>
+							          </li>
+						        </ul>
+
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -53,13 +63,13 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 					            <ul class="nav sidebar-nav">
 					                
 					                <li>
-					                    <a href="#">Experts</a>
+					                    <a href="advisors?category=all">Experts</a>
 					                </li>
 					                <li>
-					                    <a href="#">Q&A</a>
+					                    <a href="questions">Q&A</a>
 					                </li>
 					                <li>
-					                    <a href="#">Be an Advisor</a>
+					                    <a href="becomeanadvisor">Be an Advisor</a>
 					                </li>
 					                <li>
 					                    <a href="#">How it Works</a>

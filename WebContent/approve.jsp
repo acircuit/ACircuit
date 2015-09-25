@@ -58,7 +58,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 </div>
    	<div class="main-body-div container"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
+							<span class="body-head-text"><a href="userdashboard">Dashboard:</a> </span><span class="head-path"><a href="userdashboard">Sessions</a> > Session with ${advisorDetails.getName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">
@@ -114,16 +114,16 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		    <div class="prop-time-div col-xs-12 no-padding">
 					   			
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
+					   					<div class="r-div">
 											<input type="radio" value="${newDates.getDate1()},${newDates.getTime1()}" id="date1" name="date" />
-											<label for="video"></label>
+											<label for="date1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${newDates.getDate1()},${newDates.getTime1()}</span></span>
 					   				</div>
 					   				<div class="col-xs-6 radio-button-div no-padding">
-					   					<div class="roundedOne">
+					   					<div class="r-div">
 											<input type="radio" value="${newDates.getDate2()},${newDates.getTime2()}" id="date2" name="date" />
-											<label for="video"></label>
+											<label for="date2"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 2</span><span class="slot-asked-time">${newDates.getDate2()},${newDates.getTime2()}</span></span>
 					   				</div>

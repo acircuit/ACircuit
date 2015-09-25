@@ -39,19 +39,8 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-                String ids = (String) request.getAttribute("ids");
-                List<String> industries = (List<String>)request.getAttribute("industries");
-                List<String> institutions = (List<String>)request.getAttribute("institutions");
-                List<String> languages = (List<String>)request.getAttribute("languages");
-                List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-                List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
-                List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
-                List<String> popCats = (List<String>)request.getAttribute("popCats");
-
-        		pageContext.setAttribute("ids", ids);
+String advisorverification =  request.getParameter("advisorverification");
+pageContext.setAttribute("advisorverification", advisorverification);
 	
 
 %>
@@ -66,6 +55,7 @@ cursor:pointer;
 <title>Insert title here</title>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -74,7 +64,7 @@ cursor:pointer;
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard > Profile</span>
+							<span class="body-head-text"><a href="advisordashboard">Dashboard </a>> Profile</span>
 	</div>
    		  
    			<div class="body-content col-xs-12 no-padding">
@@ -389,6 +379,11 @@ var inter=1;
 $(document).ready(function () {
 	
 	starinputconversion();
+	if("${advisorverification.equals('true') }"){
+		document.getElementById("advisorverificationsuccess").style.display = "block";
+	}else{
+		document.getElementById("advisorverificationsuccess").style.display = "none";
+	}
 });
 $('.category-menu').on('change', function() {
 	$(this).closest('.each-interest-div').find('.subcategory-menu').html('<option>Sub Category</option>');

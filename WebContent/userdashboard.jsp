@@ -178,6 +178,32 @@ pageContext.setAttribute("type", type);
 					     
 					     </c:if>
 					     
+					     <c:if test="${activity.getFeedType().equals('answer')}">
+					     <div class="col-xs-12 no-padding">
+						    <div class="each-question-div col-xs-12">
+							<span class="new-expert-head">New Answer Posted by ${activity.getAdvisorName()}</span><br>
+				   				<div class="col-xs-12 tag-div no-padding">
+									<span class="tag">${activity.getCategory()}</span>
+									<span class="tag">${activity.getSubcategory()}</span>
+				   				</div>
+				   				<div class="col-xs-12 question-div no-padding">
+									<span class="question">${activity.getQuestion()}</span>
+				   					<br>
+				   					<span class="updated-on">Posted on ${activity.getPostedon()}</span>
+				   				</div> 
+				   				 <div class="col-xs-12 question-div no-padding">
+									<span class="question">${activity.getAnswer()}</span>
+				   					<br>
+				   					<span class="updated-on">Posted on ${activity.getAnswerpostedon()}</span>
+				   				</div> 
+				   				<div class="col-xs-11 no-padding" style="margin-top: 10px;">
+				   					<div style="border-bottom: 1px solid lightgray;"></div>
+				   				</div>
+				   				
+			   				</div>
+						</div>
+					     </c:if>
+					     
 					
 					
 					

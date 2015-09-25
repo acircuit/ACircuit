@@ -57,7 +57,7 @@ pageContext.setAttribute("review", review);
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Dashboard: </span><span class="head-path">Sessions > Session with ${advisorDetails.getName()}</span>
+							<span class="body-head-text"><a href="userdashboard">Dashboard:</a> </span><span class="head-path"><a href="usersessions">Sessions</a> > Session with ${advisorDetails.getName()}</span>
 	</div>
    		   <div class="col-xs-12 no-padding" style="    background-color: white;">
    		    		<div class="col-xs-12 col-sm-3  no-padding dp-container">

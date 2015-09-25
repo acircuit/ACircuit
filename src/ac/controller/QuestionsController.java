@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.cache.MyCacheBuilder;
+import ac.dao.AdminNotificationDAO;
 import ac.dao.FeedDAO;
 import ac.dao.QuestionsDAO;
 import ac.dto.AnswerDTO;
@@ -102,6 +103,7 @@ public class QuestionsController extends HttpServlet {
 		logger.info("Entered doPost method of QuestionsController");
 		int userId = 0;
 		Boolean isError =false;
+		Boolean isCommit =false;
 		try{
 			userId = (int) request.getSession().getAttribute("userId");
 		}catch(Exception e){
@@ -115,7 +117,21 @@ public class QuestionsController extends HttpServlet {
 		QuestionsDAO ques = new QuestionsDAO();
 		int id = ques.SubmitQuestion(userId,question,category,subcategory);
 		if(id !=0){
-		   response.getWriter().write("Your Question has been submitted");
+			List<Integer> aids = new ArrayList<Integer>();
+			QuestionsDAO ids = new QuestionsDAO();
+			aids = ids.GetSimilarAdvisorIds(category,subcategory);
+			if(aids.size() > 0){
+				QuestionsDAO post =  new QuestionsDAO();
+				isCommit = post.PostQuestionToAdvisors(aids,id);
+			}
+			if(isCommit){
+				String comment = "New Question posted on the forum";
+				String href = "adminquestions";
+				AdminNotificationDAO notify = new AdminNotificationDAO();
+				notify.InsertNotification(comment, href);
+			    response.getWriter().write("Your Question has been submitted");
+			
+			}
 			}
 		
 		}

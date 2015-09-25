@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
 import ac.dao.SessionDAO;
+import ac.dao.UserNotificationDAO;
 
 /**
  * Servlet implementation class AdvisorMyAccountCancelSession
@@ -29,7 +31,20 @@ public class AdvisorMyAccountCancelSession extends HttpServlet {
 		SessionDAO update = new SessionDAO();
 		Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY ADVISOR", sid);
 		if(isCommit){
+			SessionDAO user = new SessionDAO();
+			int[] ids =   user.GetUserAdvisorIds(sid);
+			String comment = "Your session request has been rejected by the advisor";
+				String href = "usercancelledsession?sId="+sid;
+				//Notification for user
+				UserNotificationDAO notify = new UserNotificationDAO();
+				notify.InsertNotification(comment,href,String.valueOf(ids[1])); 
 			response.sendRedirect("advisorcancelledsession?sId="+sid);
+			
+			//notify admin
+			String comment1 = "The session request has been rejected by the advisor";
+			String href1 = "adminsessionviewdetails?sId="+sid;
+			AdminNotificationDAO admin = new AdminNotificationDAO();
+			admin.InsertNotification(comment1, href1);
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountCancelSession");
 	}

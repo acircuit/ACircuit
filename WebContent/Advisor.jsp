@@ -478,7 +478,7 @@ $(document).ready(function () {
 	starinputconversion();
 	
 	$.ajax({
-        url : 'GetSimilarProfilesController', // Your Servlet mapping or JSP(not suggested)
+        url : 'getsimilarprofiles', // Your Servlet mapping or JSP(not suggested)
         data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.

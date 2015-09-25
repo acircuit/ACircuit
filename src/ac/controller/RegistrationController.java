@@ -74,31 +74,38 @@ public class RegistrationController extends HttpServlet {
     				RegistrationDAO dao = new RegistrationDAO();
     				int userId = dao.setUserDetails(email,hashPassword,fullname,absolutePath,updates);
     				if(userId != 0){
-    					String comment = fullname+" signed up as a user";
-    					String href = "AdminViewUserProfile?email="+email;
-    					AdminNotificationDAO notify = new AdminNotificationDAO();
-    					notify.InsertNotification(comment, href);
-    					
-    					
-    					String userComment = "Welcome to Advisor Circuit. Find your Advisor now ! If you need any help, call us on +91 9999372087";
-    					String userHref = "advisors?category=all";
-    					UserNotificationDAO user = new UserNotificationDAO();
-    					user.InsertNotification(userComment, userHref, String.valueOf(userId));
-    					
-    					
-    				 	String subject ="";
-    					String content ="";
-    					subject = "Thank you for registering on Advisor Circuit";
-    					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+prop.getProperty("USER_REGISTRATION_VERIFICATION_LINK")+userId+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
-    					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-    					mail.start();
-    					String subject1= "A New User Sign Up!";
-    					String content1 = "Hi, <br><br> A new user has signed up with us. Following are the details: <br>Full Name : "+fullname+"<br>Email Id : " +email+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
-    					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));
-    					mail1.start();
-    					request.getSession().setAttribute("userId",userId);
-    					request.getSession().setAttribute("email", email);
-    					response.sendRedirect("userdashboard?type=signup");
+    					//Inserting the wallet for the user
+    					RegistrationDAO wallet = new RegistrationDAO();
+    					Boolean isCommit = wallet.InsertUserWallet(userId);
+    					if(isCommit){
+        					
+        					String comment = fullname+" signed up as a user";
+        					String href = "adminuser?email="+email;
+        					AdminNotificationDAO notify = new AdminNotificationDAO();
+        					notify.InsertNotification(comment, href);
+        					
+        					
+        					String userComment = "Welcome to Advisor Circuit. Find your Advisor now ! If you need any help, call us on +91 9999372087";
+        					String userHref = "advisors?category=all";
+        					UserNotificationDAO user = new UserNotificationDAO();
+        					user.InsertNotification(userComment, userHref, String.valueOf(userId));
+        					
+        					
+        				 	String subject ="";
+        					String content ="";
+        					subject = "Thank you for registering on Advisor Circuit";
+        					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("USER_REGISTRATION_VERIFICATION_LINK"), userId)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+        					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
+        					mail.start();
+        					String subject1= "A New User Sign Up!";
+        					String content1 = "Hi, <br><br> A new user has signed up with us. Following are the details: <br>Full Name : "+fullname+"<br>Email Id : " +email+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+        					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));
+        					mail1.start();
+        					request.getSession().setAttribute("userId",userId);
+        					request.getSession().setAttribute("email", email);
+        					response.sendRedirect("userdashboard?type=signup");
+    					}
+
     				}
     				
     				
@@ -129,7 +136,7 @@ public class RegistrationController extends HttpServlet {
     					String subject ="";
     					String content ="";
     					subject = "Thank you for registering on Advisor Circuit";
-    					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+prop.getProperty("ADVISOR_REGISTRATION_VERIFICATION_LINK")+advisorId+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+    					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("ADVISOR_REGISTRATION_VERIFICATION_LINK"), advisorId)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
     					mail.start();
     					String subject1= "A New Advisor Sign Up!";

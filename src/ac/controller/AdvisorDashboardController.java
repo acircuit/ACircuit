@@ -61,6 +61,10 @@ public class AdvisorDashboardController extends HttpServlet {
 			FeedDAO reviewFeeds = new FeedDAO();
 			reviewActivities = reviewFeeds.GetReviewsFeeds();
 			
+			List<ActivityDTO> answerActivities = new ArrayList<ActivityDTO>();
+			FeedDAO answerFeeds = new FeedDAO();
+			answerActivities = answerFeeds.GetAnswerFeeds();
+			
 			for(ActivityDTO activity : activities){
 			  for(ActivityDTO question : questionActivities){
 				  if(question.getFeedId() == activity.getFeedId()){
@@ -80,6 +84,20 @@ public class AdvisorDashboardController extends HttpServlet {
 					  activity.setImage(review.getImage());
 					  activity.setReview(review.getReview());
 					  activity.setReviewPostedOn(review.getReviewPostedOn()); 
+				  }
+			  }
+			  
+			  for(ActivityDTO answer : answerActivities){
+				  if(answer.getFeedId() == activity.getFeedId()){
+					  activity.setQuestionId(answer.getQuestionId());
+					  activity.setQuestion(answer.getQuestion());
+					  activity.setCategory(answer.getCategory());
+					  activity.setSubcategory(answer.getSubcategory());
+					  activity.setPostedon(answer.getPostedon());
+					  activity.setAdvisorName(answer.getAdvisorName());
+					  activity.setImage(answer.getImage());
+					  activity.setAnswer(answer.getAnswer());
+					  activity.setAnswerpostedon(answer.getAnswerpostedon());
 				  }
 			  }
 				

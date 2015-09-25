@@ -13,7 +13,14 @@ public class ActivityDTO {
 	private String question;
 	private String subcategory;
 	private Date questionPostedOn;
+	private String postedon;
 	
+	public String getPostedon() {
+		return postedon;
+	}
+	public void setPostedon(String postedon) {
+		this.postedon = postedon;
+	}
 	//Reviews feed
 	private int reviewId;
 	private String userName;
@@ -25,9 +32,24 @@ public class ActivityDTO {
 	private Date reviewPostedOn;
 	
 	
+	private String answer;
+	private String answerpostedon;
 	
 	
 	
+	
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public String getAnswerpostedon() {
+		return answerpostedon;
+	}
+	public void setAnswerpostedon(String answerpostedon) {
+		this.answerpostedon = answerpostedon;
+	}
 	public String getImage() {
 		return image;
 	}

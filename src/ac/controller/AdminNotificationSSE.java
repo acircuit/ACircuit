@@ -1,4 +1,4 @@
-package ac.util;
+package ac.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,45 +13,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
 import org.apache.log4j.Logger;
 
-import ac.dao.UserNotificationDAO;
+import ac.dao.AdminNotificationDAO;
 import ac.dto.NotificationDTO;
 
 /**
- * Servlet implementation class UserNotificationSSE
+ * Servlet implementation class AdminNotificationSSE
  */
-@WebServlet("/UserNotificationSSE")
-public class UserNotificationSSE extends HttpServlet {
+@WebServlet("/AdminNotificationSSE")
+public class AdminNotificationSSE extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(UserNotificationSSE.class);         
+	private static final Logger logger = Logger.getLogger(AdminNotificationSSE.class);         
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Entered doGet method of UserNotificationSSE");
+		logger.info("Entered doGet method of AdvisorNotificationSSE");
 		Boolean isError = false;
-		int userId = 0;
+		Boolean isAdmin = false;
 		try{
-			userId = (int) request.getSession().getAttribute("userId"); 	        
+	    isAdmin = (Boolean) request.getSession().getAttribute("admin"); 
 		}catch(Exception e){
-			response.sendRedirect("Error");
 			isError =true;
+			response.sendRedirect("Error");
 		}
-		if(!isError){
+		if(!isError && isAdmin != null && isAdmin){
         response.setContentType("text/event-stream");
         response.setCharacterEncoding("UTF-8");
+        response.setHeader("Connection", "keep-alive");
+        response.setHeader("cache-control", "no-cache"); 
  
         PrintWriter writer = response.getWriter();
 		List<NotificationDTO> notify = new ArrayList<NotificationDTO>();
-        UserNotificationDAO user = new UserNotificationDAO();
-        notify = user.GetNotifications(userId);
+        AdminNotificationDAO admin = new AdminNotificationDAO();
+        notify = admin.GetNotifications();
         String data="";
         int count = 0;
+        String id = "";
         for (NotificationDTO notificationDTO : notify) {
         	if(!notificationDTO.getIsPrevious()){
         		data = data + "<a href='"+notificationDTO.getHref()+"' class='list-group-item'>"+notificationDTO.getComment()+"<span class='badge'>"+new SimpleDateFormat("dd-MMM-yyyy' 'h:mm a").format(new Date(notificationDTO.getDate().getTime()))+"</span></a>";
@@ -61,7 +62,9 @@ public class UserNotificationSSE extends HttpServlet {
 			}else{
 				data = data + "<li style='color:#ffffff;border-bottom: 1px solid #dddddd;'><a href='"+notificationDTO.getHref()+"' ><p align='left' style='margin-bottom: 0px;font-size:16px;color:black'>"+notificationDTO.getComment()+"<br><span class='date'>"+new SimpleDateFormat("dd-MMM-yyyy' 'h:mm a").format(new Date(notificationDTO.getDate().getTime()))+"</span></p></a></li>";				}
 		}
-
+        if(id.length() > 1){
+        	id= id.substring(0, id.length()-1);
+        }
         writer.write("event:notify\n");
         writer.write("data: " + data + "\n\n");
         writer.write("event:count\n");
@@ -73,9 +76,8 @@ public class UserNotificationSSE extends HttpServlet {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        writer.close();
 		}
-      	logger.info("Exit doGet method of UserNotificationSSE");
+      	logger.info("Exit doGet method of AdvisorNotificationSSE");
 	}
 
 	/**

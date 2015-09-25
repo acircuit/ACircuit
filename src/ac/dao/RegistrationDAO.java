@@ -179,4 +179,58 @@ public class RegistrationDAO {
 		return advisorId;
 	}
 	
+	public Boolean InsertUserWallet(int userId) {
+		logger.info("Entered InsertUserWallet method of RegistrationDAO");
+		int result = 0;
+		Boolean isCommit = false;
+
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into userwallet"
+					+ "(USER_ID,AMOUNT) values"
+					+ "(?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userId);
+		    pstmt.setDouble(2, 0);
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				conn.commit();
+				isCommit = true;
+			}else{
+				isCommit = false;
+
+			}
+			logger.info("Exit InsertUserWallet method of RegistrationDAO");
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("InsertUserWallet method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("InsertUserWallet method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("InsertUserWallet method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("InsertUserWallet method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("InsertUserWallet method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return isCommit;
+	}
+	
 }

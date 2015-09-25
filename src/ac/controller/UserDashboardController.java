@@ -51,6 +51,7 @@ public class UserDashboardController extends HttpServlet {
 			activities = feeds.Getfeeds();
 			List<Integer> questionsFeedIds = new ArrayList<Integer>();
 			List<Integer> reviewsFeedIds = new ArrayList<Integer>();
+			List<Integer> answerFeedIds = new ArrayList<Integer>();
 
 			List<ActivityDTO> questionActivities = new ArrayList<ActivityDTO>();
 			FeedDAO questionFeeds = new FeedDAO();
@@ -59,6 +60,10 @@ public class UserDashboardController extends HttpServlet {
 			List<ActivityDTO> reviewActivities = new ArrayList<ActivityDTO>();
 			FeedDAO reviewFeeds = new FeedDAO();
 			reviewActivities = reviewFeeds.GetReviewsFeeds();
+			
+			List<ActivityDTO> answerActivities = new ArrayList<ActivityDTO>();
+			FeedDAO answerFeeds = new FeedDAO();
+			answerActivities = answerFeeds.GetAnswerFeeds();
 			
 			for(ActivityDTO activity : activities){
 			  for(ActivityDTO question : questionActivities){
@@ -81,7 +86,19 @@ public class UserDashboardController extends HttpServlet {
 					  activity.setReviewPostedOn(review.getReviewPostedOn()); 
 				  }
 			  }
-				
+			  for(ActivityDTO answer : answerActivities){
+				  if(answer.getFeedId() == activity.getFeedId()){
+					  activity.setQuestionId(answer.getQuestionId());
+					  activity.setQuestion(answer.getQuestion());
+					  activity.setCategory(answer.getCategory());
+					  activity.setSubcategory(answer.getSubcategory());
+					  activity.setPostedon(answer.getPostedon());
+					  activity.setAdvisorName(answer.getAdvisorName());
+					  activity.setImage(answer.getImage());
+					  activity.setAnswer(answer.getAnswer());
+					  activity.setAnswerpostedon(answer.getAnswerpostedon());
+				  }
+			  }
 				
 			}
 			//Getting wallet amount

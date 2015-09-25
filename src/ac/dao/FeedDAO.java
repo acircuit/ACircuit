@@ -20,6 +20,8 @@ import org.apache.log4j.Logger;
 
 import ac.dto.ActivityDTO;
 import ac.dto.AdvisorDTO;
+import ac.dto.AnswerDTO;
+import ac.dto.QuestionsDTO;
 import ac.dto.SessionDTO;
 import ac.jdbc.ConnectionFactory;
 
@@ -293,6 +295,147 @@ public class FeedDAO {
 			}
 		}
 	return reviewActivities;
+	}
+	
+	
+	public QuestionsDTO GetQuestionDetails(String qid){
+		logger.info("Entered GetQuestionDetails method of FeedDAO");
+		QuestionsDTO question = new QuestionsDTO();
+		 SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM questions WHERE  Q_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, qid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				question.setQuestionId(results.getInt("Q_ID"));
+				question.setQuestion(results.getString("QUESTION"));
+				question.setPostedOnDate(sdf.format(results.getTimestamp("TIMESTAMP")));
+				question.setCategory(results.getString("CATEGORY"));
+				question.setSubcategory(results.getString("SUBCATEGORY"));
+				
+			}
+		} catch (SQLException e) {
+			logger.error("GetQuestionDetails method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetQuestionDetails method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetQuestionDetails method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetQuestionDetails method of FeedDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetQuestionDetails method of FeedDAO");
+		return question;
+	}
+	
+	public Boolean InsertAnswerFeed(int feedId,QuestionsDTO question , AdvisorDTO advisor, String answer){
+		logger.info("Entered InsertAnswerFeed method of FeedDAO");
+		Boolean isCommit = false;
+		SimpleDateFormat sdf=new SimpleDateFormat("dd MMM yyyy");
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into answerfeed"+"(FEED_ID,Q_ID,QUESTION,CATEGORY,SUBCATEGORY,POSTED_ON,ADVISOR_NAME,ADVISOR_IMAGE,ANSWER,ANSWER_POSTED_ON) values" + "(?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, feedId);
+			pstmt.setInt(2, question.getQuestionId());
+            pstmt.setString(3, question.getQuestion()); 
+            pstmt.setString(4, question.getCategory()); 
+            pstmt.setString(5, question.getSubcategory());
+            pstmt.setString(6, question.getPostedOnDate()); 
+            pstmt.setString(7, advisor.getName()); 
+            pstmt.setString(8, advisor.getImage());
+            pstmt.setString(9, answer);
+            pstmt.setString(10, sdf.format(new Date()));
+
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch (SQLException e) {
+			    try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					logger.error("InsertAnswerFeed method of FeedDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("InsertAnswerFeed method of FeedDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("InsertAnswerFeed method of FeedDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("InsertAnswerFeed method of FeedDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("InsertAnswerFeed method of FeedDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			logger.info("Entered InsertAnswerFeed method of FeedDAO");
+			return isCommit;
+
+		}
+	
+	public List<ActivityDTO> GetAnswerFeeds(){
+		logger.info("Entered GetAnswerFeeds method of FeedDAO");
+		List<ActivityDTO> answerActivities = new ArrayList<ActivityDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+
+			String query = "SELECT * FROM answerfeed";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				ActivityDTO answerActivity = new ActivityDTO();
+				answerActivity.setFeedId(results.getInt("FEED_ID"));
+				answerActivity.setQuestionId(results.getInt("Q_ID"));
+				answerActivity.setQuestion(results.getString("QUESTION"));
+				answerActivity.setSubcategory(results.getString("SUBCATEGORY"));
+				answerActivity.setCategory(results.getString("CATEGORY"));
+				answerActivity.setPostedon(results.getString("POSTED_ON"));
+				answerActivity.setAdvisorName(results.getString("ADVISOR_NAME"));
+				answerActivity.setImage(results.getString("ADVISOR_IMAGE"));
+				answerActivity.setAnswer(results.getString("ANSWER"));
+				answerActivity.setAnswerpostedon(results.getString("ANSWER_POSTED_ON"));
+				answerActivities.add(answerActivity);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAnswerFeeds method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAnswerFeeds method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAnswerFeeds method of FeedDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAnswerFeeds method of FeedDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return answerActivities;
 	}
 	
 	
