@@ -277,14 +277,14 @@ pageContext.setAttribute("type", type);
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>
-		   			<div  class="related col-xs-12">
-	                    <div class="rel-section">
-	                        <h2 class="mostviewed">MOST VIEWED QUESTIONS</h2>
+		   			<div  class="related col-xs-12 ">
+	                    <div class="rel-section mostviewed">
+	                        <h2 >MOST VIEWED QUESTIONS</h2>
 	                    </div>
 					</div>
-					<div class="related col-xs-12">
-                    <div class="rel-section">
-                        <h2 class="poptags">POPULAR CATEGORIES</h2>
+					<div class="related col-xs-12 ">
+                    <div class="rel-section poptags">
+                        <h2 >POPULAR CATEGORIES</h2>
                     </div>
 	   			</div>
    			</div>
@@ -416,7 +416,7 @@ $(document).ready(function () {
 	
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
+        data : {},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {

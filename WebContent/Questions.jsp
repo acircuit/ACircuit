@@ -115,19 +115,15 @@
 	   			
 	   			<div class="col-xs-3 hidden-xs">
 		   			<div  class="related col-xs-12">
-	                    <div class="rel-section">
+	                    <div class="rel-section mostviewed">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                          <c:forEach items="${mostViewedQuestions}" var="viewed">
-	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
-	                          </c:forEach>
+	                          
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
-                    <div class="rel-section">
+                    <div class="rel-section poptags ">
                         <h2>POPULAR CATEGORIES</h2>
-                        <c:forEach items="${popCats}" var="pop">
-                            <a class="rel-category">${pop}</a>
-	                    </c:forEach>
+                        
                     </div>
 	   			</div>
    			</div>
@@ -186,6 +182,41 @@
 								  </div>
 								</div>
 <script>
+
+$(document).ready(function () {
+	$.ajax({
+        url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
+        data : {},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		if(value.type == "question"){
+              		MostViewedQuestionsCard(value);
+      			}else if (value.type == "category") {
+      				Populartags(value);
+				}
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
+	
+});
+function MostViewedQuestionsCard(value){
+	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
+	 $('.mostviewed').append(html);
+} 
+function Populartags(value){
+	var html = '<a class="rel-category">'+value.category+'</a>';
+	 $('.poptags').append(html);
+}
 function questioncard(value){
 	var html='<div class="each-question-div row" id="">'
 			+'<div class="col-xs-12 tag-div">'
