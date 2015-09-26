@@ -41,6 +41,7 @@
 <%
   String userverification =  request.getParameter("userverification");
   UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails");
+  String profileUpdate = (String)request.getAttribute("profileUpdate");
 pageContext.setAttribute("userverification", userverification);
 
 %>
@@ -87,7 +88,7 @@ pageContext.setAttribute("userverification", userverification);
 		   				</div>
 		   				<span class="profile-form-head">Personal Details</span>
 		   				<c:choose>
-		   				   <c:when test="${userDetails.getFullName() != null &&  userDetails.getGender() != null && userDetails.getOccupation()}">
+		   				   <c:when test="${userDetails.getFullName() != null &&  userDetails.getGender() != null && userDetails.getOccupation() != null}">
 		   				   <form class="profile-form" action="userprofile" method="post">
 		   				        <div class="col-xs-12 no-padding">
 		   							<div class="col-xs-6 no-padding">
@@ -108,21 +109,21 @@ pageContext.setAttribute("userverification", userverification);
 												       <c:choose>
 												          <c:when test="${userDetails.getGender().equals('male')}">
 												          <div class="col-xs-6 no-padding">
-						                                        <input type="radio" id="radio01" name="radio" checked="checked"/>
+						                                        <input type="radio" id="radio01" name="radiomale" value="male" checked="checked"/>
   																<label for="radio01"><span></span>Male</label>
 													 		</div>
 													 		<div class="col-xs-6 no-padding">
-						                                       <input type="radio" id="radio02" name="radio" />
+						                                       <input type="radio" id="radio02" name="radiofemale" value="female" />
 															 <label for="radio02"><span></span>Female</label>
 													 		</div>
 												          </c:when>
 												          <c:otherwise>
 												          <div class="col-xs-6 no-padding">
-						                                        <input type="radio" id="radio01" name="radio" />
+						                                        <input type="radio" id="radio01" name="radiomale" value="male" />
   																<label for="radio01"><span></span>Male</label>
 													 		</div>
 													 		<div class="col-xs-6 no-padding">
-						                                       <input type="radio" id="radio02" name="radio" checked="checked"/>
+						                                       <input type="radio" id="radio02" name="radiofemale" value="female" checked="checked"/>
 															 <label for="radio02"><span></span>Female</label>
 													 		</div>
 												          </c:otherwise>
@@ -163,7 +164,7 @@ pageContext.setAttribute("userverification", userverification);
 													     <label class="col-xs-3 no-padding form-label"></label>
 													      <div class="col-xs-9">
 						                                  
-						                                      	<button type="button" class="btn red-button "  style="width: 90px;margin-right: 10px;">Save</button>
+						                                      	<button type="submit" class="btn red-button "  style="width: 90px;margin-right: 10px;">Save</button>
 														
 													 		</div>
 											</div>
@@ -190,11 +191,11 @@ pageContext.setAttribute("userverification", userverification);
 												     <label class="col-xs-3 no-padding form-label">Gender</label>
 												       <div class="col-xs-9 ">
 						                                     <div class="col-xs-6 no-padding">
-						                                        <input type="radio" id="radio01" name="radio" />
+						                                        <input type="radio" id="radio01" name="radiomale" value="male" />
   																<label for="radio01"><span></span>Male</label>
 													 		</div>
 													 		<div class="col-xs-6 no-padding">
-						                                       <input type="radio" id="radio02" name="radio" />
+						                                       <input type="radio" id="radio02" name="radiofemale" value="female"/>
 															 <label for="radio02"><span></span>Female</label>
 													 		</div>
 												 		</div>
@@ -231,7 +232,7 @@ pageContext.setAttribute("userverification", userverification);
 													     <label class="col-xs-3 no-padding form-label"></label>
 													      <div class="col-xs-9">
 						                                  
-						                                      	<button type="button" class="btn red-button "  style="width: 90px;margin-right: 10px;">Save</button>
+						                                      	<button type="submit" class="btn red-button "  style="width: 90px;margin-right: 10px;">Save</button>
 														
 													 		</div>
 											</div>
@@ -329,10 +330,18 @@ $(document).ready(function () {
 	} */
 	starinputconversion();
 	if("${userverification.equals('true') }"){
+		debugger;
 		document.getElementById("userverificationsuccess").style.display = "block";
 	}else{
 		document.getElementById("userverificationsuccess").style.display = "none";
 	}
+	if("${profileUpdate.equals('true') }"){
+		document.getElementById("userprofileupdates").style.display = "block";
+	}else{
+		document.getElementById("userprofileupdates").style.display = "none";
+	}
+	
+	
 	
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)

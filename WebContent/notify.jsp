@@ -38,6 +38,10 @@
 			<span class="notify-text">Error: The code entered is incorrect.</span>
 			<span class="cross-noti">X</span>
 		</div>
+		<div class="notify-text-div" id="userprofileupdates" style="display: none" >
+			<span class="notify-text">Success: You have successfully updated your profile. <a href="advisors?category=all">Click Here </a>to book Sessions.</span>
+			<span class="cross-noti">X</span>
+		</div>
 	</div>
 </div>
 <script>

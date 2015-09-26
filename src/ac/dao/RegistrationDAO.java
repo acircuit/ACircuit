@@ -233,4 +233,58 @@ public class RegistrationDAO {
 		return isCommit;
 	}
 	
+	public Boolean  UpdateUserProfile(String name,String gender,String occupation,String phone,int userId) { 
+		logger.info("Entered UpdateUserProfile method of RegistrationDAO");
+		Boolean isCommit = false ;
+		String query;
+        try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			if(phone != null){
+				query ="UPDATE userdetails SET FULL_NAME=?,GENDER=?,OCCUPATION=?,PHONE_NUMBER=? WHERE USER_ID = ? ";
+			}else{
+				query ="UPDATE userdetails SET FULL_NAME=?,GENDER=?,OCCUPATION=? WHERE USER_ID = ? ";
+            }
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, gender);
+			pstmt.setString(3,occupation);
+			if(phone != null){
+				pstmt.setString(4, phone);
+				pstmt.setInt(5, userId);
+			}else{
+				pstmt.setInt(4, userId);
+			}
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateUserProfile method of RegistrationDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateUserProfile method of RegistrationDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateUserProfile method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateUserProfile method of RegistrationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateUserProfile method of RegistrationDAO");
+		return isCommit;
+	}
+	
 }
