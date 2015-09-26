@@ -447,7 +447,14 @@
     <url-pattern>/newpassword</url-pattern>
   </servlet-mapping>
   <servlet>
-
+    <servlet-name>userprofile</servlet-name>
+    <servlet-class>ac.controller.UserProfileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userprofile</servlet-name>
+    <url-pattern>/userprofile</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
@@ -496,14 +503,14 @@
     <url-pattern>/becomeanadvisor</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>userprofile</servlet-name>
+    <servlet-name>usereditprofile</servlet-name>
     <jsp-file>/userprofile.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>userprofile</servlet-name>
-    <url-pattern>/userprofile</url-pattern>
+    <servlet-name>usereditprofile</servlet-name>
+    <url-pattern>/usereditprofile</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>advisorcreateprofile</servlet-name>
     <jsp-file>/profile.jsp</jsp-file>
   </servlet>
@@ -519,7 +526,7 @@
     <servlet-name>reset</servlet-name>
     <url-pattern>/reset</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>deactivated</servlet-name>
     <jsp-file>/deactivated.jsp</jsp-file>
   </servlet>

@@ -9,11 +9,25 @@ public class UserDetailsDTO {
 	String fullName;
 	String phone;
 	String age;
+	private String gender;
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	String nationality;
 	String occupation;
 	String image;
 	Timestamp dateOfRegistration;
 	String dor;
+	private Boolean isVerified;
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
 	public int getRefCount() {
 		return refCount;
 	}

@@ -26,6 +26,18 @@
 			<span class="notify-text">Success : You have successfully verified your account. Please complete your registration process b completing our profile.. </span>
 			<span class="cross-noti">X</span>
 		</div>
+		<div class="notify-text-div" id="verifytobook" style="display: none" >
+			<span class="notify-text">Info: Please verify your account to book sessions.<a onclick="ResendLink()">Resend Mail</a></span>
+			<span class="cross-noti">X</span>
+		</div>
+		<div class="notify-text-div" id="phoneverified" style="display: none" >
+			<span class="notify-text">Success: You have successfully verified your phone no.</span>
+			<span class="cross-noti">X</span>
+		</div>
+		<div class="notify-text-div" id="incorrectverificationcode" style="display: none" >
+			<span class="notify-text">Error: The code entered is incorrect.</span>
+			<span class="cross-noti">X</span>
+		</div>
 	</div>
 </div>
 <script>

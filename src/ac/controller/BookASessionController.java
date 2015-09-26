@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.BookASessionDAO;
+import ac.dao.SessionDAO;
 import ac.util.SendMail;
 import ac.util.SetCV;
 
@@ -44,7 +45,8 @@ public class BookASessionController extends HttpServlet {
 		String slot3Time = request.getParameter("slot3time");
         String approxprice = request.getParameter("approxprice");
         String aId = request.getParameter("aId");
-        System.out.println(query);
+        String uid = request.getParameter("uid");
+        String phone = request.getParameter("phone");
 		int userId = 0;
 		int sessionId = 0;
 		Boolean isError =false;
@@ -58,6 +60,11 @@ public class BookASessionController extends HttpServlet {
         		&& aId != null && !aId.isEmpty() && !mode.isEmpty() && !duration.isEmpty() && !query.isEmpty() && !slot1Date.isEmpty() && !slot2Date.isEmpty()
         		&& !slot3Date.isEmpty() && !slot1Time.isEmpty() && !slot2Time.isEmpty() && !slot3Time.isEmpty() && !approxprice.isEmpty()
         		){
+        	if(uid != null && phone != null){
+        	     //Entering the userphone number
+        	     SessionDAO user = new SessionDAO();
+        	     user.InsertUserPhone(phone,uid);
+        	}
         	
         	// set the CV in the required folder and retrieving the absolute
 			// URL
@@ -69,6 +76,8 @@ public class BookASessionController extends HttpServlet {
 	        	sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	}
         	if(sessionId != 0){
+        	
+        		
         		Properties prop = new Properties();
         		InputStream resourceAsStream = Thread.currentThread()
         				.getContextClassLoader()

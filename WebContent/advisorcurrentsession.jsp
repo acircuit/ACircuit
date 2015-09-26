@@ -82,10 +82,12 @@ pageContext.setAttribute("advName", advName);
 					   		 <span class="status"><i class="fa fa-check"></i> Session on schedule</span>
 					   		 </c:if>
 		   		    		</div>
-		   		    		<div class="col-xs-5 no-padding" style="padding-top: 21px;">
-		   		    			<span class="due-in-text">Due in</span><br>
-		   		    			<span class="due-in-time">02:45 hrs</span>
-		   		    		</div>
+		   		    		 <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE') }">
+		   		    		   <div class="col-xs-5 no-padding" style="padding-top: 21px;">
+		   		    			   <span class="due-in-text">Due in</span><br>
+		   		    			   <span class="due-in-time">${sessionDetails.getDays()} days and ${sessionDetails.getHours()}:${sessionDetails.getMinutes()} hrs</span>
+		   		    		   </div>
+		   		    		</c:if>   
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
 							   		<span class="btext name">${advName}</span> <span class="name-other-text">| User Email/summary background</span><br>
@@ -93,7 +95,8 @@ pageContext.setAttribute("advName", advName);
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
-					   			<c:if test="${sessionDetails.getMode().equals('video') && sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
+					   			
+					   			<c:if test="${sessionDetails.getMode().equals('video') && sessionDetails.getStatus().equals('SESSION ON SCHEDULE') && sessionDetails.getDays() == 0 && sessionDetails.getHours() == 0 && sessionDetails.getMinutes() == 0}">
 					   			        <a href="AdvisorAccessTokenController?name=${advName}" target="blank" class="btn submit-button">Join Conference</a>
 					   			</c:if>
 

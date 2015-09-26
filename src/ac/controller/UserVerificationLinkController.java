@@ -37,7 +37,8 @@ public class UserVerificationLinkController extends HttpServlet {
 			 String email = usr.GetUserEmail(uId);
 			 request.getSession().setAttribute("userId",Integer.valueOf(uId));
 			 request.getSession().setAttribute("email", email);
-			 response.sendRedirect("userprofile?userverification=true");
+			 request.getSession().setAttribute("isVerified",true);
+			 response.sendRedirect("usereditprofile?userverification=true");
 		 }
 		logger.info("Entered doPost method of RegistrationController");
 	}

@@ -84,12 +84,23 @@ public class AdvisorProfileController extends HttpServlet {
 			List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
             SessionDAO question = new SessionDAO();
             questions = question.GetQuestions(qids);
-			
+			Boolean isPhone =false;
+			int userId = (int) request.getSession().getAttribute("userId");
+			if(userId != 0){
+				SessionDAO user = new SessionDAO();
+				UserDetailsDTO userDetails = user.GetUserDetails(userId);
+				if(userDetails.getPhone() != null && !userDetails.getPhone().equals("")){
+					isPhone = true;
+				}
+			}
+
+            
 			List<UserDetailsDTO> userDetails = new ArrayList<UserDetailsDTO>();
 			  //Getting user details
 			  SessionDAO usrDetails = new SessionDAO();
 			  userDetails = usrDetails.GetUserDetailsForReviews(uIds);
      		 request.setAttribute("advisor", advisor);
+     		request.setAttribute("isPhone", isPhone);
      		request.setAttribute("reviewCount", reviewCount);
      		request.setAttribute("advisorReviews", advisorReviews);
      		request.setAttribute("userDetails", userDetails);

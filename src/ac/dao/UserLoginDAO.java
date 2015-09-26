@@ -31,7 +31,7 @@ public class UserLoginDAO {
 
 				conn =ConnectionFactory.getConnection();
 				conn.setAutoCommit(false);
-				String query ="SELECT USER_ID,FULL_NAME,ISACTIVE,EMAIL FROM userdetails WHERE EMAIL = ? AND PASSWORD = ? AND ISACTIVE=?";
+				String query ="SELECT USER_ID,FULL_NAME,ISACTIVE,EMAIL,ISVERIFIED FROM userdetails WHERE EMAIL = ? AND PASSWORD = ? AND ISACTIVE=?";
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1,username);
 				pstmt.setString(2,securedPassword);
@@ -42,6 +42,7 @@ public class UserLoginDAO {
 			    	user.setFullName(results.getString("FULL_NAME"));
 			    	user.setIsActive(results.getBoolean("ISACTIVE"));
 			    	user.setEmail(results.getString("EMAIL"));
+			    	user.setIsVerified(results.getBoolean("ISVERIFIED"));
 			    }
 			logger.info("Exit CheckLoginDetails method of UserLoginDAO");
 			}catch(Exception e){

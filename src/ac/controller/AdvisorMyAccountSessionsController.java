@@ -1,6 +1,8 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +20,9 @@ import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
+import ac.dto.TimeDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetTimeLeftForSession;
 
 /**
  * Servlet implementation class AdvisorMyAccountSessionsController
@@ -48,6 +52,21 @@ public class AdvisorMyAccountSessionsController extends HttpServlet {
 			  //Getting all sessions for the user 
 			  SessionDAO session = new SessionDAO();
 			  currentSessions = session.GetCurrentSessionDetailsUsingAdvisorId(advisorId);
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			  for(SessionDTO ses : currentSessions){
+				  if(ses.getAcceptedDate() != null){
+					  String accDate = sdf.format(ses.getAcceptedDate());
+					  String time = ses.getAcceptedTime();
+					  String timestamp = accDate+" "+ time+":00";
+					  Timestamp ts = Timestamp.valueOf(timestamp);
+					  GetTimeLeftForSession  time1 = new GetTimeLeftForSession();
+				      TimeDTO left = time1.getTimeLeftForSession(ts);
+					  ses.setHours(String.format("%02d", left.getHours()));
+					  ses.setDays(String.format("%02d", left.getDay()));
+					  ses.setMinutes(String.format("%02d", left.getMinutes()));
+				  }
+				
+			  }
 			  //Getting user Details
 			  SessionDAO user = new SessionDAO();
 			  List<UserDetailsDTO> userDetails= user.GetUserDetails(currentSessions);

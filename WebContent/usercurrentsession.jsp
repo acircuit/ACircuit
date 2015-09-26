@@ -79,10 +79,12 @@ pageContext.setAttribute("sess", sess);
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
 		   		    		</div>
-		   		    		<div class="col-xs-5 no-padding" style="padding-top: 21px;">
-		   		    			<span class="due-in-text">Due in</span><br>
-		   		    			<span class="due-in-time">02:45 hrs</span>
-		   		    		</div>
+				            <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE') }">
+		   		    		   <div class="col-xs-5 no-padding" style="padding-top: 21px;">
+		   		    			   <span class="due-in-text">Due in</span><br>
+		   		    			   <span class="due-in-time">${sessionDetails.getDays()} days and ${sessionDetails.getHours()}:${sessionDetails.getMinutes()} hrs</span>
+		   		    		   </div>
+		   		    		</c:if>   
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-12 col-sm-7 no-padding">
 							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
@@ -90,16 +92,19 @@ pageContext.setAttribute("sess", sess);
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
-					   			<div class="col-xs-12 col-sm-5 no-padding" style="padding-top: 40px;">
-					   			<c:if test="${sessionDetails.getMode().equals('phone')}">
+
+					   			<c:if test="${sessionDetails.getDays() == 0 && sessionDetails.getHours() == 0 && sessionDetails.getMinutes() == 0 }">
+					   			    <div class="col-xs-5 no-padding" style="padding-top: 40px;">
+					   			    <c:if test="${sessionDetails.getMode().equals('phone')}">
 					   					<button type="button" class="btn submit-button" onclick="CallTwilio();">Join call</button>
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
-					   			</c:if>
-					   			<c:if test="${sessionDetails.getMode().equals('video')}">
+					   			    </c:if>
+					   			    <c:if test="${sessionDetails.getMode().equals('video')}">
 					   			        <a href="UserAccessTokenController?name=${userDetails.getFullName()}&sid=${sessionDetails.getSessionid()}" target="blank" class="btn submit-button">Join Conference</a>
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
+					   			   </c:if>
+					   			   </div>
 					   			</c:if>
-					   			</div>
 					   		</div>
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>

@@ -1,6 +1,8 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +16,9 @@ import org.apache.log4j.Logger;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
+import ac.dto.TimeDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetTimeLeftForSession;
 
 /**
  * Servlet implementation class AdvisorMyAccountCurrentSessionController
@@ -45,7 +49,18 @@ public class AdvisorMyAccountCurrentSessionController extends HttpServlet {
 			  //Getting the session details for the page
 			  SessionDAO session = new SessionDAO();
 			  SessionDTO sessionDetails= session.GetSessionDetails(sid);
-			
+			  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			  if(sessionDetails.getAcceptedDate() != null){
+				  String accDate = sdf.format(sessionDetails.getAcceptedDate());
+				  String time = sessionDetails.getAcceptedTime();
+				  String timestamp = accDate+" "+ time+":00";
+				  Timestamp ts = Timestamp.valueOf(timestamp);
+				  GetTimeLeftForSession  time1 = new GetTimeLeftForSession();
+			      TimeDTO left = time1.getTimeLeftForSession(ts);
+			      sessionDetails.setHours(String.format("%02d", left.getHours()));
+			      sessionDetails.setDays(String.format("%02d", left.getDay()));
+			      sessionDetails.setMinutes(String.format("%02d", left.getMinutes()));
+			  }
 			  //Getting user details 
 			  SessionDAO user = new SessionDAO();
 			  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());

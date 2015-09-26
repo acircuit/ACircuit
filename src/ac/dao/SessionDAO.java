@@ -105,7 +105,7 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT FULL_NAME,IMAGE,EMAIL,USER_ID,PHONE_NUMBER FROM userdetails WHERE USER_ID=?";
+			String query ="SELECT FULL_NAME,IMAGE,EMAIL,USER_ID,PHONE_NUMBER,GENDER,OCCUPATION FROM userdetails WHERE USER_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, uid);
 			ResultSet results = pstmt.executeQuery();
@@ -115,6 +115,8 @@ public class SessionDAO {
                 dto.setEmail(results.getString("EMAIL"));
                 dto.setUserId(results.getInt("USER_ID"));
                 dto.setPhone(results.getString("PHONE_NUMBER"));
+                dto.setOccupation(results.getString("OCCUPATION"));
+                dto.setGender(results.getString("GENDER"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetUserDetails method of SessionDAO threw error:"+e.getMessage());
@@ -681,6 +683,8 @@ public class SessionDAO {
 				session.setMode(results.getString("MODE"));
 				session.setQuery(results.getString("QUERY"));
 				session.setStatus(results.getString("STATUS"));
+				session.setAcceptedDate(results.getDate("ACCEPTED_DATE"));
+				session.setAcceptedTime(results.getString("ACCEPTED_TIME"));
 				sessions.add(session);
 
 			}
@@ -2010,6 +2014,49 @@ public class SessionDAO {
 			}
 		}
 	return questions;
+	}
+	
+	public Boolean  InsertUserPhone(String phone,String uid) { 
+		logger.info("Entered InsertUserPhone method of SessionDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE userdetails SET PHONE_NUMBER=? WHERE USER_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, phone);
+			pstmt.setString(2, uid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("InsertUserPhone method of SessionDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("InsertUserPhone method of SessionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("InsertUserPhone method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("InsertUserPhone method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit InsertUserPhone method of SessionDAO");
+		return isCommit;
 	}
 	
 	

@@ -54,10 +54,12 @@
                    List<ReviewsDTO> advisorReviews = (List<ReviewsDTO>)request.getAttribute("advisorReviews");
                    List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
                    List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-
+                   Boolean isPhone = (Boolean) request.getAttribute("isPhone");
                    Integer reviewCount = (Integer) request.getAttribute("reviewCount");
                    Integer answerCount = (Integer) request.getAttribute("answerCount");
                    String advisorId = request.getParameter("a");
+           	       Boolean isUserVerified = (Boolean) session.getAttribute("isVerified");
+
        			   int userId = 0;
        			   if(request.getSession().getAttribute("userId") != null){
        				userId = (Integer)request.getSession().getAttribute("userId");
@@ -75,6 +77,7 @@
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -305,8 +308,9 @@
 								    		<span class="modal-head-text">Book A Session</span>
 								    	</div>
 								    	<div class="modal-main-body row">
-								    		<span class="modal-body-text">Session with Charles Dixon</span>
+								    		<span class="modal-body-text">Session with Charles Dixon${isPhone}</span>
 								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession" id="book-session-form">
+								    		    
 								    			<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
 											       <div class="col-xs-9 form-group">
@@ -343,6 +347,15 @@
 				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
 											 		</div>
 											 	</div>
+											 	<c:if test="${!isPhone}">
+											 	  <input type="hidden" name="uid" value="${userId}">
+								    			  <div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Phone Number</label>
+											       <div class="col-xs-9 form-group">
+				                                       <input class="form-control" name="phone" required>
+											 		</div>
+											 	</div>
+											 	</c:if>
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Query Description</label>
 											       <div class="col-xs-9 form-group">
@@ -558,8 +571,13 @@ function GetAdvisorPrice(){
 }	
 	
 function CheckLoggedIn(){
-	if(<%=isUserLoggedIn%>){
+	if(<%=isUserLoggedIn && isUserVerified%>){
 		$('#booksession').modal('show');
+	}else if (<%=!isUserLoggedIn%>) {
+		$('#loginmodal').modal('show');
+	}
+	else if (<%=!isUserVerified%>) {
+		document.getElementById("verifytobook").style.display = "block";
 	}else{
    		$('#loginmodal').modal('show');
 	}

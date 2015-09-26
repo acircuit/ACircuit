@@ -67,7 +67,7 @@ pageContext.setAttribute("type", type);
 							<div class="user-name-info" style="text-align:center;">
 								<span class="user-name">${userDetails.getFullName()}</span><br>
 								<span class="user-email">${userDetails.getEmail()}</span><br>
-								<span class="user-settings">Edit Profile Settings</span>
+								<a href="userprofile"><span class="user-settings">Edit Profile Settings</span></a>
 							</div>
 				   		</div>
 				   	</div>
