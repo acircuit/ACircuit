@@ -82,13 +82,13 @@ public class LoginController extends HttpServlet {
 						        session.setAttribute("username",userName); 
 						        session.setAttribute("userId",uId);
 						        session.setAttribute("email", username);
-						        if(!user.getIsActive()){
-						        	
+						        if(user.getIsVerified()){
+							        session.setAttribute("isVerified", true);
 						        }else{
-						        	request.getSession().setAttribute("isLogin", "user");
-						        	response.getWriter().write("userdashboard");
-									
+							        session.setAttribute("isVerified", false);
 						        }
+					        	response.getWriter().write("userdashboard");
+						        
 							}else{
 							AdvisorDTO advisor = new AdvisorDTO();
 							AdvisorLoginDAO dao1 = new AdvisorLoginDAO();
