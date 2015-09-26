@@ -455,6 +455,14 @@
     <url-pattern>/userprofile</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>advisorprofileedit</servlet-name>
+    <servlet-class>ac.controller.AdvisorProfileEditController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>advisorprofileedit</servlet-name>
+    <url-pattern>/advisorprofileedit</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
