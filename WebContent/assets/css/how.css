@@ -1,0 +1,136 @@
+@CHARSET "ISO-8859-1";
+.main-body-how{
+	margin-top: 92px;
+	padding-top: 24px!important;
+	background-color:white;
+}
+.how-div-1{
+	    padding-bottom: 35px;
+}
+.img-div-1{
+	
+}
+.text-div-1{
+	padding-top: 185px;
+}
+.big-red-text{
+	color:#fd6d64;
+	font-family:latol;
+	font-size:42px;
+}
+.small-info-text-div1{
+	color:#4a4a4a;
+	font-family:latol;
+	font-size:15px;
+}
+.grey-div-1{
+	min-height:375px;
+	background-color:#f6f8fa;
+	padding-top:72px;
+}
+.each-div-ingrey{
+	text-align:center;
+}
+.each-div-ingrey img{
+	margin-bottom:37px;
+}
+.grey-img-head{
+	color:#4a4a4a;
+	font-family:latol;
+	font-size:18px;
+	display: block;
+    margin-bottom: 12px;
+}
+.grey-img-info-text{
+	color:#4a4a4a;
+	font-family:lato;
+	font-size:13px;
+}
+.how-steps-div{
+	    padding-top: 50px;
+    padding-bottom: 104px;
+}
+.head-div{
+	text-align:center;
+	margin-bottom: 49px;
+}
+.step-conatiner-head{
+	font-family:latobl;
+	font-size:14px;
+	color:#4a4a4a;
+}
+.head-u{
+	border-bottom:2px solid #37b7b3;
+	padding-bottom:9px;
+}
+.each-step-div{
+	margin-bottom: 25px;
+}
+.l-div{
+	padding-left:40px;
+}
+.no-span{
+	font-family:latol;
+	font-size:134px;
+	color:#37b7ae;
+}
+.step-info{
+	display: inline-block;
+    /* float: left; */
+    /* margin-top: -79px; */
+    /* margin-left: 84px; */
+    max-width: 350px;
+}
+.last-div-grey{
+	background-color:#9b9b9b;
+	min-height:347px;
+	padding-left: 53px;
+    padding-right: 59px;
+        padding-top: 50px;
+}
+.last-div-grey img{
+	widht:100%;
+}
+.last-div-content{
+	text-align:center;
+}
+.how-we-help{
+	font-family:latol;
+	font-size:16px;
+	color:#4a4a4a;
+}
+.sign-up-howp{
+	margin-top:50px;
+	margin-bottom: 35px;
+}
+.footer-div-bottom {
+    background-color: white!important;
+}
+.bordert{
+	display:none;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+
+.no-span {
+    font-size: 62px;
+}
+.text-div-1 {
+    padding-top: 13px;
+}
+.each-step-div{
+border: 1px solid lightgray;
+padding-top: 13px;
+    padding-bottom: 14px;
+    background-color: #f6f8fa;
+}
+.each-step-div img{
+	margin-bottom: 25px;
+}
+}
+@media (min-width: 320px) and (max-width: 462px) {
+	.step-info {
+    float: left;
+    margin-top: -79px;
+    margin-left: 35px;
+   }}
+

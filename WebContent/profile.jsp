@@ -93,20 +93,13 @@ cursor:pointer;
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
-												     <label class="col-xs-3 no-padding form-label">First-name</label>
+												     <label class="col-xs-3 no-padding form-label">Full name</label>
 												       <div class="col-xs-9">
 					                                       <input class="form-control" name="">
 												 		</div>
 										</div>
 			   						</div>
-			   						<div class="col-xs-6 no-padding">
-			   							<div class="form-group each-form-div col-xs-12 no-padding">
-												     <label class="col-xs-3 no-padding form-label">Last-name</label>
-												       <div class="col-xs-9 ">
-					                                       <input class="form-control" name="">
-												 		</div>
-										</div>
-			   						</div>
+			   						
 		   						</div>
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-6 no-padding">
@@ -136,16 +129,7 @@ cursor:pointer;
 										</div>
 			   						</div>
 		   						</div>
-		   						<div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
-			   							<div class="form-group each-form-div col-xs-12 no-padding">
-												     <label class="col-xs-3 no-padding form-label">Email</label>
-												      <div class="col-xs-9">
-					                                       <input class="form-control" name="">
-												 		</div>
-										</div>
-			   						</div>
-		   						</div>
+		   						
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
@@ -190,9 +174,78 @@ cursor:pointer;
 				   						</div>
 		   							</div>
 		   						</div>
+		   						<div class="col-xs-12 no-padding">
+		   							<div class="col-xs-6 no-padding">
+			   							<div class="form-group each-form-div col-xs-12 no-padding">
+												     <label class="col-xs-3 no-padding form-label">Experience</label>
+												      <div class="col-xs-9">
+					                                       <input class="form-control" name="">
+												 		</div>
+										</div>
+			   						</div>
+		   						</div>
+		   						<div class="col-xs-12 no-padding">
+		   							<div class="col-xs-6 no-padding">
+			   							<div class="form-group each-form-div col-xs-12 no-padding">
+												     <label class="col-xs-3 no-padding form-label">linkedin profile</label>
+												      <div class="col-xs-9">
+					                                       <input class="form-control" name="">
+												 		</div>
+										</div>
+			   						</div>
+		   						</div>
+		   						<div class="col-xs-12 no-padding">
+		   							<div class="col-xs-6 no-padding">
+			   							<div class="form-group each-form-div col-xs-12 no-padding">
+												     <label class="col-xs-3 no-padding form-label">Introduction</label>
+												      <div class="col-xs-9">
+					                                       <textarea class="form-control" name=""></textarea>
+												 		</div>
+										</div>
+			   						</div>
+		   						</div>
+		   						<span class="profile-form-head col-xs-12 no-padding" style="margin-top: 50px;">Mode of communication</span>
+		   						<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
+											       <div class="col-xs-9 form-group">
+				                                         <div class="col-xs-6">
+				                                         	 <div class="">
+																<input type="radio" value="phone" id="phone" name="mode" aria-required="true" required/>
+																<label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
+																
+															</div>
+														</div>
+														<div class="col-xs-6">
+				                                         	 <div class="">
+																<input type="radio" value="video" id="video" name="mode"/>
+																<label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
+																
+																
+															</div>
+														</div>
+											 		</div>
+											 	</div>
 		   						<span class="profile-form-head col-xs-12 no-padding" style="margin-top: 50px;">Education</span>
 		   						<div class="education-div-container col-xs-12 no-padding">
 		   							<div class="each-education-div col-xs-12 no-padding">
+		   							<div class="col-xs-6 no-padding">
+					   							<div class="form-group each-form-div col-xs-12 no-padding">
+														    <div class="col-xs-12">
+														      <div class="col-xs-4">
+							                                       <input type="radio" id="level1" name="level1" />
+  																	<label for="level1"><span></span>UG</label>
+							                                    </div>
+							                                    <div class="col-xs-4">
+							                                       <input type="radio" id="level2" name="level1" />
+  																<label for="level2"><span></span>PG</label>
+							                                    </div>
+							                                    <div class="col-xs-4">
+							                                       <input type="radio" id="level3" name="level1" />
+  																<label for="level3"><span></span>Other</label>
+							                                    </div>
+							                                    </div>
+												</div>
+					   						</div>
 		   								<div class="col-xs-12 no-padding">
 				   							<div class="col-xs-12 no-padding">
 					   							<div class="form-group each-form-div col-xs-12 no-padding">
@@ -222,30 +275,7 @@ cursor:pointer;
 							                                    </div>
 												</div>
 					   						</div>
-					   						<div class="col-xs-6 no-padding">
-					   							<div class="form-group each-form-div col-xs-12 no-padding">
-														    
-														      <div class="col-xs-12">
-														      <div class="col-xs-4">
-							                                       <input type="radio" id="level1" name="level1" />
-  																	<label for="level1"><span></span>UG</label>
-							                                    </div>
-							                                    <div class="col-xs-4">
-							                                       <input type="radio" id="level2" name="level1" />
-  																<label for="level2"><span></span>PG</label>
-							                                    </div>
-							                                    <div class="col-xs-4">
-							                                       <input type="radio" id="level3" name="level1" />
-  																<label for="level3"><span></span>Other</label>
-							                                    </div>
-							                                       
-  																	
-  																 
-  																
-  																 
-							                                    </div>
-												</div>
-					   						</div>
+					   						
 		   								</div>
 		   							</div>
 		   							<span class="add-education btext">Add more</span>
@@ -275,6 +305,24 @@ cursor:pointer;
 									   							</div>
 									   							<div class="col-xs-12 tell-info no-padding" style="margin-top:10px;display:none;">Choose skills for category: <span class="category-span-info"></span> and  sub-category <span class="subcategory-span-info"></span></div>
 									   							<div class="skills-pool col-xs-12">
+									   								<form>
+									   								 <div class="form-group squaredThree col-xs-6">
+																	  	      <input type="checkbox" id="11" name="asdasd"/>
+																		      <label for="11"></label><span>asdas</span>
+																	      </div>
+																	       <div class="form-group squaredThree col-xs-6">
+																	  	      <input type="checkbox" id="11" name="asdasd"/>
+																		      <label for="11"></label><span>asdas</span>
+																	      </div>
+																	       <div class="form-group squaredThree col-xs-6">
+																	  	      <input type="checkbox" id="11" name="asdasd"/>
+																		      <label for="11"></label><span>asdas</span>
+																	      </div>
+																	       <div class="form-group squaredThree col-xs-6">
+																	  	      <input type="checkbox" id="11" name="asdasd"/>
+																		      <label for="11"></label><span>asdas</span>
+																	      </div>
+									   								</form>
 									   							</div>
 									   							<div class="skills-selected col-xs-12" style="visibility:hidden;position:absolute;">
 									   							</div>
@@ -385,7 +433,7 @@ $(document).ready(function () {
 		document.getElementById("advisorverificationsuccess").style.display = "none";
 	}
 });
-$('.category-menu').on('change', function() {
+ $('.category-menu').on('change', function() {
 	$(this).closest('.each-interest-div').find('.subcategory-menu').html('<option>Sub Category</option>');
 	$(this).closest('.each-interest-div').find('.tell-info').find('.subcategory-span-info').text('');
 	$(this).closest('.each-interest-div').find('.skills-pool').html('');
@@ -400,26 +448,10 @@ $('.subcategory-menu').on('change', function() {
 	 var values= ( this.value );
 	 $(this).closest('.each-interest-div').find('.tell-info').find('.subcategory-span-info').text(values);
 	 $('.tell-info').show();
-	 var skills ='<span class="skills-tags tagc" id="1">232312 <span class="remove-skill"><i class="fa fa-times"></i></span></span>';
+	 var skills ='';/* add line for checkbok after ajax or json */
 	 $(this).closest('.each-interest-div').find('.skills-pool').append(skills);
 });
-	$('body').on('click', '.tagc', function(e){
-	$(this).css('background-color','#37b7b3');
-	$(this).find('.remove-skill').show();
-	$(this).addClass('done');
-	$(this).removeClass('tagc');
-	var id=$(this).attr('id');
-	var value=$(this).text();
-	$('.skills-selected').append('<span class="'+id+'">'+value+'</span>');
-});
-$('body').on('click', '.done', function(e){
-	$(this).css('background-color','#EEEEEE');
-	$(this).addClass('tagc');
-	$(this).removeClass('done');
-	$(this).find('.remove-skill').hide();
-	var idtoremove = $(this).attr('id');
-	$('.skills-selected').find('.'+idtoremove).remove();
-});
+	
 $('body').on('click', '.add-more-interest', function(e){
 	var html='<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-10 no-padding">'
@@ -474,6 +506,25 @@ $('body').on('click', '.add-education', function(e){
 	inter++;
 	var html='<div class="each-education-div col-xs-12 no-padding">'
 			+'<span class="remove-education btext">X</span>'
+			+'<div class="col-xs-6 no-padding">'
+			+'<div class="form-group each-form-div col-xs-12 no-padding">'
+				    
+			+'<div class="col-xs-12">'
+			+'<div class="col-xs-4">'
+			+'<input type="radio" id="level1'+inter+'" name="level1'+rad+'" />'
+			+'<label for="level1'+inter+++'"><span></span>UG</label>'
+			+'</div>'
+			+'<div class="col-xs-4">'
+			+'<input type="radio" id="level2'+inter+'" name="level1'+rad+'" />'
+			+'<label for="level2'+inter+++'"><span></span>PG</label>'
+			+'</div>'
+			+'<div class="col-xs-4">'
+			+'<input type="radio" id="level3'+inter+'" name="level1'+rad+'" />'
+			+'<label for="level3'+inter+++'"><span></span>Other</label>'
+			+'</div>'                			 
+			+'</div>'
+			+'</div>'
+			+'</div>'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="form-group each-form-div col-xs-12 no-padding">'
@@ -503,27 +554,9 @@ $('body').on('click', '.add-education', function(e){
 			+'</div>'
 			+'</div>'
 			+'</div>'
-			+'<div class="col-xs-6 no-padding">'
-			+'<div class="form-group each-form-div col-xs-12 no-padding">'
-				    
-			+'<div class="col-xs-12">'
-			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level1'+inter+'" name="level1'+rad+'" />'
-			+'<label for="level1'+inter+++'"><span></span>UG</label>'
-			+'</div>'
-			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level2'+inter+'" name="level1'+rad+'" />'
-			+'<label for="level2'+inter+++'"><span></span>PG</label>'
-			+'</div>'
-			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level3'+inter+'" name="level1'+rad+'" />'
-			+'<label for="level3'+inter+++'"><span></span>Other</label>'
-			+'</div>'                			 
 			+'</div>'
 			+'</div>'
-			+'</div>'
-			+'</div>'
-			+'</div><span class="add-education btext">Add more</span>';
+			+'<span class="add-education btext">Add more</span>';
 			$('.education-div-container').append(html);
 			rad++;
 });

@@ -23,6 +23,9 @@
   font-family: "Latob";src:url("../fonts/Lato-Bold.ttf") format("truetype");
 }
 @font-face {
+  font-family: "Latobl";src:url("../fonts/Lato-Black.ttf") format("truetype");
+}
+@font-face {
   font-family: "Latosb";src:url("../fonts/Lato-Semibold.ttf") format("truetype");
 }
 body {
