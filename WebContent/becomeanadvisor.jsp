@@ -77,22 +77,22 @@
 			<div class="container no-padding-xs" >
    					<div class="col-xs-12 no-padding-xs" >
    						<div class="col-xs-12 col-sm-6 f-div">
-	   						<img src="assets/img/higher_studies.png"><br>
+	   						<img src="assets/img/become1.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
-	   						<img src="assets/img/higher_studies.png"><br>
+	   						<img src="assets/img/become2.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
-	   						<img src="assets/img/higher_studies.png"><br>
+	   						<img src="assets/img/become3.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
-	   						<img src="assets/img/higher_studies.png"><br>
+	   						<img src="assets/img/become4.png"><br>
 	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
 	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
    						</div>

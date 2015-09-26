@@ -18,7 +18,7 @@ pageContext.setAttribute("source", source);
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					         <a class="navbar-brand hidden-xs" href=<fmt:message key="home"/>><img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo"></a>
+					         <a class="navbar-brand hidden-xs" href=<fmt:message key="home"/>><img src="assets/img/horizontal_logo.png" class=""></a>
 					    </fmt:bundle>
 					         
 					    </div>
