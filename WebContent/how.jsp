@@ -144,7 +144,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    						</div>
    					</div>
    					<div class="each-step-div col-xs-12 no-padding">
-   						<div  class="col-xs-12 col-sm-7">
+   						<div  class="col-xs-12 col-sm-7 l-div">
    							<span class="no-span">5</span>
    							<span class="step-info">Only get charged for the time that you talk to the advisor. You can even refund your leftover wallet balance post your session if you want.</span>
    						</div>
