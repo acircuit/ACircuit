@@ -69,6 +69,20 @@
     background-color: #6c6c6c;
     color: white;
 }
+#refundmodal .payment-row:hover{
+	background-color:#c0e6e5;
+	cursor:pointer;
+}
+#refund-form{
+	display:none;
+}
+.refund-input-div-modal{
+/* 	display:none;
+ */}
+
+
+
+
 @media (min-width: 320px) and (max-width: 767px) {
  .noti-img {
     width: 50px;

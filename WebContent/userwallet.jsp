@@ -99,7 +99,7 @@
 														
 			   				</div>
 			   				<div class="recharg-button-div col-xs-5 col-sm-6 no-padding">
-			   					<button type="button" class="btn d-button" style="width: 100%;">Refund</button>
+			   					<button type="button" class="btn d-button" style="width: 100%;" data-toggle="modal" data-target="#refundmodal">Refund</button>
 														
 			   				</div>
 			   			</div>
@@ -200,6 +200,44 @@
 								    </div>
 								  </div>
 								</div>
+	<div class="modal fade" id="refundmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								   	<div class=" row table-div-container no-padding">
+						<div class="table-div-head">
+		   					<span class="table-head">Select refund transaction</span>
+		   				</div>
+						<div class="table-div">
+							<table style="width:100%">
+								<tbody><tr class="table-row-headings">
+									<th>Date</th>
+									<th>Recharge ID</th>
+									<th>Amount</th>		
+									</tr>
+								<c:forEach items="${payments}" var="pay">
+								<tr class="payment-row">
+									<td>${pay.getDate()}</td>
+									<td class="rid">${pay.getRechargeId()}</td>
+									<td class="max-a">${pay.getAmount()}</td>		
+									</tr>
+								</c:forEach>
+								</tbody></table>
+						</div>
+						<form id="refund-form">
+						<div class="refund-input-div-modal col-xs-12 form-group">
+							<input type="text" name="value" data-max="${amount}" placeholder="Enter amount" data-tid="" class="form-control refund-input">
+						</div>
+						<div class=" col-xs-12 form-group">
+							<button type="submit" class="btn gt-started" >Refund amount</button>
+						</div>
+						</form>
+					</div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div>
    	 </div>
    	 <%@include file="/footer.jsp" %>
 </div>
@@ -253,37 +291,34 @@ $(document).ready(function () {
         }
     });
 	
-	var kcyear = document.getElementsByName("year")[0],
-	kcmonth = document.getElementsByName("month")[0],
-	kcday = document.getElementsByName("day")[0];
-	var d = new Date();
-	var n = d.getFullYear();
-	for (var i = n; i >= 1950; i--)
-	{
-	var opt = new Option();
-	opt.value = opt.text = i;
-	kcyear.add(opt); }
-	kcyear.addEventListener("change", validate_date);
-	kcmonth.addEventListener("change", validate_date);
-	function validate_date() {
-				var y = +kcyear.value,
-				m = kcmonth.value, d = kcday.value;
-				if (m === "2")
-					var mlength = 28 + (!(y & 3) && ((y % 100) !== 0 || !(y & 15)));
-				else
-					var mlength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
-				kcday.length = 0;
-				for (var i = 1; i <= mlength; i++)
-				{
-					var opt = new Option();
-					opt.value = opt.text = i;
-					if (i == d) opt.selected = true;
-					kcday.add(opt);
-				}
-	}
+	
 	starinputconversion();
 	
 });
+
+$('#refundmodal .payment-row').on('click', function() {
+	$('#refund-form').slideDown();
+	$('.refund-input-div-modal').find('.error').remove();
+	var tid=$(this).find('.rid').text();
+	var selectedamount=$(this).find('.max-a').text();
+	$('.refund-input').attr('data-tid',tid);
+	$('.refund-input').val(selectedamount);
+	$('.refund-input').focus();
+});
+$('body').on( 'focusout', '.refund-input', function(event) { 
+	$(this).closest('.form-group').find('.error').remove();
+	var checkmax=$(this).attr('data-max');
+	var value= $(this).val();
+	console.log(checkmax);
+	console.log(value);
+	if(value>checkmax)
+		{
+		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">error</label>')
+		}
+});
+$('body').on( 'keyup', '.refund-input', function(event) { 
+	$(this).closest('.form-group').find('.error').remove();
+});	
 $('body').on('click', '.add-more-interest', function(e){
 	var html='<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-10 no-padding">'
