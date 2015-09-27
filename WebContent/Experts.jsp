@@ -38,10 +38,7 @@
                 List<String> industries = (List<String>)request.getAttribute("industries");
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
-                
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+
         		pageContext.setAttribute("ids", ids);
 
 
@@ -341,6 +338,7 @@ function defaultcall(){
       			 document.getElementById("loadmore").style.display = 'block';
       		}
       		}); 
+      	document.getElementById("loadmorefilters").style.display = 'none';
       	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
          					// create an empty div in your page with some id
       	 
@@ -439,6 +437,7 @@ var filterString = "";
 		  var filters = document.getElementById("filtervalues").childNodes;
 		  	var length = filters.length;
 		  	if(length >0){
+		  		filterString = "";
 		       for (var k = 0; k <= length-1; k++) {
 		           var id = filters[k].id;
 		           var text = filters[k].innerHTML;
@@ -453,41 +452,43 @@ var filterString = "";
 		       }
 		       var pos = filterString.lastIndexOf('::');
 		       filterString = filterString.substring(0,pos);
-		    	$.ajax({
-		            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
-		            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},
-		            type : 'POST',
-		            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-		            success : function(response) {
-           			 document.getElementById("loadmore").style.display = 'none';
-        			 document.getElementById("loadmoresub").style.display = 'none';
+			    	$.ajax({
+			            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
+			            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},
+			            type : 'POST',
+			            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+			            success : function(response) {
+	           			 document.getElementById("loadmore").style.display = 'none';
+	        			 document.getElementById("loadmoresub").style.display = 'none';
 
-		            	var obj = JSON.parse(response);
-		            	var count=0;
-		            	$.each(obj, function(key,value) {
-		            		if(value.name !="noadv"){
-		            		 if(count >10){
-		            			 
-		            			 document.getElementById("loadmorefilters").style.display = 'none';
-		            			 return false;
-		            		 }
-		            		 expertcard(value);
-		            		 count++;
-		            		}else{
-		           			 document.getElementById("loadmorefilters").style.display = 'block';
-		            		}
-		            		}); 
-		            	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
-		               					// create an empty div in your page with some id
-		            	 $('.black-screen').hide();
+			            	var obj = JSON.parse(response);
+			            	var count=0;
+			            	$.each(obj, function(key,value) {
+			            		if(value.name !="noadv"){
+			            		 if(count >10){
+			            			 document.getElementById("loadmorefilters").style.display = 'none';
+			            			 return false;
+			            		 }
+			            		 expertcard(value);
+			            		 count++;
+			            		}else{
+			           			 document.getElementById("loadmorefilters").style.display = 'block';
+			            		}
+			            		}); 
+			            	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+			               					// create an empty div in your page with some id
+			            	 $('.black-screen').hide();
 
-		            },
-		            error : function(request, textStatus, errorThrown) {
-		                alert(errorThrown);
-		                
-		            }
-		        });
-		  	}
+			            },
+			            error : function(request, textStatus, errorThrown) {
+			                alert(errorThrown);
+			                
+			            }
+			        });
+
+		  	}else{
+		    	   defaultcall();
+		       }
 });
 var filterPaging =1;
 function GetLeftAdvisors(){

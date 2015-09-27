@@ -287,4 +287,56 @@ public class RegistrationDAO {
 		return isCommit;
 	}
 	
+	public Boolean SetGeneralInfo(String name,String gender,String age,String city,String phone,String industry, String intro,String exp,String linkedin_Profile_Link,int advisorId){
+	logger.info("Entered SetGeneralInfo method of AdvisorRegistrationDAO");
+	Boolean isGeneralInfoCommit = false;
+	String query = "";
+	PreparedStatement pstmt;
+	try {
+		conn =ConnectionFactory.getConnection();
+		conn.setAutoCommit(false);
+		query = "UPDATE advisordetails  SET NAME=?,GENDER = ?,AGE = ?,PHONE_NUMBER = ?,CITY = ?,INDUSTRY = ?,EXPERIENCE = ?,LINKEDIN_PROFILE_LINK = ?,INTRODUCTION = ?, WHERE ADVISOR_ID = ?";
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1,name );
+		pstmt.setString(2, gender);
+		pstmt.setString(3, age);
+		pstmt.setString(4, phone);
+		pstmt.setString(5, city);
+		pstmt.setString(6, industry);
+		pstmt.setString(7, exp);
+		pstmt.setString(8, linkedin_Profile_Link);
+		pstmt.setString(9, intro);
+		pstmt.setInt(10, advisorId);
+		int result = pstmt.executeUpdate(); 
+		if(result >0) {
+			conn.commit();
+			isGeneralInfoCommit = true;
+			}
+	} catch (SQLException e) {
+		try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+			e1.printStackTrace();
+		}	
+		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		e.printStackTrace();
+	} catch (IOException e) {
+		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		e.printStackTrace();
+	} catch (PropertyVetoException e) {
+		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		e.printStackTrace();
+	}finally{
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}
+	}	
+	logger.info("Entered SetGeneralInfo method of AdvisorRegistrationDAO");
+	return isGeneralInfoCommit;
+	}
+	
 }

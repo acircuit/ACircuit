@@ -113,7 +113,7 @@ public class MyCacheBuilder
 		}
 	}
 	
-	public void addSubCategories(String[] higherStudiesSubCaegory,List<String> industrySub,List<String> optionSub){
+	public void addSubCategories(List<String> higherStudiesSubCaegory,List<String> industrySub,List<String> optionSub){
 		Element element = new Element( 1, higherStudiesSubCaegory );
 		subCategoryCache.put(element);
 		Element element1 = new Element( 2, industrySub );
@@ -123,11 +123,11 @@ public class MyCacheBuilder
 		subCategoryCache.put(element2);
 	}
 	
-	public String[] getHigherStudiesSubCategory(){
+	public List<String> getHigherStudiesSubCategory(){
 		Element element = subCategoryCache.get(1);
 		if( element != null )
 		{
-			return (String[])element.getValue();
+			return (List<String>)element.getValue();
 		}else{
 			return null;
 		}
@@ -308,7 +308,6 @@ public class MyCacheBuilder
 		List<String> institutions = new ArrayList<String>();
 		CacheDAO institute = new CacheDAO();
 		institutions = institute.GetAdvisorInstitutions();
-		System.out.println("size"+ institutions.size());
 		
 		//Getting all industries from the advisordetails table
 		List<String> industries = new ArrayList<String>();
@@ -324,37 +323,28 @@ public class MyCacheBuilder
 		
 		logger.info("Building SubCategory Cache");
 		//Building Higher studies sub category
-		String[] higherStudiesSubCaegory = new String[4];
-		higherStudiesSubCaegory[0] = "MBA-India";
-		higherStudiesSubCaegory[1] = "MBA-Abroad";
-		higherStudiesSubCaegory[2] = "Masters-India";
-		higherStudiesSubCaegory[3] = "Masters-Abroad";
+
+		
+		//Building higher studies sub category
+		List<String> higherStudiesSubCaegory = new ArrayList<String>();
+		CacheDAO higher = new CacheDAO();
+		higherStudiesSubCaegory = higher.GetHigherStudiesSubCategory();
 		
 		//Building Industry SubCategory
 		List<Integer> industryCategoryId = new ArrayList<Integer>();
         //Getting the advisorids with category as industry
-		CacheDAO industryAdvisors = new CacheDAO();
-		industryCategoryId = industryAdvisors.GetCategoryId("industry");
+
 		List<String> subs = new ArrayList<String>();
-		if(industryCategoryId.size() > 0){
-			//Getting all the sub category
-			CacheDAO subCat = new CacheDAO();
-			subs = subCat.GetSubCategories(industryCategoryId);
-			
-		}
+		//Getting all the sub category
+		CacheDAO subCat = new CacheDAO();
+		subs = subCat.GetIndustrySubCategories();
 
 		
 		
 		//Building Options sub category
-		List<Integer> optionsCategoryId = new ArrayList<Integer>();
-		//Getting the categoryids with category as industry
-		CacheDAO optionAdvisors = new CacheDAO();
-		industryCategoryId = industryAdvisors.GetCategoryId("option");
 		List<String> subs1 = new ArrayList<String>();
-		if(industryCategoryId.size() > 0){
-			CacheDAO subCat1 = new CacheDAO();
-			subs1 = subCat1.GetSubCategories(industryCategoryId);
-		}
+		CacheDAO subCat1 = new CacheDAO();
+		subs1 = subCat1.GetOptionsSubCategories();
 		addSubCategories(higherStudiesSubCaegory, subs,subs1); 
 		
 		

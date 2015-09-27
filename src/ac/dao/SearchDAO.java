@@ -484,20 +484,24 @@ public class SearchDAO {
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt;
 			if(type.equals("higherstudies")){
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ?";
+				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "studies");
+				pstmt.setBoolean(2, true);
 			}else if (type.equals("industry")) {
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ?";
+				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "industry");
+				pstmt.setBoolean(2, true);
 			}else if (type.equals("options")) {
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ?";
+				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "options");
+				pstmt.setBoolean(2, true);
 			}else{
-				query = "SELECT ADVISOR_ID FROM advisordetails";
+				query = "SELECT ADVISOR_ID FROM advisordetails WHERE  ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
+				pstmt.setBoolean(1, true);
 			}
 			
 			ResultSet results = pstmt.executeQuery();

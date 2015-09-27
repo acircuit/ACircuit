@@ -40,22 +40,7 @@
     rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
-<%
-String sessionStatus = (String)request.getParameter("session");
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
-List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
-List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
-List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
-List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
-pageContext.setAttribute("sessionStatus", sessionStatus);
-pageContext.setAttribute("userReviews", userReviews);
-pageContext.setAttribute("sessionDates", sessionDates);
-pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
-
-%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>

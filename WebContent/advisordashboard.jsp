@@ -125,9 +125,9 @@
 		   	</div>
    		  
    			<div class="body-content col-xs-12 no-padding">
-   			<div class="col-xs-12 body-contenthead-div">
+   			<!-- <div class="col-xs-12 body-contenthead-div">
 							<span class="body-content-head">Activity Feed for Interests: MBA India, Management Consulting</span><span class="btext change-interest">Change Interests</span>
-			</div>
+			</div> -->
    				<div class="col-xs-12 col-sm-9 ud-left-section">
 		   			<div class="col-xs-12 ud-left-section-head-div ">
 							<span class="ud-left-section-head">Activity Feed </span>

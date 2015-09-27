@@ -40,6 +40,7 @@ public class FilterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of FilterController");
 		String filterString = request.getParameter("filterString");
+		System.out.println(filterString);
 		String ids = request.getParameter("ids");
 		String category = request.getParameter("category");
 		String paging = request.getParameter("paging");
@@ -52,7 +53,8 @@ public class FilterController extends HttpServlet {
 			startIndex = 11+ (page-1)*6;
             endIndex = startIndex +5;
 		}
-		
+		System.out.println(startIndex);
+		System.out.println(endIndex);
 		
 		
 		//Getting a list of advisor id
@@ -97,6 +99,7 @@ public class FilterController extends HttpServlet {
 		for(String aid : advisorIds){
 			MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 			AdvisorDTO advisor = cache.getAdvisor(Integer.valueOf(aid));
+
 			int advThreshold = 0;
 			int advCollege = 0;
 			int advIndus = 0;
@@ -208,15 +211,15 @@ public class FilterController extends HttpServlet {
 						jo.put("designation", prof.getDesignation());
 					}
 				}
-				System.out.println("added");
 				array.add(jo);
-				count++;
+				System.out.println("added");
 				isLeft = false;
 				
 				//q= q+advisor.getId();
 				}else{
 					isLeft = true;
 				}
+				count++;
 			}
 		}
 		if(isLeft){

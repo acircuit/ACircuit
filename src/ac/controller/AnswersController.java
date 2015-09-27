@@ -71,7 +71,7 @@ public class AnswersController extends HttpServlet {
 		
 		//Getting the sub categories
 		MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
-		String[] higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+		List<String> higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
 		
 		MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
 		List<String> industrySubCategory = industry.getIndustrySubCategory();

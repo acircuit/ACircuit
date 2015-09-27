@@ -44,9 +44,7 @@
                 List<String> languages = (List<String>)request.getAttribute("languages");
                 List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
                 List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+
                 List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
                 List<String> popCats = (List<String>)request.getAttribute("popCats");
 

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.cache.MyCacheBuilder;
 import ac.dao.QuestionsDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
@@ -74,6 +75,20 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 			//Getting the advisorname from the advisor ids
 			QuestionsDAO ids = new QuestionsDAO();
 			List<AdvisorDTO> advisorDetails  = ids.GetAdvisorName(advisorAnswers);
+			
+			//Getting the sub categories
+			MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+			List<String> higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+			
+			MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+			List<String> industrySubCategory = industry.getIndustrySubCategory();
+			
+			MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+			List<String> optionsSubCategory = option.getOpionsSubCategory();
+			
+			request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+			request.setAttribute("industrySubCategory", industrySubCategory);
+			request.setAttribute("optionsSubCategory", optionsSubCategory);
 
 			request.setAttribute("questions", list);
 			request.setAttribute("advisorDetails", advisorDetails);

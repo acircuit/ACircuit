@@ -45,9 +45,7 @@
                 Integer count = (Integer) request.getAttribute("count");
                 List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
                 List<String> popCats = (List<String>)request.getAttribute("popCats");
-                String[] higherStudiesSubCategory = (String[])request.getAttribute("higherStudiesSubCategory");
-                List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-                List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+               
 				pageContext.setAttribute("ids", ids);
 	
 

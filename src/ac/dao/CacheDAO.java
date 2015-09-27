@@ -31,8 +31,9 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  * FROM advisordetails";	
+			query = "SELECT  * FROM advisordetails WHERE ISACTIVE=?";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				AdvisorDTO advisor = new AdvisorDTO();
@@ -405,41 +406,36 @@ public class CacheDAO {
 		logger.info("Exit GetCategoryId method of CacheDAO");
 		return catId;
 	}
-	public List<String> GetSubCategories(List<Integer> industryCategoryId){
-		logger.info("Entered GetSubCategories method of CacheDAO");
+	public List<String> GetIndustrySubCategories(){
+		logger.info("Entered GetIndustrySubCategories method of CacheDAO");
 		List<String> subs = new ArrayList<String>();
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String q4in = generateQsForIn(industryCategoryId.size());
-			String query = "SELECT DISTINCT SUBCATEGORY FROM advisor_subcategory WHERE CATEGORY_ID IN ( "+ q4in + ")";
+			String query = "SELECT * FROM industry";
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			int i = 1;
-			for (Integer item : industryCategoryId) {
-				pstmt.setInt(i++, item);
-			}
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				subs.add(results.getString("SUBCATEGORY"));
 			}
 		} catch (SQLException e) {
-			logger.error("GetSubCategories method of CacheDAO threw error:"+e.getMessage());
+			logger.error("GetIndustrySubCategories method of CacheDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			logger.error("GetSubCategories method of CacheDAO threw error:"+e.getMessage());
+			logger.error("GetIndustrySubCategories method of CacheDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		} catch (PropertyVetoException e) {
-			logger.error("GetSubCategories method of CacheDAO threw error:"+e.getMessage());
+			logger.error("GetIndustrySubCategories method of CacheDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("GetSubCategories method of CacheDAO threw error:"+e.getMessage());
+				logger.error("GetIndustrySubCategories method of CacheDAO threw error:"+e.getMessage());
 				e.printStackTrace();
 			}
 		}
-		logger.info("Exit GetSubCategories method of CacheDAO");
+		logger.info("Exit GetIndustrySubCategories method of CacheDAO");
 		return subs;
 	}
 	
@@ -480,6 +476,80 @@ public class CacheDAO {
 		logger.info("Exit GetAdvisorLanguage method of CacheDAO");
 		return language;
 	}
+	
+	public List<String> GetHigherStudiesSubCategory(){
+		logger.info("Entered GetHigherStudiesSubCategory method of CacheDAO");
+		List<String> higher = new ArrayList<String>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT  * FROM higherstudies";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				higher.add(results.getString("SUBCATEGORY"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetHigherStudiesSubCategory method of CacheDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetHigherStudiesSubCategory method of CacheDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetHigherStudiesSubCategory method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetHigherStudiesSubCategory method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetHigherStudiesSubCategory method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetHigherStudiesSubCategory method of CacheDAO");
+		return higher;
+	}
+	
+	public List<String> GetOptionsSubCategories(){
+		logger.info("Entered GetOptionsSubCategories method of CacheDAO");
+		List<String> subs = new ArrayList<String>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM options";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				subs.add(results.getString("SUBCATEGORY"));
+			}
+		} catch (SQLException e) {
+			logger.error("GetOptionsSubCategories method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetOptionsSubCategories method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetOptionsSubCategories method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetOptionsSubCategories method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetOptionsSubCategories method of CacheDAO");
+		return subs;
+	}
+	
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

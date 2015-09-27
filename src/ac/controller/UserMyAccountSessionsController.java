@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.cache.MyCacheBuilder;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.ReviewsDTO;
@@ -104,7 +105,20 @@ public class UserMyAccountSessionsController extends HttpServlet {
 			  //Getting advisor details
 			  SessionDAO advDetails = new SessionDAO();
 			  advisorsForReviews = advDetails.GetDetailsForReviews(aIds);
-			  
+			//Getting the sub categories
+				MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+				List<String> higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+				
+				MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+				List<String> industrySubCategory = industry.getIndustrySubCategory();
+				
+				MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+				List<String> optionsSubCategory = option.getOpionsSubCategory();
+				
+				
+				request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+				request.setAttribute("industrySubCategory", industrySubCategory);
+				request.setAttribute("optionsSubCategory", optionsSubCategory);
 
 
 			  request.setAttribute("sessions", sessions);

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
 <%
 Boolean isLoggedIn=false;
 String username="";
@@ -19,6 +20,9 @@ else if( session.getAttribute("advisorId") !=null){
 		username=(String)session.getAttribute("username");
 		advisord = (Integer)session.getAttribute("advisorId");
 }
+List<String> higherStudiesSubCategory = (List<String>)request.getAttribute("higherStudiesSubCategory");
+List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
+List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
 
 %>
 
@@ -203,4 +207,36 @@ else if( session.getAttribute("advisorId") !=null){
    	        }
    	    });	
    	}
+	$('#category-menu-on-modal').on('change', function() {
+		 var values= ( this.value ); // or $(this).val()
+		if(values=='higherstudies')
+		 {
+				var option1="";
+		 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
+		   option1=option1 + '<option value="${sub}">${sub}</option>';
+		   console.log(option1);
+		   $('#subcategory-menu-on-modal').html(option1);
+		 	</c:forEach>
+		 	
+		 }
+		else if(values=='industry')
+		 {  
+			var option2="";
+			<c:forEach items="${industrySubCategory}" var="sub">
+		   option2=option2 + '<option value="${sub}">${sub}</option>';
+		 
+		   $('#subcategory-menu-on-modal').html(option2);
+		 	</c:forEach>
+		 }
+		else
+		{
+			var option3="";
+			<c:forEach items="${optionsSubCategory}" var="sub">
+		   option3=option3 + '<option value="${sub}">${sub}</option>';
+		 
+		   $('#subcategory-menu-on-modal').html(option3);
+		 	</c:forEach>
+
+		}
+		});
    	</script>

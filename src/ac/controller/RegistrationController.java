@@ -128,17 +128,17 @@ public class RegistrationController extends HttpServlet {
     					AdminNotificationDAO notify = new AdminNotificationDAO();
     					notify.InsertNotification(comment, href);
     					
-    					String advisorComment = "Welcome to Advisor Circuit.If you need any help, call us on +91 9999372087";
+    				/*	String advisorComment = "Welcome to Advisor Circuit.If you need any help, call us on +91 9999372087";
     					String advisorHref = "";
     					AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
-    					advisor.InsertNotification(advisorComment,String.valueOf(advisorId), advisorHref );
+    					advisor.InsertNotification(advisorComment,String.valueOf(advisorId), advisorHref );*/
     					
-    					String subject ="";
+    				/*	String subject ="";
     					String content ="";
     					subject = "Thank you for registering on Advisor Circuit";
     					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("ADVISOR_REGISTRATION_VERIFICATION_LINK"), advisorId)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-    					mail.start();
+    					mail.start();*/
     					String subject1= "A New Advisor Sign Up!";
     					String content1 = "Hi, <br><br> A new advisor has signed up with us. Following are the details: <br>Full Name : "+fullname+"<br>Email Id : " +email+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));
