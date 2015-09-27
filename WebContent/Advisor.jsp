@@ -422,47 +422,7 @@
 								    </div>
 								  </div>
 								</div>
-<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								      <span class="ask-question-modal-head">Ask Question</span><br>
-								      <br>
-								      <form class="ask-form"> 
-								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" > </textarea>
-								      
-									       <br><br>
-									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
-										       <div class="col-xs-9">
-											       <div class="col-xs-6">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														  <option value="higherstudies">Higher studies</option>
-														  <option value="industry">Industry</option>
-														  <option value="options">Courses</option>
-														</select>
-											       </div>
-											       <div class="col-xs-6">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															 
-														</select>
-														
-											       </div>
-											      <br>
-											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
-													</div>
-													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
-										       </div>
-									       </div>
-								        </form>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
+				   	  <%@include file="/askqmodal.jsp" %>
 				   	 <%@include file="/footer.jsp" %>
 								
 <script>
@@ -582,33 +542,15 @@ function CheckLoggedIn(){
 
 }	
 function CheckLoggedInForQuestions(){
-	if(<%=isUserLoggedIn%>){
+	if(<%=session.getAttribute("userId") !=null %>){
 		$('#askquestion').modal('show');
 	}else{
 		$('#loginmodal').modal('show');
 	}
 }
 function SubmitQuestion(){
-	$('.black-screen').show();
-	var question =$("#question").val();
-	var category = $("#category-menu-on-modal").val();
-	var subcategory = $("#subcategory-menu-on-modal").val();
-	var id  = "${advisor.getId()}";
-	$.ajax({
-        url : 'QuestionToAdvisorController', // Your Servlet mapping or JSP(not suggested)
-        data : {"question":question,"category" :category,"subcategory":subcategory,"aid":id},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-			 alert(response);
-        	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
+	
+    
 }
 $('#category-menu-on-modal').on('change', function() {
 	 var values= ( this.value ); // or $(this).val()

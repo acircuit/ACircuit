@@ -74,7 +74,10 @@ cursor:pointer;
 		   			<div class="profile-owner-info col-xs-12 no-padding">
 		   				<div class="col-xs-4 dp-div-profile">
 		   					 <img class="profile-dp" src="assets/img/Abhishek.JPG"><br>
-		   					 <span class="btext change-do">Change Profile Picture</span>
+		   					 <span class="btext change-do change-profile">Change Profile Picture</span>
+		   				
+				                                      <input type="file" class="custom-file-input" style="visibility:hidden;" name="dp"  aria-required="true">
+											 		
 		   				</div>
 		   				<div class="col-xs-8 info-div-profile">
 		   					<span class="name-profile">Angela Dixon</span><br>
@@ -499,6 +502,10 @@ $('body').on('click', '.add-language', function(e){
 });
 $('body').on('click', '.remove-education', function(e){
 	$(this).closest('.each-education-div').remove();
+	
+});
+$('body').on('click', '.change-profile', function(e){
+	$('.custom-file-input').trigger('click');
 	
 });
 $('body').on('click', '.add-education', function(e){
