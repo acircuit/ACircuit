@@ -485,6 +485,9 @@ input[type=checkbox] {
 .big-button img {
     width: 40%;
     }
+.big-button path{
+	width:40%;
+}    
 .bpink{
   border-bottom: 8px solid #f2624d; 
 }
@@ -493,6 +496,18 @@ input[type=checkbox] {
 }
 .bblue{
   border-bottom: 8px solid #00b9ff; 
+}
+.whitepath path,.whitepath rect{
+	fill:white!important;
+}
+.bpink path,.bpink rect{
+  fill: #f2624d; 
+}
+.bgreen path,.bgreen rect{
+    fill: #a5cd5b; 
+}
+.bblue path,.bblue rect{
+    fill: #00b9ff; 
 }
 .stop-filter-scroll{
   position: fixed;
@@ -591,6 +606,7 @@ margin: 10px 0px 10px 0px;
 .attributes{
   margin-top: 10%;
     color: #4a4a4a;
+    font-size:13px;
 }
 .attributes i {
       color: #B1B1B1;

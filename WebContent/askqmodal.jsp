@@ -10,33 +10,36 @@
 									      </div>
 									      <br><br>
 									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
+										       <div class="col-xs-3"><span style="margin-top: 7px;display: block;">Select category :</span></div>
 										       <div class="col-xs-9">
 											       <div class="col-xs-6">
-												      <div class="form-group each-form-div">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal" required>
+												     <div class="form-group"> 
+												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal" required aria-required="true">
 														  <option value="higherstudies">Higher studies</option>
 														  <option value="industry">Industry</option>
 														  <option value="options">Courses</option>
 														</select>
-														</div>
+														 </div>
 											       </div>
 											       <div class="col-xs-6">
-											       <div class="form-group each-form-div">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal" required>
-															 
+											       	<div class="form-group"> 
+												         <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal" required aria-required="true">
+															<option value="">Select Something</option> 
 														</select>
-														</div>
+														 </div>
 											       </div>
 											      <br>
 											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
+											        <div class="col-xs-12" style="margin-top: 21px;">
+											        <button type="submit" class="btn red-button ask-question-button" style="float:right">Ask question</button>
+											        	<div class="form-group squaredThree" style="float:right;margin-right: 11px;margin-top: -9px;">
+														  	<input type="checkbox" id="postanonymously" name="Post anonymously" />
+															<label for="postanonymously" style="margin-top: 1px;"></label><span>Post anonymously</span>
 													</div>
-													 <div class="form-group each-form-div">
-														<button type="submit" class="btn red-button ask-question-button">Ask question</button>
-										       		</div>
+													
+														
+											        </div>
+										       		
 										       </div>
 									       </div>
 								        </form>
@@ -48,6 +51,15 @@
 <script>
 $(document).ready(function () {
 	$("#ask-form-modal").validate();
+	
+	var option1="";
+ 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
+   option1=option1 + '<option value="${sub}">${sub}</option>';
+   console.log(option1);
+   $('#subcategory-menu-on-modal').html(option1);
+ 	</c:forEach>
+ 	
+	
 	$('body').on('submit', '#ask-form-modal', function(e){
 		e.preventDefault();
 		var ques=$('#question').text();
@@ -58,11 +70,7 @@ $(document).ready(function () {
 		{}
 		else
 			return false;
-		/* if(subcat)
-		{}
-		else
-			return false; */
-			$('.black-screen').show();
+		$('.black-screen').show();
 		var question =$("#question").val();
 		var category = $("#category-menu-on-modal").val();
 		var subcategory = $("#subcategory-menu-on-modal").val();

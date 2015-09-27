@@ -4,7 +4,7 @@
   			<div class="col-xs-12 no-padding">
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bblue" name="bb1"><img class="category-im" src="assets/img/higher_studies.png">
+  						<button class="big-button bblue" name="bb1"><img class="category-im svg" src="assets/img/home_higher_studies.svg">
   							<br class="hidden-xs"><span>Higher studies</span></button>
   							<br class="hidden-xs"><br class="hidden-xs">
   						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
@@ -12,7 +12,7 @@
   				</div>
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bpink" name="bb2"><img src="assets/img/higher_studies.png">
+  						<button class="big-button bpink" name="bb2"><img class="svg" src="assets/img/home_industry.svg">
   							<br class="hidden-xs"><span>Industry</span></button>
   						<br class="hidden-xs"><br class="hidden-xs">
   						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
@@ -20,7 +20,7 @@
   				</div>
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
-  						<button class="big-button bgreen" name="bb3"><img src="assets/img/higher_studies.png">
+  						<button class="big-button bgreen" name="bb3"><img class="svg" src="assets/img/home_courses.svg">
   							<br class="hidden-xs"><span>Courses</span></button>
  							<br class="hidden-xs"><br class="hidden-xs">
   						<span class="hidden-xs ">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
@@ -34,10 +34,41 @@
   				</div>
   			</div>
   			<script>
+  			jQuery('img.svg').each(function(){
+  	            var $img = jQuery(this);
+  	            var imgID = $img.attr('id');
+  	            var imgClass = $img.attr('class');
+  	            var imgURL = $img.attr('src');
+
+
+  	            jQuery.get(imgURL, function(data) {
+  	                // Get the SVG tag, ignore the rest
+  	                var $svg = jQuery(data).find('svg');
+
+  	                // Add replaced image's ID to the new SVG
+  	                if(typeof imgID !== 'undefined') {
+  	                    $svg = $svg.attr('id', imgID);
+  	                }
+  	                // Add replaced image's classes to the new SVG
+  	                if(typeof imgClass !== 'undefined') {
+  	                    $svg = $svg.attr('class', imgClass+' replaced-svg');
+  	                }
+
+  	                // Remove any invalid XML tags as per http://validator.w3.org
+  	                $svg = $svg.removeAttr('xmlns:a');
+
+  	                // Replace image with new SVG
+  	                $img.replaceWith($svg);
+
+  	            }, 'xml');
+
+  	        });
   			$('body').on('click', '.big-button', function(e){
   				 var color = $(this).attr('name');
   				 	$('.big-button').css('background-color','white');
+  				 	$('.big-button').removeClass('whitepath');
   				 	$(this).css('color','white');
+  				 	$(this).addClass('whitepath');
   					 if(color=='bb1')
   					 {
   						var databb1="";

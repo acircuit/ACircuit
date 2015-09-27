@@ -105,8 +105,8 @@
 						                                    <p class="adv-name">${advisor.getName()}</p>
 						                                    <p class="adv-field">${advisor.getIndustry()}</p>
 						                                    <p class="written-on" >${answer.getDate()}</p>
-						                                    <span  class="red-action-a"><a > <i class="fa fa-star-o"></i> Ask a Question</a>
-						                                    <a> <i class="fa fa-star-o"></i> Book a Session</a></span>
+						                                    <span  class="red-action-a"><a > <img src="assets/img/answer_ask.svg"> Ask Question</a>
+						                                    <a> <img src="assets/img/answer_book.svg"> Book Session</a></span>
 						                                </div>
 						                             </div>
 						                            <div class="adv_ans col-xs-12 col-sm-11 no-padding">

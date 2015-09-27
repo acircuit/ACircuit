@@ -91,7 +91,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 	   					<span class="grey-img-info-text">Pick your advisor depending on the category of advice – Higher Studies, different Careers and Jobs or General Questions.</span>
 	   				</div>
 	   				<div class="col-xs-12 col-sm-4 each-div-ingrey">
-	   					<img src="assets/img/howitworks3.svg">
+	   					<img src="assets/img/howitworks3.svg" style="padding-left: 43px;">
 	   					<span class="grey-img-head">Ask a question</span>
 	   					<span class="grey-img-info-text">Post a question to any one or ALL advisors for FREE and get expert answers to your career queries</span>
 	   				</div>
@@ -113,14 +113,14 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    							<span class="step-info">Learn about advisors through their profiles. Filter via categories, industry, education,company, experience to reach the best advisor for you</span>
    						</div>
    						<div  class="col-xs-12 col-sm-5">
-   							<img src="assets/img/howitworks5.png"  class="img-responsive">
+   							<img src="assets/img/howitworks5.png"  class="img-responsive hidden-xs">
    						</div>
    					</div>
    					<div class="each-step-div col-xs-12 no-padding">
-   						<div  class="col-xs-12 col-sm-7">
-   							<img src="assets/img/howitworks6.png"  class="img-responsive">
-   						</div>
    						<div  class="col-xs-12 col-sm-5">
+   							<img src="assets/img/howitworks6.png"  class="img-responsive hidden-xs">
+   						</div>
+   						<div  class="col-xs-12 col-sm-7 r-text" >
    							<span class="no-span">2</span>
    							<span class="step-info">Pick 3 date and time slots that work for you, choose the approx duration of the session,write down your query and send the request.</span>
    						</div>
@@ -131,14 +131,14 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    							<span class="step-info">Get a confirmation from the advisor with the chosen date and time. Recharge your Advisor Circuit Wallet and you’re ready!</span>
    						</div>
    						<div  class="col-xs-12 col-sm-5">
-   							<img src="assets/img/howitworks7.png"  class="img-responsive">
+   							<img src="assets/img/howitworks7.png"  class="img-responsive hidden-xs">
    						</div>
    					</div>
    					<div class="each-step-div col-xs-12 no-padding">
-   						<div  class="col-xs-12 col-sm-7">
-   							<img src="assets/img/howitworks8.png"  class="img-responsive">
-   						</div>
    						<div  class="col-xs-12 col-sm-5">
+   							<img src="assets/img/howitworks8.png"  class="img-responsive hidden-xs">
+   						</div>
+   						<div  class="col-xs-12 col-sm-7 r-text" >
    							<span class="no-span">4</span>
    							<span class="step-info">Connect conveniently via phone /video chat on the day of the session and solve away your queries.</span>
    						</div>
@@ -149,7 +149,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    							<span class="step-info">Only get charged for the time that you talk to the advisor. You can even refund your leftover wallet balance post your session if you want.</span>
    						</div>
    						<div  class="col-xs-12 col-sm-5">
-   							<img src="assets/img/howitworks9.png"  class="img-responsive">
+   							<img src="assets/img/howitworks9.png"  class="img-responsive hidden-xs">
    						</div>
    					</div>
    				</div>
@@ -157,9 +157,9 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    			<div class="last-div-grey col-xs-12 no-padding">
    			<div class="last-div-content">
    				<span class="how-we-help">Wondering how we can help your career?</span><br>
-   				<button type="button" class="btn red-button sign-up-howp">Sign Up Now</button>
+   				<button type="button" class="btn red-button sign-up-howp signup-bottom">Sign Up Now</button>
    			</div>
-   			<img src="assets/img/howitworks10.png"  class="img-responsive">
+   			<img src="assets/img/howitworks10.png"  class="img-responsive hidden-xs">
    			</div>
 	 <%@include file="/footer.jsp" %>
 </div>

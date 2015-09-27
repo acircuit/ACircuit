@@ -102,11 +102,11 @@
    				<div class="col-xs-4 right-info-div">
    				<div class="info-div-contact">
    				<span class="red-contact-title">Email</span><br>
-				<span class="contact-detail-info"> email@advisorcircuit.com</span>
+				<span class="contact-detail-info">contactus@advisorcircuit.com</span>
    				</div>
    				<div class="info-div-contact">
    				<span class="red-contact-title">PHONE</span><br>
-						<span class="contact-detail-info"> 01234-54367-00</span>	
+						<span class="contact-detail-info">9971232582 </span>	
    				</div>
    				<div class="info-div-contact">
    					<span class="red-contact-title">ON THE WEB</span>	

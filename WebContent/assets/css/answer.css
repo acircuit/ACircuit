@@ -102,11 +102,13 @@ a:focus, a:hover {
 }
 .red-action-a a{
 text-decoration: none;
-    color: #f2624d;
+    color: #4a4a4a;
     font-size: 14px;
-    font-family: 'OpenSans-Semibold';
-   margin-left: 15px;
-   font-weight: 600;
+    font-family: lato;
+    margin-left: 15px;
+}
+.red-action-a img{
+width:16px;
 }
 
 @media (min-width: 320px) and (max-width: 462px) {

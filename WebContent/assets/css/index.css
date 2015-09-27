@@ -211,7 +211,7 @@ font-size: 14px;
 .why-us-head-text{
 	    margin-top: 60px;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 15px;
     font-family: lato;
     font-weight: bold;
     text-align: center;
@@ -219,12 +219,11 @@ font-size: 14px;
 }
 .big-img-div{
 	text-align: center;
-	max-width: 278px;
+	max-width: 274px;
 }
 .why-us-im{
 	margin-bottom: 15px;
- /*  width: 66px; */
-}
+ width: 100px;}
 .why-us-medium-text{
 color: #ffffff;
     font-size: 20px;
@@ -294,7 +293,7 @@ color: #ffffff;
 .testimonial-text-head{
     margin-top: 60px;
     color: #4a4a4a;
-    font-size: 14px;
+    font-size: 15px;
     font-family: lato;
     font-weight: bold;
     text-align: center;
@@ -302,6 +301,7 @@ color: #ffffff;
 }
 .testimonial-text-head span{
     border-bottom: 3px solid #37B7B3;
+    padding-bottom: 8px;
 }
 .dquotes {
     margin-top: -21px;
@@ -326,6 +326,7 @@ color: #ffffff;
 .user-div{
 display: inline-block;
 margin-left: 60px;	
+ margin-top: 28px;
 }
 .user-img{
 	    width: 90px;
@@ -341,6 +342,7 @@ margin-left: 60px;
   cursor: pointer;
       width: 70px;
     height: 70px;
+    margin-top: -127px;
 }
 .user-name{
 	font-size:12px;
@@ -361,12 +363,13 @@ margin-left: 60px;
 .signup-text-head{
 	    text-align: center;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
     font-family: latob;
-        margin-bottom: 130px;
+        margin-bottom: 90px;
 }
 .signup-text-head span{
 	border-bottom: 3px solid #37B7B3;
+	padding-bottom: 10px;
 }
 .button-div{
 	text-align:center;
@@ -385,8 +388,16 @@ margin-left: 60px;
 .bordert{
 	display:none;
 }
-
-
+.sign-up-div .text-div{
+	text-align:center;
+	margin-bottom: 40px;
+}
+.sign-up-div .text{
+	color:#cbcbcb;
+	font-size:16px;
+	font-family:lato;
+	
+}
 
 
 

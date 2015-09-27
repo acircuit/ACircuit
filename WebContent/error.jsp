@@ -74,10 +74,11 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    	<div class="main-body-div no-padding remove-padding" id="page-content-wrapper" >
    	
    			<div class="body-error error-div col-xs-12" >
-   					<span class="error-message-big">OOPs</span> 
+   			<img src="assets/img/brokenlink.svg"><br>
+   					<span class="error-message-big">Oops!</span> 
    					<br>
    					<span class="page-error">Page Error</span>
-   					<br>
+   					<br><br>
    					<span class="error-message-text">Looks like something went wrong.</span>
 			</div>
 	 <%@include file="/footer.jsp" %>

@@ -9,7 +9,7 @@
 .blueT {
     background: url(../img/b.png) no-repeat 0 0;
     background-position-y: -206px;
-        min-height: 238px;
+        min-height: 211px;
 }
 .adpage-big-texth{
 	  font-size: 24px;	
@@ -36,7 +36,7 @@
     font-family: lato;
 }
 .expert-card {
-    min-height: 320px;
+    min-height: 276px;
 }
 .Adp img {
     max-width: 220px;
@@ -44,11 +44,11 @@
     height: 220px;
     border-radius: 50%;
     border: 2px solid white;
-    margin: 42px 0px -76px 0px;
+    margin: 17px 0px -76px 0px;
 }
 .b-strip {
-    min-height: 81px;
-        padding: 25px;
+    min-height: 64px;
+        padding: 14px;
 }
 .dquotes{
 	margin-top: -21px;
@@ -64,7 +64,7 @@
      margin-left: 50px;
  }
 .ad-speaks span{
-	font-size:16px;
+	font-size:14px;
 	color:#4a4a4a;
 	line-height:20px;
 } 
@@ -140,11 +140,11 @@
 }
 .bio-subtitle{
 	    color: #4a4a4a;
-    font-size: 15px;
+    font-size: 14px;
 }
 .seperator{
 	    color: #4a4a4a;
-    font-size: 15px;
+    font-size: 14px;
 }
 .bio-subtitle2{
 	    color: #4a4a4a;
@@ -152,8 +152,7 @@
 }
 .bio-subtitle3{
 	    color: #4a4a4a;
-    font-size: 15px;
-	 display: block;	
+    font-size: 15px;	
 }
 .view-linkedin{
 	display: block;
@@ -176,7 +175,7 @@
 }
 .additional-info-type{
 	color: #6c6c6c;
-    margin-right: 25px;
+  /*   margin-right: 25px; */
     font-size: 14px;
     font-family: Open SansL;
 }
@@ -278,6 +277,7 @@
 }
 .topic-list{
 padding: 6px 0px 0px 19px;
+font-size:13px;
 }
 .available-div{
 	padding: 12px;
@@ -301,6 +301,7 @@ padding: 6px 0px 0px 19px;
     margin-top: -24px;
     margin-left: 31px;
     float: none;
+    font-weight:600;
 }
 
 .session-info{
@@ -334,7 +335,7 @@ padding: 6px 0px 0px 19px;
     float: left;
 }
 .adv-name {
-    font-size: 18px;
+    font-size: 16px;
     color: #37b7ae;
     font-family: 'Open SansR';
     display: inline-block;
@@ -369,13 +370,16 @@ padding: 6px 0px 0px 19px;
     margin-bottom: 20px;
     border-bottom: 1px solid lightgray;
     padding-bottom: 8.5px;
+    font-weight:700;
 }
 .review-stars-on-advisor{
 	float: right;
     /* margin-top: -5px; */
     font-size: 10px;
 }
-
+.dark-button,.red-button {
+       width:160px;
+}
 
 
 
@@ -466,7 +470,8 @@ padding: 6px 0px 0px 19px;
 .dark-button,.red-button {
        font-size: 13px;
     padding: 6px 13px 6px 13px;
-    margin-top: 8px;
+    /* margin-top: 8px; */
+    width:117px;
 }
 .no-padding-xs{
 	padding:0px;

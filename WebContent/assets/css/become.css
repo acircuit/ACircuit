@@ -36,6 +36,9 @@
     font-family: lato;
     display: block;
     margin-top: 8px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .become-form-container{
 	

@@ -71,7 +71,7 @@
    	
    			<div class="body-error error-div col-xs-12" style="background-color:white;padding-bottom: 65px;min-height:200px;">
    					<span class="become-head-div">Become An Advisor</span><br>
-   					<span class="become-text-s">If you're successful in your field; give back, guide others & get paid for it!</span>
+   					<span class="become-text-s">Give back, guide others and get rewarded!</span>
 			</div>
 			<div class="special-div col-xs-12" >
 			<div class="container no-padding-xs" >
@@ -83,18 +83,18 @@
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/become2.png"><br>
-	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
-	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
+	   						<span class="f-dive-head">EARN WHILE GIVING BACK</span><br>
+	   						<span class="f-div-text">Get paid or Get incentives for every session you take. You can even donate the amount you earn to charity.</span>
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/become3.png"><br>
-	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
-	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
+	   						<span class="f-dive-head">HASSLE FREE AND CONVENIENT</span><br>
+	   						<span class="f-div-text">Take sessions in your idle time. No personal details revealed and no minimum number of sessions!</span>
    						</div>
    						<div class="col-xs-12 col-sm-6 f-div">
 	   						<img src="assets/img/become4.png"><br>
-	   						<span class="f-dive-head">BE A GUIDE AND MENTOR</span><br>
-	   						<span class="f-div-text">Make a difference by guiding others who need it. Earn respect and following as a mentor in the community</span>
+	   						<span class="f-dive-head">NETWORK</span><br>
+	   						<span class="f-div-text">Network with our growing community of Advisors & Advisees.</span>
    						</div>
 					</div>
 			</div>
@@ -106,14 +106,11 @@
 				</div>
 					<form class="login-form col-xs-12 col-sm-4 col-sm-offset-4 no-padding" method="post" id="signupform" action="registration">
 	      			<div class="option-signin-buuton col-xs-12 no-padding form-group">
-					 		
-						
-									<button type="button" class="btn gt-started" style="background-color: #007ab9;margin-top: 0px;">Linkedin</button>
-				 			
+					 		<button type="button" class="btn gt-started" style="background-color: #007ab9;margin-top: 0px;"><img src="assets/img/icon-linkedin.png" style="width: 13px;margin-top: -6px;margin-right: 4px;"> Linkedin</button>
 				 	</div>
 				 	<input type="hidden" name="type" value="advisor">
-				 	<div class="option-signin col-xs-12 no-padding form-group">
-				 		<span class="import-text">We'll import your Linkedin education and employment history to speed up your registration.</span>
+				 	<div class="option-signin col-xs-12 no-padding" style="margin-top: -25px;">
+				 		<span class="import-text">OR</span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="name" type="text" placeholder="Name" required aria-required="true">

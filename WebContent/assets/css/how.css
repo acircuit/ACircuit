@@ -60,8 +60,10 @@
 	color:#4a4a4a;
 }
 .head-u{
-	border-bottom:2px solid #37b7b3;
-	padding-bottom:9px;
+	border-bottom: 3px solid #37b7b3;
+    padding-bottom: 9px;
+    padding-left: 7px;
+    margin-left: -5px;
 }
 .each-step-div{
 	margin-bottom: 25px;
@@ -76,13 +78,13 @@
 }
 .step-info{
 	display: inline-block;
-    /* float: left; */
-    /* margin-top: -79px; */
-    /* margin-left: 84px; */
-    max-width: 350px;
+    float: left;
+    margin-top: -79px; 
+         margin-left: 84px;
+    /* max-width: 350px; */
 }
 .last-div-grey{
-	background-color:#9b9b9b;
+	background-color:#E4E4E4;
 	min-height:347px;
 	padding-left: 53px;
     padding-right: 59px;
@@ -109,6 +111,21 @@
 .bordert{
 	display:none;
 }
+.signup-bottom{
+	font-family: latol;
+    color: white;
+    font-size: 15px;
+    width: 188px;
+    border-radius: 3px;
+}
+.r-text{
+	padding-left: 40px;
+}
+
+
+
+
+
 @media (min-width: 320px) and (max-width: 767px) {
 
 .no-span {
@@ -118,19 +135,40 @@
     padding-top: 13px;
 }
 .each-step-div{
-border: 1px solid lightgray;
-padding-top: 13px;
-    padding-bottom: 14px;
-    background-color: #f6f8fa;
+/* border: 1px solid lightgray; */
+padding-top: 0px;
+    padding-bottom: 0px;
+   /*  background-color: #f6f8fa; */
 }
 .each-step-div img{
 	margin-bottom: 25px;
+}
+.each-div-ingrey {
+    margin-bottom: 30px;
+}
+.grey-img-head {
+    margin-bottom: 1px;
+}
+.each-div-ingrey img {
+    margin-bottom: 6px;
+}
+.r-text{
+	padding-left: 10px;
+}
+.l-div {
+    padding-left: 10px;
+}
+.how-steps-div {
+    padding-bottom: 21px;
+}
+.last-div-grey {
+    min-height: 236px;
 }
 }
 @media (min-width: 320px) and (max-width: 462px) {
 	.step-info {
     float: left;
     margin-top: -79px;
-    margin-left: 35px;
+    margin-left: 51px;
    }}
 

@@ -208,33 +208,33 @@
 		   				 <div class="scroll-xs scrollable-content">
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/service1.png">
+		  						<img class="why-us-im" src="assets/img/home_service1.svg">
 		  							<br><span class="why-us-medium-text">Large Network of Advisors</span>
-		  							<p class="why-us-text">Professionals from many different areas and industries at one place for you to choose from</p>
+		  							<p class="why-us-text">Experts from different backgrounds all at one place for you to choose from.</p>
 		  							
 		  					</div>
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/service2.png">
+		  						<img class="why-us-im" src="assets/img/service1.png" style="width: 65px;">
 		  							<br><span class="why-us-medium-text">First Hand Knowledge</span>
-		  							<p class="why-us-text">Get advice from people who have been there, done that</p>
+		  							<p class="why-us-text">Get advice from people who have been there, done that.</p>
 		  							
 		  					</div>
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/service3.png">
+		  						<img class="why-us-im" src="assets/img/home_service3.svg">
 		  							<br><span class="why-us-medium-text">Connect Anytime Anywhere</span>
-		  							<p class="why-us-text">No matter where you are, connect conveniently via phone or video chat</p>
+		  							<p class="why-us-text">No matter where you are, connect conveniently via phone or video chat.</p>
 		  							
 		  					</div>
 		  				</div>
 		  				<div class=" no-padding y-div">
 		  					<div class="big-img-div no-padding-xs">
-		  						<img class="why-us-im" src="assets/img/service3.png">
+		  						<img class="why-us-im" src="assets/img/home_service4.svg">
 		  							<br><span class="why-us-medium-text">Great Advice At Steal</span>
-		  							<p class="why-us-text">Message advisors for free or book a one on one session at minimal prices</p>
+		  							<p class="why-us-text">Ask Questions for free or book sessions at minimal prices.</p>
 		  							
 		  					</div>
 		  				</div>
@@ -247,7 +247,7 @@
 		</div>
    	</div>
    	<div class="testimonial-div-container col-xs-12">
-	   	<div class="col-xs-12 testimonial-text-head no-padding-xs"><span>Testimonial</span></div>
+	   	<div class="col-xs-12 testimonial-text-head no-padding-xs">TEST<span>IMONI</span>ALS</div>
 	   		<div class="testimonial-div col-xs-12 col-sm-10 col-sm-offset-1">
 				<div class="dquotes">
 					<span class="bqstart">“</span>
@@ -285,8 +285,11 @@
    	</div>
    	<div class="sign-up-div col-xs-12">
    	 	<div class="col-xs-12 signup-text-head no-padding-xs"><span>START NOW</span></div>
+   	 	<div class="text-div">
+   	 	<span class="text">Over 80% people regret their career choices. Change the way you seek advice.</span>
+   	 	</div>
    	 	<div class="button-div">
-   	 	<button type="button" class="btn red-button signup-button">Book a session</button>
+   	 	<button type="button" class="btn red-button signup-button">Sign Up Now</button>
    	 	</div>
    	</div>
    	 <%@include file="/footer.jsp" %>

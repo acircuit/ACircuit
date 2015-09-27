@@ -83,11 +83,11 @@
 	</div>
 </div>
    	<div class="main-body-div container"  id="page-content-wrapper">
-		   	<div class="advisor-page-heading">
+		   	<!-- <div class="advisor-page-heading" >
 			   	<span class="adpage-big-texth">Expert Advisors :</span>
 			   	<span class="adpage-small-texth">Higher Studies in MBA India</span>
-		   	</div>
-   		 <div class="col-xs-12  expert-card-div">
+		   	</div> -->
+   		 <div class="col-xs-12  expert-card-div" style="margin-top:10px;">
 			<div class="expert-card">
 				<div class="col-xs-12 no-padding">
 					<div class="col-xs-12 col-sm-3 blueT  no-padding">
@@ -126,16 +126,16 @@
 				</div>
 				<div class="col-xs-12 no-padding">
 					<div class="b-strip">
-						<div class="col-xs-12 col-sm-8 no-padding-xs text-center-xs">
+						<div class="col-xs-12 col-sm-8 no-padding-xs text-center-xs" style="visibility:hidden;">
 							<span class="stars-xs hidden-xs"><span class="rating-no">4.5</span>
 							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
-							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Consultations</span></span>
+							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Reviews</span></span>
 							<span class="ad-stats"><span class="no-blue">${answerCount }</span><span class="no-type">Answers</span></span>
-							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Reviews</span></span>
+							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Sessions</span></span>
 						
 						</div>
 						<div class="col-xs-12 col-sm-4 text-right text-center-xs no-padding-xs">
-							<button type="button" class="btn red-button " onclick="CheckLoggedIn()">Book a session</button>
+							<button type="button" class="btn red-button " onclick="CheckLoggedIn()" >Book a session</button>
 							<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()">Ask a question</button>
 						</div>
 					
@@ -176,19 +176,19 @@
 				<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
 				</div>
 				<div class="col-xs-6 no-padding">
-				<img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text">Video Chat</span>
+				<img src="assets/img/vicon.svg" style="width: 31px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text" style="margin-left: 43px;">Video Chat</span>
 				</div>
 			</div>
 			<div class="session-info col-xs-12">
 				<div class="session-div">
 					<span class="session-head-type" >Book A Session</span><br>
 					<span class="session-head-text">Rs 500/session</span>
-					<button type="button" class="btn red-button " onclick="CheckLoggedIn()">Book a session</button>
+					<button type="button" class="btn red-button " onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
 				</div>
 				<div class="session-div">
 					<span class="session-head-type">Ask A Question</span><br>
-					<span class="session-head-text">1st Question FREE</span>
-					<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()">Ask a question</button>
+					<span class="session-head-text">Absolutely free</span>
+					<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()" style="width: 99px;">Ask now</button>
 				</div>
 			</div>
 		</div>
@@ -199,8 +199,8 @@
 				    <c:forEach items="${advisor.getProfession()}" var="profession">
 					<div class="bio-element">
 						<span class="bio-title">${profession.getDesignation()}</span>
-						<span class="bio-subtitle">${profession.getCompany()}</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
-						<span class="bio-subtitle3">${profession.getDuration()}</span>
+						<span class="bio-subtitle">${profession.getCompany()}</span><span class="seperator">|</span><span class="bio-subtitle3">${profession.getDuration()}</span>
+						
 					</div>
 					</c:forEach>
 				</div>	
@@ -219,15 +219,15 @@
 				</div>	
 				
 			</div>
-			<span class="bio-heading">Additional Information</span>
+			<span class="bio-heading">Other Information</span>
 			<div class="border-b">
-				<span class="a-info-each"><span class="additional-info-type">Current City</span><span class="additional-info-text">${advisor.getCity()}</span></span>
-				<span class="a-info-each"><span class="additional-info-type">Language</span>
+				<span class="a-info-each"><span class="additional-info-type">Current City: </span><span class="additional-info-text"> ${advisor.getCity()}</span></span>
+				<span class="a-info-each"><span class="additional-info-type">Language: </span>
 				<c:forEach items="${advisor.getLanguage()}" var="language">
-				<span class="additional-info-text">${language.getLanguage()},</span>
+				<span class="additional-info-text"> ${language.getLanguage()},</span>
 				</c:forEach>
 				</span>
-				<span class="a-info-each"><span class="additional-info-type">Industry</span><span class="additional-info-text">${advisor.getIndustry()}</span></span>
+				<span class="a-info-each"><span class="additional-info-type">Industry:</span><span class="additional-info-text"> ${advisor.getIndustry()}</span></span>
 			</div>
 			<div class="ar-tab-div ">
 				   	<ul class="nav nav-tabs" role="tablist">
@@ -255,6 +255,7 @@
 										                  <p class="answer-to-question">
 										                   ${answer.getAnswer()}
 										                  </p>
+										                  
 					   				                  </div>
 					   				               </c:if>
 					                           </c:forEach>
@@ -547,10 +548,6 @@ function CheckLoggedInForQuestions(){
 	}else{
 		$('#loginmodal').modal('show');
 	}
-}
-function SubmitQuestion(){
-	
-    
 }
 $('#category-menu-on-modal').on('change', function() {
 	 var values= ( this.value ); // or $(this).val()
