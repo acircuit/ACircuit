@@ -484,17 +484,20 @@ public class SearchDAO {
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt;
 			if(type.equals("higherstudies")){
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
+				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "studies");
 				pstmt.setBoolean(2, true);
 			}else if (type.equals("industry")) {
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
+				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "industry");
 				pstmt.setBoolean(2, true);
 			}else if (type.equals("options")) {
-				query = "SELECT ADVISOR_ID FROM advisor_category WHERE CATEGORY = ? AND ISACTIVE=?";
+				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "options");
 				pstmt.setBoolean(2, true);
