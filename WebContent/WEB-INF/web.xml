@@ -542,4 +542,12 @@
     <servlet-name>deactivated</servlet-name>
     <url-pattern>/deactivated</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>howitworks</servlet-name>
+    <jsp-file>/howitworks.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>howitworks</servlet-name>
+    <url-pattern>/howitworks</url-pattern>
+  </servlet-mapping>
 </web-app>
