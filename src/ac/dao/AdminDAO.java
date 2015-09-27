@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
 import ac.dto.ContactUsDTO;
+import ac.dto.PromotionsDTO;
 import ac.dto.QuestionsDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
@@ -613,4 +614,136 @@ public class AdminDAO {
 		}
  	return sessions;
 }
+	
+    public List<PromotionsDTO> GetPromotions(){
+    	logger.info("Entered GetPromotions method of AdminDAO");
+   		List<PromotionsDTO> list = new ArrayList<PromotionsDTO>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT * FROM promotions ";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				PromotionsDTO promo = new PromotionsDTO();
+				promo.setId(results.getInt("ID"));
+				promo.setPromoName(results.getString("PROMOTION_NAME"));
+				promo.setIsActive(results.getBoolean("ISACTIVE"));
+				promo.setAmount(results.getString("AMOUNT"));
+				list.add(promo);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetPromotions method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetPromotions method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetPromotions method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetPromotions method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetPromotions method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetPromotions method of AdminDAO");
+		return list;
+	}
+    
+	public Boolean  UpdatePromotionIsActive(Boolean value, String id) { 
+		logger.info("Entered UpdatePromotionIsActive method of AdminDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE promotions SET ISACTIVE=? WHERE ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, value);
+			pstmt.setString(2, id);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdatePromotionIsActive method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdatePromotionIsActive method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdatePromotionIsActive method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdatePromotionIsActive method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdatePromotionIsActive method of AdminDAO");
+		return isCommit;
+	}
+	
+	public Boolean  UpdateAmount(String pid, String amount) { 
+		logger.info("Entered UpdateAmount method of AdminDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE promotions SET AMOUNT=? WHERE ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, amount);
+			pstmt.setString(2, pid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateAmount method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateAmount method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateAmount method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateAmount method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateAmount method of AdminDAO");
+		return isCommit;
+	}
 }

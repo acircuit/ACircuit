@@ -1086,7 +1086,7 @@ public class SessionDAO {
 			conn.setAutoCommit(false);
 			String query ="UPDATE userwallet SET AMOUNT= AMOUNT-? WHERE USER_ID = ? ";
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, amount);
+			pstmt.setDouble(1, Double.valueOf(amount));
 			pstmt.setString(2, uid);
 			int result = pstmt.executeUpdate(); 
 			if(result >0) {
@@ -1304,7 +1304,7 @@ public class SessionDAO {
 			pstmt.setInt(1,id);
 			ResultSet results = pstmt.executeQuery();
 			if(results.first()){
-				user.setFullName(results.getString("NAME"));
+				user.setFullName(results.getString("FULL_NAME"));
 				user.setImage(results.getString("IMAGE"));
 			}
 		} catch (SQLException e) {
@@ -2057,6 +2057,43 @@ public class SessionDAO {
 		}
 		logger.info("Exit InsertUserPhone method of SessionDAO");
 		return isCommit;
+	}
+	
+
+	public int GetConsultations(int aid){
+		logger.info("Entered GetConsultations method of SessionDAO");
+		int consultations = 0;
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT COUNT(*) AS COUNT FROM sessiondetails WHERE ADVISOR_ID=? AND STATUS=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, aid);
+			pstmt.setString(2, "SESSION COMPLETE");
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				consultations = results.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			logger.error("GetConsultations method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetConsultations method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetConsultations method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetConsultations method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetConsultations method of SessionDAO");
+		return consultations;
 	}
 	
 	

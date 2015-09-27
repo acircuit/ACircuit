@@ -32,13 +32,25 @@ public class FeedDAO {
 	
 	public int InsertFeedType(String type){
 		logger.info("Entered InsertFeedType method of FeedDAO");
+		 Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+         mbCal.setTimeInMillis(new Date().getTime());      
+         Calendar cal = Calendar.getInstance();  
+         cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+         cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+         cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+         cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+         cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+         cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+         cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+         Date date = cal.getTime();
 		int feedId = 0;
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "insert into feeds"+"(FEED_TYPE) values" + "(?)";
+			String query = "insert into feeds"+"(FEED_TYPE,FEED_TIME) values" + "(?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, type);
+			pstmt.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
 			int result = pstmt.executeUpdate();
 			if(result > 0) {
 				ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -188,6 +200,7 @@ public class FeedDAO {
 				ActivityDTO activity = new ActivityDTO();
 				activity.setFeedId(results.getInt("FEED_ID"));
 				activity.setFeedType(results.getString("FEED_TYPE"));
+				activity.setFeedtime(results.getTimestamp("FEED_TIME"));
 				activities.add(activity);
 			}
 		} catch (SQLException e) {

@@ -1,8 +1,12 @@
 package ac.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-public class ActivityDTO {
+
+
+
+public class ActivityDTO implements Comparable<ActivityDTO>{
 
 	private int feedId;
 	private String feedType;
@@ -34,10 +38,16 @@ public class ActivityDTO {
 	
 	private String answer;
 	private String answerpostedon;
+	private Timestamp feedtime;
 	
 	
 	
-	
+	public Timestamp getFeedtime() {
+		return feedtime;
+	}
+	public void setFeedtime(Timestamp feedtime) {
+		this.feedtime = feedtime;
+	}
 	public String getAnswer() {
 		return answer;
 	}
@@ -133,5 +143,10 @@ public class ActivityDTO {
 	}
 	public void setFeedType(String feedType) {
 		this.feedType = feedType;
+	}
+	
+	@Override
+	public int compareTo(ActivityDTO obj) {
+		return obj.getFeedtime().compareTo(this.getFeedtime());
 	}
 }

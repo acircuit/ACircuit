@@ -2,6 +2,8 @@ package ac.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -115,6 +117,7 @@ public class UserDashboardController extends HttpServlet {
 			MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 			List<String> optionsSubCategory = option.getOpionsSubCategory();
 			
+			Collections.sort(activities);
 			
 			request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
 			request.setAttribute("industrySubCategory", industrySubCategory);

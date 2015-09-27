@@ -56,7 +56,10 @@
                    Integer reviewCount = (Integer) request.getAttribute("reviewCount");
                    Integer answerCount = (Integer) request.getAttribute("answerCount");
                    String advisorId = request.getParameter("a");
-           	       Boolean isUserVerified = (Boolean) session.getAttribute("isVerified");
+           	       Boolean isUserVerified =false;
+           	       if(session.getAttribute("isVerified") != null){
+           	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
+           	       }
 
        			   int userId = 0;
        			   if(request.getSession().getAttribute("userId") != null){

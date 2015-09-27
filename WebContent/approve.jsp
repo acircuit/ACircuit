@@ -157,7 +157,7 @@ Double wallet = (Double)request.getAttribute("wallet");
                                                         <input type="hidden" name="amount" value="${amountdue}">
 														<input type="hidden" name="merchant_param1" value="${sessionDetails.getUserid()}">
 														<input type="hidden" name="merchant_param3" value="${sessionDetails.getSessionid()}">
-														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 120px;" onclick="ConfirmSession()">Make Payment</button>
+														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 120px;" onclick="ConfirmSession()">Recharge Wallet</button>
                                                </c:when>
                                                <c:otherwise>
 															<input type="hidden" name="amount" value="${sessionDetails.getPrice()}">

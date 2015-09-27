@@ -201,7 +201,7 @@ $( "#signupform" ).submit(function( event ) {
 	  event.preventDefault();
 		$.ajax({
 	        url : 'login', // Your Servlet mapping or JSP(not suggested)
-	        data : {"email":$("#email").val()},
+	        data : {"email":$("#signupemail").val()},
 	        type : 'GET',
 	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	        success : function(response) {

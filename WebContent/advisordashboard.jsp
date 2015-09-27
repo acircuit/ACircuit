@@ -158,7 +158,7 @@
 							<div class="col-xs-12 userr-card ">
 							<span class="new-expert-head">New Review Added</span><br>
 									<img src="${activity.getImage()}">
-									<span class="btext rfrom">${activity.getUserName()}</span><span class="rto btext"> ${activity.getAdvisorName()}</span>
+									<span class="btext rfrom">${activity.getUserName()}</span> to <span class="rto btext"> ${activity.getAdvisorName()}</span>
 									<br>
 									<span class="review-text">${activity.getReview()}</span>
 									

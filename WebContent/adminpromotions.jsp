@@ -42,8 +42,9 @@
     type="text/css">
 <%
 
-List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
-pageContext.setAttribute("questions", questions);
+List<PromotionsDTO> promotions = (List<PromotionsDTO>)request.getAttribute("promotions");
+pageContext.setAttribute("promotions", promotions);
+
 
 %>
 
@@ -84,47 +85,52 @@ position:absolute;
    					<div class="col-xs-8 col-xs-offset-4">
    						<div class="panel panel-default">
 						      <!-- Default panel contents -->
-						      <div class="panel-heading">Questions</div>
+						      <div class="panel-heading">Promotions</div>
 						
 						      <!-- Table -->
 						      <table class="table">
 						        <thead>
 						          <tr>
 						            <th>ID</th>
-						            <th>Questions</th>
-						            <th>Category</th>
-						            <th>Sub Category</th>
-						            <th>Posted On</th>
-						            <th>Status</th>
+						            <th>Name</th>
+						            <th>Amount</th>
+						            <th>ISACTIVE</th>
+						            <th>Action</th>
 						          </tr>
 						        </thead>
 						        <tbody>
-						        <c:forEach items="${questions}" var="question">
+						         <c:forEach items="${promotions}" var="promotion">
 						           <tr>
-						            <th scope="row">${question.getQuestionId()}</th>
-						            <td><a data-toggle="modal" data-target="#question${question.getQuestionId()}">User Question</a>
-						            </td>
-						            <td id="cat${question.getQuestionId()}">${question.getCategory()}</td>
-						            <td id="sub${question.getQuestionId()}">${question.getSubcategory()}</td>
-						            <td>${question.getPostedOnDate()}</td>
-						            <td>${question.getStatus()}</td>
-						          </tr>
-						           <div class="modal fade" id="question${question.getQuestionId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						           <td>${promotion.getId()}</td>
+						            <td>${promotion.getPromoName()}</td>
+						            <td>${promotion.getAmount()}</td>
+						            <td>${promotion.getIsActive()}</td>
+						            <td>
+						              <li class="dropdown">
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
+							          <ul class="dropdown-menu " style="min-width: 273px;padding: 0px;border: 0px;">
+										 <a id="${promotion.getId()}" class="list-group-item" onclick="DeactivatePromotion(this)">Deactivate Promotion</a>
+										 <a id="${promotion.getId()}" href="" class="list-group-item" onclick="ActivatePromotion(this)">Activate Promotion</a>
+										 <a data-toggle="modal" data-target="#promo${promotion.getId()}" class="list-group-item">Update Amount</a>
+							          </ul>
+							        </li>                    
+                                   </td>
+                                   <div class="modal fade" id="promo${promotion.getId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-body">
-								      <span id="ques${question.getQuestionId()}" class="ask-question-modal-head">User Question</span><br>
+								      <span class="ask-question-modal-head">Input Amount</span><br>
 								      <br>
-								      <p>${question.getQuestion()}</p>
+								      <input type="text" name="amount" id="amount${promotion.getId()}">
 								      <div class="row" style="padding:10px;">
-										    <a id="${question.getQuestionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
-										    <a id="${question.getQuestionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   
+										    <a id="${promotion.getId()}" class="btn red-button ask-question-button" onclick="UpdateAmount(this)">Submit</a>
 									  </div>
 								      </div>
 								      
 								    </div>
 								  </div>
 								</div> 
+						          </tr>
 						        </c:forEach>
 						        </tbody>
 						      </table>
@@ -136,15 +142,90 @@ position:absolute;
 </div>
 
 <script>
-function UpdateStatus(elem,status){
-	var id = elem.id;
-	var question = document.getElementById("ques"+id).innerHTML;
-	var category = document.getElementById("cat"+id).innerHTML;
-	var subcategory = document.getElementById("sub"+id).innerHTML;
 
+$(document).ready(function () {
+	
+});
+function DeactivateUser(elem){
+	var id = elem.id;
 	$.ajax({
-        url : 'adminquestions', // Your Servlet mapping or JSP(not suggested)
-        data : {"questionId":id, "action": status,"question":question,"category":category,"subcategory":subcategory},
+        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
+        data : {"userId":id, "action": "deactivate"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+function ActivateUser(elem){
+	var id = elem.id;
+	$.ajax({
+        url : 'adminuser', // Your Servlet mapping or JSP(not suggested)
+        data : {"userId":id, "action": "activate"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+function DeactivatePromotion(elem){
+	debugger;
+	var id = elem.id;
+	$.ajax({
+        url : 'adminpromotions', // Your Servlet mapping or JSP(not suggested)
+        data : {"promoId":id, "action": "deactivate"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+
+function ActivatePromotion(elem){
+	var id = elem.id;
+	$.ajax({
+        url : 'adminpromotions', // Your Servlet mapping or JSP(not suggested)
+        data : {"promoId":id, "action": "activate"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+function UpdateAmount(elem){
+	var id = elem.id;
+	var amount = $("#amount"+id).val();
+	$.ajax({
+        url : 'adminpromotions', // Your Servlet mapping or JSP(not suggested)
+        data : {"promoId":id,"amount":amount},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {

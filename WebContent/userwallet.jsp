@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
 <%@page import="ac.dto.*"%>
+<%@ page import = "java.io.*,java.util.*,com.ccavenue.security.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
@@ -44,6 +44,13 @@
      Double amount = (Double)request.getAttribute("amount"); 
 		String recharge = (String)request.getParameter("recharge");
 		pageContext.setAttribute("recharge", recharge);
+		 int merchant_id = 60380; 
+		 Enumeration enumeration=request.getParameterNames();
+		 String ccaRequest="104013320693|1.00|API23|";
+		 String workingKey ="18F62D2A438A259C8D85C9DB06C73485";
+		 String accessCode = "AVUQ04CC64AF66QUFA";
+		 AesCryptUtil aesUtil=new AesCryptUtil(workingKey);
+		 String encRequest = aesUtil.encrypt(ccaRequest);
 
 
 %>
@@ -214,12 +221,14 @@
 								<tbody><tr class="table-row-headings">
 									<th>Date</th>
 									<th>Recharge ID</th>
+									<th>Tracking ID</th>
 									<th>Amount</th>		
 									</tr>
 								<c:forEach items="${payments}" var="pay">
 								<tr class="payment-row">
 									<td>${pay.getDate()}</td>
-									<td class="rid">${pay.getRechargeId()}</td>
+									<td>${pay.getRechargeId()}</td>
+									<td class="rid">${pay.getTrackinId()}</td>
 									<td class="max-a">${pay.getAmount()}</td>		
 									</tr>
 								</c:forEach>
@@ -239,6 +248,14 @@
 								    </div>
 								  </div>
 								</div>
+<%-- 	<form id="nonseamless" method="post" name="redirect" action="https://login.ccavenue.com/apis/servlet/DoWebTrans"/> 
+		<input type="hidden" id="enc_request" name="enc_request" value="<%= encRequest %>">
+		<input type="hidden" name="access_code" id="access_code" value="<%= accessCode %>">
+		<input type="hidden" name="command" id="command" value="refundOrder">
+		<input type="hidden" name="request_type" id="request_type" value="STRING">
+		<input type="hidden" name="version" id="version" value="1.1">
+		
+	</form>	 --%>
    	 </div>
    	 <%@include file="/footer.jsp" %>
 </div>
@@ -305,18 +322,95 @@ $('#refundmodal .payment-row').on('click', function() {
 	$('.refund-input').attr('data-tid',tid);
 	$('.refund-input').val(selectedamount);
 	$('.refund-input').focus();
+	
 });
 $('body').on( 'focusout', '.refund-input', function(event) { 
 	$(this).closest('.form-group').find('.error').remove();
 	var checkmax=$(this).attr('data-max');
 	var value= $(this).val();
+	var tranID=$(this).attr('data-tid');
+	debugger;
 	console.log(checkmax);
 	console.log(value);
 	if(value>checkmax)
 		{
-		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">error</label>')
+		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  transaction amount.</label>')
+		}else if (value>"${amount}") {
+			$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  wallet amount.</label>')
+
+		}
+	else{
+
+			if(value< checkmax && value < "${amount}"){
+				$(this).closest('.form-group').find('.error').remove();
+				$.ajax({
+			        url : 'GetEncRequestForRefund', // Your Servlet mapping or JSP(not suggested)
+			        data : {"tranId" : tranID,"amount" : value},
+			        type : 'POST',
+			        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+			        success : function(response) {
+			        	SendRequest(response);
+			       	 $('.black-screen').hide();
+
+			        },
+			        error : function(request, textStatus, errorThrown) {
+			            alert(errorThrown);
+			            
+			        }
+			    });
+			}
 		}
 });
+function SendRequest(encrequest){
+	if(encrequest != ""){
+		var elements = encrequest.split(":");
+/* 		$.ajax({
+	        url : 'https://login.ccavenue.com/apis/servlet/DoWebTrans', // Your Servlet mapping or JSP(not suggested)
+	        data : {"enc_request" : elements[0],"access_code" : elements[1],"command" :"refundOrder","request_type" :"STRING","version":"1.1"},
+	        type : 'POST',
+	        dataType : 'string', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	        	debugger;
+	        	var res = response.split("|");
+	        	if(res[0] == "0"){
+	        		debugger;
+	        	}else{
+	        		alert("res[2]");
+	        	}
+	       	 $('.black-screen').hide();
+
+	        },
+	        error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    }); */
+		/* $("#enc_request").val(elements[0]);
+		$("#access_code").val(elements[1]);
+		$("#command").val("refundOrder");
+		$("#request_type").val("STRING");
+		$("#version").val("1.1");
+		document.redirect.submit(); */
+	}
+}
+function UpdateWallet(){
+	var value= $(this).val();
+	$.ajax({
+        url : 'GetEncRequestForRefund', // Your Servlet mapping or JSP(not suggested)
+        data : {"action " : "update","amount" :value,"uid" : "${userId}"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	alert(response);
+       	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
 $('body').on( 'keyup', '.refund-input', function(event) { 
 	$(this).closest('.form-group').find('.error').remove();
 });	

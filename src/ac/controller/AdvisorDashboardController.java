@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -103,7 +104,8 @@ public class AdvisorDashboardController extends HttpServlet {
 				
 				
 			}
-			
+			Collections.sort(activities);
+
 			request.setAttribute("advisorDetails", advisorDetails);
 			request.setAttribute("activities", activities);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisordashboard.jsp");

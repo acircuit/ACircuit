@@ -35,12 +35,12 @@ public class AdminMyAccountAdvisorController extends HttpServlet {
 		try{
 			isAdmin = (Boolean) request.getSession().getAttribute("admin"); 
 			}catch(Exception e){
-				response.sendRedirect("Error");
+				response.sendRedirect("error");
 				isError = true;
 			}
 		if(isAdmin == null){
 			isError = true;
-			response.sendRedirect("Error");
+			response.sendRedirect("error");
 		}
 		if(isError!= null &&  !isError){
 				List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();

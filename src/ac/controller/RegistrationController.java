@@ -21,6 +21,7 @@ import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.RegistrationDAO;
 import ac.dao.UserNotificationDAO;
+import ac.dto.PromotionsDTO;
 import ac.util.PasswordHashing;
 import ac.util.SendMail;
 
@@ -47,9 +48,12 @@ public class RegistrationController extends HttpServlet {
         InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Mail.properties");
         Properties prop1 = new Properties();
         InputStream resourceAsStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Path.properties");
+        Properties prop2 = new Properties();
+        InputStream resourceAsStream2 = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Promotions.properties");
         try {
 			prop.load(resourceAsStream);
 			prop1.load(resourceAsStream1);
+			prop2.load(resourceAsStream2);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -74,9 +78,19 @@ public class RegistrationController extends HttpServlet {
     				RegistrationDAO dao = new RegistrationDAO();
     				int userId = dao.setUserDetails(email,hashPassword,fullname,absolutePath,updates);
     				if(userId != 0){
-    					//Inserting the wallet for the user
-    					RegistrationDAO wallet = new RegistrationDAO();
-    					Boolean isCommit = wallet.InsertUserWallet(userId);
+    					Boolean isCommit = false;
+    					RegistrationDAO promotions = new RegistrationDAO();
+    					PromotionsDTO promo = promotions.GetPromotionValidity(prop2.getProperty("PROMOTION_1"));
+    					if(promo.getIsActive() != null && promo.getIsActive()){
+    						//Inserting the wallet for the user
+        					RegistrationDAO wallet = new RegistrationDAO();
+        					isCommit = wallet.InsertUserWallet(userId,promo.getAmount());
+    					}else{
+    						//Inserting the wallet for the user
+        					RegistrationDAO wallet = new RegistrationDAO();
+        					isCommit = wallet.InsertUserWallet(userId,"0");
+    					}
+    					
     					if(isCommit){
         					
         					String comment = fullname+" signed up as a user";

@@ -463,6 +463,14 @@
     <url-pattern>/advisorprofileedit</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>adminpromotions</servlet-name>
+    <servlet-class>ac.controller.AdminPromotionsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminpromotions</servlet-name>
+    <url-pattern>/adminpromotions</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
@@ -542,12 +550,20 @@
     <servlet-name>deactivated</servlet-name>
     <url-pattern>/deactivated</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>howitworks</servlet-name>
     <jsp-file>/howitworks.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>howitworks</servlet-name>
     <url-pattern>/howitworks</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>refund</servlet-name>
+    <jsp-file>/Refund.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>refund</servlet-name>
+    <url-pattern>/refund</url-pattern>
   </servlet-mapping>
 </web-app>

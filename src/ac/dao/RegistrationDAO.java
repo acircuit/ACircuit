@@ -15,6 +15,7 @@ import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
+import ac.dto.PromotionsDTO;
 import ac.jdbc.ConnectionFactory;
 
 public class RegistrationDAO {
@@ -179,7 +180,7 @@ public class RegistrationDAO {
 		return advisorId;
 	}
 	
-	public Boolean InsertUserWallet(int userId) {
+	public Boolean InsertUserWallet(int userId,String amount) {
 		logger.info("Entered InsertUserWallet method of RegistrationDAO");
 		int result = 0;
 		Boolean isCommit = false;
@@ -192,7 +193,7 @@ public class RegistrationDAO {
 					+ "(?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, userId);
-		    pstmt.setDouble(2, 0);
+		    pstmt.setDouble(2, Double.valueOf(amount));
 			result = pstmt.executeUpdate();
 			if (result > 0) {
 				conn.commit();
@@ -288,7 +289,7 @@ public class RegistrationDAO {
 	}
 	
 	public Boolean SetGeneralInfo(String name,String gender,String age,String city,String phone,String industry, String intro,String exp,String linkedin_Profile_Link,int advisorId){
-	logger.info("Entered SetGeneralInfo method of AdvisorRegistrationDAO");
+	logger.info("Entered SetGeneralInfo method of RegistrationDAO");
 	Boolean isGeneralInfoCommit = false;
 	String query = "";
 	PreparedStatement pstmt;
@@ -316,27 +317,63 @@ public class RegistrationDAO {
 		try {
 			conn.rollback();
 		} catch (SQLException e1) {
-			logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+			logger.error("SetGeneralInfo method of RegistrationDAO threw error:"+e.getMessage());
 			e1.printStackTrace();
 		}	
-		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		logger.error("SetGeneralInfo method of RegistrationDAO threw error:"+e.getMessage());
 		e.printStackTrace();
 	} catch (IOException e) {
-		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		logger.error("SetGeneralInfo method of RegistrationDAO threw error:"+e.getMessage());
 		e.printStackTrace();
 	} catch (PropertyVetoException e) {
-		logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+		logger.error("SetGeneralInfo method of RegistrationDAO threw error:"+e.getMessage());
 		e.printStackTrace();
 	}finally{
 		try {
 			conn.close();
 		} catch (SQLException e) {
-			logger.error("SetGeneralInfo method of AdvisorRegistrationDAO threw error:"+e.getMessage());
+			logger.error("SetGeneralInfo method of RegistrationDAO threw error:"+e.getMessage());
 			e.printStackTrace();
 		}
 	}	
-	logger.info("Entered SetGeneralInfo method of AdvisorRegistrationDAO");
+	logger.info("Entered SetGeneralInfo method of RegistrationDAO");
 	return isGeneralInfoCommit;
+	}
+	
+	public PromotionsDTO GetPromotionValidity(String promo){
+		logger.info("Entered GetPromotionValidity method of RegistrationDAO");
+		PromotionsDTO promotion = new PromotionsDTO();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ISACTIVE,AMOUNT FROM promotions WHERE PROMOTION_NAME=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, promo);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				promotion.setIsActive(results.getBoolean("ISACTIVE"));
+				promotion.setAmount(results.getString("AMOUNT"));
+            }
+		} catch (SQLException e) {
+			logger.error("GetPromotionValidity method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetPromotionValidity method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetPromotionValidity method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetPromotionValidity method of RegistrationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetPromotionValidity method of RegistrationDAO");
+		return promotion;
 	}
 	
 }

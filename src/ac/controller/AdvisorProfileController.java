@@ -85,7 +85,10 @@ public class AdvisorProfileController extends HttpServlet {
             SessionDAO question = new SessionDAO();
             questions = question.GetQuestions(qids);
 			Boolean isPhone =false;
-			int userId = (int) request.getSession().getAttribute("userId");
+			int userId= 0;
+			if(request.getSession().getAttribute("userId") != null){
+				userId = (int) request.getSession().getAttribute("userId");
+			}
 			if(userId != 0){
 				SessionDAO user = new SessionDAO();
 				UserDetailsDTO userDetails = user.GetUserDetails(userId);
@@ -93,7 +96,11 @@ public class AdvisorProfileController extends HttpServlet {
 					isPhone = true;
 				}
 			}
-
+			int consultations = 0;
+			//Getting the number of consultations
+			SessionDAO sessions= new SessionDAO();
+			consultations =  sessions.GetConsultations(advisor.getId());
+            System.out.println(consultations);
             
 			List<UserDetailsDTO> userDetails = new ArrayList<UserDetailsDTO>();
 			  //Getting user details
