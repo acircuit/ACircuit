@@ -10,7 +10,7 @@
 									      </div>
 									      <br><br>
 									       <div class="row">
-										       <div class="col-xs-3"><span style="margin-top: 7px;display: block;">Select category :</span></div>
+										       <div class="col-xs-3"><span style="margin-top: 7px;display: block;">Select Area of Advice :</span></div>
 										       <div class="col-xs-9">
 											       <div class="col-xs-6">
 												     <div class="form-group"> 
@@ -62,7 +62,7 @@ $(document).ready(function () {
 	
 	$('body').on('submit', '#ask-form-modal', function(e){
 		e.preventDefault();
-		var ques=$('#question').text();
+		var ques=$('#question').val();
 		var cat=$('#category-menu-on-modal').val();
 		var subcat=$('#subcategory-menu-on-modal').val();
 		console.log(ques.length);
@@ -74,22 +74,43 @@ $(document).ready(function () {
 		var question =$("#question").val();
 		var category = $("#category-menu-on-modal").val();
 		var subcategory = $("#subcategory-menu-on-modal").val();
-		var id  = "${advisor.getId()}";
-		$.ajax({
-	        url : 'QuestionToAdvisorController', // Your Servlet mapping or JSP(not suggested)
-	        data : {"question":question,"category" :category,"subcategory":subcategory,"aid":id},
-	        type : 'POST',
-	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-	        success : function(response) {
-				 alert(response);
-	        	 $('.black-screen').hide();
+		var url = window.location.href;
+		if(url.indexOf("advisors", 0) > -1 || url.indexOf("advisorprofile", 0) > -1) {
+			var id  = "${advisor.getId()}";
+			$.ajax({
+		        url : 'QuestionToAdvisorController', // Your Servlet mapping or JSP(not suggested)
+		        data : {"question":question,"category" :category,"subcategory":subcategory,"aid":id},
+		        type : 'POST',
+		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+		        success : function(response) {
+					 alert(response);
+		        	 $('.black-screen').hide();
 
-	        },
-	        error : function(request, textStatus, errorThrown) {
-	            alert(errorThrown);
-	            
-	        }
-	});
+		        },
+		        error : function(request, textStatus, errorThrown) {
+		            alert(errorThrown);
+		            
+		        }
+		});
+			
+		}else{
+	    	$.ajax({
+	            url : 'QuestionsController', // Your Servlet mapping or JSP(not suggested)
+	            data : {"question":question,"category" :category,"subcategory":subcategory},
+	            type : 'POST',
+	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	            success : function(response) {
+					 alert(response);
+	            	 $('.black-screen').hide();
+
+	            },
+	            error : function(request, textStatus, errorThrown) {
+	                alert("Sorry your question could no be posted. Please try again.");
+	                
+	            }
+	        });
+		}
+
 	});
 });
 </script>

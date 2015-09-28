@@ -48,7 +48,7 @@
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
                    String currentCompany = (String) request.getAttribute("currentCompany");
                    List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>) request.getAttribute("userDetails");
-               
+                   Integer consultations = (Integer) request.getAttribute("consultations");
                    List<ReviewsDTO> advisorReviews = (List<ReviewsDTO>)request.getAttribute("advisorReviews");
                    List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
                    List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
@@ -132,9 +132,9 @@
 						<div class="col-xs-12 col-sm-8 no-padding-xs text-center-xs" style="visibility:hidden;">
 							<span class="stars-xs hidden-xs"><span class="rating-no">4.5</span>
 							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
-							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Reviews</span></span>
+							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Reviews</span></span>
 							<span class="ad-stats"><span class="no-blue">${answerCount }</span><span class="no-type">Answers</span></span>
-							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Sessions</span></span>
+							<span class="ad-stats"><span class="no-blue">${consultations }</span><span class="no-type">Sessions</span></span>
 						
 						</div>
 						<div class="col-xs-12 col-sm-4 text-right text-center-xs no-padding-xs">
@@ -175,17 +175,21 @@
 			</div>
 			<div class="available-div col-xs-12">
 				<span class="available-head">Available on</span>
-				<div class="col-xs-6 no-padding">
-				<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
-				</div>
-				<div class="col-xs-6 no-padding">
-				<img src="assets/img/vicon.svg" style="width: 31px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text" style="margin-left: 43px;">Video Chat</span>
-				</div>
+				<c:if test="${advisor.getPhone() }">
+					<div class="col-xs-6 no-padding">
+					<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
+					</div>
+				</c:if>
+				<c:if test="${advisor.getVideo() }">
+					<div class="col-xs-6 no-padding">
+					<img src="assets/img/vicon.svg" style="width: 31px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text" style="margin-left: 43px;">Video Chat</span>
+					</div>
+				</c:if>
 			</div>
 			<div class="session-info col-xs-12">
 				<div class="session-div">
 					<span class="session-head-type" >Book A Session</span><br>
-					<span class="session-head-text">Rs 500/session</span>
+					<span class="session-head-text">Rs ${advisor.getPhonePrice()}/min</span>
 					<button type="button" class="btn red-button " onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
 				</div>
 				<div class="session-div">
@@ -460,7 +464,7 @@ $(document).ready(function () {
         success : function(response) {
         	var obj = JSON.parse(response);
           	$.each(obj, function(key,value) {
-          		similarprofile(value);
+          		similarprofile(value,"${advisorCategory}","${advisorSubcategory}");
           	}); 
         	 $('.black-screen').hide();
 
@@ -475,11 +479,11 @@ $(document).ready(function () {
 });
 
 
-function similarprofile(value){
+function similarprofile(value,category,subcategory){
 	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
-		       +'<p class="adv-field">'+value.industry+'</p><br>'  
+		       +'<p class="adv-field">'+category+','+subcategory+'</p><br>'  
                +'</div>';		
                $('.similar').append(html);
  }

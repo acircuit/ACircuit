@@ -166,48 +166,7 @@
    			</div>
    			
    			</div>
-   			<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								      <span class="ask-question-modal-head">Ask Question</span><br>
-								      <br>
-								      <form class="ask-form"> 
-								      	<textarea id="question"  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
-								      
-									       <br><br>
-									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
-										       <div class="col-xs-9">
-											       <div class="col-xs-6">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														   <option value="higherstudies">Higher studies</option>
-														  <option value="industry">Industry</option>
-														  <option value="options">Courses</option>
-														</select>
-											       </div>
-											       <div class="col-xs-6">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															  
-														</select>
-														
-											       </div>
-											      <br>
-											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
-													</div>
 
-													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
-										       </div>
-									       </div>
-								        </form>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
 	<div class="modal fade" id="refundmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -257,6 +216,7 @@
 		
 	</form>	 --%>
    	 </div>
+   	  <%@include file="/askqmodal.jsp" %>
    	 <%@include file="/footer.jsp" %>
 </div>
 

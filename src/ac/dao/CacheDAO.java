@@ -51,6 +51,8 @@ public class CacheDAO {
 				advisor.setPhone(results.getBoolean("PHONE"));
 				advisor.setVideo(results.getBoolean("VIDEO"));
 				advisor.setImage(results.getString("IMAGE"));
+				advisor.setPhonePrice(results.getDouble("PHONE_PRICE"));
+				advisor.setVideoPrice(results.getDouble("VIDEO_PRICE"));
 				advisors.add(advisor);
 			}
 		} catch (SQLException e) {
@@ -343,9 +345,10 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? ORDER BY INDUSTRY";	
+			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? AND ISACTIVE=? ORDER BY INDUSTRY";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				industries.add(results.getString("INDUSTRY"));

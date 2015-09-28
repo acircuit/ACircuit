@@ -100,13 +100,13 @@ public class AdvisorProfileController extends HttpServlet {
 			//Getting the number of consultations
 			SessionDAO sessions= new SessionDAO();
 			consultations =  sessions.GetConsultations(advisor.getId());
-            System.out.println(consultations);
             
 			List<UserDetailsDTO> userDetails = new ArrayList<UserDetailsDTO>();
 			  //Getting user details
 			  SessionDAO usrDetails = new SessionDAO();
 			  userDetails = usrDetails.GetUserDetailsForReviews(uIds);
      		 request.setAttribute("advisor", advisor);
+     		request.setAttribute("consultations", consultations);
      		request.setAttribute("isPhone", isPhone);
      		request.setAttribute("reviewCount", reviewCount);
      		request.setAttribute("advisorReviews", advisorReviews);

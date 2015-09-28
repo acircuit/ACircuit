@@ -45,8 +45,8 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
 
-					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="questions">Q&A</a></li>
+					       <!--  <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
+					        <li><a href="questions">Q&A</a></li> -->
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li>
 					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
@@ -63,12 +63,12 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
 					            <ul class="nav sidebar-nav">
 					                
-					                <li>
+					                <!-- <li>
 					                    <a href="advisors?category=all">Experts</a>
 					                </li>
 					                <li>
 					                    <a href="questions">Q&A</a>
-					                </li>
+					                </li> -->
 					                <li>
 					                    <a href="becomeanadvisor">Be an Advisor</a>
 					                </li>

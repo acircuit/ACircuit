@@ -27,7 +27,21 @@ public class AdvisorDTO implements Serializable {
 	private List<AdvisorLanguageDTO> language;
 	private Boolean isActive;
 	private Boolean isVerified;
+	private double phonePrice;
+	private double videoPrice;
 	
+	public double getPhonePrice() {
+		return phonePrice;
+	}
+	public void setPhonePrice(double phonePrice) {
+		this.phonePrice = phonePrice;
+	}
+	public double getVideoPrice() {
+		return videoPrice;
+	}
+	public void setVideoPrice(double videoPrice) {
+		this.videoPrice = videoPrice;
+	}
 	public Boolean getIsActive() {
 		return isActive;
 	}

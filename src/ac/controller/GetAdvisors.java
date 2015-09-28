@@ -16,10 +16,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import ac.cache.MyCacheBuilder;
+import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.AnswerDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
+import ac.dto.ReviewsDTO;
 import ac.dto.SubCategoryDTO;
 
 /**
@@ -139,6 +142,28 @@ public class GetAdvisors extends HttpServlet {
 									jo.put("designation", prof.getDesignation());
 								}
 							}
+							SessionDAO ans = new SessionDAO();
+							List<AnswerDTO> answers = ans.GetAdvisorAnswers(String.valueOf(advisor.getId()));
+							jo.put("answers", answers.size());
+							
+							List<ReviewsDTO> advisorReviews = new ArrayList<ReviewsDTO>();
+							SessionDAO reviews = new SessionDAO();
+							advisorReviews = reviews.GetAdvisorReviews(String.valueOf(advisor.getId()));
+							Double ratingCount =0.0;
+							for(ReviewsDTO review : advisorReviews){
+								ratingCount = ratingCount + Double.valueOf(review.getRating());
+							}
+							Double count =0.0;
+							count = ratingCount / advisorReviews.size();
+							jo.put("reviews", advisorReviews.size());
+							jo.put("reviewCount", count);
+							
+							int consultations = 0;
+							//Getting the number of consultations
+							SessionDAO sessions= new SessionDAO();
+							consultations =  sessions.GetConsultations(advisor.getId());
+							jo.put("sessions", consultations);
+							
 							isLeft = false;
 							array.add(jo);
 					//q= q+advisor.getId();

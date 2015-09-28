@@ -70,8 +70,8 @@
 					    <!-- Collect the nav links, forms, and other content for toggling -->
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
-					        <li class="active"><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="questions">Q&A</a></li>
+					       <!--  <li class="active"><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
+					        <li><a href="questions">Q&A</a></li> -->
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="#">How it Works</a></li>
 					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
