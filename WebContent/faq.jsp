@@ -59,6 +59,15 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
+<style>
+@media (min-width: 320px) and (max-width: 762px) {
+ .body-content{
+	background-color: white;
+	min-height: 400px;
+	padding: 15px;
+}
+}
+</style>
 <title>Insert title here</title>
 
 <body>
