@@ -298,12 +298,14 @@ public class MyCacheBuilder
 			adv.setCategories(categ);
 			for(SubCategoryDTO subCat : subCategories){
 				if(subCat.getAdvisorId() == adv.getId()){
+					
 					for(AdvisorSkillsDTO skill1: skills){
 						 if(subCat.getId() == skill1.getSubId()){
 							 advSkills.add(skill1);
 						 }
-					     sub.add(subCat);
 					}
+				     sub.add(subCat);
+
 				}
 			}
 			adv.setSkills(advSkills);
