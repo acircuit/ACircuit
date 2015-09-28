@@ -400,7 +400,7 @@ function expertcard(value)
 			+'<div class="attributes">'
 			+'<span> <img src="assets/img/experts_company.svg"> '+value.designation+' in '+value.company+' </span><br>'
 			+'<span> <img src="assets/img/experts_category.svg"> '+value.institution+'</span><br>'
-			+'<span> <img src="assets/img/experts_question.svg"> '+value.designation+' in '+value.company+'</span>'
+			+'<span> <img src="assets/img/experts_question.svg"> '+value.answers+' Answers</span>'
 			+'</div>'
 			+'</div>'
 			+'</div>'

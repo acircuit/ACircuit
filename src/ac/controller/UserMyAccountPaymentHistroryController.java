@@ -17,6 +17,7 @@ import ac.cache.MyCacheBuilder;
 import ac.dao.PaymentDAO;
 import ac.dao.SessionDAO;
 import ac.dto.PaymentDTO;
+import ac.dto.RefundDTO;
 
 /**
  * Servlet implementation class UserMyAccountPaymentHistroryController
@@ -45,6 +46,11 @@ public class UserMyAccountPaymentHistroryController extends HttpServlet {
 			SessionDAO wallet = new SessionDAO();
 			Double amount = wallet.GetWalletDetails(userId);
 			
+			//Getting refund details
+			List<RefundDTO> refunds = new ArrayList<RefundDTO>();
+			SessionDAO refund = new SessionDAO();
+			refunds = refund.GetRefundDetails(userId);
+			
 			//Getting the sub categories
 			MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
 			List<String> higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
@@ -61,6 +67,7 @@ public class UserMyAccountPaymentHistroryController extends HttpServlet {
 			request.setAttribute("userId", userId);
 			request.setAttribute("payments", payments);
 			request.setAttribute("amount", amount);
+			request.setAttribute("refunds", refunds);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userwallet.jsp");
 	        rd.forward(request, response);
 		}
