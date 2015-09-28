@@ -130,7 +130,7 @@ pageContext.setAttribute("type", type);
    		  
    			<div class="body-content col-xs-12 no-padding">
    			<div class="col-xs-12 body-contenthead-div">
-							<span class="body-content-head">Activity Feed for Interests: MBA India, Management Consulting</span>
+							<span class="body-content-head" style="visibility:hidden;">Activity Feed for Interests: MBA India, Management Consulting</span>
 			</div>
    				<div class="col-xs-12 col-sm-9 ud-left-section">
 		   			<div class="col-xs-12 ud-left-section-head-div ">
@@ -275,7 +275,7 @@ pageContext.setAttribute("type", type);
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;background-color: #6c6c6c;color:white;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>
 		   			<div  class="related col-xs-12 ">
 	                    <div class="rel-section mostviewed">

@@ -126,7 +126,7 @@
    					</div>
    				</div>
    				
-   				<div class="col-xs-12 col-sm-9 " id="experts-card-div">
+   				<div class="col-xs-12 col-sm-9 col-sm-offset-3" id="experts-card-div">
    					<%@include file="/collapsed-category.jsp" %>
 
    					<div class="col-xs-12 information-div text-center-xs " style="padding-left:0px">
@@ -363,7 +363,7 @@ $(window).bind('mousewheel', function(event) {
 				}
 				 else{
 			$('.filters').removeClass( "stop-filter-scroll" );
-					$('#experts-card-div').removeClass( "col-sm-offset-3" );
+					/* $('#experts-card-div').removeClass( "col-sm-offset-3" ); */
 		}
 				
 });
