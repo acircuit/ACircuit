@@ -69,7 +69,7 @@
 </div>
    	<div class="main-body-div no-padding remove-padding" id="page-content-wrapper" >
    	
-   			<div class="body-error error-div col-xs-12" style="background-color:white;padding-bottom: 65px;min-height:200px;">
+   			<div class="body-error error-div col-xs-12" style="background-color:white;padding-bottom: 65px;min-height:173px;padding-top:23px;">
    					<span class="become-head-div">Become An Advisor</span><br>
    					<span class="become-text-s">Give back, guide others and get rewarded!</span>
 			</div>

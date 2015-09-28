@@ -67,6 +67,7 @@
   				 var color = $(this).attr('name');
   				 	$('.big-button').css('background-color','white');
   				 	$('.big-button').removeClass('whitepath');
+  				 	$('.big-button').css('color','#4a4a4a');
   				 	$(this).css('color','white');
   				 	$(this).addClass('whitepath');
   					 if(color=='bb1')
@@ -76,13 +77,14 @@
   					 	$(this).css('background-color','#00b9ff');
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #00b9ff')
-  					 	$('#category-menu > option[value="1"]').prop('selected',true);
+  					 	$('#category-menu > option[value="higherstudies"]').prop('selected',true);
   					 	<c:forEach items="${higherStudiesSubCategory}" var="sub">
 						   databb1=databb1 + '<a class="col-xs-4 Cfilter" id="higherstudies,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
 						   option1=option1 + '<option value="${sub}">${sub}</option>';
 						   $('#subcategory-menu').html(option1);
 						   $('.category-all-filters').html(databb1);
   					 	</c:forEach>
+  					 
   					 }
   					else if(color=='bb2')
   					 {  
@@ -91,7 +93,7 @@
   					 	$(this).css('background-color','#f2624d');
   					 	$('.category-filter-row').slideDown();
   					 	$('.category-filter-row').css('border-top','4px solid #f2624d')
-  					 	$('#category-menu > option[value="2"]').prop('selected',true);
+  					 	$('#category-menu > option[value="industry"]').prop('selected',true);
   					 	<c:forEach items="${industrySubCategory}" var="sub">
 					 	   databb2=databb2 + '<a class="col-xs-4 Cfilter" id="industry,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
 					 	  option2=option2 + '<option value="${sub}">${sub}</option>';
@@ -106,7 +108,7 @@
   						$(this).css('background-color','#a5cd5b');
   						$('.category-filter-row').slideDown();
   						$('.category-filter-row').css('border-top','4px solid #a5cd5b')
-  						$('#category-menu > option[value="3"]').prop('selected',true);
+  						$('#category-menu > option[value="options"]').prop('selected',true);
   						<c:forEach items="${optionsSubCategory}" var="sub">
 						   databb3=databb3 +'<a class="col-xs-4 Cfilter" id="options,${sub}" onclick="GetResultAccordingToSubCategory(this)">${sub}</a>';
 						   option3=option3 + '<option value="${sub}">${sub}</option>';

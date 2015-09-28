@@ -1,16 +1,24 @@
 @CHARSET "ISO-8859-1";
 .black{
-	background-color: black;
-	 background: url(../img/1.jpg) no-repeat 0 0;
-	 background-size: cover;
+	    background-color: black;
+    background: url(../img/2.jpg) no-repeat 0 0;
+    background-size: cover;
     height: 100%;
     position: fixed;
     width: 100%;
     z-index: -1;
     top: 0;
+    /* background-blend-mode: initial; */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.78);
+    /* background-position-y: -211px */
 }
 .top-div{
 	display:none;
+}
+.banner-div{
+position: relative;
+    overflow-x: hidden;
+    width: 100%;
 }
 .banner-div .navbar-default {
     background-color: rgba(252, 252, 252, 0);
@@ -25,7 +33,7 @@
     background: url(../img/.png) no-repeat 0 0;
 }
 .banner-search-div{
-	    margin-top: 120px;
+	    margin-top: 95px;
     text-align: center;
         margin-bottom: 75px;
 }
@@ -68,22 +76,35 @@
     background-color: rgba(55, 183, 179, 0);
 }
 .border-pink{
-	 border: 1px solid #f2624d; 
-  border-bottom: 4px solid #f2624d; 
+  border-bottom: 3px solid #f2624d; 
+  padding-bottom: 5px;
+  padding-left: 5px;
+    padding-right: 5px;
 }
 .border-green{
-	 border: 1px solid  #a5cd5b; 
-  border-bottom: 4px solid #a5cd5b; 
+  border-bottom: 3px solid #a5cd5b; 
+  padding-bottom: 5px;
+  padding-left: 5px;
+    padding-right: 5px;
 }
 .border-blue{
-	 border: 1px solid  #00b9ff; 
-  border-bottom: 4px solid #00b9ff; 
+  border-bottom: 3px solid #00b9ff; 
+  padding-bottom: 5px;
+}
+.signupT-div{
+	margin-top:40px;
+	margin-bottom:100px;
+}
+.signupT-button {
+    font-size: 15px;
+    /* padding: 10px 30px 10px 30px; */
+    width: 216px;
 }
 .banner-div .category-filter-div {
     padding-bottom: 17px;
     border-bottom: 0px solid lightgray;
     margin-bottom: 10px;
-    padding-top: 40px;
+    /* padding-top: 40px; */
 }
 .banner-div .big-button {
        background-color: rgba(55, 183, 179, 0);
@@ -159,11 +180,18 @@
 	overflow-x:hidden;
 	width:100%;
 }
-.tab-adv-div{
-	text-align: center;
-    max-width: 250px;
+.tab-adv-div {
+    /* text-align: center; */
+    min-width: 396px;
     display: inline-block;
-    margin-left: 60px;
+    /* margin-left: 60px; */
+    text-align: left;
+}
+.scroll-expert-card{
+	overflow-x:auto;
+	overflow-y:hidden;
+	width:100%;
+	    white-space: nowrap;
 }
 .adv-img{
 	width: 120px;
@@ -398,11 +426,24 @@ margin-left: 60px;
 	font-family:lato;
 	
 }
-
-
-
-
-
+.hm-top-svg svg{
+	width: 140px;
+    height: 70px;
+}
+.svg-b-text{
+	color:white;
+	font-size:16px;
+}
+.attributes {
+    text-align: left;
+}
+.attributes span{
+display: block;
+    margin-bottom: 3px;
+}
+.attributes img {
+    margin-right: 3px;
+}
 
 
 @media (max-width: 767px) and (min-width: 462px)
@@ -427,9 +468,16 @@ margin-left: 60px;
 @media (max-width: 767px) and (min-width: 320px)
 {
 	.top-div {
-    display: block!important;
+    display: block!important;}
+    .hm-top-svg svg {
+    width: 76px;
+    height: 44px;
 }
-.do-not-scroll{width: 100%;
+.svg-b-text {
+    font-size: 13px;
+}
+.do-not-scroll{
+	width: 100%;
     height: 65px;
     background-color: rgba(51, 49, 49, 0.73);}
 
@@ -453,11 +501,11 @@ margin-left: 60px;
     margin-left: 0px;
 }   
 .banner-div .choose-div {
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 10px;
     }
 .small-font-banner {
-    font-size: 19px;
+    font-size: 16px;
         padding: 10px;}
 .banner-div .category-filter-div {
     padding-bottom: 38px;
@@ -478,7 +526,8 @@ margin-left: 60px;
 .tab-adv-div {
     margin-bottom: 15px;
     margin-left: 7px;
-    max-width: 229px;}
+    min-width: 282px;
+    }
  .big-img-div {
    
     max-width: 213px;
@@ -516,8 +565,9 @@ margin-left: 60px;
     margin-bottom: 0px;
 }
 .big-font-banner {
-    font-family: latol;
-    line-height: 23px;
+   font-family: latob;
+    line-height: 57px;
+    font-size: 18px;
 }
 .tab-button-div {
         margin-top: 25px;
@@ -555,6 +605,9 @@ margin-left: 60px;
     margin-top: 22px;
 }
 .testimonial-div-container {
-    padding: 0px;
+   /*  padding: 0px; */
+}
+.img-disable {
+    margin-top: -79px;
 }
 }

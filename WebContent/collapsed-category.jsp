@@ -1,6 +1,6 @@
 <div class="collapsed-filter hidden-xs" style="padding-top: 11px;">
    						<div class="col-xs-3 Choosec-div" >
-   							<span class="Choosec">Choose your category</span>
+   							<span class="Choosec">Choose your area of advice</span>
    						</div>
    						<div class="col-xs-9">
    							<div class="col-xs-4">

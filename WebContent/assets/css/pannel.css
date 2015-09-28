@@ -107,7 +107,8 @@ background: url("../img/search.png") no-repeat scroll 4px center;
 }
 /*Modifiaction in bootstrap classes*/
 .navbar {
-    margin-bottom: 13px;
+    /* margin-bottom: 13px; */
+     margin-bottom: 0px;
  }
 .navbar-default {
         background-color: #fcfcfc;
@@ -176,9 +177,12 @@ margin-top: 4px;
    background:url(../img/blue-menu-bar.png) no-repeat 0 0;
 }
 .navbar-nav>li>a {
-    padding-top: 20px;
+   /*  padding-top: 20px;
     padding-bottom: 10px;
-    margin-top: 14px;
+    margin-top: 14px; */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 15px;
 }
 /*.navbar-default .navbar-nav>li>a:hover {
   
@@ -444,9 +448,11 @@ input[type=checkbox] {
 .rating-container .rating-stars {
   color: #f5a623; 
 }
-.search-form{padding-top: 20px;
-    padding-bottom: 10px;
-    margin-top: 9px;}
+.search-form {
+    /* padding-top: 20px; */
+    /* padding-bottom: 10px; */
+    margin-top: 15px;
+}
 .search-box{
     background: url("../img/search.png") no-repeat scroll 4px center;
     border-radius: 0px;
@@ -465,7 +471,8 @@ input[type=checkbox] {
   text-align: center;
   font-size: 24px;
   color: #4a4a4a;
-   margin-bottom: 10px;
+  margin-bottom: 23px;
+    margin-top: 10px;
 }
 .big-button-div{
   text-align: center;
@@ -475,18 +482,20 @@ input[type=checkbox] {
 .big-button{
        background-color: white;
     border: 0px;
-    width: 50%;
+    width: 236px;
     border-bottom: 8px solid #00b9ff;
     font-size: 18px;
-    font-weight: 500;
     color: #4a4a4a;
-    font-family: lato;
+    font-family: latob;
+    padding-top: 13px;
+    padding-bottom: 5px;
 }
 .big-button img {
     width: 40%;
     }
-.big-button path{
-	width:40%;
+.big-button svg{
+	width: 201px;
+    height: 86px;
 }    
 .bpink{
   border-bottom: 8px solid #f2624d; 
@@ -608,6 +617,10 @@ margin: 10px 0px 10px 0px;
     color: #4a4a4a;
     font-size:13px;
 }
+
+.attributes img{
+    width: 17px;
+    margin-top: -3px;}
 .attributes i {
       color: #B1B1B1;
 }

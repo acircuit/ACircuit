@@ -20,7 +20,7 @@ pageContext.setAttribute("source", source);
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					         <a class="navbar-brand hidden-xs" href=<fmt:message key="home"/>><img src="assets/img/horizontal_logo.png" class=""></a>
+					         <a class="navbar-brand hidden-xs" href=<fmt:message key="home"/>><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
 					    </fmt:bundle>
 					         
 					    </div>
@@ -31,8 +31,8 @@ pageContext.setAttribute("source", source);
 
 					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
-					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
-					         <li><a href="howitworks">How it Works</a></li>
+					        <!-- <li><a href="becomeanadvisor">Be an Advisor</a></li>
+					         <li><a href="howitworks">How it Works</a></li> -->
 					          <li><a href="logout">Logout</a></li>
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box-i" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
@@ -165,15 +165,15 @@ pageContext.setAttribute("source", source);
    	}
    	$('body').on('focus', '.search-box-i', function(e){
    		$('.hsuggestion').show();
-   		$('#bs-example-navbar-collapse-1 .first-ul>li:not(li:nth-child(6))').hide();
+   		$('#bs-example-navbar-collapse-1 .first-ul>li:not(li:nth-child(4))').hide();
    		$('#bs-example-navbar-collapse-1 .first-ul').addClass('inc-searchulli');
-   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(6)').addClass('inc-searchulli');
+   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(4)').addClass('inc-searchulli');
    		$('.search-form').addClass('inc-searchbox');
-    }).on('blur',".search-box", function() {
-    	/* $('#bs-example-navbar-collapse-1 .first-ul li').show();
+    }).on('blur',".search-box-i", function() {
+    	 $('#bs-example-navbar-collapse-1 .first-ul>li').show();
     	$('#bs-example-navbar-collapse-1 .first-ul').removeClass('inc-searchulli');
-   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(6)').removeClass('inc-searchulli');
-    	$('.search-form').removeClass('inc-searchbox'); */
+   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(4)').removeClass('inc-searchulli');
+    	$('.search-form').removeClass('inc-searchbox');
     });
    	
    	$('body').on('click', '.hsuggestion', function(e){

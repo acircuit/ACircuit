@@ -296,7 +296,7 @@
 			
 		</div>
 		<div class="col-xs-12 col-sm-3 advisor-right-pannel similar">
-		<div class="right-head ">SIMILAR PROFILES</div>
+		<div class="right-head ">SIMILAR ADVISORS</div>
 
 		</div>
 	</div>
