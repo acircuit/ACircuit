@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,26 @@ public class AdvisorProfileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of AdvisorProfileController");
+		int userId = 0;
+		int advisorId = 0;
+		String advisorPhone="";
+		
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		try{
+			advisorId = (int) request.getSession().getAttribute("advisorId");
+		}catch(Exception e){
+			isError = true;
+		}
+		
+
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		//Getting the sessiondetails for the user
+		if(userId != 0 || advisorId != 0){
 		String aId = request.getParameter("a");
 		if(aId != null){
 			MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
@@ -89,10 +110,6 @@ public class AdvisorProfileController extends HttpServlet {
             SessionDAO question = new SessionDAO();
             questions = question.GetQuestions(qids);
 			Boolean isPhone =false;
-			int userId= 0;
-			if(request.getSession().getAttribute("userId") != null){
-				userId = (int) request.getSession().getAttribute("userId");
-			}
 			if(userId != 0){
 				SessionDAO user = new SessionDAO();
 				UserDetailsDTO userDetails = user.GetUserDetails(userId);
@@ -127,6 +144,9 @@ public class AdvisorProfileController extends HttpServlet {
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/Advisor.jsp");
              rd.forward(request, response);
 		}	
+		}else{
+			response.sendRedirect("error");
+		}
 		logger.info("Entered doPost method of AdvisorProfileController");
 	}
 }

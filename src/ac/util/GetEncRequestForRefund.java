@@ -50,24 +50,15 @@ public class GetEncRequestForRefund extends HttpServlet {
 	    prop.load(resourceAsStream1);
 	     String tranId = request.getParameter("id");
 	     String amount = request.getParameter("amount");
-	     String update = request.getParameter("action");
 	     String uid = request.getParameter("uid");
-	     if(update != null && uid != null){
-	    	 
-	    	 SessionDAO updateWallet = new SessionDAO();
-	    	 updateWallet.UpdateWallet(uid, amount);
-	     }else{
+
 	    	 String workingKey = prop.getProperty("WORKING_KEY");	
 			 String accessCode = prop.getProperty("ACCESS_CODE");
 			 Enumeration enumeration=request.getParameterNames();
 			 String ccaRequest=tranId+"|"+amount+"|REF"+tranId+"|";
 			 AesCryptUtil aesUtil=new AesCryptUtil(workingKey);
 			 String encRequest = aesUtil.encrypt(ccaRequest);
-			 
-		 
-        
-		        
-		        HttpClient httpClient = new DefaultHttpClient();
+			 HttpClient httpClient = new DefaultHttpClient();
 		        HttpPost httpPost = new HttpPost("https://login.ccavenue.com/apis/servlet/DoWebTrans");
 		        // Request parameters and other properties.
 		        List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -92,7 +83,23 @@ public class GetEncRequestForRefund extends HttpServlet {
 		            if (respEntity != null) {
 		                // EntityUtils to get the response content
 		                String content =  EntityUtils.toString(respEntity);
-		                System.out.println(content);
+		                String[] refundResponse = content.split("&");
+		                String[] status= refundResponse[0].split("=");
+		                String[] encResponse= refundResponse[1].split("=");
+		                SessionDAO refund = new SessionDAO();
+		                Boolean isCommit = refund.InsertRefundDetails(status[1],encResponse[1],uid,amount,tranId);
+		                if(refundResponse[0].equals("0")){
+		                	//The refund process is successfull
+		                	//Update refund table
+		                	 SessionDAO updateWallet = new SessionDAO();
+				   	    	 Boolean isUpdated =  updateWallet.UpdateWallet(uid, amount);
+				   	    	 if(isUpdated){
+				   	    		 response.getWriter().write("true");
+				   	    	 }
+		                }else{
+		                	response.getWriter().write("false");
+		                }
+		               
 		            }
 		        } catch (ClientProtocolException e) {
 		            // writing exception to log
@@ -101,14 +108,6 @@ public class GetEncRequestForRefund extends HttpServlet {
 		            // writing exception to log
 		            e.printStackTrace();
 		        }
-			 
-			 
-			 
-			 
-			 response.getWriter().write(encRequest+":"+accessCode);
-	     }
-	    
-		
-	}
+		}
 
 }

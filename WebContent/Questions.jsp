@@ -72,7 +72,7 @@
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
 			   			<span class="answers-count">32 Answers</span>
-			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 
@@ -142,6 +142,10 @@
 <script>
 
 $(document).ready(function () {
+   	if(<%=isAdv%>){
+   		$(".ask-a-question-button").hide();
+   		$(".book-a-session-button").hide();
+   	} 
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
         data : {},

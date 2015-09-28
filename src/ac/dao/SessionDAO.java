@@ -2096,6 +2096,64 @@ public class SessionDAO {
 		return consultations;
 	}
 	
+	public Boolean InsertRefundDetails(String status,String response,String uid,String amount,String trackId){
+		logger.info("Entered InsertRefundDetails method of SessionDAO");
+		Boolean isCommit = false;
+		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
+        mbCal.setTimeInMillis(new Date().getTime());      
+        Calendar cal = Calendar.getInstance();  
+        cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));  
+        cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));  
+        cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));  
+        cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));  
+        cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));  
+        cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));  
+        cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+        Date date = cal.getTime();
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into userrefund"+"(TRACKING_ID,USER_ID,AMOUNT,STATUS,RESPONSE,TIMESTAMP) values" + "(?,?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, trackId);
+			pstmt.setString(2,uid);
+			pstmt.setString(3, amount);
+			pstmt.setInt(4, Integer.valueOf(status));
+			pstmt.setString(5, response);
+			pstmt.setTimestamp(6, new java.sql.Timestamp(date.getTime()));
+
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch (SQLException e) {
+			    try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					logger.error("InsertRefundDetails method of SessionDAO threw error:"+e1.getMessage());
+					e1.printStackTrace();
+				}
+				logger.error("InsertRefundDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("InsertRefundDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("InsertRefundDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					logger.error("InsertRefundDetails method of SessionDAO threw error:"+e.getMessage());
+					e.printStackTrace();
+				}
+			}	
+			logger.info("Entered InsertRefundDetails method of SessionDAO");
+			return isCommit;
+
+		}
 	
 	
 	

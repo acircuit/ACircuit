@@ -46,6 +46,7 @@
 </div>
   <%@include file="/login-modal.jsp" %>
 <script>
+	
 $('body').on('click', '.list-head', function(e){
 	var forxs = $(window).width();
 if(forxs<763){

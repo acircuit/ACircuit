@@ -289,7 +289,6 @@ $('body').on( 'focusout', '.refund-input', function(event) {
 	var checkmax=$(this).attr('data-max');
 	var value= $(this).val();
 	var tranID=$(this).attr('data-tid');
-	debugger;
 	console.log(checkmax);
 	console.log(value);
 	if(value>checkmax)
@@ -305,11 +304,19 @@ $('body').on( 'focusout', '.refund-input', function(event) {
 				$(this).closest('.form-group').find('.error').remove();
 				$.ajax({
 			        url : 'GetEncRequestForRefund', // Your Servlet mapping or JSP(not suggested)
-			        data : {"tranId" : tranID,"amount" : value},
+			        data : {"tranId" : tranID,"amount" : value,"uid" : "${userId}"},
 			        type : 'POST',
 			        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 			        success : function(response) {
-			        	SendRequest(response);
+			        	if(response == true){
+			        		document.getElementById("userrefundsuccessfull").style.display = "block";
+			        		document.getElementById("userrefunderror").style.display = "hide";
+
+			        	}else{
+			        		document.getElementById("userrefunderror").style.display = "block";
+			        		document.getElementById("userrefundsuccessfull").style.display = "hide";
+
+			        	}
 			       	 $('.black-screen').hide();
 
 			        },
@@ -321,56 +328,7 @@ $('body').on( 'focusout', '.refund-input', function(event) {
 			}
 		}
 });
-function SendRequest(encrequest){
-	if(encrequest != ""){
-		var elements = encrequest.split(":");
-/* 		$.ajax({
-	        url : 'https://login.ccavenue.com/apis/servlet/DoWebTrans', // Your Servlet mapping or JSP(not suggested)
-	        data : {"enc_request" : elements[0],"access_code" : elements[1],"command" :"refundOrder","request_type" :"STRING","version":"1.1"},
-	        type : 'POST',
-	        dataType : 'string', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-	        success : function(response) {
-	        	debugger;
-	        	var res = response.split("|");
-	        	if(res[0] == "0"){
-	        		debugger;
-	        	}else{
-	        		alert("res[2]");
-	        	}
-	       	 $('.black-screen').hide();
 
-	        },
-	        error : function(request, textStatus, errorThrown) {
-	            alert(errorThrown);
-	            
-	        }
-	    }); */
-		/* $("#enc_request").val(elements[0]);
-		$("#access_code").val(elements[1]);
-		$("#command").val("refundOrder");
-		$("#request_type").val("STRING");
-		$("#version").val("1.1");
-		document.redirect.submit(); */
-	}
-}
-function UpdateWallet(){
-	var value= $(this).val();
-	$.ajax({
-        url : 'GetEncRequestForRefund', // Your Servlet mapping or JSP(not suggested)
-        data : {"action " : "update","amount" :value,"uid" : "${userId}"},
-        type : 'POST',
-        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-        success : function(response) {
-        	alert(response);
-       	 $('.black-screen').hide();
-
-        },
-        error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
-            
-        }
-    });
-}
 $('body').on( 'keyup', '.refund-input', function(event) { 
 	$(this).closest('.form-group').find('.error').remove();
 });	

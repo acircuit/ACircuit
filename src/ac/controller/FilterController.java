@@ -225,10 +225,10 @@ public class FilterController extends HttpServlet {
 				for(ReviewsDTO review : advisorReviews){
 					ratingCount = ratingCount + Double.valueOf(review.getRating());
 				}
-				Double count =0.0;
-				count = ratingCount / advisorReviews.size();
+				Double rateCount =0.0;
+				rateCount = ratingCount / advisorReviews.size();
 				jo.put("reviews", advisorReviews.size());
-				jo.put("reviewCount", count);
+				jo.put("ratecount", Math.round(rateCount));
 				
 				int consultations = 0;
 				//Getting the number of consultations

@@ -139,8 +139,8 @@
 						
 						</div>
 						<div class="col-xs-12 col-sm-4 text-right text-center-xs no-padding-xs">
-							<button type="button" class="btn red-button " onclick="CheckLoggedIn()" >Book a session</button>
-							<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()">Ask a question</button>
+							<button type="button" class="btn red-button book-a-session-button" onclick="CheckLoggedIn()" >Book a session</button>
+							<button type="button" class="btn dark-button ask-a-question-button" onclick="CheckLoggedInForQuestions()">Ask a question</button>
 						</div>
 					
 					
@@ -189,12 +189,12 @@
 				<div class="session-div">
 					<span class="session-head-type" >Book A Session</span><br>
 					<span class="session-head-text">Rs ${advisor.getPhonePrice()}/min</span>
-					<button type="button" class="btn red-button " onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
+					<button type="button" class="btn red-button book-a-session-button" onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
 				</div>
 				<div class="session-div">
 					<span class="session-head-type">Ask A Question</span><br>
 					<span class="session-head-text">Absolutely free</span>
-					<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()" style="width: 99px;">Ask now</button>
+					<button type="button" class="btn dark-button ask-a-question-button" onclick="CheckLoggedInForQuestions()" style="width: 99px;">Ask now</button>
 				</div>
 			</div>
 		</div>
@@ -435,6 +435,10 @@
 <script>
 
 $(document).ready(function () {
+	if(<%=isAdv%>){
+   		$(".ask-a-question-button").hide();
+   		$(".book-a-session-button").hide();
+   	} 
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'

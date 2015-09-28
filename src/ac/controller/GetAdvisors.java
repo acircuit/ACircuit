@@ -156,7 +156,7 @@ public class GetAdvisors extends HttpServlet {
 							Double count =0.0;
 							count = ratingCount / advisorReviews.size();
 							jo.put("reviews", advisorReviews.size());
-							jo.put("reviewCount", count);
+							jo.put("ratecount", Math.round(count));
 							
 							int consultations = 0;
 							//Getting the number of consultations

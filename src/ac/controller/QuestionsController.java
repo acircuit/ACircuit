@@ -34,6 +34,24 @@ public class QuestionsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of QuestionsController");
+		int userId = 0;
+		int advisorId = 0;
+		String advisorPhone="";
+		
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		try{
+			advisorId = (int) request.getSession().getAttribute("advisorId");
+		}catch(Exception e){
+			isError = true;
+		}
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		//Getting the sessiondetails for the user
+		if(userId != 0 || advisorId != 0){
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();
@@ -95,6 +113,9 @@ public class QuestionsController extends HttpServlet {
 		request.setAttribute("popCats", popCats);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Questions.jsp");
         rd.forward(request, response);
+		}else{
+			response.sendRedirect("error");
+		}
 		
 		logger.info("Exit doPost method of QuestionsController");
 	}

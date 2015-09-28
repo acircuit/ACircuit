@@ -40,19 +40,21 @@ public class GetSimilarProfilesController extends HttpServlet {
 		QuestionsDAO profiles = new QuestionsDAO();
 		aids = profiles.GetSimilarProfiles(advisorId,category,subcategory);
 		List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
-
-		QuestionsDAO advDetails = new QuestionsDAO();
-		list = advDetails.GetAdvisorDetails(aids);
 		JSONArray array = new JSONArray();
-        for(AdvisorDTO advisor : list){
-        	JSONObject jo = new JSONObject();
-			jo.put("id", advisor.getId());
-			jo.put("image", advisor.getImage());
-			jo.put("name",advisor.getName());
-			jo.put("industry",advisor.getIndustry());
-			array.add(jo);
+        if(aids.size() > 0){
+    		QuestionsDAO advDetails = new QuestionsDAO();
+    		list = advDetails.GetAdvisorDetails(aids);
+            for(AdvisorDTO advisor : list){
+            	JSONObject jo = new JSONObject();
+    			jo.put("id", advisor.getId());
+    			jo.put("image", advisor.getImage());
+    			jo.put("name",advisor.getName());
+    			jo.put("industry",advisor.getIndustry());
+    			array.add(jo);
 
+            }
         }
+
 		response.getWriter().write(array.toJSONString());
         logger.info("Entered doPost method of GetSimilarProfilesController");
 	}

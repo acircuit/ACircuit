@@ -42,6 +42,14 @@
 			<span class="notify-text">Success: You have successfully updated your profile. <a href="advisors?category=all">Click Here </a>to book Sessions.</span>
 			<span class="cross-noti">X</span>
 		</div>
+		<div class="notify-text-div" id="userrefundsuccessfull" style="display: none" >
+			<span class="notify-text">Success: The refund process is successful.</span>
+			<span class="cross-noti">X</span>
+		</div>
+		<div class="notify-text-div" id="userrefunderror" style="display: none" >
+			<span class="notify-text">Success: The refund process was unsuccessful. Please contact Advisor Circuit for details</span>
+			<span class="cross-noti">X</span>
+		</div>
 	</div>
 </div>
 <script>

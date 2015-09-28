@@ -3,11 +3,13 @@
 <%@page import="java.util.List"%>
 <%
 Boolean isLoggedIn=false;
+Boolean isAdv = false;
 String username="";
 int  userd =0;
 int advisord = 0;
 if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
 	isLoggedIn=true;
+	
 	username = "Admin";
 }
 else if(session.getAttribute("userId") !=null ){
@@ -17,6 +19,7 @@ else if(session.getAttribute("userId") !=null ){
 }
 else if( session.getAttribute("advisorId") !=null){
 		isLoggedIn=true;
+		isAdv =true;
 		username=(String)session.getAttribute("username");
 		advisord = (Integer)session.getAttribute("advisorId");
 }
@@ -133,6 +136,7 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 			          	
    	
    	<script type="text/javascript">
+
    	function FindSuggestions(s) {
    		var len = s.value.length;
    	    if(len>=3){
