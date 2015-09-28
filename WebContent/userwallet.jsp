@@ -43,14 +43,9 @@
      List<PaymentDTO> payments = (List<PaymentDTO>)request.getAttribute("payments");
      Double amount = (Double)request.getAttribute("amount"); 
 		String recharge = (String)request.getParameter("recharge");
+	     List<RefundDTO> refunds = (List<RefundDTO>)request.getAttribute("refunds");
 		pageContext.setAttribute("recharge", recharge);
-		 int merchant_id = 60380; 
-		 Enumeration enumeration=request.getParameterNames();
-		 String ccaRequest="104013320693|1.00|API23|";
-		 String workingKey ="18F62D2A438A259C8D85C9DB06C73485";
-		 String accessCode = "AVUQ04CC64AF66QUFA";
-		 AesCryptUtil aesUtil=new AesCryptUtil(workingKey);
-		 String encRequest = aesUtil.encrypt(ccaRequest);
+
 
 
 %>
@@ -127,14 +122,28 @@
 									<th>Amount</th>		
 									<th>Payment Mode</th>
 									<th>Tracking Id</th>
+									<th>Refund Amount</th>
 								</tr>
 								<c:forEach items="${payments}" var="pay">
+								
 								<tr class="payment-row">
 									<td>${pay.getDate()}</td>
 									<td>${pay.getRechargeId()}</td>
 									<td>${pay.getAmount()}</td>		
 									<td>${pay.getPaymentMode()}</td>
 									<td>${pay.getTrackinId()}</td>
+									<c:forEach items="${refunds}" var="refund">
+									1
+									     <c:choose>
+									    	<c:when test="${refund.getTrackingid() == pay.getTrackinId()}">
+									             <td>${pay.getAmount()}</td>
+									     	</c:when>
+									        <c:otherwise>
+									          <td>0</td>
+									        </c:otherwise>
+									     </c:choose>
+								
+									</c:forEach>
 								</tr>
 								</c:forEach>
 								</tbody></table>
@@ -198,7 +207,7 @@
 							<input type="text" name="value" data-max="${amount}" placeholder="Enter amount" data-tid="" class="form-control refund-input">
 						</div>
 						<div class=" col-xs-12 form-group">
-							<button type="submit" class="btn gt-started" >Refund amount</button>
+							<button id="refundbutton" type="button" class="btn gt-started" >Refund amount</button>
 						</div>
 						</form>
 					</div>
@@ -284,11 +293,11 @@ $('#refundmodal .payment-row').on('click', function() {
 	$('.refund-input').focus();
 	
 });
-$('body').on( 'focusout', '.refund-input', function(event) { 
-	$(this).closest('.form-group').find('.error').remove();
-	var checkmax=$(this).attr('data-max');
-	var value= $(this).val();
-	var tranID=$(this).attr('data-tid');
+$('body').on( 'click', '#refundbutton', function(event) { 
+	$('.refund-input').closest('.form-group').find('.error').remove();
+	var checkmax=$('.refund-input').attr('data-max');
+	var value= $('.refund-input').val();
+	var tranID=$('.refund-input').attr('data-tid');
 	console.log(checkmax);
 	console.log(value);
 	if(value>checkmax)
@@ -308,15 +317,16 @@ $('body').on( 'focusout', '.refund-input', function(event) {
 			        type : 'POST',
 			        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 			        success : function(response) {
-			        	if(response == true){
+						if(response == "true"){
 			        		document.getElementById("userrefundsuccessfull").style.display = "block";
 			        		document.getElementById("userrefunderror").style.display = "hide";
+			        		document.reload();
 
-			        	}else{
+			        	}else if (response == "false") {
 			        		document.getElementById("userrefunderror").style.display = "block";
 			        		document.getElementById("userrefundsuccessfull").style.display = "hide";
-
-			        	}
+						}
+						$("#refundmodal").modal("hide");
 			       	 $('.black-screen').hide();
 
 			        },

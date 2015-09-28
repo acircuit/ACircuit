@@ -48,7 +48,7 @@ public class GetEncRequestForRefund extends HttpServlet {
 		Properties prop = new Properties();
 	    InputStream resourceAsStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Path.properties");
 	    prop.load(resourceAsStream1);
-	     String tranId = request.getParameter("id");
+	     String tranId = request.getParameter("tranId");
 	     String amount = request.getParameter("amount");
 	     String uid = request.getParameter("uid");
 
@@ -88,7 +88,7 @@ public class GetEncRequestForRefund extends HttpServlet {
 		                String[] encResponse= refundResponse[1].split("=");
 		                SessionDAO refund = new SessionDAO();
 		                Boolean isCommit = refund.InsertRefundDetails(status[1],encResponse[1],uid,amount,tranId);
-		                if(refundResponse[0].equals("0")){
+		                if(status[1].equals("0") && isCommit){
 		                	//The refund process is successfull
 		                	//Update refund table
 		                	 SessionDAO updateWallet = new SessionDAO();
@@ -97,7 +97,10 @@ public class GetEncRequestForRefund extends HttpServlet {
 				   	    		 response.getWriter().write("true");
 				   	    	 }
 		                }else{
-		                	response.getWriter().write("false");
+		                	if(isCommit){
+		                		response.getWriter().write("false");
+		                	}
+		                	
 		                }
 		               
 		            }

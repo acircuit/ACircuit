@@ -95,7 +95,8 @@
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div hm-top-svg no-padding-xs">
 					  						<img class="category-im svg" src="assets/img/home_higher_studies.svg">
-					  							<br class=""><span class="svg-b-text">H<span class="border-blue">igher stud</span>ies</span>
+
+					  							<br><span class="svg-b-text">H<span class="border-blue">igher stud</span>ies</span>
 					  							
 					  					</div>
 					  				</div>

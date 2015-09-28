@@ -30,6 +30,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.CostDTO;
 import ac.dto.QuestionsDTO;
+import ac.dto.RefundDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 import ac.dto.TwilioVideoDTO;
@@ -2155,7 +2156,44 @@ public class SessionDAO {
 
 		}
 	
-	
+	public List<RefundDTO> GetRefundDetails(int uid){
+		logger.info("Entered GetRefundDetails method of SessionDAO");
+		List<RefundDTO> refunds = new ArrayList<RefundDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT * FROM userrefund WHERE STATUS=? AND USER_ID=?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, uid);
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				RefundDTO refund = new RefundDTO();
+				refund.setId(results.getInt("ID"));
+				refund.setAmount(results.getDouble("AMOUNT"));
+				refunds.add(refund);
+			}
+		} catch (SQLException e) {
+			logger.error("GetRefundDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetRefundDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetRefundDetails method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetRefundDetails method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+				
+		logger.info("Entered GetRefundDetails method of SessionDAO");
+		return refunds;
+	}
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

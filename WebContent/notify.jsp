@@ -47,7 +47,7 @@
 			<span class="cross-noti">X</span>
 		</div>
 		<div class="notify-text-div" id="userrefunderror" style="display: none" >
-			<span class="notify-text">Success: The refund process was unsuccessful. Please contact Advisor Circuit for details</span>
+			<span class="notify-text">Error: The refund process was unsuccessful. Please contact Advisor Circuit for further details</span>
 			<span class="cross-noti">X</span>
 		</div>
 	</div>
