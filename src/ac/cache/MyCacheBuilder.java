@@ -17,6 +17,7 @@ import ac.dto.ProfessionalBackgroundDTO;
 import ac.dto.SearchSuggestionsDTO;
 import ac.dto.SubCategoryDTO;
 import ac.dto.Trie;
+import ac.util.GetRelativeImageURL;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -235,6 +236,7 @@ public class MyCacheBuilder
 		CacheDAO advisor = new CacheDAO();
 		advisorProfile = advisor.GetAdvisorsProfiledetails();
 		
+		
 		//Getting the education info
 		List<EducationDTO> education = new ArrayList<EducationDTO>();
 		CacheDAO advisorEducation = new CacheDAO();
@@ -266,7 +268,9 @@ public class MyCacheBuilder
 			List<CategoryDTO> categ= new ArrayList<CategoryDTO>();
 			List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
 			List<AdvisorLanguageDTO> advLanguage = new ArrayList<AdvisorLanguageDTO>();
-
+			GetRelativeImageURL relPath = new GetRelativeImageURL();
+			String path = relPath.getImageURL(adv.getImage());
+            adv.setImage(path);
 			for(EducationDTO edu : education){
 				if(edu.getAdvisorId() == adv.getId()){
 					educ.add(edu);
