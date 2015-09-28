@@ -72,7 +72,7 @@
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
 			   			<span class="answers-count">32 Answers</span>
-			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 
@@ -134,54 +134,18 @@
    			</div>
    			</div>
    	 </div>
+   	  <%@include file="/askqmodal.jsp" %>
    	 <%@include file="/footer.jsp" %>
 </div>
 
-<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								      <span class="ask-question-modal-head">Ask Question</span><br>
-								      <br>
-								      <form class="ask-form"> 
-								      	<textarea id="question"  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
-								      
-									       <br><br>
-									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
-										       <div class="col-xs-9">
-											       <div class="col-xs-6">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														   <option value="higherstudies">Higher studies</option>
-														  <option value="industry">Industry</option>
-														  <option value="options">Courses</option>
-														</select>
-											       </div>
-											       <div class="col-xs-6">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															  
-														</select>
-														
-											       </div>
-											      <br>
-											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
-													</div>
 
-													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
-										       </div>
-									       </div>
-								        </form>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
 <script>
 
 $(document).ready(function () {
+   	if(<%=isAdv%>){
+   		$(".ask-a-question-button").hide();
+   		$(".book-a-session-button").hide();
+   	} 
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
         data : {},
@@ -273,27 +237,7 @@ $('body').on('click', '.less', function(e){
 		subcateg = cat[1];
 		
 	}
-	function SubmitQuestion(){
-		$('.black-screen').show();
-		var question =$("#question").val();
-		var category = $("#category-menu-on-modal").val();
-		var subcategory = $("#subcategory-menu-on-modal").val();
-    	$.ajax({
-            url : 'QuestionsController', // Your Servlet mapping or JSP(not suggested)
-            data : {"question":question,"category" :category,"subcategory":subcategory},
-            type : 'POST',
-            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-            success : function(response) {
-				 alert(response);
-            	 $('.black-screen').hide();
 
-            },
-            error : function(request, textStatus, errorThrown) {
-                alert("Sorry your question could no be posted. Please try again.");
-                
-            }
-        });
-	}
 	
 	function GetResultAccordingToSubCategory(elem){
 		$('.black-screen').show();

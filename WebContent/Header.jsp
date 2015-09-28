@@ -3,11 +3,13 @@
 <%@page import="java.util.List"%>
 <%
 Boolean isLoggedIn=false;
+Boolean isAdv = false;
 String username="";
 int  userd =0;
 int advisord = 0;
 if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
 	isLoggedIn=true;
+	
 	username = "Admin";
 }
 else if(session.getAttribute("userId") !=null ){
@@ -17,6 +19,7 @@ else if(session.getAttribute("userId") !=null ){
 }
 else if( session.getAttribute("advisorId") !=null){
 		isLoggedIn=true;
+		isAdv =true;
 		username=(String)session.getAttribute("username");
 		advisord = (Integer)session.getAttribute("advisorId");
 }
@@ -45,8 +48,8 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav">
 
-					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
-					        <li><a href="questions">Q&A</a></li>
+					       <!--  <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
+					        <li><a href="questions">Q&A</a></li> -->
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li>
 					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
@@ -63,12 +66,12 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
 					            <ul class="nav sidebar-nav">
 					                
-					                <li>
+					                <!-- <li>
 					                    <a href="advisors?category=all">Experts</a>
 					                </li>
 					                <li>
 					                    <a href="questions">Q&A</a>
-					                </li>
+					                </li> -->
 					                <li>
 					                    <a href="becomeanadvisor">Be an Advisor</a>
 					                </li>
@@ -133,6 +136,7 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 			          	
    	
    	<script type="text/javascript">
+
    	function FindSuggestions(s) {
    		var len = s.value.length;
    	    if(len>=3){

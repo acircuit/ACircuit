@@ -281,6 +281,7 @@
     <!-- /#wrapper -->
    	<script>
    	$(document).ready(function () {
+
    		var whattype='<%=category%>';
 	if(whattype =="higherstudies")
 		{
@@ -385,11 +386,11 @@ function expertcard(value)
 			+'<img src="assets/img/Abhishek.JPG">'
 			+'</div>'
 			+'</a>'
-			+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled>'
+			+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>'
 			
 			+'<div class="count">'
-			+'<span class="reviews">21 reviews</span><!-- <br class="midd-br"> -->'
-			+'<span class="consults"> 31 consults</span>'
+			+'<span class="reviews">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
+			+'<span class="consults"> '+value.sessions+' consults</span>'
 			+'</div>'
 			+'</div>'
 			+'<div class="col-xs-8">'

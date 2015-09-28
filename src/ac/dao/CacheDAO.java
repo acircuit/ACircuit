@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
 import ac.dto.AdvisorLanguageDTO;
+import ac.dto.AdvisorSkillsDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -51,6 +52,8 @@ public class CacheDAO {
 				advisor.setPhone(results.getBoolean("PHONE"));
 				advisor.setVideo(results.getBoolean("VIDEO"));
 				advisor.setImage(results.getString("IMAGE"));
+				advisor.setPhonePrice(results.getDouble("PHONE_PRICE"));
+				advisor.setVideoPrice(results.getDouble("VIDEO_PRICE"));
 				advisors.add(advisor);
 			}
 		} catch (SQLException e) {
@@ -235,6 +238,7 @@ public class CacheDAO {
 				advisor.setAdvisorId(results.getInt("ADVISOR_ID"));
 				advisor.setCategoryId(results.getInt("CATEGORY_ID"));
 				advisor.setSubCategory(results.getString("SUBCATEGORY"));
+				advisor.setId(results.getInt("SUB_CATEGORY_ID"));
 				advisors.add(advisor);
 			}
 		} catch (SQLException e) {
@@ -343,9 +347,10 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? ORDER BY INDUSTRY";	
+			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? AND ISACTIVE=? ORDER BY INDUSTRY";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				industries.add(results.getString("INDUSTRY"));
@@ -550,6 +555,43 @@ public class CacheDAO {
 		return subs;
 	}
 	
+	
+	public List<AdvisorSkillsDTO> GetAdvisorSkills(){
+		logger.info("Entered GetAdvisorSkills method of CacheDAO");
+		List<AdvisorSkillsDTO> skills = new ArrayList<AdvisorSkillsDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM advisorskills";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AdvisorSkillsDTO skill = new AdvisorSkillsDTO();
+				skill.setId(results.getInt("ID"));
+				skill.setSubId(results.getInt("SUBCATEGORY_ID"));
+				skill.setSkill(results.getString("SKILL"));
+				skills.add(skill);
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorSkills method of CacheDAO");
+		return skills;
+	}
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

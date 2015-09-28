@@ -48,11 +48,12 @@
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
                    String currentCompany = (String) request.getAttribute("currentCompany");
                    List<UserDetailsDTO> userDetails = (List<UserDetailsDTO>) request.getAttribute("userDetails");
-               
+                   Integer consultations = (Integer) request.getAttribute("consultations");
                    List<ReviewsDTO> advisorReviews = (List<ReviewsDTO>)request.getAttribute("advisorReviews");
                    List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
                    List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
                    Boolean isPhone = (Boolean) request.getAttribute("isPhone");
+                   Double rateCount = (Double) request.getAttribute("rateCount");
                    Integer reviewCount = (Integer) request.getAttribute("reviewCount");
                    Integer answerCount = (Integer) request.getAttribute("answerCount");
                    String advisorId = request.getParameter("a");
@@ -131,15 +132,15 @@
 					<div class="b-strip">
 						<div class="col-xs-12 col-sm-8 no-padding-xs text-center-xs" style="visibility:hidden;">
 							<span class="stars-xs hidden-xs"><span class="rating-no">4.5</span>
-							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
-							<span class="ad-stats"><span class="no-blue">14</span><span class="no-type">Reviews</span></span>
+							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${rateCount}" disabled></span>
+							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Reviews</span></span>
 							<span class="ad-stats"><span class="no-blue">${answerCount }</span><span class="no-type">Answers</span></span>
-							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Sessions</span></span>
+							<span class="ad-stats"><span class="no-blue">${consultations }</span><span class="no-type">Sessions</span></span>
 						
 						</div>
 						<div class="col-xs-12 col-sm-4 text-right text-center-xs no-padding-xs">
-							<button type="button" class="btn red-button " onclick="CheckLoggedIn()" >Book a session</button>
-							<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()">Ask a question</button>
+							<button type="button" class="btn red-button book-a-session-button" onclick="CheckLoggedIn()" >Book a session</button>
+							<button type="button" class="btn dark-button ask-a-question-button" onclick="CheckLoggedInForQuestions()">Ask a question</button>
 						</div>
 					
 					
@@ -155,43 +156,45 @@
 			<div class="can-help-container">
 				<div class="can-help-div">
 				<span class="can-help-head">I can help you with</span>
-				<div class="each-topic-div">
-					<span class="topic-head">MBA for adasd</span>
-					<ul class="topic-list">
-					<li>Overview of the different Programmes and B schools in India</li>
-					<li>Overview of the different Programmes and B schools in India</li>
-					</ul>
-					
-				</div>
-				<div class="each-topic-div">
-					<span class="topic-head">MBA for adasd</span>
-					<ul class="topic-list">
-					<li>Overview of the different Programmes and B schools in India</li>
-					<li>Overview of the different Programmes and B schools in India</li>
-					</ul>
-					
-				</div>
+				<c:forEach items="${advisor.getSubCategories()}" var="subcategory">
+				    <div class="each-topic-div">
+								<span class="topic-head">${subcategory.getSubCategory()}</span>
+								<ul class="topic-list">
+								    <c:forEach items="${advisor.getSkills()}" var="skills">
+								        <c:if test="${subcategory.getId() == skills.getSubId()}">
+											<li>${skills.getSkill() }</li>
+										</c:if>
+							    </c:forEach>
+								</ul>
+								
+					</div>
+						
+				</c:forEach>
 			</div>
 			</div>
 			<div class="available-div col-xs-12">
 				<span class="available-head">Available on</span>
-				<div class="col-xs-6 no-padding">
-				<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
-				</div>
-				<div class="col-xs-6 no-padding">
-				<img src="assets/img/vicon.svg" style="width: 31px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text" style="margin-left: 43px;">Video Chat</span>
-				</div>
+				<c:if test="${advisor.getPhone() }">
+					<div class="col-xs-6 no-padding">
+					<img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> <span class="available-type-text">Phone</span>
+					</div>
+				</c:if>
+				<c:if test="${advisor.getVideo() }">
+					<div class="col-xs-6 no-padding">
+					<img src="assets/img/vicon.svg" style="width: 31px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> </i><span class="available-type-text" style="margin-left: 43px;">Video Chat</span>
+					</div>
+				</c:if>
 			</div>
 			<div class="session-info col-xs-12">
 				<div class="session-div">
 					<span class="session-head-type" >Book A Session</span><br>
-					<span class="session-head-text">Rs 500/session</span>
-					<button type="button" class="btn red-button " onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
+					<span class="session-head-text">Rs ${advisor.getPhonePrice()}/min</span>
+					<button type="button" class="btn red-button book-a-session-button" onclick="CheckLoggedIn()" style="width: 99px;">Book now</button>
 				</div>
 				<div class="session-div">
 					<span class="session-head-type">Ask A Question</span><br>
 					<span class="session-head-text">Absolutely free</span>
-					<button type="button" class="btn dark-button " onclick="CheckLoggedInForQuestions()" style="width: 99px;">Ask now</button>
+					<button type="button" class="btn dark-button ask-a-question-button" onclick="CheckLoggedInForQuestions()" style="width: 99px;">Ask now</button>
 				</div>
 			</div>
 		</div>
@@ -432,6 +435,10 @@
 <script>
 
 $(document).ready(function () {
+	if(<%=isAdv%>){
+   		$(".ask-a-question-button").hide();
+   		$(".book-a-session-button").hide();
+   	} 
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
@@ -460,7 +467,7 @@ $(document).ready(function () {
         success : function(response) {
         	var obj = JSON.parse(response);
           	$.each(obj, function(key,value) {
-          		similarprofile(value);
+          		similarprofile(value,"${advisorCategory}","${advisorSubcategory}");
           	}); 
         	 $('.black-screen').hide();
 
@@ -475,11 +482,11 @@ $(document).ready(function () {
 });
 
 
-function similarprofile(value){
+function similarprofile(value,category,subcategory){
 	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
-		       +'<p class="adv-field">'+value.industry+'</p><br>'  
+		       +'<p class="adv-field">'+category+','+subcategory+'</p><br>'  
                +'</div>';		
                $('.similar').append(html);
  }
