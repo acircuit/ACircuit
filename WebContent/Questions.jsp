@@ -47,10 +47,25 @@
 	
 
 %>
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
+
+<style>
+@media (min-width: 320px) and (max-width: 767px) {
+.dark-button {
+    margin-left: 0px;
+}
+.dark-button, .red-button {
+    margin-top: 8px;
+}
+.ask-question-button {
+    margin-top: 0px;
+    
+}
+}
+</style>
+
+<title>Insert title here</title>
 <body>
  <div id="wrapper">
 	<div class="do-not-scroll " style="width:100%">
@@ -111,7 +126,7 @@
 			   				
 			   		</div>
 	   			
-	   			<div class="col-xs-3 hidden-xs">
+	   			<div class="col-xs-12 col-sm-3">
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section mostviewed">
 	                        <h2>MOST VIEWED QUESTIONS</h2>

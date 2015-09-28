@@ -129,7 +129,7 @@
 			   				
 			   		</div>
 	   			
-	   			<div class="col-xs-3 hidden-xs">
+	   			<div class="col-xs-12 col-sm-3">
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section">
 	                        <h2>MOST VIEWED QUESTIONS</h2>

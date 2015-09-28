@@ -10,8 +10,8 @@
 									      </div>
 									      <br><br>
 									       <div class="row">
-										       <div class="col-xs-3"><span style="margin-top: 7px;display: block;">Select Area of Advice :</span></div>
-										       <div class="col-xs-9">
+										       <div class="col-xs-12 col-sm-3"><span style="margin-top: 7px;display: block;">Select Area of Advice :</span></div>
+										       <div class="col-xs-12 col-sm-9">
 											       <div class="col-xs-6">
 												     <div class="form-group"> 
 												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal" required aria-required="true">

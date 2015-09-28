@@ -273,7 +273,7 @@ pageContext.setAttribute("type", type);
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;" >Book a session</a>
+							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;font-size:14px;" >Book a session</a>
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;background-color: #6c6c6c;color:white;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>

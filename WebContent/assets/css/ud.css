@@ -230,10 +230,10 @@ color: #9b9b9b;
 	
 }
 .review-text{
-	    display: inline-block;
-    float: right;
+	display: inline-block;
+    /* float: right; */
     margin-top: -23px;
-    margin-left: 59px;
+    margin-left: 11px;
 }
 .all-r{
 	font-size:13px;
@@ -570,7 +570,7 @@ input[type="radio"]:checked ~ label span {
 .review-text {
     font-size: 12px;
         margin-top: -17px;
-    margin-left: 44px;
+    /* margin-left: 44px; */
 }
 .userr-card img {
     width: 36px;

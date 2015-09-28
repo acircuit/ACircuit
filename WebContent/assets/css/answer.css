@@ -116,7 +116,7 @@ width:16px;
     padding-top: 0px;}
 .ask-question-button {
     float: right;
-    margin-top: -42px!important;}
+   /*  margin-top: -42px!important; */}
 .big-title-body {
     font-size: 14px!important;}
 .search-item {

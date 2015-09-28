@@ -46,6 +46,16 @@
 
 %>
 </head>
+<style>
+@media (min-width: 320px) and (max-width: 767px) {
+.dark-button {
+    margin-left: 0px;
+}
+.dark-button, .red-button {
+    margin-top: 8px;
+}
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -66,14 +76,14 @@
    			
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding">
-			   			<div class="col-xs-6">
+			   			<div class="col-xs-12 col-sm-6">
 			   				<img class="noti-img" src="assets/img/questions.png">
 			   				<div class="gborder-div">
 									<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 									<span class="gborder-time">23 September 5:00 pm</span>
 								</div>
 			   			</div>
-			   			<div class="col-xs-6">
+			   			<div class="col-xs-12 col-sm-6">
 			   				<div class="gborder-div col-xs-12" style="border-left: 6px solid #d0021b;">
 									<span class="gborder-text-big">Dorris Weaver : Scheduled</span><br>
 									<span class="gborder-time">23 September 5:00 pm</span>

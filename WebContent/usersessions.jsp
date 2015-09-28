@@ -54,6 +54,16 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 
 %>
 </head>
+<style>
+@media (min-width: 320px) and (max-width: 767px) {
+.dark-button {
+    margin-left: 0px;
+}
+.dark-button, .red-button {
+    margin-top: 8px;
+}
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
