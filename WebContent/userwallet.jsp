@@ -133,7 +133,6 @@
 									<td>${pay.getPaymentMode()}</td>
 									<td>${pay.getTrackinId()}</td>
 									<c:forEach items="${refunds}" var="refund">
-									1
 									     <c:choose>
 									    	<c:when test="${refund.getTrackingid() == pay.getTrackinId()}">
 									             <td>${pay.getAmount()}</td>

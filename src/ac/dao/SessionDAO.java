@@ -2164,7 +2164,7 @@ public class SessionDAO {
 			conn.setAutoCommit(false);
 			String query ="SELECT * FROM userrefund WHERE STATUS=? AND USER_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, 0);
 			pstmt.setInt(2, uid);
 			ResultSet results = pstmt.executeQuery();
 			if(results.first()){
