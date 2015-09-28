@@ -53,6 +53,7 @@
                    List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
                    List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
                    Boolean isPhone = (Boolean) request.getAttribute("isPhone");
+                   Double rateCount = (Double) request.getAttribute("rateCount");
                    Integer reviewCount = (Integer) request.getAttribute("reviewCount");
                    Integer answerCount = (Integer) request.getAttribute("answerCount");
                    String advisorId = request.getParameter("a");
@@ -131,7 +132,7 @@
 					<div class="b-strip">
 						<div class="col-xs-12 col-sm-8 no-padding-xs text-center-xs" style="visibility:hidden;">
 							<span class="stars-xs hidden-xs"><span class="rating-no">4.5</span>
-							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
+							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${rateCount}" disabled></span>
 							<span class="ad-stats"><span class="no-blue">${reviewCount }</span><span class="no-type">Reviews</span></span>
 							<span class="ad-stats"><span class="no-blue">${answerCount }</span><span class="no-type">Answers</span></span>
 							<span class="ad-stats"><span class="no-blue">${consultations }</span><span class="no-type">Sessions</span></span>
@@ -155,22 +156,20 @@
 			<div class="can-help-container">
 				<div class="can-help-div">
 				<span class="can-help-head">I can help you with</span>
-				<div class="each-topic-div">
-					<span class="topic-head">MBA for adasd</span>
-					<ul class="topic-list">
-					<li>Overview of the different Programmes and B schools in India</li>
-					<li>Overview of the different Programmes and B schools in India</li>
-					</ul>
-					
-				</div>
-				<div class="each-topic-div">
-					<span class="topic-head">MBA for adasd</span>
-					<ul class="topic-list">
-					<li>Overview of the different Programmes and B schools in India</li>
-					<li>Overview of the different Programmes and B schools in India</li>
-					</ul>
-					
-				</div>
+				<c:forEach items="${advisor.getSubCategories()}" var="subcategory">
+				    <div class="each-topic-div">
+								<span class="topic-head">${subcategory.getSubCategory()}</span>
+								<ul class="topic-list">
+								    <c:forEach items="${advisor.getSkills()}" var="skills">
+								        <c:if test="${subcategory.getId() == skills.getSubId()}">
+											<li>${skills.getSkill() }</li>
+										</c:if>
+							    </c:forEach>
+								</ul>
+								
+					</div>
+						
+				</c:forEach>
 			</div>
 			</div>
 			<div class="available-div col-xs-12">

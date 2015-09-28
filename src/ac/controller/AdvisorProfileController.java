@@ -63,12 +63,16 @@ public class AdvisorProfileController extends HttpServlet {
 			SessionDAO reviews = new SessionDAO();
 			advisorReviews = reviews.GetAdvisorReviews(aId);
 			int reviewCount = 0;
+			Double rateCount =0.0;
+			Double ratingCount =0.0;
 			List<Integer> uIds = new ArrayList<Integer>();
 			for(ReviewsDTO review: advisorReviews){
 				    reviewCount++;
 					uIds.add(review.getUserId());
+					ratingCount = ratingCount + Double.valueOf(review.getRating());
 			}
-			
+			rateCount = ratingCount / advisorReviews.size();
+			rateCount = (double) Math.round(rateCount);
 			//Geting advisor answers
 			int answerCount =0;
 			 List<AnswerDTO> answers = new ArrayList<AnswerDTO>();
@@ -119,6 +123,7 @@ public class AdvisorProfileController extends HttpServlet {
     		 request.setAttribute("answers", answers);
     		 request.setAttribute("questions", questions);
     		 request.setAttribute("answerCount", answerCount);
+    		 request.setAttribute("rateCount", rateCount);
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/Advisor.jsp");
              rd.forward(request, response);
 		}	

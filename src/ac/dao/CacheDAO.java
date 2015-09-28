@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
 import ac.dto.AdvisorLanguageDTO;
+import ac.dto.AdvisorSkillsDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -237,6 +238,7 @@ public class CacheDAO {
 				advisor.setAdvisorId(results.getInt("ADVISOR_ID"));
 				advisor.setCategoryId(results.getInt("CATEGORY_ID"));
 				advisor.setSubCategory(results.getString("SUBCATEGORY"));
+				advisor.setId(results.getInt("SUB_CATEGORY_ID"));
 				advisors.add(advisor);
 			}
 		} catch (SQLException e) {
@@ -553,6 +555,43 @@ public class CacheDAO {
 		return subs;
 	}
 	
+	
+	public List<AdvisorSkillsDTO> GetAdvisorSkills(){
+		logger.info("Entered GetAdvisorSkills method of CacheDAO");
+		List<AdvisorSkillsDTO> skills = new ArrayList<AdvisorSkillsDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "SELECT * FROM advisorskills";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AdvisorSkillsDTO skill = new AdvisorSkillsDTO();
+				skill.setId(results.getInt("ID"));
+				skill.setSubId(results.getInt("SUBCATEGORY_ID"));
+				skill.setSkill(results.getString("SKILL"));
+				skills.add(skill);
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorSkills method of CacheDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorSkills method of CacheDAO");
+		return skills;
+	}
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

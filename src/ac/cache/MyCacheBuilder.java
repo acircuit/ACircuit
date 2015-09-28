@@ -11,6 +11,7 @@ import ac.dao.CacheDAO;
 import ac.dao.SuggestionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.AdvisorLanguageDTO;
+import ac.dto.AdvisorSkillsDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -262,12 +263,18 @@ public class MyCacheBuilder
 		CacheDAO lang = new CacheDAO();
 		language = lang.GetAdvisorLanguage();
 		
+		List<AdvisorSkillsDTO> skills = new ArrayList<AdvisorSkillsDTO>();
+		CacheDAO skill = new CacheDAO();
+		skills = skill.GetAdvisorSkills();
+		
 		for(AdvisorDTO adv : advisorProfile){
 			List<EducationDTO> educ = new ArrayList<EducationDTO>();
 			List<ProfessionalBackgroundDTO> prof = new ArrayList<ProfessionalBackgroundDTO>();
 			List<CategoryDTO> categ= new ArrayList<CategoryDTO>();
 			List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
 			List<AdvisorLanguageDTO> advLanguage = new ArrayList<AdvisorLanguageDTO>();
+			List<AdvisorSkillsDTO> advSkills = new ArrayList<AdvisorSkillsDTO>();
+
 			GetRelativeImageURL relPath = new GetRelativeImageURL();
 			String path = relPath.getImageURL(adv.getImage());
             adv.setImage(path);
@@ -291,15 +298,22 @@ public class MyCacheBuilder
 			adv.setCategories(categ);
 			for(SubCategoryDTO subCat : subCategories){
 				if(subCat.getAdvisorId() == adv.getId()){
-					sub.add(subCat);
+					for(AdvisorSkillsDTO skill1: skills){
+						 if(subCat.getId() == skill1.getSubId()){
+							 advSkills.add(skill1);
+						 }
+					     sub.add(subCat);
+					}
 				}
 			}
+			adv.setSkills(advSkills);
 			adv.setSubCategories(sub);
 			for(AdvisorLanguageDTO lan : language){
 				if(lan.getAdvisor_id() == adv.getId()){
 					advLanguage.add(lan);
 				}
 			}
+			
 			adv.setLanguage(advLanguage);
 			addAdvisor(adv);
 		}

@@ -25,6 +25,13 @@ public class AdvisorDTO implements Serializable {
 	private List<CategoryDTO> categories;
 	private List<SubCategoryDTO> subCategories;
 	private List<AdvisorLanguageDTO> language;
+	private List<AdvisorSkillsDTO> skills;
+	public List<AdvisorSkillsDTO> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<AdvisorSkillsDTO> skills) {
+		this.skills = skills;
+	}
 	private Boolean isActive;
 	private Boolean isVerified;
 	private double phonePrice;
