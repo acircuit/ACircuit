@@ -52,6 +52,8 @@
 @media (min-width: 320px) and (max-width: 767px) {
 .body-error {
     padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 }
 </style>

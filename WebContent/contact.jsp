@@ -44,6 +44,25 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
+<style>
+@media (min-width: 320px) and (max-width: 762px) {
+ .body-content{
+	background-color: white;
+	min-height: 400px;
+	padding:0px;
+	padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 8px;
+}
+.right-info-div {
+    padding-top: 7px;
+    padding-left: 15px;
+}
+.form-label {
+    font-size: 11px;
+}
+}
+</style>
 <title>Insert title here</title>
 
 <body>
@@ -65,7 +84,7 @@
    			<div class="contact-us-head-div">
    				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
    			</div>
-   			<div class="col-xs-8">
+   			<div class="col-xs-12 col-sm-8">
    				<form class="book-session no-padding" method="post" action="contactus" id="contact-form">
    					<div class="form-group each-form-div">
 											     <label class="col-xs-2 no-padding form-label">Name</label>
@@ -99,7 +118,7 @@
 					</div>
    				</form>
    				</div>
-   				<div class="col-xs-4 right-info-div">
+   				<div class="col-xs-12 col-sm-4 right-info-div">
    				<div class="info-div-contact">
    				<span class="red-contact-title">Email</span><br>
 				<span class="contact-detail-info">contactus@advisorcircuit.com</span>

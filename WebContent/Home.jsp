@@ -183,7 +183,7 @@
 	   <div class="experts-tab-head" style="margin-bottom:-10px;">
 		    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
 		</div>
-		<div class="qa-conatiner col-xs-12 no-padding">
+		<div class="qa-conatiner row no-padding">
 		<!-- <div class="hquotes">
 		</div> -->
 			<div  class="questions-div-each col-xs-10 col-xs-offset-1">

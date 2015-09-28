@@ -292,15 +292,15 @@ color: #ffffff;
 .questions-div-each{
 	     border-bottom: 1px solid lightgray;
     text-align: left;
-    padding: 41px 0px 4px 0px;
+    padding: 40px 0px 4px 0px;
 }
 .question-in-qa{
-	font-size: 20px;
+	font-size: 15px;
     color: #37b7b3;
     line-height: 23px;
 }
 .no-of-answers{
-	font-size: 16px;
+	font-size: 14px;
     color: #6c6c6c;
     line-height: 23px;
     font-family: Open SansL;
@@ -520,12 +520,17 @@ display: block;
     width: 90px;
     height: 90px;}
 .index-body-div .tab-content>.tab-pane {
-    padding-top: 18px;}
+    padding-top: 18px;
+    padding-left: 9px;
+    padding-right: 9px;}
+ .index-body-div .tab-content>#qnada {
+    margin-bottom: 25px;
+}
 .experts-tab-head {
     font-size: 15px;} 
 .tab-adv-div {
     margin-bottom: 15px;
-    margin-left: 7px;
+    /* margin-left: 7px; */
     min-width: 282px;
     }
  .big-img-div {
