@@ -124,9 +124,9 @@
       						  <input class="form-control" name="password" placeholder="Password" required type="password" autocomplete="off">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
-      						  <input type="checkbox" value="" id="terms" name="terms" required/>
+      						  <input type="checkbox" value="" id="terms" name="terms" checked="checked" required/>
 								<label for="terms"></label>
-								<span class="policy-text">By registering you accept the Terms & Conditions and Privacy Policy</span>
+								<span class="policy-text">By registering you accept the <a href="tnc" target="blank">T&Cs</a> and <a href="privacypolicy" target="blank">Privacy Policy</a></span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						<button type="submit" class="btn gt-started" >Get Started</button>
@@ -134,7 +134,7 @@
 				 	
       		</form>
       		<div class="col-xs-12" style="text-align:center;">
-					<span class="form-footer-text-b" >To know more about our process and payments, visit the <a href="faq"><span class="btext">FAQ Section</span></a></span>
+					<span class="form-footer-text-b" >To know more about our process and payments, visit our <a href="faq" target="blank"><span class="btext">FAQs</span></a></span>
 				</div>
 				</div>
 			</div>

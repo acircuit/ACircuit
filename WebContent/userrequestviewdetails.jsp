@@ -69,7 +69,7 @@
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request sent to Advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="btext name">${advisorDetails.getName()}</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
 						   		<br>
 						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -95,8 +95,7 @@
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
 							   	
-							   		<span class="step-text-no">1. Some Dummy Text as steps. Its best to number them for better understanding as steps </span><br>
-							   		<span class="step-text-no">1. Some Dummy Text as steps. Its best to number them for better understanding as steps </span><br>
+							   		<span class="step-text-no">Great going! We will get in touch with the advisor from your side and will revert back to you within 48 hours. </span><br>
 							   		
 					   		</div>
 				   		</div>

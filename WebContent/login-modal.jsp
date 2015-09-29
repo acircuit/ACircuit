@@ -8,7 +8,7 @@
      
       <div class="modal-body">
       	<div class="modal-head-div">
-      		<span class="modal-head-text">SIGN IN</span>
+      		<span class="modal-head-text">Sign Up</span>
       	</div>
       	<div id="emailerror" class="error-in-modal" style="display: none;">
       	  <span>This email is already registerd with us. Please try with different email Id.</span>
@@ -17,7 +17,7 @@
       		<form class="login-form col-xs-12 no-padding" method="post" id="signupform" action="registration">
       			<div class="form-group login-form-el col-xs-12 no-padding">
       						<div class="col-xs-6" style="text-align: center;">
-									<input type="radio" value="user" id="user" name="type" aria-required="true" required/>
+									<input type="radio" value="user" id="user" name="type" aria-required="true" checked="checked" required/>
 									<label for="user"><span></span> User</label>
 									
 							</div>
@@ -37,20 +37,20 @@
       						  <input class="form-control" name="password" placeholder="Password" required type="password" autocomplete="off">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
-      						  <input type="checkbox" value="" id="terms" name="terms" required/>
+      						  <input type="checkbox" value="" id="terms" name="terms" checked="checked" required/>
 								<label for="terms"></label>
-								<span class="policy-text">By registering you accept the Terms & Conditions and Privacy Policy</span>
+								<span class="policy-text">By registering you accept the <a href="tnc" target="blank">T&Cs</a> and <a href="privacypolicy" target="blank">Privacy Policy</a></span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						<button id="signup-submit" type="submit" class="btn gt-started" >Get Started</button>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
-      						 <input type="checkbox" value="true" id="updates" name="updates" />
+      						 <input type="checkbox" value="true" id="updates" name="updates" checked="checked"/>
 								<label for="updates"></label>
 								<span class="policy-text">I wish to receive updates from new offers</span>
 				 	</div>
 				 	<div class="option-signin col-xs-12 no-padding form-group">
-				 		<span class="option-text">or you can sign in via social network</span>
+				 		<span class="option-text">OR SIGN UP VIA</span>
 				 	</div>
 				 	<div class="option-signin-buuton col-xs-12 no-padding form-group">
 				 		<div class="col-xs-6 no-padding" style="text-align: center; padding-right: 5px;">
@@ -62,7 +62,7 @@
 				 			</div>
 				 	</div>
 				 	<div class="already-signup col-xs-12 no-padding" style="margin-top:-15px;">
-				 		<span class="already-signup-text">Already have an account?<span class="btext">Log In </span>here</span>
+				 		<span class="already-signup-text">Already have an account? <span class="btext"><a onclick="OpenLogin()">Sign In </a></span>here</span>
 				 	</div>
       		</form>
       		
@@ -78,8 +78,14 @@
     <div class="modal-content">
      
       <div class="modal-body">
+      <div id="logintocontinueadvisors" class="error-in-modal1" style="display: none;">
+      	  <p> Please login to view our Advisors.</p>
+      	</div>
+      	<div id="logintocontinuequestions" class="error-in-modal1" style="display: none;">
+      	  <p> Please login to access Q&A Platform.</p>
+      	</div>
       	<div class="modal-head-div">
-      		<span class="modal-head-text">LOG IN</span>
+      		<span class="modal-head-text">SIGN IN</span>
       	</div>
       	<div id="invalidusername" class="error-in-modal" style="display: none;">
       	  <p> The username/password you entered is invalid</p>
@@ -129,6 +135,7 @@
     </div>
   </div>
 </div>	
+	
 <script>
 $(document).ready(function () {
 	$("#loginform").validate();
@@ -166,8 +173,8 @@ $('body').on( 'keyup', '#signupemail', function(event) {
 	$('#emailerror').slideUp();
 });	
 $('body').on('click', '.move-to-signup', function(e){
-   		$('#loginmodal').modal('hide');
-   		$('#signupmodal').modal('show');
+   		$('#loginmodal').modal('show');
+   		$('#signupmodal').modal('hide');
     });	
 $('body').on('click', '.forgot', function(e){
 		$('#loginform').slideUp();
@@ -258,5 +265,12 @@ $( "#loginform" ).submit(function( event ) {
 		    });
 
 	});
+	function OpenLogin(){
+		debugger;
+   		$('#signupmodal').modal('hide');
+		$('#loginmodal').modal("show");
+		document.getElementById("logintocontinuequestions").style.display = "none";
+		document.getElementById("logintocontinueadvisors").style.display = "none";
+	}
 </script>
     

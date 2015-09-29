@@ -75,9 +75,9 @@
 					       
 					        <li><a href="questions">Q&A</a></li> -->
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
-					         <li><a href="#">How it Works</a></li>
-					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
-					          <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Join us </span></a></li>
+					         <li><a href="howitworks">How it Works</a></li>
+					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Sign In</a></li>
+					          <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Sign up </span></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -89,7 +89,7 @@
 			   	<span class="small-font-banner">Connect with people who’ve been there done that to achieve your goals</span><br><br>
 			   		<div class="Bblue">
 						<div class="category-filter-div container no-padding">
-					  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
+					  			<div class="col-xs-12 choose-div no-padding-xs">Get your queries answered in</div>
 					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 no-padding">
 					  			 
 					  				<div class="col-xs-4 no-padding">
@@ -105,7 +105,7 @@
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div hm-top-svg no-padding-xs">
 					  						<img class="svg" src="assets/img/home_industry.svg">
-					  							<br class="hidden-xs"><span class="svg-b-text border-pink">Industry</span>
+					  							<br class="hidden-xs"><span class="svg-b-text border-pink">Industry & Jobs</span>
 					  						
 					  					</div>
 					  				</div>
@@ -123,7 +123,7 @@
 					  		</div>
    					</div>
    					<div class="col-xs-12 col-sm-6 col-sm-offset-3 signupT-div">
-   						<button type="button" class="btn red-button signupT-button">Sign Up Today</button>
+   						<button type="button" class="btn red-button signupT-button" data-toggle="modal" data-target="#signupmodal">Sign Up For Free</button>
    					</div>
 			   	<!-- <form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
 			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSearchSuggestions(this)" name="word" autocomplete="off">
@@ -137,7 +137,7 @@
 
    	<div class="index-body-div container fadeinpoint"  id="page-content-wrapper">
    	<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#experts" aria-controls="experts" role="tab" data-toggle="tab">Experts</a></li>
+    <li role="presentation" class="active"><a href="#experts" aria-controls="experts" role="tab" data-toggle="tab">Advisors</a></li>
     <li role="presentation"><a href="#qnada" aria-controls="qnada" role="tab" data-toggle="tab">Q&A</a></li>
    
   </ul>
@@ -146,7 +146,7 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="experts">
 	    <div class="experts-tab-head">
-	    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
+	    	<span>Talk to successful people to know their secrets and leverage their knowledge</span>
 	    </div>
 	    <div class="advisors-row">
 		    <div class="scroll-xs scroll-expert-card scrollable-content">
@@ -182,7 +182,7 @@
     </div>
     <div role="tabpanel" class="tab-pane fade" id="qnada">
 	   <div class="experts-tab-head" style="margin-bottom:-10px;">
-		    	<span>We have diverse professionals from different industries who can help you grow in your career and excel in your field.</span>
+		    	<span>Talk to successful people to know their secrets and leverage their knowledge</span>
 		</div>
 		<div class="qa-conatiner row no-padding">
 		<!-- <div class="hquotes">
@@ -250,7 +250,7 @@
 		  			</div>
 		  		</div>
 		  		<div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
-							<button type="button" class="btn T-button ">How it works</button>
+							<a href="howitworks" class="btn T-button ">How it works</a>
 							
 		</div>
    	</div>
@@ -261,35 +261,37 @@
 					<span class="bqstart">“</span>
 				</div>
 				<div class="ad-speaks">
-					<span>I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project.</span>
+					<span>Had a great session with Ms Richa! Thank you so much team Advisor Circuit for the great help. I   would like to recommend anyone who needs career guidance to get in touch with them !</span>
 				</div>
 	   		</div>
+	   		<fmt:bundle basename="ac.resources.Testimonials" prefix="path.">
 	   		<div class="user-images-div col-xs-12 col-sm-10 col-sm-offset-1">
 	   		<div class="user-div">
-	   		<span class="t-text">content 1ccaa I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
-	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
-	   			<span class="user-name">BRIANNA TERRY</span><br>
-	   			<span class="user-desig">Student</span>
+	   		<span class="t-text">You guys have conceptualized a really innovative and helpful concept. Your team is really dedicated and supportive to help the people to get the best out of the service. You‘re providing a chance to directly connect to advisors for pragmatic advice.<br>This is the USP of Advisor Circuit.</span>
+	   			<img class="user-img img-disable" src="<fmt:message key="harsh"/>"><br>
+	   			<span class="user-name">Harsh Vardhan</span><br>
+	   			<!-- <span class="user-desig">Student</span> -->
 	   		</div>
 	   		<div class="user-div" id="timg2">
-	   		<span class="t-text">content gone now more I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
-	   			<img class="user-img img-disable"  src="assets/img/Abhishek.JPG"><br>
-	   			<span class="user-name">BRIANNA gsgg</span><br>
-	   			<span class="user-desig">Stusdds</span>
+	   		<span class="t-text">Had a great session with Ms Richa! Thank you so much team Advisor Circuit for the great help. I   would like to recommend anyone who needs career guidance to get in touch with them ! </span>
+	   			<img class="user-img img-disable"  src="<fmt:message key="abhisha"/>"><br>
+	   			<span class="user-name">Abhisha Arya</span><br>
+	   			<!-- <span class="user-desig">Stusdds</span> -->
 	   		</div>
 	   		<div class="user-div">
-	   		<span class="t-text">content lets do it I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
-	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
-	   			<span class="user-name">BRI899ANNA gsgg</span><br>
-	   			<span class="user-desig">St00usdds</span>
+	   		<span class="t-text">I have to say it’s a brilliant concept . Session was extremely helpful it’s an amazing platform for ppl for some really good career advice.</span>
+	   			<img class="user-img img-disable" src="<fmt:message key="khushboo"/>"><br>
+	   			<span class="user-name">Khushboo </span><br>
+	   			<!-- <span class="user-desig">St00usdds</span> -->
 	   		</div>
 	   		<div class="user-div">
-	   		<span class="t-text">content ok fine as you wish I was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship projectI was able to find a great advisor who not only answered my questions about career paths in brand management, but who could also discuss the specifics of my internship project</span>
-	   			<img class="user-img img-disable" src="assets/img/Abhishek.JPG"><br>
-	   			<span class="user-name">BRI899ANNA gsgg</span><br>
-	   			<span class="user-desig">St00usdds</span>
+	   		<span class="t-text">Advisor Circuit provided me with the best counselling session ever, one I always sought but found no means to. The expertise of the advisors, the array of industries they come from & the professionalism of the advisor circuit team is commendable!</span>
+	   			<img class="user-img img-disable" src="<fmt:message key="shikhar"/>"><br>
+	   			<span class="user-name">Shikhar Vishnoi</span><br>
+	   			<!-- <span class="user-desig">St00usdds</span> -->
 	   		</div>
 	   	</div>
+	   	</fmt:bundle>
    	</div>
    	<div class="sign-up-div col-xs-12">
    	 	<div class="col-xs-12 signup-text-head no-padding-xs"><span>START NOW</span></div>
@@ -297,7 +299,7 @@
    	 	<span class="text">Over 80% people regret their career choices. Change the way you seek advice.</span>
    	 	</div>
    	 	<div class="button-div">
-   	 	<button type="button" class="btn red-button signup-button">Sign Up Now</button>
+   	 	<button type="button" class="btn red-button signup-button" data-toggle="modal" data-target="#signupmodal">Sign Up for Free</button>
    	 	</div>
    	</div>
    	 <%@include file="/footer.jsp" %>

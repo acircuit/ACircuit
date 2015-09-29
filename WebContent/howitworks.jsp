@@ -156,8 +156,8 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
    			</div>
    			<div class="last-div-grey col-xs-12 no-padding">
    			<div class="last-div-content">
-   				<span class="how-we-help">Wondering how we can help your career?</span><br>
-   				<button type="button" class="btn red-button sign-up-howp signup-bottom">Sign Up Now</button>
+   				<span class="how-we-help">Over 80% people regret their career choices. Change the way you seek advice.</span><br>
+   				<button type="button" class="btn red-button sign-up-howp signup-bottom" data-toggle="modal" data-target="#signupmodal">Sign Up for Free</button>
    			</div>
    			<img src="assets/img/howitworks10.png"  class="img-responsive hidden-xs">
    			</div>

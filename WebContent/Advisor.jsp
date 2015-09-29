@@ -441,7 +441,7 @@ $(document).ready(function () {
    	} 
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
-	    startDate: '-3d'
+	    startDate: '-0d'
 	});
 	var i=0;
 	for(i=0;i<25;i++){

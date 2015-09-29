@@ -933,7 +933,7 @@ public class SessionDAO {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			if(type.equals("user")){
-			query = "UPDATE twilliocalls SET USER_DURATION = ?,USER_CALL_STATUS=?,USER_STATUS_UPDATE_TIME WHERE USER_CALL_SID = ?";
+			query = "UPDATE twilliocalls SET USER_DURATION = ?,USER_CALL_STATUS=?,USER_STATUS_UPDATE_TIME=? WHERE USER_CALL_SID = ?";
 			}else{
 				query = "UPDATE twilliocalls SET ADVISOR_DURATION = ?,ADVISOR_CALL_STATUS=?,ADVISOR_STATUS_UPDATE_TIME WHERE ADVISOR_CALL_SID = ?";	
 			}
