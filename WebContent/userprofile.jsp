@@ -89,13 +89,13 @@ pageContext.setAttribute("userverification", userverification);
 		   				<span class="profile-form-head">Personal Details</span>
 		   				<c:choose>
 		   				   <c:when test="${userDetails.getFullName() != null &&  userDetails.getGender() != null && userDetails.getOccupation() != null}">
-		   				   <form class="profile-form" action="userprofile" method="post">
+		   				   <form class="profile-form" action="userprofile" method="post" id="userprofileform">
 		   				        <div class="col-xs-12 no-padding">
 		   							<div class="col-xs-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Full-name</label>
 												       <div class="col-xs-9">
-					                                       <input class="form-control" name="name" value="${userDetails.getFullName()}">
+					                                       <input class="form-control" name="name" value="${userDetails.getFullName()}" required>
 												 		</div>
 										</div>
 			   						</div>
@@ -109,21 +109,21 @@ pageContext.setAttribute("userverification", userverification);
 												       <c:choose>
 												          <c:when test="${userDetails.getGender().equals('male')}">
 												          <div class="col-xs-6 no-padding">
-						                                        <input type="radio" id="radio01" name="radiomale" value="male" checked="checked"/>
+						                                        <input type="radio" id="radio01" name="radiomale" value="male" checked="checked" aria-required="true" required/>
   																<label for="radio01"><span></span>Male</label>
 													 		</div>
 													 		<div class="col-xs-6 no-padding">
-						                                       <input type="radio" id="radio02" name="radiofemale" value="female" />
+						                                       <input type="radio" id="radio02" name="radiomale" value="female" />
 															 <label for="radio02"><span></span>Female</label>
 													 		</div>
 												          </c:when>
 												          <c:otherwise>
 												          <div class="col-xs-6 no-padding">
-						                                        <input type="radio" id="radio01" name="radiomale" value="male" />
+						                                        <input type="radio" id="radio01" name="radiomale" value="male" aria-required="true" required/>
   																<label for="radio01"><span></span>Male</label>
 													 		</div>
 													 		<div class="col-xs-6 no-padding">
-						                                       <input type="radio" id="radio02" name="radiofemale" value="female" checked="checked"/>
+						                                       <input type="radio" id="radio02" name="radiomale" value="female" checked="checked"/>
 															 <label for="radio02"><span></span>Female</label>
 													 		</div>
 												          </c:otherwise>
@@ -139,7 +139,7 @@ pageContext.setAttribute("userverification", userverification);
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Occupation</label>
 												       <div class="col-xs-9">
-					                                       <input class="form-control" name="occupation" value="${userDetails.getOccupation()}">
+					                                       <input class="form-control" name="occupation" value="${userDetails.getOccupation()}" required>
 												 		</div>
 										</div>
 			   						</div>
@@ -151,7 +151,7 @@ pageContext.setAttribute("userverification", userverification);
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Mobile</label>
 												      <div class="col-xs-9">
-					                                       <input id="userphone" class="form-control" name="phone">
+					                                       <input id="userphone" class="form-control" name="phone" required>
 												 		</div>
 										</div>
 			   						</div>
@@ -300,34 +300,7 @@ pageContext.setAttribute("userverification", userverification);
 
 <script>
 $(document).ready(function () {
-/* 	var kcyear = document.getElementsByName("year")[0],
-	kcmonth = document.getElementsByName("month")[0],
-	kcday = document.getElementsByName("day")[0];
-	var d = new Date();
-	var n = d.getFullYear();
-	for (var i = n; i >= 1950; i--)
-	{
-	var opt = new Option();
-	opt.value = opt.text = i;
-	kcyear.add(opt); }
-	kcyear.addEventListener("change", validate_date);
-	kcmonth.addEventListener("change", validate_date);
-	function validate_date() {
-				var y = +kcyear.value,
-				m = kcmonth.value, d = kcday.value;
-				if (m === "2")
-					var mlength = 28 + (!(y & 3) && ((y % 100) !== 0 || !(y & 15)));
-				else
-					var mlength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
-				kcday.length = 0;
-				for (var i = 1; i <= mlength; i++)
-				{
-					var opt = new Option();
-					opt.value = opt.text = i;
-					if (i == d) opt.selected = true;
-					kcday.add(opt);
-				}
-	} */
+	$("#userprofileform").validate();
 	starinputconversion();
 	if("${userverification.equals('true') }"){
 		debugger;

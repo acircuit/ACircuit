@@ -98,9 +98,9 @@
 							      </div>
 <%-- 							      </c:if>
  --%>							  </c:forEach>
-						<%-- 	<c:if test="${industries.size() > 10 }">
+							<c:if test="${industries.size() >10 }">
 						        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-						     </c:if>   --%> 
+						     </c:if>  
 						</form>
 						<form>
    							<div class="filter-type">
@@ -118,9 +118,9 @@
 							      </div>
 <%-- 							      </c:if>
  --%>							  </c:forEach>
-							 <%--  <c:if test="${institutions.size() > 10 }">
+							 <c:if test="${institutions.size() > 10 }">
 						        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-						     </c:if>   --%>
+						     </c:if>  
 						</form>
 							
    					</div>
@@ -202,7 +202,7 @@
 							      		<input  class="form-control search-box-modal" type="text" placeholder="Search"  name="word" autocomplete="off">
 							      		</form>
 							    	</div>
-							    	<div class="col-xs-7">
+							    	<!-- <div class="col-xs-7">
 							   			 <span class="alpha">A</span>
 							   			  <span class="alpha">B</span>
 							   			   <span class="alpha">C</span>
@@ -229,7 +229,7 @@
 							   			                        <span class="alpha">X</span>
 							   			                         <span class="alpha">Y</span>
 							   			                          <span class="alpha">Z</span>
-							    	</div>
+							    	</div> -->
 							    	
 							    	</div>
 							    	</div>
@@ -734,11 +734,11 @@ function OpenFIlterModal(elem){
 	 			   started =false;
 	 		   }
 	 	   }
-	 	   if(delimit){
+	 	   /* if(delimit){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
-	 	   }
-	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='"+ind+"' name='"+"${industry}"+"' /><label for='"+ind+"'></label><span>"+"${industry}"+"</span></div>";
+	 	   } */
+	 	   html = html + "<div class='form-group col-xs-3 squaredThree'><input type='checkbox' id='"+ind+"' name='"+"${industry}"+"' /><label for='"+ind+"'></label><span>"+"${industry}"+"</span></div>";
 	 	   
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;

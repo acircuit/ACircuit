@@ -380,7 +380,15 @@ font-size:13px;
 .dark-button,.red-button {
        width:160px;
 }
-
+.buttondis{
+	    pointer-events: none;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .15;
+	
+}
 
 
 

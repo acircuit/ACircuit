@@ -378,10 +378,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date" required>
+											        <input class="datepicker d1 form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot1time" title="Please select slot 1" required="" aria-required="true">
+											        <select class="collapsed-filter-button inpt-mw ds1" name="slot1time" title="Please select slot 1" required="" aria-required="true">
 														  
 														  
 													</select> 
@@ -393,10 +393,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date" required>
+											        <input class="datepicker d2 form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot2time" title="Please  select slot 2" required="" aria-required="true">
+											        <select class="collapsed-filter-button inpt-mw ds2" name="slot2time" title="Please  select slot 2" required="" aria-required="true">
 														
 													</select> 
 											       </div>
@@ -407,10 +407,10 @@
 											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
 											       <div class="col-xs-9 form-group">
 											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date" required>
+											        <input class="datepicker d3 form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date" required>
 											       </div>
 											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot3time" title="Please  select slot 3" required="" aria-required="true">
+											        <select class="collapsed-filter-button inpt-mw ds3" name="slot3time" title="Please  select slot 3" required="" aria-required="true">
 														
 													</select> 
 											       </div>
@@ -441,13 +441,15 @@ $(document).ready(function () {
    	} 
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
-	    startDate: '-0d'
+	    startDate: '-0d',
+	    datesDisabled:'13',
+	    autoclose:true,
 	});
 	var i=0;
 	for(i=0;i<25;i++){
 		html='<option value="'+i+':00">'+i+':00 Hours</option>'
 			+'<option value="'+i+':30">'+i+':30 Hours</option>';
-		$('.inpt-mw').append(html);
+		$('select.inpt-mw').append(html);
 	}
 	var j=0;
 	var htmld="";
@@ -490,8 +492,174 @@ function similarprofile(value,category,subcategory){
                +'</div>';		
                $('.similar').append(html);
  }
-
-
+$('.d1').on("changeDate", function() {
+	var v2=$('.d2').val();
+	var v3=$('.d3').val();
+	var vs2=$('.ds2').val();
+	var vs3=$('.ds3').val();
+	var thisv = $(this).val();
+	
+	if(v2)
+		{
+			if(thisv==v2)
+				{
+					if(vs2)
+					{
+						$('.ds1 option[value="' +vs2+ '"]').attr('disabled','disabled');
+					
+					}
+				}
+		}
+	if(v3)
+	{
+		if(thisv==v3)
+			{
+				if(vs3)
+				{
+					$('.ds1 option[value="' +vs3+ '"]').attr('disabled','disabled');
+					
+				}
+			}
+	}
+});
+$('.d2').on("changeDate", function() {
+	var v1=$('.d1').val();
+	var v3=$('.d3').val();
+	var vs1=$('.ds1').val();
+	var vs3=$('.ds3').val();
+	var thisv = $(this).val();
+	
+	if(v1)
+		{
+			if(thisv==v1)
+				{
+					if(vs1)
+					{
+						$('.ds2 option[value="' +vs1+ '"]').attr('disabled','disabled');
+					}
+				}
+		}
+	if(v3)
+	{
+		if(thisv==v3)
+			{
+				if(vs3)
+				{
+					$('.ds2 option[value="' +vs3+ '"]').attr('disabled','disabled');
+				}
+			}
+	}
+});
+$('.d3').on("changeDate", function() {
+	var v1=$('.d1').val();
+	var v2=$('.d2').val();
+	var vs1=$('.ds1').val();
+	var vs2=$('.ds2').val();
+	var thisv = $(this).val();
+	
+	if(v1)
+		{
+			if(thisv==v1)
+				{
+					if(vs1)
+					{
+						$('.ds3 option[value="' +vs1+ '"]').attr('disabled','disabled');
+					}
+				}
+		}
+	if(v2)
+	{
+		if(thisv==v2)
+			{
+				if(vs2)
+				{
+					$('.ds3 option[value="' +vs2+ '"]').attr('disabled','disabled');
+				}
+			}
+	}
+});
+$('.ds1').on("click focus mouseover", function() {
+	$('.ds1 option').attr("disabled", false);
+	var vs1=$(this).val();
+	var v1=$('.d1').val();
+	var v2=$('.d2').val();
+	var v3=$('.d3').val();
+	var vs2=$('.ds2').val();
+	var vs3=$('.ds3').val();
+	if(v1)
+	{
+		if(v1==v2)
+			{
+				if(vs2)
+				{
+					$('.ds1 option[value="' +vs2+ '"]').attr('disabled','disabled');
+				}
+			}
+		if(v1==v3)
+		{
+			if(vs3)
+			{
+				$('.ds1 option[value="' +vs3+ '"]').attr('disabled','disabled');
+			}
+		}
+	}
+	
+});
+$('.ds2').on("click focus mouseover", function() {
+	$('.ds2 option').attr("disabled", false);
+	
+	var v1=$('.d1').val();
+	var v2=$('.d2').val();
+	var v3=$('.d3').val();
+	var vs1=$('.ds1').val();
+	var vs2=$('.ds2').val();
+	var vs3=$('.ds3').val();
+	if(v2)
+	{
+		if(v2==v1)
+			{
+				if(vs1)
+				{
+					$('.ds2 option[value="' +vs1+ '"]').attr('disabled','disabled');
+				}
+			}
+		if(v2==v3)
+		{
+			if(vs3)
+			{
+				$('.ds2 option[value="' +vs3+ '"]').attr('disabled','disabled');
+			}
+		}
+	}
+	
+});
+$('.ds3').on("click focus mouseover", function() {
+	$('.ds3 option').attr("disabled", false);
+	var v1=$('.d1').val();
+	var v2=$('.d2').val();
+	var v3=$('.d3').val();
+	var vs1=$('.ds1').val();
+	var vs2=$('.ds2').val();
+	var vs3=$('.ds3').val();
+	if(v3)
+	{
+		if(v3==v1)
+			{
+				if(vs1)
+				{
+					$('.ds3 option[value="' +vs1+ '"]').attr('disabled','disabled');
+				}
+			}
+		if(v3==v2)
+		{
+			if(vs2)
+			{
+				$('.ds3 option[value="' +vs2+ '"]').attr('disabled','disabled');
+			}
+		}
+	}
+	
+});
 $('body').on('click', '#book-booksession', function(e){
 	var validator=$("#book-session-form").validate();
 	validator.resetForm();
