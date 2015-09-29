@@ -122,7 +122,7 @@ public class GetAdvisors extends HttpServlet {
 							List<EducationDTO> education1 = advisor.getEducation();
 							int ed=0;
 							for(EducationDTO educ : education1){
-								if(educ.getType().equals("pg") && educ.getInstitution() != null){
+								if(educ.getType() != null &&  educ.getType().equals("pg") && educ.getInstitution() != null){
 									jo.put("institution", educ.getInstitution());
 									ed++;
 								}

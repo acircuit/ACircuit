@@ -69,58 +69,58 @@
    							<c:set value="0" var="langCounter"></c:set>
 							 <c:forEach var="language" items="${languages}">
    							      <c:set value="${langCounter +1 }" var="langCounter"></c:set>
-								  <c:if test="${langCounter <=10 }">
-									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+<%-- 								  <c:if test="${langCounter <=10 }">
+ --%>									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
 									<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
 									<div class="form-group squaredThree">
 							  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
 								      <label for="lan${lang}"></label><span>${language}</span>
 							      </div>
-							      </c:if>
-							</c:forEach>
-							<c:if test="${languages.size() > 10 }">
-								<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-							</c:if>
-						</form>
+<%-- 							      </c:if>
+ --%>							</c:forEach>
+<%-- 							<%-- <c:if test="${languages.size() > 10 }">
+ --%>							<%-- 	<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
+ 							  </c:if> --%>
+  					</form>
    						<form>
    							<div class="filter-type">
    								<span>Industry</span>
    							</div>
-   							<c:set value="0" var="indCounter"></c:set>
-							 <c:forEach var="industry" items="${industries}">
-                                 <c:set value="${indCounter +1 }" var="indCounter"></c:set>
-								  <c:if test="${indCounter <=10 }">							 
-							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
+<%--    							<c:set value="0" var="indCounter"></c:set>
+ --%> 							 <c:forEach var="industry" items="${industries}">
+                                  <c:set value="${indCounter +1 }" var="indCounter"></c:set>
+<%-- 								  <c:if test="${indCounter <=10 }">							 
+ --%>							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
 							      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
 								      <label for="ind${indus}"></label><span>${industry}</span>
 							      </div>
-							      </c:if>
-							  </c:forEach>
-							<c:if test="${industries.size() > 10 }">
+<%-- 							      </c:if>
+ --%>							  </c:forEach>
+						<%-- 	<c:if test="${industries.size() > 10 }">
 						        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-						     </c:if>   
+						     </c:if>   --%> 
 						</form>
 						<form>
    							<div class="filter-type">
    								<span>College</span>
    							</div>
-   							   <c:set value="0" var="insCounter"></c:set>
-							   <c:forEach var="institution" items="${institutions}">
-							      <c:set value="${insCounter +1 }" var="insCounter"></c:set>
-								  <c:if test="${insCounter <=10 }">			
+<%--    							   <c:set value="0" var="insCounter"></c:set>
+ --%>							   <c:forEach var="institution" items="${institutions}">
+							    <%--   <c:set value="${insCounter +1 }" var="insCounter"></c:set>
+								  <c:if test="${insCounter <=10 }"> --%>			
 							   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
 							      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
 								      <label for="col${institute}"></label><span>${institution}</span>
 							      </div>
-							      </c:if>
-							  </c:forEach>
-							  <c:if test="${institutions.size() > 10 }">
+<%-- 							      </c:if>
+ --%>							  </c:forEach>
+							 <%--  <c:if test="${institutions.size() > 10 }">
 						        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-						     </c:if>  
+						     </c:if>   --%>
 						</form>
 							
    					</div>
@@ -133,7 +133,7 @@
    						<div class="col-xs-12 col-sm-8 " style="padding-left:0px">
    							<div class="big-text">Expert Advisors <span class="small-text"></span></div>
    							
-   							 <span class="small-text">10 out of 132 Advisors</span>
+   							 <span class="small-text" style="visibility: hidden;">10 out of 132 Advisors</span>
    						</div>
    						
    						<div class="col-xs-12 col-sm-4 sort">
@@ -144,7 +144,7 @@
 								</button>
 
 								
-   							<div class="dropdown">
+   							<div class="dropdown" style="visibility: hidden;">
 							  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 							    Dropdown
 							    <span class="caret"></span>
