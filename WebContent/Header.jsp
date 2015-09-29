@@ -39,7 +39,7 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					        <a class="navbar-brand hidden-xs" href="#"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+					        <a class="navbar-brand hidden-xs" href="<fmt:message key="home"/>"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
 					    </fmt:bundle>
 					         
 					    </div>
@@ -52,11 +52,13 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					        <li><a href="questions">Q&A</a></li> -->
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li>
-					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Login</a></li>
-					          	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
+					          <li><a href="#" onclick="ShowLogin()">Sign In</a></li>
+					           <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;color: #fff">Sign up </span></a></li>
+					          
+					          <!-- 	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
-					          	</div></form></li>
+					          	</div></form></li> -->
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -72,6 +74,11 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					                <li>
 					                    <a href="questions">Q&A</a>
 					                </li> -->
+				                <fmt:bundle basename="ac.resources.Path" prefix="path.">
+					                 <li>
+					                    <a href="<fmt:message key="home"/>">Home</a>
+					                </li>
+					                </fmt:bundle>
 					                <li>
 					                    <a href="becomeanadvisor">Be an Advisor</a>
 					                </li>
@@ -79,8 +86,9 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					                    <a href="howitworks">How it Works</a>
 					                </li>
 					                <li>
-					                    <a data-toggle="modal" data-target="#loginmodal">Login In</a>
+					                    <a onclick="ShowLogin()">Sign In</a>
 					                </li>
+					           <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;color: #fff">Sign up </span></a></li>
 					               
 					            </ul>
 					        </nav>
@@ -136,7 +144,12 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 			          	
    	
    	<script type="text/javascript">
-
+    function ShowLogin(){
+    	$("#loginmodal").modal("show");
+    		document.getElementById("logintocontinueadvisors").style.display = "none";
+    		document.getElementById("logintocontinuequestions").style.display = "none";
+    }
+   	
    	function FindSuggestions(s) {
    		var len = s.value.length;
    	    if(len>=3){

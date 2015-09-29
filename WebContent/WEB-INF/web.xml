@@ -566,4 +566,20 @@
     <servlet-name>refund</servlet-name>
     <url-pattern>/refund</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>tnc</servlet-name>
+    <jsp-file>/tnc.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>tnc</servlet-name>
+    <url-pattern>/tnc</url-pattern>
+  </servlet-mapping>
+      <servlet>
+    <servlet-name>privacypolicy</servlet-name>
+    <jsp-file>/privacypolicy.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>privacypolicy</servlet-name>
+    <url-pattern>/privacypolicy</url-pattern>
+  </servlet-mapping>
 </web-app>

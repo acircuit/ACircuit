@@ -145,9 +145,12 @@ pageContext.setAttribute("advName", advName);
 					   			</div>
 					   		</div>
 					   		<div class="next-step-div col-xs-12 ">
-					   				<div class="col-xs-12">
-							   			<span class="next-step-text btext">Next Steps</span>
-							   		</div>
+					   		 		 <c:if test="${sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES') || sessionDetails.getStatus().equals('ACCEPTED')}">
+					   					<div class="col-xs-12">
+							   				<span class="next-step-text btext">Next Steps</span>
+							   			    <span class="step-text-no"></span>
+							   			</div>
+							   		</c:if>
 							   		
 					   		</div>
 				   		</div>

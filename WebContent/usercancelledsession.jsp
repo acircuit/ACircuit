@@ -128,10 +128,17 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
-							   		<div class="col-xs-12 more-session-div">
-							   			<span class="more-session">Hope you had a great session. Would you like to book another consecutive session with the advisor?</span>
-							   		</div>
-							   		<div class="col-xs-12 similar-profiles-div">
+							   		<c:choose>
+							   			<c:when test="${sessionDetails.getStatus().equals('SESSION CANCELLED BY ADMIN')}">
+							   				<div class="col-xs-12 more-session-div">
+									   			<span class="more-session">Sorry your session request could not be placed with ${advisorDetails.getName()}. We will get in touch with in 24 hours.</span>
+									   		</div>
+							   			</c:when>
+							   			
+							   		</c:choose>
+
+							   		
+							   	<!-- 	<div class="col-xs-12 similar-profiles-div">
 							   			<div class="similar-profile-head">
 							   				<span>SIMILAR PROFILES</span>
 							   			</div>
@@ -162,7 +169,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 			                                </div>
 			                                
 							   			</div>
-							   		</div>
+							   		</div> -->
 					   		</div>
 				   		</div>
 				   	</div>
