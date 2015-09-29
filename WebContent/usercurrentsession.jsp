@@ -80,7 +80,7 @@ pageContext.setAttribute("sess", sess);
 					   		<span class="status"><i class="fa fa-check"></i> Session on schedule</span>
 		   		    		</div>
 				            <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE') }">
-		   		    		   <div class="col-xs-5 no-padding" style="padding-top: 21px;">
+		   		    		   <div class="col-xs-12 col-sm-5 no-padding" style="padding-top: 21px;">
 		   		    			   <span class="due-in-text">Due in</span><br>
 		   		    			   <span class="due-in-time">${sessionDetails.getDays()} days and ${sessionDetails.getHours()}:${sessionDetails.getMinutes()} hrs</span>
 		   		    		   </div>
@@ -94,7 +94,7 @@ pageContext.setAttribute("sess", sess);
 					   			</div>
 
 					   			<c:if test="${sessionDetails.getDays() == 0 && sessionDetails.getHours() == 0 && sessionDetails.getMinutes() == 0 }">
-					   			    <div class="col-xs-5 no-padding" style="padding-top: 40px;">
+					   			    <div class="col-xs-12 col-sm-5 no-padding" style="padding-top: 40px;">
 					   			    <c:if test="${sessionDetails.getMode().equals('phone')}">
 					   					<button type="button" class="btn submit-button" onclick="CallTwilio();">Join call</button>
 					   			        <button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>
@@ -135,15 +135,15 @@ pageContext.setAttribute("sess", sess);
 					   			<span class="timeslots-proposed">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
-					   			<div class="col-xs-4 no-padding">
+					   			<div class="col-xs-12 col-sm-4 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
 					   			</div>
-					   			<div class="col-xs-4 ">
+					   			<div class="col-xs-12 col-sm-4 no-padding-xs">
 					   				<span class="total-cost-text">Wallet Balance</span><br>
 					   				<span class="total-cost-rs">Rs ${wallet}</span>
 					   			</div>
-					   			<div class="col-xs-4" style="padding-top:25px;">
+					   			<div class="col-xs-12 col-sm-4 no-padding-xs" style="padding-top:25px;">
 					   						<button type="button" class="btn recharg-button" data-toggle="modal" data-target="#rechargemodal">Recharge</button>
 					   			</div>
 					   		</div>
