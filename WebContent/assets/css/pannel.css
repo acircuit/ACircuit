@@ -624,7 +624,7 @@ margin: 10px 0px 10px 0px;
 
 .attributes img{
     width: 17px;
-    margin-top: -3px;}
+    margin-top: 0px;}
 .attributes i {
       color: #B1B1B1;
 }
@@ -731,7 +731,7 @@ color: #e92629;
 .no-padding-xs{
    padding: 0px;}
 .main-body-div {
-    margin-top: 77px;}
+    margin-top: 65px;}
 .category-img{
    width:80px;}
 .big-button {
@@ -746,6 +746,7 @@ color: #e92629;
     margin-top: 20px;
     float: left;
     margin-left: 10px;
+    font-family: lato;
     }
 .text-center-xs{
   text-align: center;}
@@ -855,6 +856,12 @@ color: #e92629;
     border-radius: 50%;
    
     margin-top: 23px}  
+ .big-button svg {
+    width: 75px;
+    height: 52px;
+    float: right;
+    margin-right: 36px;
+}
 }
 @media (min-width: 462px) and (max-width: 767px) {
   .Adp img {
@@ -871,7 +878,12 @@ color: #e92629;
     .attributes {
     font-size: 12px;}
     .count {
-    font-size: 10px;}
+    font-size: 10px;}\
+    .big-button svg {
+    width: 75px;
+    height: 52px;
+    float: right;
+    margin-right: 36px;}
 }
    
 @media (max-width: 983px) {

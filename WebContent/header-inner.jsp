@@ -41,10 +41,10 @@ pageContext.setAttribute("source", source);
 					          	</div></form></li>
 					          	<li><div><ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
 							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 273px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;">
 										
-							          </ul>
+							          </ul></div>
 							        </li>
 							          <li>
 							          <c:if test="${source.equals('user') }">
@@ -64,7 +64,14 @@ pageContext.setAttribute("source", source);
 			   	<!-- Sidebar -->
 					        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
 					            <ul class="nav sidebar-nav">
-					                
+					                <li>
+							          <c:if test="${source.equals('user') }">
+							           <a href="userdashboard"><img src="assets/img/Abhishek.JPG" style="width: 55px;height: 55px;border-radius: 50%;border: 2px solid white;"></a>
+							          </c:if>
+							           <c:if test="${source.equals('advisor') }">
+							           <a href="advisordashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;border: 2px solid white;"></a>
+							          </c:if>
+							          </li>
 					                <li>
 					                    <a href="advisors?category=all">Experts</a>
 					                </li>
@@ -78,7 +85,7 @@ pageContext.setAttribute("source", source);
 					                    <a href="howitworks">How it Works</a>
 					                </li>
 					                <li>
-					                    <a data-toggle="modal" data-target="#loginmodal">Login In</a>
+					                   <a href="logout">Logout</a>
 					                </li>
 					               
 					            </ul>
@@ -91,10 +98,10 @@ pageContext.setAttribute("source", source);
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
-					        <!--  <div id="headersuggestions" class="dropdown sugg">
+					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
+					         <div id="headersuggestions" class="dropdown sugg">
 					          			
-					          	</div> --></form>
+					          	</div></form>
 
 
 			          	

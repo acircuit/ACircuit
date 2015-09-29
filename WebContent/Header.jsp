@@ -99,9 +99,11 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					    			<span class="hamb-middle"></span>
 									<span class="hamb-bottom"></span>
 					            </button>
-					       
-					         <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
-					        <!--  <div id="headersuggestions" class="dropdown sugg">
+					   
+					        <img src="assets/img/horizontal_logo.png" class="visible-xs" style=" position: absolute;top: 13px;right: 3%;max-width:214px;">
+					   
+					        <!--   <form class="search-form"  style="position: absolute;top: -8px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
+					        <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
 					          	<script>

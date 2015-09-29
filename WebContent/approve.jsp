@@ -70,7 +70,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
-		   		    		<div class="col-xs-7 no-padding">
+		   		    		<div class="col-xs-12 col-sm-7 no-padding">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
 		   		    		<c:choose>
@@ -84,7 +84,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 		   		    		</div>
 		   		    		
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<div class="col-xs-7 no-padding">
+						   		<div class="col-xs-12 col-sm-7 no-padding">
 							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
@@ -113,14 +113,14 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		    </div>
 					   		    <div class="prop-time-div col-xs-12 no-padding">
 					   			
-					   				<div class="col-xs-6 radio-button-div no-padding">
+					   				<div class="col-xs-12 col-sm-6 radio-button-div no-padding">
 					   					<div class="r-div">
 											<input type="radio" value="${newDates.getDate1()},${newDates.getTime1()}" id="date1" name="date" />
 											<label for="date1"><span></span></label>
 										</div>
 										<span class="slot-asked-for"><span class="slot-no">Slot 1</span><span class="slot-asked-time">${newDates.getDate1()},${newDates.getTime1()}</span></span>
 					   				</div>
-					   				<div class="col-xs-6 radio-button-div no-padding">
+					   				<div class="col-xs-12 col-sm-6 radio-button-div no-padding">
 					   					<div class="r-div">
 											<input type="radio" value="${newDates.getDate2()},${newDates.getTime2()}" id="date2" name="date" />
 											<label for="date2"><span></span></label>
@@ -136,7 +136,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			</p>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="padding-bottom: 19px;">
-					   			<div class="col-xs-6 no-padding">
+					   			<div class="col-xs-12 col-sm-6 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span><br>
 					   				<c:choose>
@@ -149,20 +149,20 @@ Double wallet = (Double)request.getAttribute("wallet");
                                     </c:choose>  	
 					   			</div>
 								<input type="hidden" id="usrDates" name="merchant_param4" value="">
-					   			<div class="col-xs-6" style="padding-top:25px;">
-					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 120px;">Cancel Session</a>
+					   			<div class="col-xs-12 col-sm-6 no-padding-xs" style="padding-top:25px;">
+					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 116px;padding-top: 5px;">Cancel Session</a>
 					   					<c:choose>
                                                <c:when test="${wallet < sessionDetails.getPrice()}">
                                                         <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>
                                                         <input type="hidden" name="amount" value="${amountdue}">
 														<input type="hidden" name="merchant_param1" value="${sessionDetails.getUserid()}">
 														<input type="hidden" name="merchant_param3" value="${sessionDetails.getSessionid()}">
-														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 120px;" onclick="ConfirmSession()">Recharge Wallet</button>
+														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 116px;" onclick="ConfirmSession()">Recharge Wallet</button>
                                                </c:when>
                                                <c:otherwise>
 															<input type="hidden" name="amount" value="${sessionDetails.getPrice()}">
 															<input type="hidden" name="sid" value="${sessionDetails.getSessionid()}">
-                                               		 <button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 140px;" onclick="ConfirmSession()">Confirm Session</button>
+                                               		 <button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 116px;" onclick="ConfirmSession()">Confirm Session</button>
                                                </c:otherwise>  
                                          </c:choose>  					   			
 					   			</div>

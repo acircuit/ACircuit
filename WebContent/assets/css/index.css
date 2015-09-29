@@ -370,7 +370,7 @@ margin-left: 60px;
   cursor: pointer;
       width: 70px;
     height: 70px;
-    margin-top: -127px;
+    margin-top: -97px;
 }
 .user-name{
 	font-size:12px;
@@ -582,12 +582,15 @@ display: block;
     margin-left: 30px;
     font-size: 13px;
     margin-top: -23px;
+    min-height:192px;
 }
 .bqstart {
 	font-size: 61px;
 }
 .user-div {
-    margin-left: 19px;
+    margin-left: 0px;
+    min-height: 75px;
+    min-width: 60px;
 }
 .user-img {
     width: 48px;
@@ -613,6 +616,6 @@ display: block;
    /*  padding: 0px; */
 }
 .img-disable {
-    margin-top: -79px;
+    margin-top: -46px;
 }
 }
