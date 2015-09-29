@@ -41,17 +41,17 @@ pageContext.setAttribute("source", source);
 					          	</div></form></li>
 					          	<li><div><ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
 							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 273px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;">
 										
 							          </ul></div>
 							        </li>
 							          <li>
 							          <c:if test="${source.equals('user') }">
-							           <a href="userdashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							           <a href="userdashboard" style="background-image: none !important"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-							           <a href="advisordashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							           <a href="advisordashboard" style="background-image: none !important"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							          </li>
 						        </ul>

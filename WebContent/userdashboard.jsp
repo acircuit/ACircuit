@@ -302,8 +302,8 @@ pageContext.setAttribute("type", type);
 								      <div class="modal-body">
 								      <span class="ask-question-modal-head">Enter recharge amount</span><br>
 								      <br>
-								      <form class="ask-form" action="userrecharge"> 
-								      	<input  class="form-control "  placeholder="Type your amount" name="amount" >
+								      <form class="ask-form" action="userrecharge" id="recharge-form-modal"> 
+								      	<input  class="form-control "  placeholder="Type your amount" name="amount" required>
 								        <input type="hidden" name="merchant_param1" value="${userDetails.getUserId()}">
 								        <input type="hidden" name="merchant_param2" value="recharge">
 									       <br><br>
@@ -320,7 +320,7 @@ pageContext.setAttribute("type", type);
 								</div>
 <script>
 $(document).ready(function () {
-	
+	$('#recharge-form-modal').validate();
 	if("${type.equals('signup') }"){
 		document.getElementById("verifyaccount").style.display = "block";
 	}else{

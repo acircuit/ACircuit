@@ -53,7 +53,7 @@ List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSub
 					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li>
 					          <li><a href="#" onclick="ShowLogin()">Sign In</a></li>
-					           <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;color: #fff">Sign up </span></a></li>
+					           <li><a  href="#" style="background-image: none !important"><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;color: #fff">Sign up </span></a></li>
 					          
 					          <!-- 	<li><form class="search-form" action="Search"><input  class="form-control search-box" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">

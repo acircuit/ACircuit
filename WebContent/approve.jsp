@@ -106,7 +106,8 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		     <c:otherwise>
 					   		       <form action="userpayment" method="post" id="approveForm">
 					   		     </c:otherwise>
-					   		</c:choose>     
+					   		</c:choose> 
+					   		  
 					   		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES')}">
 					   		    <div class="col-xs-12 no-padding">
 					   		    <span class="prop-time-text">New Proposed Time Slots</span>
@@ -150,19 +151,19 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			</div>
 								<input type="hidden" id="usrDates" name="merchant_param4" value="">
 					   			<div class="col-xs-12 col-sm-6 no-padding-xs" style="padding-top:25px;">
-					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 116px;padding-top: 5px;">Cancel Session</a>
+					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 116px;padding-top: 5px;font-size: 12px;">Cancel Session</a>
 					   					<c:choose>
                                                <c:when test="${wallet < sessionDetails.getPrice()}">
                                                         <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>
                                                         <input type="hidden" name="amount" value="${amountdue}">
 														<input type="hidden" name="merchant_param1" value="${sessionDetails.getUserid()}">
 														<input type="hidden" name="merchant_param3" value="${sessionDetails.getSessionid()}">
-														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 116px;" onclick="ConfirmSession()">Recharge Wallet</button>
+														<button type="submit"  class="btn recharg-button" style="background-color:#f2624d;width: 116px;font-size: 12px;" onclick="ConfirmSession()">Recharge Wallet</button>
                                                </c:when>
                                                <c:otherwise>
 															<input type="hidden" name="amount" value="${sessionDetails.getPrice()}">
 															<input type="hidden" name="sid" value="${sessionDetails.getSessionid()}">
-                                               		 <button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 116px;" onclick="ConfirmSession()">Confirm Session</button>
+                                               		 <button type="submit" class="btn recharg-button" style="background-color:#f2624d;width: 116px;font-size: 12px;" onclick="ConfirmSession()">Confirm Session</button>
                                                </c:otherwise>  
                                          </c:choose>  					   			
 					   			</div>
