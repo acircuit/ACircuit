@@ -95,21 +95,19 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 					    <div role="tabpanel" class="tab-pane active" id="customer" style="padding-top: 20px;">
-					    <div class="contact-us-head-div" style="margin-top: 12px;border: 0px;">
-			   				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
+					    <div class="contact-us-head-div" style="margin-top: 12px;display: none;">
 			   			</div>
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 								  <div class="panel panel-default">
 								    <div class="panel-heading" role="tab" id="headingOne">
 								      <h4 class="panel-title">
 								        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								          Collapsible Group Item #1
-								        </a>
+                                           1.	Who is an advisor on your platform? </a>
 								      </h4>
 								    </div>
 								    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 								      <div class="panel-body">
-								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								       We have different people all accomplished in their own areas/ industries as advisors on our platform. The area in which they can offer advice is decided based their experience and knowledge by our team and listed on their profiles specifically. We want to ensure that our users connect with the right advisor (who has relevant knowledge) for their queries.
 								      </div>
 								    </div>
 								  </div>
@@ -117,13 +115,13 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 								    <div class="panel-heading" role="tab" id="headingTwo">
 								      <h4 class="panel-title">
 								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-								          Collapsible Group Item #2
+								          2.	How do you verify your advisors?
 								        </a>
 								      </h4>
 								    </div>
 								    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 								      <div class="panel-body">
-								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								      We have a strict verification system is place for recruiting advisors and a person is allowed to take sessions only after they have fulfilled the necessary criteria. We run necessary checks and take documentation to ensure their education and professional qualifications are valid. 
 								      </div>
 								    </div>
 								  </div>
@@ -131,20 +129,378 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 								    <div class="panel-heading" role="tab" id="headingThree">
 								      <h4 class="panel-title">
 								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-								          Collapsible Group Item #3
+								          3.	 How does a session work?
 								        </a>
 								      </h4>
 								    </div>
 								    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 								      <div class="panel-body">
-								        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								        Check out our “How it Works” page for all the details.
 								      </div>
 								    </div>
 								  </div>
+								    <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFour">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+								          4.	How do I decide which advisor is suitable for me and my queries?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+								      <div class="panel-body">
+								     Each of our advisor profile mentions the advisor’s area of advice and where all they can specifically help you (“I can help you” with section). If you are still confused about which advisor, just drop in a message to us and we would love to help you. 
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFive">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+								          5.	How do I ask an advisor a question? Is it free?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+								      <div class="panel-body">
+								    We have a Q&A platform integrated where advisors will answer your queries for FREE. All the questions asked by our users and their answers given by our advisors can be found on our Q&A page.  You can post a question in 2 ways-
+								    <li>Go to a particular advisors’ profile and send a question to them. </li>
+								    <li>Go to the Q&A page and post your question to all advisors who are experts in your area of advice</li>
+								      </div>
+								    </div>
+								  </div>
+								   <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingSix">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+								          6.	What is the cost of a session? 
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+								      <div class="panel-body">
+								    We have a pay per minute system where you are charged for the number of minutes you talk to the advisor and nothing more! Each advisor has their own price per minute and the prices may vary. 
+								      </div>
+								    </div>
+								  </div>
+								    <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingSeven">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+								          7.	What is the duration of a session?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+								      <div class="panel-body">
+								    You can talk to the advisor for as long or little as you want and cut the call whenever you are done. You will be asked to choose an approximate session duration at the time of booking so that the advisor blocks their time accordingly. However you are free to end the call if your query gets answered before time. 
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingEight">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+								          8.	When and how do I pay for the session? What is the payment process?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+								      <div class="panel-body">
+								    You only need to pay once your session request is accepted by the advisor and not at the time of booking.  
+                                    We have an Advisor Circuit wallet which you need to recharge with the approximate session cost (based on the duration you select) to confirm the session. However, we have a pay per minute system where you are ultimately charged for the time you end up talking to the advisor and nothing more. So in case you have any leftover balance in your wallet post the session and want your money back, just click the refund button and we will return your money.
+         
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingNine">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+								          9.	What is the Advisor Circuit wallet and how does it work?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+								      <div class="panel-body">
+								     We have integrated an online wallet for our customers through which they pay for sessions. You can recharge your wallet anytime via credit cards, debit cards, netbanking and other leading payment options provided by our CC Avenue payment gateway. All you need to do this recharge your wallet with a minimum amount (calculated basis the duration you choose and cost of advisor) before your session. You will be charged per minute basis for your call with the advisor and accordingly, money from your wallet will be deducted at the end of the session.
+								     <br><br> 
+
+The benefit of making you use a wallet is so that you are charged only for the time you actually speak to the advisor. You can refund any leftover balance instantly. This way you can be relaxed about your money and enjoy your session! So make sure you recharge enough in case you end up talking to the advisor more than you expected as you can always refund any remaining balance. 
+								     
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingTen">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+								          10.	How do I decide my session dates?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+								      <div class="panel-body">
+								    While booking a session with an advisor, you have to select 4 Date X Time combinations (Ex: 8th October 2014 – 5:30 PM is one combination) suitable to you for the session.<br>
+The advisor will then choose one of these dates or suggest 2 of their own if none sent by you are suitable. If the advisor suggests 2 of their own date-time combinations, you have an option either to select one of these dates to confirm or select none and cancel the session
+
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingEleven">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+								          11.	Are there any technical/equipment requirements that I need for a session?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+								      <div class="panel-body">
+								    Below is a list of system/technical requirement or equipment that are required for a smooth session:<br>
+								    Mode of Communication - Phone:<br>
+								    a.	Functional Mobile Phone<br>
+								    b.	Strong network<br>
+								    c.	Functional Laptop with swift internet connection (If you want to share files)<br>
+								    <br><br>
+								    Mode of Communication – Web Chat: <br>
+								    a.	Functional computer with a webcam & microphone<br>
+								    b.	Fast internet connection<br>
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingTwelve">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+								          12.	How do your modes of communication work?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwelve">
+								      <div class="panel-body">
+								    We give our users 2 options to connect to the advisor for a session, phone and video chat. All you need to do is click on the “Join Call” button on your session page on the designated date and time of the session and you will be instantly connected by either receiving a call or directed to a video chat screen. Zero effort needed!
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingThirteen">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                                         13.	What if my session disconnects due to connection problems?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseThirteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThirteen">
+								      <div class="panel-body">
+								    If your call gets disconnected in the middle, don’t worry! You can simply click the “Join call” button again in your session window and you will be connected to the advisor. You won’t be charged for the time lost in the middle. 
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFourteen">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
+                                         14.	Can a session be cancelled by the advisor?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseFourteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFourteen">
+								      <div class="panel-body">
+								   Yes, in adverse circumstances the session can be cancelled by the advisor. However your money will be refunded and we will do our best to reschedule your session. 
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFiveteen">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFiveteen" aria-expanded="false" aria-controls="collapseFiveteen">
+                                          15.	Does Advisor Circuit share my personal details with the Advisor?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="collapseFiveteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFiveteen">
+								      <div class="panel-body">
+                                       Not at all! We believe in complete privacy, we don’t share any of your personal details (that you don’t mention in your query) with the advisor and vice versa!<br>
+                                        <br>
+                                        If you have any other doubts or questions, mail us at contactus@advisorcircuit.com! We would love to solve them!
+								      </div>
+								    </div>
+								  </div>
+								  
+								  
+								  
+								  
 								</div>					    
 					    </div>
-					    <div role="tabpanel" class="tab-pane" id="advisor">...</div>
-					    
+					    <div role="tabpanel" class="tab-pane" id="advisor" style="padding-top: 20px">
+					     	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								   <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingOne">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                         1.	How do I know if I am suited to be an advisor?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+								      <div class="panel-body">
+                                         An advisor is someone who has sufficient relevant experience in their area of advice to be able to answer questions & doubts regarding the same. The job of an advisor on Advisor Circuit is to assist in solving customer queries and help them understand their choices better. 
+                                         So if you think you can fit into this role, become an advisor today! 
+								      </div>
+								    </div>
+								  </div>
+								   <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingTwo">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                         2.	Does Advisor Circuit do any background checks on me?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+								      <div class="panel-body">
+                                       We have a strict verification system is place for recruiting advisors and a person is allowed to take sessions only after they have fulfilled the necessary criteria. We run necessary checks and take documentation to ensure your education and professional qualifications are valid. 
+								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingThree">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                         3.	How much can I charge for a session?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+								      <div class="panel-body">
+                                         Your price per session is initially assigned to you by us basis an algorithm we have. You can increase your price over time based on your performance as an advisor on the platform. We have a pay per minute pricing model where the user pays for the total minutes they end up talking to you. 								      </div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFour">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                         4.	When and how do I get paid for the session? 
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+								      <div class="panel-body">
+                                      Total amount due to for the sessions taken will be reimbursed to you via a bank transfer at the end of each month. You will also be able to avail other incentives (Free Cab rides, discounts etc.) very soon.								    </div>
+								  </div>
+								  </div>
+					             <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingFive">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                         5.	How do I decide my session dates?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+								      <div class="panel-body">
+                                      The customer along with the session request will send you 4 Date X Time combinations (Ex: 8th October 2014 – 5:30 PM is one combination) suitable to them. <br>				
+                                      We advise you to select one out of these 4 combinations to hold the session. If none are suitable then you can suggest 2 combinations of your own to the customer.<br>
+                                      The customer will then select one of these combinations or cancel the request altogether.
+                                    </div>
+								  </div>
+					     <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingSix">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                         6.	How does a session work?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+								      <div class="panel-body">
+                                      You can understand everything you need to know from our How It Works page. 
+                                    </div>
+								  </div>
+					             <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingSeven">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                         7.	How does the Q&A platform work?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+								      <div class="panel-body">
+                                      We have a Q&A platform integrated where users can post questions to you personally or post a general question to all the advisors from your area of advice. All the questions asked by our users and their answers given by our advisors can be found on our Q&A page.  You can answer 
+                                    </div>
+								  </div>
+					             </div>
+					              <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingEight">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                         8.	Are there any technical/equipment requirements that I need for a session?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+								      <div class="panel-body">
+                                  Below is a list of system/technical requirement or equipments that are required for a smooth session:<br>
+                                   Mode of Communication - Phone:<br>
+                                   a.	Functional Mobile Phone<br>
+                                   b.	Strong network<br>
+                                   c.	Functional Laptop with swift internet connection (If you want to share files)<br>
+                                   <br><br>
+                                   Mode of Communication – Web Chat: <br>
+                                   a.	Functional computer with a webcam & microphone<br>
+                                   b.	Fast internet connection<br>
+                                   
+                                    </div>
+								  </div>
+					             </div>
+					               <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingNine">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                         9.	How do your modes of communication work?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+								      <div class="panel-body">
+                                  We give our users 2 options to connect to the advisor for a session, phone and video chat. All you need to do is click on the “Join Call” button on your session page on the designated date and time of the session and you will be instantly connected or you will receive a call automatically in case of a phone session. Zero effort needed!
+                                   
+                                    </div>
+								  </div>
+					             </div>
+					              <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingTen">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                            10.	Will the customer have the option to review/rate me?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+								      <div class="panel-body">
+                                          Yes, the customer will get the chance to review & rate you after they have a session with you.                                   
+                                    </div>
+								  </div>
+					             </div>
+					             <div class="panel panel-default">
+								    <div class="panel-heading" role="tab" id="headingEleven">
+								      <h4 class="panel-title">
+								        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#advcollapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                            11.	Does Advisor Circuit share my personal details with the Customer?
+								        </a>
+								      </h4>
+								    </div>
+								    <div id="advcollapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+								      <div class="panel-body">
+                               Not at all! We believe in complete privacy, we don’t share any of your personal details (apart from the ones mentioned on your profile) with the customer and vice versa!<br>
+                                     <br><br>
+                                     If you have any other doubts or questions, mail us at contactus@advisorcircuit.com! We would love to solve them!
+                                    </div>
+								  </div>
+					             </div>
+					             </div>
 					  </div>
    
 			</div>

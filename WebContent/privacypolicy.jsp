@@ -82,28 +82,58 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 </div>
    	<div class="main-body-div container no-padding"  id="page-content-wrapper">
    	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">FAQs</span>
+							<span class="body-head-text">PRIVACY POLICY</span>
 	</div>
    		  
    			<div class="body-content faq-tabs col-xs-12">
-   					 <ul class="nav nav-tabs" role="tablist">
-					    <li role="presentation" class="active"><a href="#customer" aria-controls="customer" role="tab" data-toggle="tab">CUSTOMER</a></li>
-					    <li role="presentation"><a href="#advisor" aria-controls="advisor" role="tab" data-toggle="tab">ADVISOR</a></li>
-					    
-					  </ul>
+   		
 					
 					  <!-- Tab panes -->
 					  <div class="tab-content">
 					    <div role="tabpanel" class="tab-pane active" id="customer" style="padding-top: 20px;">
-					    <div class="contact-us-head-div" style="margin-top: 12px;">
-			   				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
+					    <div class="contact-us-head-div" style="margin-top: 12px; display: none;">
 			   			</div>
-			   			<br>
 			   			
-							<span class="tnc-text">Following are the Customer terms and conditions that are to be followed by the customer while using www.advisorcircuit.com (Henceforth may be referred to as 'Website' or 'AdvisorCircuit.com') and/or any of its services. As used, Customer means an individual who uses the Website or any services offered on it. As used, Advisor refers to a professional who is an expert in his or her field and has offered to give his or her services on the Advisor Circuit platform. Introduction Hello! Welcome to www.advisorcircuit.com; this platform provides you with the opportunity to connect with industry experts & advisors across different fields for advice & other services such as CV Critique, Mock Interview etc. The Website is owned, managed and operated by M/s Advisor Circuit. (Henceforth referred to as 'Advisor Circuit' or 'Company') Advisor Circuit retains the right to change or terminate any or all features or services offered on the Website, customer or advisor terms and conditions. Advisor Circuit advices customers to read the following terms and conditions thoroughly from time to time so as to be informed of any change whatsoever. YOU AGREE BY USING THIS SERVICE THAT YOU ARE ABOVE 18 YEARS OF AGE AND CAN LEGALLY ENTER INTO A LEGALLY BINDING AND ENFORCEABLE CONTRACT.</span>				    
-					    <br>
 					    <span class="intro-text btext">INTRODUCTION</span>
-					    <span class="tnc-text">Following are the Customer terms and conditions that are to be followed by the customer while using www.advisorcircuit.com (Henceforth may be referred to as 'Website' or 'AdvisorCircuit.com') and/or any of its services. As used, Customer means an individual who uses the Website or any services offered on it. As used, Advisor refers to a professional who is an expert in his or her field and has offered to give his or her services on the Advisor Circuit platform. Introduction Hello! Welcome to www.advisorcircuit.com; this platform provides you with the opportunity to connect with industry experts & advisors across different fields for advice & other services such as CV Critique, Mock Interview etc. The Website is owned, managed and operated by M/s Advisor Circuit. (Henceforth referred to as 'Advisor Circuit' or 'Company') Advisor Circuit retains the right to change or terminate any or all features or services offered on the Website, customer or advisor terms and conditions. Advisor Circuit advices customers to read the following terms and conditions thoroughly from time to time so as to be informed of any change whatsoever. YOU AGREE BY USING THIS SERVICE THAT YOU ARE ABOVE 18 YEARS OF AGE AND CAN LEGALLY ENTER INTO A LEGALLY BINDING AND ENFORCEABLE CONTRACT.</span>
+					    <span class="tnc-text">At Advisor Circuit, we believe that keeping personal information safe and private is of topmost priority. That's the reason we're very strict with not just our Users, Customers and Advisors but also with ourselves. This policy applies to you if you are a User ("User" is defined as an individual or organization that visits the Advisor Circuit website, www.advisorcircuit.com), Customer of Advisor Circuit ("Customer" is defined as an individual or organization who obtains/pays for the services of Advisors present on the Advisor Circuit website, www.advisorcircuit.com) or an Advisor on Advisor Circuit ("Advisor" is defined as an individual who is an expert of his/her field and has offered to provide services to Customers through the Advisor Circuit website, www.advisorcircuit.com). Users, Customers and Advisors as mentioned before will be henceforth referred to as "you".</span>
+					    <br><br>
+					    <span class="tnc-text">By agreeing to the Advisor Circuit Terms and Conditions as a user, customer or advisor of Advisor Circuit you explicitly consent to the collection, processing, transfer, use and disclosure of any information, including personal information which you provide to us as outlined in this Privacy Policy and agree that the terms not defined below have been defined in the Terms and Conditions</span>
+					    <br><br>
+					    <span class="tnc-text">This policy outlines how Advisor Circuit may collect, use and disclose information obtained via the Advisor Circuit website, www.advisorcircuit.com or through any offline official communication between you and Advisor Circuit.</span>
+					    <br><br>
+					    <span class="tnc-text">By using the Advisor Circuit website www.advisorcircuit.com or any of its services you agree to the below outlined Privacy Policy. If you do not accept this Policy, your only option is to stop using the Advisor Circuit website www.advisorcircuit.com and all of its services.</span>
+					    <br><br>
+		                  <span class="intro-text btext">Personal Information</span>
+		                  <span class="tnc-text">Advisor Circuit defines Personal Information as information supplied by you such as name, personal email address, address, phone number, demographic information or any other information during signing up with Advisor Circuit that can be used readily to identify or contact you. This information will be used to contact you for the services in which you have expressed interest or facilitate your experience in using these services.</span>
+		                  <br><br>
+		                  <span class="tnc-text">Advisor Circuit DOES NOT provide the above information to any third parties without your consent unless you yourself have shared this information directly with the third party through service requests, during the services or any other direct way.</span>
+		                  <br><br>
+		                  <span class="intro-text btext">Communication between Advisors and Customers</span>
+		                  <span class="tnc-text">Advisor Circuit maintains a record of each and every communication between the Advisor and the Customer. Transcripts of messages, email conversations and recordings of Audio and Video communications between the two mentioned parties are maintained to facilitate Advisor Circuit communication with the two mentioned parties and to solve any disputes arising between the two.</span>
+		                  <br><br>
+		                  <span class="intro-text btext">Communication between Advisors/Customers & Advisor Circuit</span>
+		                  <span class="tnc-text">Advisor Circuit maintains a record of each and every communication between the Advisor/Customer and Advisor Circuit through messages via the Advisor Circuit website www.advisorcircuit.com, voice or other communication methods, surveys and feedback. Records of these communications are maintained to facilitate Advisor Circuit communication with you, to solve any arising disputes and to better your interaction with Advisor Circuit.</span>
+		                  <br><br>
+		                  <span class="intro-text btext">Payment Information</span>
+		                  <span class="tnc-text">Advisor Circuit uses a third party payment gateway to provide customers with security during payment. Customer must provide credit/debit card information or any other information asked by the payment gateway to pay and obtain services through the Advisor Circuit website, www.advisorcircuit.com. Advisors must provide contact information, such as name, bank account details, PAN Card Number, mailing address etc. in order to receive their payment from Advisor Circuit. This information collected from Customers and Advisors is to provide them with the best possible service.</span>
+		                  <br><br>
+		                  <span class="intro-text btext">Promotions</span>
+		                  <span class="tnc-text">Advisor Circuit may use information provided by the Customer or User through feedback mechanisms on the Advisor Circuit website, www.advisorcircuit.com for promotional purposes. No information will be used for promotional purposes on any other website without the consent of the related party.</span>
+		                  <br><br>
+		                  <span class="intro-text btext">Blog</span>
+		                  <span class="tnc-text">Advisor Circuit is not responsible for the information that you choose to submit or post on any information forums or blogs present on or associated with the Advisor Circuit website, www.advisorcircuit.com. Unauthorized personnel may use the information posted by you on such portals, Advisor Circuit will not be responsible for such usage. Advisor Circuit may use information provided by you on mentioned portals to facilitate your usage of the Advisor Circuit website www.advisorcircuit.com or any of its services.</span>
+		                  <br><br>
+		                   <span class="intro-text btext">Security</span>
+		                   <span class="tnc-text">Information provided by you is stored securely in an offsite location. We use standard Secure Socket Layer (SSL) encryption that encodes information for such any information transmission. Despite such measures, people may unlawfully intercept or access transmissions or private communications and other persons may abuse or misuse personal information that they collect from our site. Accordingly, Advisor Circuit is not liable for the improper release or misuse of personal information or private communications.</span>
+		                    <br><br>
+		                    <span class="intro-text btext">Updating Information</span>
+		                    <span class="tnc-text">Advisor Circuit strongly recommends that you thoroughly read through this policy from time to time as we may review and update this policy or parts of the same periodically. Your use of the Advisor Circuit website www.advisorcircuit.com or any of its services post these changes represents your consent of to the new policy.</span>
+		                    <br><br>
+		                    <span class="intro-text btext">Contacting Advisor Circuit</span>
+		                    <span class="tnc-text">You may contact Advisor Circuit for any doubts or clarifications on contactus@advisorcircuit.com</span>
+		                    
+		                  
+		                  
 					    </div>
 					    <div role="tabpanel" class="tab-pane" id="advisor">...</div>
 					    
