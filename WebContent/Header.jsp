@@ -23,9 +23,7 @@ else if( session.getAttribute("advisorId") !=null){
 		username=(String)session.getAttribute("username");
 		advisord = (Integer)session.getAttribute("advisorId");
 }
-List<String> higherStudiesSubCategory = (List<String>)request.getAttribute("higherStudiesSubCategory");
-List<String> industrySubCategory = (List<String>)request.getAttribute("industrySubCategory");
-List<String> optionsSubCategory = (List<String>)request.getAttribute("optionsSubCategory");
+
 
 %>
 

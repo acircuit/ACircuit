@@ -53,7 +53,7 @@ public class AdvisorLoginDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT ADVISOR_ID,NAME,EMAIL,ISACTIVE,ISVERIFIED FROM advisordetails WHERE EMAIL = ? AND PASSWORD = ? AND ISACTIVE=? AND ISVERIFIED=?";
+			String query = "SELECT ADVISOR_ID,NAME,EMAIL,ISACTIVE,ISVERIFIED,IMAGE FROM advisordetails WHERE EMAIL = ? AND PASSWORD = ? AND ISACTIVE=? AND ISVERIFIED=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, email);
 			pstmt.setString(2, securedPassword);
@@ -64,6 +64,7 @@ public class AdvisorLoginDAO {
 				advisor.setId(results.getInt("ADVISOR_ID"));
 				advisor.setName(results.getString("NAME"));
 				advisor.setEmail(results.getString("EMAIL"));
+				advisor.setImage(results.getString("IMAGE"));
 				advisor.setIsActive(results.getBoolean("ISACTIVE"));
 				advisor.setIsVerified(results.getBoolean("ISVERIFIED"));
 			}

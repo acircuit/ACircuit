@@ -69,35 +69,35 @@
    							<c:set value="0" var="langCounter"></c:set>
 							 <c:forEach var="language" items="${languages}">
    							      <c:set value="${langCounter +1 }" var="langCounter"></c:set>
-<%-- 								  <c:if test="${langCounter <=10 }">
- --%>									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+								  <c:if test="${langCounter <=10 }">
+ 									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
 									<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
 									<div class="form-group squaredThree">
 							  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
 								      <label for="lan${lang}"></label><span>${language}</span>
 							      </div>
-<%-- 							      </c:if>
- --%>							</c:forEach>
-<%-- 							<%-- <c:if test="${languages.size() > 10 }">
- --%>							<%-- 	<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
- 							  </c:if> --%>
+							      </c:if>
+ 							</c:forEach>
+							<c:if test="${languages.size() > 10 }">
+ 								<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
+ 							  </c:if> 
   					</form>
    						<form>
    							<div class="filter-type">
    								<span>Industry</span>
    							</div>
-<%--    							<c:set value="0" var="indCounter"></c:set>
- --%> 							 <c:forEach var="industry" items="${industries}">
+    							<c:set value="0" var="indCounter"></c:set>
+  							 <c:forEach var="industry" items="${industries}">
                                   <c:set value="${indCounter +1 }" var="indCounter"></c:set>
-<%-- 								  <c:if test="${indCounter <=10 }">							 
- --%>							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
+ 								  <c:if test="${indCounter <=10 }">							 
+ 							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
 							      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
 								      <label for="ind${indus}"></label><span>${industry}</span>
 							      </div>
-<%-- 							      </c:if>
- --%>							  </c:forEach>
+ 							      </c:if>
+ 							  </c:forEach>
 							<c:if test="${industries.size() >10 }">
 						        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
 						     </c:if>  
@@ -106,18 +106,18 @@
    							<div class="filter-type">
    								<span>College</span>
    							</div>
-<%--    							   <c:set value="0" var="insCounter"></c:set>
- --%>							   <c:forEach var="institution" items="${institutions}">
-							    <%--   <c:set value="${insCounter +1 }" var="insCounter"></c:set>
-								  <c:if test="${insCounter <=10 }"> --%>			
+    							   <c:set value="0" var="insCounter"></c:set>
+ 							   <c:forEach var="institution" items="${institutions}">
+							    <c:set value="${insCounter +1 }" var="insCounter"></c:set>
+								  <c:if test="${insCounter <=10 }">			
 							   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
 							      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
 								      <label for="col${institute}"></label><span>${institution}</span>
 							      </div>
-<%-- 							      </c:if>
- --%>							  </c:forEach>
+ 							      </c:if>
+ 							  </c:forEach>
 							 <c:if test="${institutions.size() > 10 }">
 						        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
 						     </c:if>  
@@ -162,6 +162,7 @@
    					<div class="filters-active">
 	   						<span>Filters:</span>
 	   						<span class="filterlist" id="filtervalues"></span>
+	   						
    						</div>
    					</div>	
    					<div class="col-xs-12 card-container">
@@ -259,20 +260,57 @@
 								       		<li><span>Industry</span><i class="fa fa-angle-right"></i></li>
 								       			<li><span>College</span> <i class="fa fa-angle-right"></i></li>
 								       </ul>
-								       <div class="filters-in-modal">
-								       		  <div class="form-group squaredThree col-xs-12">
-											  	<input type="checkbox" id="2l" name="Few0" />
-												<label for="2l"></label><span>Few0</span>
-											  </div>
-											  <div class="form-group squaredThree col-xs-12">
-											  	<input type="checkbox" id="29" name="Few8" />
-												<label for="29"></label><span>Few8</span>
-											  </div>
-											  <div class="form-group squaredThree col-xs-12">
-											  	<input type="checkbox" id="2i" name="Few9" />
-												<label for="2i"></label><span>Few9</span>
-											  </div>
+								       <div class="filters-in-modal moblang" style="display: none">
+								              <c:set value="0" var="langCounter"></c:set>
+												 <c:forEach var="language" items="${languages}">
+					   							      <c:set value="${langCounter +1 }" var="langCounter"></c:set>
+													  <c:if test="${langCounter <=10 }">
+					 									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+														<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
+														<div class="form-group squaredThree col-xs-12">
+												  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
+													      <label for="lan${lang}"></label><span>${language}</span>
+												      </div>
+												      </c:if>
+					 							</c:forEach>
+												<c:if test="${languages.size() > 10 }">
+					 								<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
+					 							  </c:if> 
 								       </div>
+								       <div class="filters-in-modal mobind" style="display: none">
+								       	<c:set value="0" var="indCounter"></c:set>
+			  							 <c:forEach var="industry" items="${industries}">
+			                                  <c:set value="${indCounter +1 }" var="indCounter"></c:set>
+			 								  <c:if test="${indCounter <=10 }">							 
+			 							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
+										      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
+										      <div class="form-group squaredThree">
+										  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
+											      <label for="ind${indus}"></label><span>${industry}</span>
+										      </div>
+			 							      </c:if>
+			 							  </c:forEach>
+										<c:if test="${industries.size() >10 }">
+									        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
+									     </c:if>  
+						    			 </div>
+						    			  <div class="filters-in-modal mobins" style="display: none">
+								       	   <c:set value="0" var="insCounter"></c:set>
+				 							   <c:forEach var="institution" items="${institutions}">
+											    <c:set value="${insCounter +1 }" var="insCounter"></c:set>
+												  <c:if test="${insCounter <=10 }">			
+											   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
+											      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
+											      <div class="form-group squaredThree">
+											  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
+												      <label for="col${institute}"></label><span>${institution}</span>
+											      </div>
+				 							      </c:if>
+				 							  </c:forEach>
+											 <c:if test="${institutions.size() > 10 }">
+										        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
+										     </c:if>  
+						    			 </div>
 								      </div>
 								      
 								    </div>
@@ -310,7 +348,14 @@ function defaultcall(){
       	var obj = JSON.parse(response);
       	$.each(obj, function(key,value) {
       		if(value.name != "noadv"){
-      		 expertcard(value);
+      			 var word = value.designation+' in '+value.company;
+        		 var length = word.length;
+        		 if(length > 30){
+        			 word = word.substring(0, 28);
+        			 word = word+'..';
+        		 }
+        		 value.designation = word;
+        		 expertcard(value);
       		}else{
       			 document.getElementById("loadmore").style.display = 'block';
       		}
@@ -359,14 +404,21 @@ function expertcard(value)
 			+'<div class="col-xs-4 blueT  no-padding">'
 			+'<a href=advisorprofile?a='+value.id+'>'
 			+'<div class="Adp" style="text-align:center;">'
-			+'<img src="assets/img/Abhishek.JPG">'
+			+'<img src="'+value.image+'">'
 			+'</div>'
 			+'</a>'
 			+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>'
+			+'<div class="count" >';
 			
-			+'<div class="count">'
-			+'<span class="reviews">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
-			+'<span class="consults"> '+value.sessions+' consults</span>'
+	 html = html 
+	         if(value.reviews == 0){
+	 			+'<span class="reviews" style="visibility: hidden">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
+	 			+'<span class="consults"> '+value.sessions+' consults</span>';
+	         }else{
+		 		+'<span class="reviews">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
+	 			+'<span class="consults"> '+value.sessions+' consults</span>';
+	         }
+	 html = html
 			+'</div>'
 			+'</div>'
 			+'<div class="col-xs-8">'
@@ -374,7 +426,7 @@ function expertcard(value)
 			+'<span class="Aname">'+value.name+'</span><br>'
 			+'<span class="Afeild">'+value.subcategory+'</span>'
 			+'<div class="attributes">'
-			+'<span> <img src="assets/img/experts_company.svg"> '+value.designation+' in '+value.company+' </span><br>'
+			+'<span> <img src="assets/img/experts_company.svg"> '+value.designation+' </span><br>'
 			+'<span> <img src="assets/img/experts_category.svg"> '+value.institution+'</span><br>'
 			+'<span> <img src="assets/img/experts_question.svg"> '+value.answers+' Answers</span>'
 			+'</div>'
@@ -446,6 +498,13 @@ var filterString = "";
 			            			 document.getElementById("loadmorefilters").style.display = 'none';
 			            			 return false;
 			            		 }
+			            		 var word = value.designation+' in '+value.company;
+			            		 var length = word.length;
+			            		 if(length > 30){
+			            			 word = word.substring(0, 28);
+			            			 word = word+'..';
+			            		 }
+			            		 value.designation = word;
 			            		 expertcard(value);
 			            		 count++;
 			            		}else{
@@ -483,17 +542,26 @@ function GetLeftAdvisors(){
         success : function(response) {
         	var obj = JSON.parse(response);
         	var count=0;
-        	filterPaging++;
         	$.each(obj, function(key,value) {
         		if(value.name !="noadv"){
         		 if(count >10){
         			 document.getElementById("loadmorefilters").style.display = 'block';
         			 return false;
         		 }
+        		 var word = value.designation+' in '+value.company;
+        		 var length = word.length;
+        		 if(length > 30){
+        			 word = word.substring(0, 28);
+        			 word = word+'..';
+        		 }
+        		 value.designation = word;
+
         		 expertcard(value);
         		 count++;
-        		}else{
        			 document.getElementById("loadmorefilters").style.display = 'none';
+        		}else{
+                	filterPaging++;
+       			 document.getElementById("loadmorefilters").style.display = 'block';
         		}
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
@@ -512,7 +580,16 @@ $('body').on('click', '.filters-type-xs li', function(e){
 	 var type=$(this).find('span').html();
 	 $('.filter-modal-head').html('Filters '+type+' ');
 	$('.filters-type-xs').slideUp();
-	$('.filters-in-modal').slideDown();
+	if(type == "Language"){
+		$('.moblang').slideDown();
+
+	}else if (type == "Industry") {
+		$('.mobind').slideDown();
+
+	}else if (type == "College") {
+		$('.mobins').slideDown();
+
+	}
 	$('.close').hide();
 	$('#backtofilters').show();
 });
@@ -577,14 +654,29 @@ function GetResultAccordingToSubCategory(elem){
        
           	var obj = JSON.parse(response);
           	var count=0;
+      		var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
-          		 expertcard(value);
-          		 count++;
+          			 var word = value.designation+' in '+value.company;
+            		 var length = word.length;
+            		 if(length > 30){
+            			 word = word.substring(0, 28);
+            			 word = word+'..';
+            		 }
+            		 value.designation = word;
+          		     expertcard(value);
+          		     count++;
+          			 document.getElementById("loadmoresub").style.display = 'none';
           		}else if (value.name =="id") {
         			 adIds = value.ids;
         			 document.getElementById("loadmore").style.display  = "none";
-          			 document.getElementById("loadmoresub").style.display = 'none';
+        			 if(noadv){
+              			 document.getElementById("loadmoresub").style.display = 'block';
+ 
+        			 }else{
+              			 document.getElementById("loadmoresub").style.display = 'none';
+ 
+        			 }
 				}else if (value.name =="noadv") {
 					 document.getElementById("loadmore").style.display  = "none";
           			 document.getElementById("loadmoresub").style.display = 'block';
@@ -617,18 +709,35 @@ function GetResultsUsingSubCategory(){
        
           	var obj = JSON.parse(response);
           	var count=0;
+          	var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
+          			 var word = value.designation+' in '+value.company;
+            		 var length = word.length;
+            		 if(length > 30){
+            			 word = word.substring(0, 28);
+            			 word = word+'..';
+            		 }
+            		 value.designation = word;
           		 expertcard(value);
-          		 count++;
-          		}else if (value.name =="id") {
-        			 adIds = value.ids;
-        			 document.getElementById("loadmore").style.display  = "none";
-          			 document.getElementById("loadmoresub").style.display = 'none';
-				}else if (value.name =="noadv") {
+				 document.getElementById("loadmoresub").style.display  = "none";
+
+          		}else if (value.name =="noadv") {
 					 document.getElementById("loadmore").style.display  = "none";
           			 document.getElementById("loadmoresub").style.display = 'block';
-				}
+          			noadv = true;
+				}else if (value.name =="id") {
+       			 adIds = value.ids;
+    			 document.getElementById("loadmore").style.display  = "none";
+    			 document.getElementById("loadmore").style.display  = "none";
+    			 if(noadv){
+          			 document.getElementById("loadmoresub").style.display = 'block';
+
+    			 }else{
+          			 document.getElementById("loadmoresub").style.display = 'none';
+
+    			 }
+			}
           		}); 
           	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
              					// create an empty div in your page with some id
@@ -651,17 +760,32 @@ function GetLeftAdvisorsUsingSubcategory(){
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
         	var obj = JSON.parse(response);
-        	subpaging++;
+        	var noadv =false;
         	$.each(obj, function(key,value) {
-        		alert(value.name);
         		 if(value.name !="noadv" &&  value.name !="id"){
+        			 var word = value.designation+' in '+value.company;
+            		 var length = word.length;
+            		 if(length > 30){
+            			 word = word.substring(0, 28);
+            			 word = word+'..';
+            		 }
+            		 value.designation = word;
         		  expertcard(value);
        			 document.getElementById("loadmoresub").style.display = 'none';
         		 }else if (value.name =="id") {
         			 adIds =value.ids;
-				}else if (value.name !="noadv") {
+					 if(noadv){
+	          			 document.getElementById("loadmoresub").style.display = 'block';
+
+					 }else{
+	          			 document.getElementById("loadmoresub").style.display = 'none';
+
+					 }
+				}else if (value.name =="noadv") {
+		        	subpaging++;
 					 document.getElementById("loadmore").style.display  = "none";
           			 document.getElementById("loadmoresub").style.display = 'block';
+          			noadv = true;
 				}
         		 else{
         			 document.getElementById("loadmore").style.display  = "none";
@@ -723,7 +847,7 @@ function OpenFIlterModal(elem){
 	 	   var ind = "${industry}";
 	 	   ind = ind.replace(' ', '_');
 	 	   ind = ind.replace(',','');
-	 	   var newletter = ind.charAt(0);
+/* 	 	   var newletter = ind.charAt(0);
 	 	   if(newletter == startingletter ){
 	 		  delimit = false;
 	 	   }else{
@@ -733,13 +857,12 @@ function OpenFIlterModal(elem){
 	 			   html = html +"</div>";
 	 			   started =false;
 	 		   }
-	 	   }
+	 	   }*/
 	 	   /* if(delimit){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
 	 	   } */
-	 	   html = html + "<div class='form-group col-xs-3 squaredThree'><input type='checkbox' id='"+ind+"' name='"+"${industry}"+"' /><label for='"+ind+"'></label><span>"+"${industry}"+"</span></div>";
-	 	   
+	 	   html = html + "<div class='form-group col-xs-3 squaredThree'><input type='checkbox' id='ind"+ind+"' name='"+"${industry}"+"' /><label for='ind"+ind+"'></label><span>"+"${industry}"+"</span></div>";
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;
 	 	$('#filModal').modal('show');
@@ -748,7 +871,7 @@ function OpenFIlterModal(elem){
 	 	   var ind = "${lang}";
 	 	   ind = ind.replace(' ', '_');
 	 	   ind = ind.replace(',','');
-	 	   var newletter = ind.charAt(0);
+/* 	 	   var newletter = ind.charAt(0);
 	 	   if(newletter == startingletter ){
 	 		  delimit = false;
 	 	   }else{
@@ -762,9 +885,9 @@ function OpenFIlterModal(elem){
 	 	   if(delimit){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
-	 	   }
-	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='"+ind+"' name='"+"${lang}"+"' /><label for='"+ind+"'></label><span>"+"${lang}"+"</span></div>";
-	 	   
+	 	   } */
+	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='lan"+ind+"' name='"+"${lang}"+"' /><label for='lan"+ind+"'></label><span>"+"${lang}"+"</span></div>";
+
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;
 	 	$('#filModal').modal('show');
@@ -773,7 +896,7 @@ function OpenFIlterModal(elem){
 	 	   var ind = "${ins}";
 	 	   ind = ind.replace(' ', '_');
 	 	   ind = ind.replace(',','');
-	 	   var newletter = ind.charAt(0);
+/* 	 	   var newletter = ind.charAt(0);
 	 	   if(newletter == startingletter ){
 	 		  delimit = false;
 	 	   }else{
@@ -787,8 +910,8 @@ function OpenFIlterModal(elem){
 	 	   if(delimit){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
-	 	   }
-	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='"+ind+"' name='"+"${ins}"+"' /><label for='"+ind+"'></label><span>"+"${ins}"+"</span></div>";
+	 	   } */
+	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='col"+ind+"' name='"+"${ins}"+"' /><label for='col"+ind+"'></label><span>"+"${ins}"+"</span></div>";
 	 	   
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;

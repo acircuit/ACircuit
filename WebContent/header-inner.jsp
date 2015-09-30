@@ -4,12 +4,17 @@
 
 <%
 String source="";
+String path = "";
 if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("admin")){
 	source = "admin";
 }else if(session.getAttribute("userId") !=null ){
 	source="user";
+	path = (String)session.getAttribute("path");
+
 	}else if( session.getAttribute("advisorId") !=null){
 		source="advisor";
+		path = (String)session.getAttribute("path");
+
 	} 
 pageContext.setAttribute("source", source);
 
@@ -48,10 +53,11 @@ pageContext.setAttribute("source", source);
 							        </li>
 							          <li>
 							          <c:if test="${source.equals('user') }">
-							           <a href="userdashboard" style="background-image: none !important"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+
+							           <a href="userdashboard" style="background-image: none !important"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-							           <a href="advisordashboard" style="background-image: none !important"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							           <a href="advisordashboard" style="background-image: none !important"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							          </li>
 						        </ul>

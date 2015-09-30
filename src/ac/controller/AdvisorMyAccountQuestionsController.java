@@ -76,8 +76,7 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 			SessionDAO adv = new SessionDAO();
 			 AdvisorDTO advisorDetails =  adv.GetAdvisorDetails(advisorId);
 			 
-			 System.out.println("ans"+answeredQuestions.size());
-			 System.out.println("new"+newQuestions.size());
+			
 			request.setAttribute("answeredQuestions", answeredQuestions);
 			request.setAttribute("newQuestions", newQuestions);
 			request.setAttribute("advisorDetails", advisorDetails);

@@ -74,7 +74,7 @@
 					   		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request waiting for your approval</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">${userDetails.getFullName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="btext name">${userDetails.getFullName()}</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
 						   		<br>
 						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -175,6 +175,15 @@
 		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
 					   			</div>
 					   			</form>
+					   			
+					   			<div class="next-step-div col-xs-12 ">
+					   				<div class="col-xs-12">
+							   			<span class="next-step-text btext">Next Steps</span>
+							   			<span class="step-text-no">After you submit your response; We will send your reply to the user who will now get the chance to confirm the session. <br><br>
+							   		       </span>
+							   		</div>
+							   		
+					   		</div>
 				   		</div>
 				   	</div>
 				   

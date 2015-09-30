@@ -101,7 +101,7 @@ pageContext.setAttribute("advName", advName);
 					   			</c:if>
 
 					   		</div>
-					   		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED')}">
+					   		<c:if test="${sessionDetails.getStatus().equals('ACCEPTED') || sessionDetails.getStatus().equals('SESSION ON SCHEDULE') }">
 					   		  <div class="col-xs-12 no-padding session-date-div">
 					   		  <span class="prop-time-text">Session Date</span><br>
 					   		
@@ -116,15 +116,17 @@ pageContext.setAttribute("advName", advName);
 					   		</div>
 					   		<div class="query-description-div col-xs-12 no-padding">
 					   			<span class="query-description-head">Query Details</span><br>
-					   			<span class="query-description-small-text">Description</span><br>
+					   			<!-- <span class="query-description-small-text">Description</span><br> -->
 					   			<p class="q-description">
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
+					   		<c:if test="${!sessionDetails.getResume().equals('')}">
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
 					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		</c:if>
 					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
 					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
 					   			<span class="timeslots-proposed">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span>
@@ -148,7 +150,20 @@ pageContext.setAttribute("advName", advName);
 					   		 		 <c:if test="${sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES') || sessionDetails.getStatus().equals('ACCEPTED')}">
 					   					<div class="col-xs-12">
 							   				<span class="next-step-text btext">Next Steps</span>
-							   			    <span class="step-text-no"></span>
+							   				<c:if test="${sessionDetails.getStatus().equals('ACCEPTED') || sessionDetails.getStatus().equals('ACCEPTED WITH NEW DATES')}">
+							   			    <span class="step-text-no">
+							   			       We will notify you as soon as the user confirms the session. 
+							   			    </span>
+							   			    </c:if>
+							   			    <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE'')}">
+							   			    <span class="step-text-no">
+							   			       Prepare answers to the user’s query before the session.
+							   			       <br><br>
+							   			       You will simply get a call on the designated session day and time. You will earn money for the session on a per minute basis and the amount will be credited to your account shortly. 
+							   			   		<br><br>
+							   			   		Enjoy your session! 
+							   			    </span>
+							   			    </c:if>
 							   			</div>
 							   		</c:if>
 							   		

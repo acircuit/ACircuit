@@ -36,6 +36,7 @@ import ac.dto.SessionDTO;
 import ac.dto.TwilioVideoDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
+import ac.util.GetRelativeImageURL;
 
 public class SessionDAO {
 	Connection conn = null;
@@ -75,6 +76,7 @@ public class SessionDAO {
 				dto.setSessionPlan(results.getString("SESSIONPLAN"));
 				dto.setSessionDuration(results.getString("SESSION_DURATION"));
 				dto.setSessionPrice(results.getString("SESSION_PRICE"));
+				dto.setResume(results.getString("CV"));
 
 			}
 		} catch (SQLException e) {
@@ -317,7 +319,8 @@ public class SessionDAO {
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
 				advisor.setName(results.getString("NAME"));
-				advisor.setImage(results.getString("IMAGE"));
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				advisor.setImage(image.getImageURL(results.getString("IMAGE")));
                 advisor.setId(results.getInt("ADVISOR_ID"));
                 advisor.setEmail(results.getString("EMAIL"));
                 advisor.setPhoneNo(results.getString("PHONE_NUMBER"));
@@ -509,7 +512,8 @@ public class SessionDAO {
 			while(results.next()){
 				AdvisorDTO advisor = new AdvisorDTO();
 				advisor.setName(results.getString("NAME"));
-				advisor.setImage(results.getString("IMAGE"));
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				advisor.setImage(image.getImageURL(results.getString("IMAGE")));
 				advisor.setId(results.getInt("ADVISOR_ID"));
 				advisors.add(advisor);
 			}
@@ -728,7 +732,8 @@ public class SessionDAO {
 			while(results.next()){
 				UserDetailsDTO user = new UserDetailsDTO();
 				user.setFullName(results.getString("FULL_NAME"));
-				user.setImage(results.getString("IMAGE"));
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				user.setImage(image.getImageURL(results.getString("IMAGE")));
 				user.setUserId(results.getInt("USER_ID"));
 				user.setEmail(results.getString("EMAIL"));
 				users.add(user);
@@ -915,8 +920,9 @@ public class SessionDAO {
 		return userSid;
 	}
 	
-	public void UpdateDuration(String duration, String type,String Sid,String Status){
+	public Boolean UpdateDuration(String duration, String type,String Sid,String Status){
 		logger.info("Entered UpdateDuration method of SessionDAO");
+		Boolean isCommit = false;
 		 Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));  
          mbCal.setTimeInMillis(new Date().getTime());      
          Calendar cal = Calendar.getInstance();  
@@ -935,7 +941,7 @@ public class SessionDAO {
 			if(type.equals("user")){
 			query = "UPDATE twilliocalls SET USER_DURATION = ?,USER_CALL_STATUS=?,USER_STATUS_UPDATE_TIME=? WHERE USER_CALL_SID = ?";
 			}else{
-				query = "UPDATE twilliocalls SET ADVISOR_DURATION = ?,ADVISOR_CALL_STATUS=?,ADVISOR_STATUS_UPDATE_TIME WHERE ADVISOR_CALL_SID = ?";	
+				query = "UPDATE twilliocalls SET ADVISOR_DURATION = ?,ADVISOR_CALL_STATUS=?,ADVISOR_STATUS_UPDATE_TIME=? WHERE ADVISOR_CALL_SID = ?";	
 			}
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, duration);
@@ -945,6 +951,7 @@ public class SessionDAO {
 			int result = pstmt.executeUpdate(); 
 			if(result >0) {
 				conn.commit();
+				isCommit = true;
 			}
 		} catch (SQLException e) {
 			try {
@@ -963,8 +970,8 @@ public class SessionDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
-		logger.info("Exit UpdateDuration method of SessionDAO");
+		}	
+		return isCommit;
 	}
 	
 	public List<CostDTO> GetDuration(String sId){
@@ -1348,6 +1355,7 @@ public class SessionDAO {
 				review.setReview(results.getString("REVIEW"));
 				review.setRating(results.getString("RATING"));
 				review.setPostedOn(results.getDate("POSTED_ON"));
+				review.setStatus(results.getString("STATUS"));
 				reviews.add(review);
 			}
 		

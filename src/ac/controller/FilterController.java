@@ -26,6 +26,7 @@ import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SubCategoryDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class FilterController
@@ -56,8 +57,7 @@ public class FilterController extends HttpServlet {
 			startIndex = 11+ (page-1)*6;
             endIndex = startIndex +5;
 		}
-		System.out.println(startIndex);
-		System.out.println(endIndex);
+		System.out.println(ids);
 		
 		
 		//Getting a list of advisor id
@@ -194,14 +194,14 @@ public class FilterController extends HttpServlet {
 				List<EducationDTO> education1 = advisor.getEducation();
 				int ed=0;
 				for(EducationDTO educ : education1){
-					if(educ.getType().equals("pg") && educ.getInstitution() != null){
+					if(educ.getType().equals("PG") && educ.getInstitution() != null){
 						jo.put("institution", educ.getInstitution());
 						ed++;
 					}
 				}
 				if(ed == 0){
 					for(EducationDTO educ : education1){
-						if(educ.getType().equals("ug") && educ.getInstitution() != null){
+						if(educ.getType().equals("UG") && educ.getInstitution() != null){
 							jo.put("institution", educ.getInstitution());
 							ed++;
 						}
@@ -235,11 +235,11 @@ public class FilterController extends HttpServlet {
 				SessionDAO sessions= new SessionDAO();
 				consultations =  sessions.GetConsultations(advisor.getId());
 				jo.put("sessions", consultations);
-
+				jo.put("image", advisor.getImage());
 				array.add(jo);
 				System.out.println("added");
 				isLeft = false;
-				
+
 				//q= q+advisor.getId();
 				}else{
 					isLeft = true;

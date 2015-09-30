@@ -22,6 +22,7 @@ import ac.dao.AdvisorNotificationDAO;
 import ac.dao.RegistrationDAO;
 import ac.dao.UserNotificationDAO;
 import ac.dto.PromotionsDTO;
+import ac.util.GetRelativeImageURL;
 import ac.util.PasswordHashing;
 import ac.util.SendMail;
 
@@ -79,17 +80,10 @@ public class RegistrationController extends HttpServlet {
     				int userId = dao.setUserDetails(email,hashPassword,fullname,absolutePath,updates);
     				if(userId != 0){
     					Boolean isCommit = false;
-    					RegistrationDAO promotions = new RegistrationDAO();
-    					PromotionsDTO promo = promotions.GetPromotionValidity(prop2.getProperty("PROMOTION_1"));
-    					if(promo.getIsActive() != null && promo.getIsActive()){
-    						//Inserting the wallet for the user
-        					RegistrationDAO wallet = new RegistrationDAO();
-        					isCommit = wallet.InsertUserWallet(userId,promo.getAmount());
-    					}else{
-    						//Inserting the wallet for the user
-        					RegistrationDAO wallet = new RegistrationDAO();
-        					isCommit = wallet.InsertUserWallet(userId,"0");
-    					}
+    					//Inserting the wallet for the user
+    					RegistrationDAO wallet = new RegistrationDAO();
+    					isCommit = wallet.InsertUserWallet(userId,"0");  
+    				
     					
     					if(isCommit){
         					
@@ -117,6 +111,8 @@ public class RegistrationController extends HttpServlet {
         					mail1.start();
         					request.getSession().setAttribute("userId",userId);
         					request.getSession().setAttribute("email", email);
+        					  GetRelativeImageURL image = new GetRelativeImageURL();
+        					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
         					response.sendRedirect("userdashboard?type=signup");
     					}
 

@@ -49,7 +49,7 @@ public class QuestionToAdvisorController extends HttpServlet {
 			QuestionsDAO adv = new QuestionsDAO();
 			Boolean isInserted = adv.SetAdvisorIdForQuestion(id,aid);
 			if(isInserted){
-			    //Adding to the feeds table
+			/*    //Adding to the feeds table
 				FeedDAO feed = new FeedDAO();
 				int feedId = feed.InsertFeedType("question");
 				if(feedId != 0){
@@ -63,7 +63,12 @@ public class QuestionToAdvisorController extends HttpServlet {
 						notify.InsertNotification(comment, href);
 						response.getWriter().write("Your Question has been submitted");
 				    }
-				}
+				}*/
+				String comment = "New Question posted to advisor";
+				String href = "adminquestions";
+				AdminNotificationDAO notify = new AdminNotificationDAO();
+				notify.InsertNotification(comment, href);
+				response.getWriter().write("Your Question has been submitted");
 			}
 
 		}

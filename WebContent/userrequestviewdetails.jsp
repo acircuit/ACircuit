@@ -95,7 +95,7 @@
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
 							   	
-							   		<span class="step-text-no">Great going! We will get in touch with the advisor from your side and will revert back to you within 48 hours. </span><br>
+							   		<span class="step-text-no">The advisor will reply to your request shortly. In case they don't like the dates sent by you, they might suggest 2 of their own for you to choose from.  </span><br>
 							   		
 					   		</div>
 				   		</div>

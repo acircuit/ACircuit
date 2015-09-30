@@ -18,6 +18,7 @@ import ac.dao.FeedDAO;
 import ac.dao.SessionDAO;
 import ac.dto.ActivityDTO;
 import ac.dto.AdvisorDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class AdvisorDashboardController
@@ -46,6 +47,7 @@ public class AdvisorDashboardController extends HttpServlet {
 			//Getting advisor information 
 			SessionDAO advisor = new SessionDAO();
 			AdvisorDTO advisorDetails =  advisor.GetAdvisorDetails(advisorId);
+			
 			List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 			//Getting feeds for the dashboard
 			//Geeting the info from the feeds table

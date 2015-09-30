@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,11 +16,15 @@ import org.json.simple.JSONObject;
 
 import ac.cache.MyCacheBuilder;
 import ac.dao.SearchDAO;
+import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.AnswerDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
+import ac.dto.ReviewsDTO;
 import ac.dto.SubCategoryDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class GetSubcategoryAdvisorsController
@@ -43,6 +48,8 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 		String paging = request.getParameter("paging");
 		int startIndex = 1;
 		int endIndex = 10;
+		System.out.println(category);
+		System.out.println(subcategory);
 		String[] initialAdvisors = null;
 		if(paging != null){
 			int page = Integer.valueOf(paging);
@@ -56,7 +63,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 		Boolean isLeft = false;
 		SearchDAO advisors = new SearchDAO();
 		ids = 	advisors.GetAdvisorsUsingCategory(category);
-		System.out.println(ids);
+		System.out.println("es"+ids);
 		String[] advisorIds = ids.split(":");
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
@@ -75,25 +82,31 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 					
 			  }else if (category.equals("industry")) {
 				  for(CategoryDTO cat : list){
-						if(cat.getCategory().equals("idustry")){
+						if(cat.getCategory().equals("industry")){
 							catId = cat.getCatId();
 							threshold++;
 						}
 					}
-			   }else if (category.equals("option")) {
+			   }else if (category.equals("options")) {
 				   for(CategoryDTO cat : list){
-						if(cat.getCategory().equals("option")){
+						if(cat.getCategory().equals("options")){
 							catId = cat.getCatId();
 							threshold++;
 						}
 					}
 			    }
-				List<SubCategoryDTO> subcats = advisor.getSubCategories();
-				for(SubCategoryDTO sub :subcats){
-					if(sub.getCategoryId() == catId && sub.getSubCategory().equals(subcategory.toLowerCase())){
-						threshold++;	
-						}
+				if(category.equals("options")){
+					threshold++;	
+
+				}else{
+					List<SubCategoryDTO> subcats = advisor.getSubCategories();
+					for(SubCategoryDTO sub :subcats){
+						if(sub.getCategoryId() == catId && sub.getSubCategory().equals(subcategory)){
+							threshold++;	
+							}
+					}
 				}
+			
 				if(threshold ==2){
 					adId = adId+advisor.getId()+":";
 					if(count >= startIndex && count <=endIndex) {
@@ -109,14 +122,14 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						List<EducationDTO> education1 = advisor.getEducation();
 						int ed=0;
 						for(EducationDTO educ : education1){
-							if(educ.getType().equals("pg") && educ.getInstitution() != null){
+							if(educ.getType().equals("UG") && educ.getInstitution() != null){
 								jo.put("institution", educ.getInstitution());
 								ed++;
 							}
 						}
 						if(ed == 0){
 							for(EducationDTO educ : education1){
-								if(educ.getType().equals("ug") && educ.getInstitution() != null){
+								if(educ.getType().equals("PG") && educ.getInstitution() != null){
 									jo.put("institution", educ.getInstitution());
 									ed++;
 								}
@@ -129,16 +142,39 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 								jo.put("designation", prof.getDesignation());
 							}
 						}
+						SessionDAO ans = new SessionDAO();
+						List<AnswerDTO> answers = ans.GetAdvisorAnswers(String.valueOf(advisor.getId()));
+						jo.put("answers", answers.size());
+						
+						List<ReviewsDTO> advisorReviews = new ArrayList<ReviewsDTO>();
+						SessionDAO reviews = new SessionDAO();
+						advisorReviews = reviews.GetAdvisorReviews(String.valueOf(advisor.getId()));
+						Double ratingCount =0.0;
+						for(ReviewsDTO review : advisorReviews){
+							ratingCount = ratingCount + Double.valueOf(review.getRating());
+						}
+						Double rateCount =0.0;
+						rateCount = ratingCount / advisorReviews.size();
+						jo.put("reviews", advisorReviews.size());
+						jo.put("ratecount", Math.round(rateCount));
+						
+						int consultations = 0;
+						//Getting the number of consultations
+						SessionDAO sessions= new SessionDAO();
+						consultations =  sessions.GetConsultations(advisor.getId());
+						jo.put("sessions", consultations);
 						System.out.println(jo.get("name"));
+						
+						jo.put("image", advisor.getImage());
 						array.add(jo);
-						count++;
 						isLeft = false;
 						System.out.println(isLeft);
-						
+
 					}else{
 						isLeft = true;
 						System.out.println(isLeft);
 					}
+					count++;
 				}
 			
 			}

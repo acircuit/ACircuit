@@ -376,4 +376,49 @@ public class RegistrationDAO {
 		return promotion;
 	}
 	
+	public Boolean  UpdateWallet(String uid,String amount) { 
+		logger.info("Entered UpdateWallet method of RegistrationDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE userwallet SET AMOUNT= AMOUNT+?,IS_PROMO_APPLIED=? WHERE USER_ID = ? AND IS_PROMO_APPLIED=? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setDouble(1, Double.valueOf(amount));
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3, uid);
+			pstmt.setBoolean(4, false);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateWallet method of RegistrationDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateWallet method of RegistrationDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateWallet method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateWallet method of RegistrationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateWallet method of RegistrationDAO");
+		return isCommit;
+	}
+	
 }

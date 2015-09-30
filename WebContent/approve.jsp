@@ -85,7 +85,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 		   		    		
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-12 col-sm-7 no-padding">
-							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advisorDetails.getName()}</span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -136,13 +136,14 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			${sessionDetails.getSessionPlan()}
 					   			</p>
 					   		</div>
+					   		 <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="padding-bottom: 19px;">
 					   			<div class="col-xs-12 col-sm-6 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span><br>
 					   				<c:choose>
                                         <c:when test="${wallet <= sessionDetails.getPrice()}">
-					   				          <span class="make-payment-text">Make the payment to confirm your session</span>
+					   				          <span class="make-payment-text">You have Rs.${wallet} in your wallet, recharge with Rs.${amountdue} to confirm the session. Show wallet balance also</span>
                                         </c:when>
                                         <c:otherwise>
 					   				          <span class="make-payment-text">Your Wallet has enough money. Please confirm the session</span>
@@ -154,7 +155,6 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			            <a href="usercancelsession?sId=${sessionDetails.getSessionid()}" class="btn recharg-button" style="width: 116px;padding-top: 5px;font-size: 12px;">Cancel Session</a>
 					   					<c:choose>
                                                <c:when test="${wallet < sessionDetails.getPrice()}">
-                                                        <c:set var="amountdue" value="${sessionDetails.getPrice() - wallet}"></c:set>
                                                         <input type="hidden" name="amount" value="${amountdue}">
 														<input type="hidden" name="merchant_param1" value="${sessionDetails.getUserid()}">
 														<input type="hidden" name="merchant_param3" value="${sessionDetails.getSessionid()}">
@@ -171,8 +171,8 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		</form>
 					   		<div class="query-description-div col-xs-12 no-padding" style="padding-top: 0px;">
 					   			<span class="query-description-head">Query Details</span><br>
-					   			<span class="query-description-small-text">Description</span><br>
-					   			<p class="q-description">
+<!-- 					   			<span class="query-description-small-text">Description</span><br>
+ -->					   			<p class="q-description">
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
@@ -188,20 +188,19 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		</div>
 					   		
 					   		
-					   		<div class="total-cost-div col-xs-12 no-padding" style="padding-bottom: 19px;">
+<%-- 					   		<div class="total-cost-div col-xs-12 no-padding" style="padding-bottom: 19px;">
 					   		
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span><br>
 					   				<span class="make-payment-text">Payment will not be collected until this advisor has accepted your request.</span>
 					   			
-					   	</div>
+					   	</div> --%>
 					   		<div class="next-step-div col-xs-12" style="margin-top: 35px;">
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
 							   		</div>
 							   	
-							   		<span class="step-text-no">1. Some Dummy Text as steps. Its best to number them for better understanding as steps </span><br>
-							   		<span class="step-text-no">1. Some Dummy Text as steps. Its best to number them for better understanding as steps </span><br>
+							   		<span class="step-text-no">Accept the session by recharging your wallet. Remember to put sufficient money to be able to talk to the advisor and solve your doubts. You can always refund any leftover amount post the session. </span><br>
 							   		
 					   		</div>
 				   		</div>

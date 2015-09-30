@@ -14,6 +14,18 @@
 			ac.listeners.CacheBuilderListeners
 		</listener-class>
   </listener>
+  <filter>
+        <filter-name>HomeFilter</filter-name>
+        <filter-class>ac.filters.HomeFilter</filter-class>
+   </filter>
+   <filter-mapping>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+     <filter-mapping>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/Home.jsp</url-pattern>
+    </filter-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/error.jsp</location>

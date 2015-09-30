@@ -30,14 +30,19 @@ public class GetAdvisorPriceController extends HttpServlet {
 		String isPhone = request.getParameter("isPhone");
 		String isVideo = request.getParameter("isVideo");
 		Double price =0.0;
+		Double finalPrice= 0.0;
 		SessionDAO advPrice = new SessionDAO();
 		Double[] prices = advPrice.GetAdvisorPrices(advisorId);
 		if(isPhone != null && isPhone.equals("phone")){
-			price = prices[0] * Double.valueOf(duration);
+			Double commisionedPrice  = prices[0]  +( prices[0]  * 20 /100);
+			finalPrice = commisionedPrice / 60;
+            finalPrice = finalPrice * Double.valueOf(duration);		
 		}else if (isVideo != null && isVideo.equals("video")) {
-			price = prices[1] * Double.valueOf(duration);
+			Double commisionedPrice  = prices[1]  +( prices[1]  * 20 /100);
+			finalPrice = commisionedPrice / 60;
+            finalPrice = finalPrice * Double.valueOf(duration);	
 		}
-		response.getWriter().write(String.valueOf(price));
+		response.getWriter().write(String.valueOf(finalPrice));
 		logger.info("Entered doGet method of GetAdvisorPriceController");
 	}
 

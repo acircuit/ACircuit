@@ -25,6 +25,7 @@ import com.twilio.sdk.resource.instance.Call;
 
 
 
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
@@ -99,6 +100,10 @@ public class TwilioStatusCallBackUser extends HttpServlet {
 			}else if (callStatus.equals("completed")){
 			SessionDAO dao1 = new SessionDAO();
 			dao1.UpdateDuration(callDuration,"user",callSid,callStatus);
+		}else if (callStatus.equals("completed") ) {
+			System.out.println("completed");
+			SessionDAO dao1 = new SessionDAO();
+			Boolean isCommit = dao1.UpdateDuration(callDuration,"user",callSid,callStatus);
 		}
 		logger.info("Entered doPost method of GetAdvisorController");
 	}

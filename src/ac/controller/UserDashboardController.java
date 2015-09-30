@@ -21,6 +21,7 @@ import ac.dao.SessionDAO;
 import ac.dto.ActivityDTO;
 import ac.dto.AdvisorDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class UserDashboardController
@@ -47,6 +48,8 @@ public class UserDashboardController extends HttpServlet {
 			//Getting user information 
 			SessionDAO user = new SessionDAO();
 			UserDetailsDTO userDetails =  user.GetUserDetails(userId);
+			GetRelativeImageURL image = new GetRelativeImageURL();
+			userDetails.setImage(image.getImageURL(userDetails.getImage()));
 			List<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 			//Getting feeds for the dashboard
 			//Geeting the info from the feeds table

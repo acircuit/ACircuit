@@ -87,7 +87,7 @@ pageContext.setAttribute("sess", sess);
 		   		    		</c:if>   
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-12 col-sm-7 no-padding">
-							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text"></span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -151,6 +151,8 @@ pageContext.setAttribute("sess", sess);
 					   		<div class="next-step-div col-xs-12 ">
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>
+							   			<span class="step-text-no">Make sure you have all your questions ready before the session.<br><br>
+							   			Simply click the "Join Call" or "Join Conference" button on your designated session day and time to connect to the advisor. You will be charged on a per minute basis and the due amount will be deducted from your wallet. Enjoy your session!  </span><br>
 							   		</div>
 							   		
 					   		</div>
@@ -267,7 +269,7 @@ function CallTwilio(){
 		    type : 'POST',
 		    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		    success : function(response) {
-		        alert(response); // create an empty div in your page with some id
+		        alert("You will receive a call from our side."); // create an empty div in your page with some id
 		    },
 		    error : function(request, textStatus, errorThrown) {
 		        alert(errorThrown);

@@ -18,12 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.apache.log4j.Logger;
 
 import ac.dao.ForgotPasswordDAO;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 import ac.util.PasswordHashing;
 
 /**
@@ -85,6 +87,8 @@ public class NewPasswordController extends HttpServlet {
 				UserDetailsDTO adv = advisor.GetUserDetails(Integer.valueOf(id));
 				request.getSession().setAttribute("userId",Integer.valueOf(id));
 				request.getSession().setAttribute("email", adv.getEmail());
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				request.getSession().setAttribute("path", image.getImageURL(adv.getImage()));
 				response.sendRedirect("userdashboard");
 			}
 		}

@@ -26,6 +26,7 @@ import ac.dao.AdvisorLoginDAO;
 import ac.dao.UserLoginDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 import ac.util.PasswordHashing;
 
 /**
@@ -72,6 +73,7 @@ public class LoginController extends HttpServlet {
 					
 						PasswordHashing pass = new PasswordHashing();
 						String securedPassword = pass.doHash(password);
+						System.out.println(securedPassword);
 						if(!securedPassword.isEmpty() && securedPassword != null){
 							UserLoginDAO dao = new UserLoginDAO();
 							UserDetailsDTO user= dao.CheckLoginDetails(username, securedPassword);
@@ -82,6 +84,8 @@ public class LoginController extends HttpServlet {
 						        session.setAttribute("username",userName); 
 						        session.setAttribute("userId",uId);
 						        session.setAttribute("email", username);
+						        GetRelativeImageURL image = new GetRelativeImageURL();
+						        session.setAttribute("path", image.getImageURL(user.getImage()));
 						        if(user.getIsVerified()){
 							        session.setAttribute("isVerified", true);
 						        }else{
@@ -101,6 +105,8 @@ public class LoginController extends HttpServlet {
 								session.setAttribute("username", userName);
 								session.setAttribute("advisorId", aId);
 								session.setAttribute("email", username);
+								GetRelativeImageURL image = new GetRelativeImageURL();
+							    session.setAttribute("path", image.getImageURL(advisor.getImage()));
 								request.getSession().setAttribute("isLogin",
 										"advisor");
 								response.getWriter().write("advisordashboard");

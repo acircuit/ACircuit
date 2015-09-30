@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.log4j.Logger;
 
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -25,12 +26,16 @@ import ac.dao.SessionDAO;
 @WebServlet("/TwilioStatusCallBackAdvisor")
 public class TwilioStatusCallBackAdvisor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(TwilioStatusCallBackAdvisor.class);
+
 	public static final String ACCOUNT_SID = "ACb7a902d49f24767663631f500d00d212";
 	public static final String AUTH_TOKEN = "906d5c7d2f78582c8958eb8f13e66d89"; 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Entered doPost method of TwilioStatusCallBackAdvisor");
+
 		String callDuration = request.getParameter("CallDuration");
 		String callStatus = request.getParameter("CallStatus");
 		String callSid = request.getParameter("CallSid");
@@ -39,6 +44,7 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 		SessionDAO dao = new SessionDAO();
 		String userSid = dao.GetUserCallSid(callSid);
 		if(callStatus.equals("in-progress")){
+			System.out.println("progress");
 			TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 			 
 		    // Get an object from its sid. If you do not have a sid,
@@ -82,13 +88,17 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			System.out.println("busy");
+
 		    SessionDAO dao1 = new SessionDAO();
 		    dao1.UpdateCallStatus(call.getStatus(),call.getDuration(),callDuration,callStatus,call.getSid());
 		}else if (callStatus.equals("completed") ) {
+			System.out.println("completed");
 			SessionDAO dao1 = new SessionDAO();
-			dao1.UpdateDuration(callDuration,"advisor",callSid,callStatus);
+			Boolean isCommit = dao1.UpdateDuration(callDuration,"advisor",callSid,callStatus);
+			System.out.println("Advisor call baclk"+isCommit);
 		}
+		logger.info("Entered doPost method of TwilioStatusCallBackAdvisor");
 	}
 
 }

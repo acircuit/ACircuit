@@ -47,6 +47,7 @@ public class BookASessionController extends HttpServlet {
         String aId = request.getParameter("aId");
         String uid = request.getParameter("uid");
         String phone = request.getParameter("phone");
+        String absoluteURL = "";
 		int userId = 0;
 		int sessionId = 0;
 		Boolean isError =false;
@@ -68,13 +69,14 @@ public class BookASessionController extends HttpServlet {
         	
         	// set the CV in the required folder and retrieving the absolute
 			// URL
-			SetCV cv = new SetCV();
-			String absoluteURL = cv.putCV(request, response, userId);
-        	if(absoluteURL != null && !absoluteURL.equals("")){
-	        	//Inserting the session details 
-	        	BookASessionDAO session = new BookASessionDAO();
-	        	sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
+        	if(request.getPart("resume") != null){
+    			SetCV cv = new SetCV();
+    			absoluteURL = cv.putCV(request, response, userId);
         	}
+
+	        //Inserting the session details 
+	        BookASessionDAO session = new BookASessionDAO();
+	        sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	if(sessionId != 0){
         	
         		

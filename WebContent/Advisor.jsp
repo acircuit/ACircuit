@@ -41,8 +41,8 @@
     rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
-    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <%
                    AdvisorDTO advisor = (AdvisorDTO) request.getAttribute("advisor");
                    String currentDesignation = (String) request.getAttribute("currentDesignation");
@@ -110,8 +110,9 @@
 							         <c:if test="${category.getCatId() == subcategory.getCategoryId()}">
 							         <c:set value="${category.getCategory()}" var="advisorCategory"></c:set>
 					                 <c:set value="${subcategory.getSubCategory()}" var="advisorSubcategory"></c:set>
-							              <span class="designation"><span class="hidden-xs">|</span>	${category.getCategory()}, ${subcategory.getSubCategory()}</span>
-							         </c:if>     
+							         <span class="designation"><span class="hidden-xs">|</span>${subcategory.getSubCategory()}</span>
+					                   
+							         </c:if>      
 							    </c:forEach>
 							</c:forEach>
 							
@@ -313,7 +314,7 @@
 								    		<span class="modal-head-text">Book A Session</span>
 								    	</div>
 								    	<div class="modal-main-body row">
-								    		<span class="modal-body-text">Session with Charles Dixon${isPhone}</span>
+								    		<span class="modal-body-text">Session with ${advisor.getName()}</span>
 								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession" id="book-session-form">
 								    		    
 								    			<div class="form-group each-form-div">
@@ -336,22 +337,7 @@
 														</div>
 											 		</div>
 											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
-											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button" id="duration" name="duration" title="Please select time duration" required="" aria-required="true" onchange="GetAdvisorPrice()">
-														</select> 
-											 		</div>
-											 	</div>
-											 	<input type="hidden" name="aId" value="${advisor.getId()}">
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
-											       <div class="col-xs-9 form-group">
-											           <input type="hidden" id="approxprice" name="approxprice" value="500">
-				                                       <span class="session-cost" id="price"></span><br>
-				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
-											 		</div>
-											 	</div>
+											 	
 											 	<c:if test="${!isPhone}">
 											 	  <input type="hidden" name="uid" value="${userId}">
 								    			  <div class="form-group each-form-div">
@@ -370,7 +356,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Attachments</label>
 											       <div class="col-xs-9 form-group">
-				                                      <input type="file" class="custom-file-input required" name="resume" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" aria-required="true">
+				                                      <input type="file" class="custom-file-input" name="resume" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" >
 											 		</div>
 											 	</div>
 											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
@@ -415,6 +401,22 @@
 													</select> 
 											       </div>
 				                                     
+											 		</div>
+											 	</div>
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
+											       <div class="col-xs-9 form-group">
+				                                        <select class="collapsed-filter-button" id="duration" name="duration" title="Please select time duration" required="" aria-required="true" onchange="GetAdvisorPrice()">
+														</select> 
+											 		</div>
+											 	</div>
+											 	<input type="hidden" name="aId" value="${advisor.getId()}">
+											 	<div class="form-group each-form-div">
+											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
+											       <div class="col-xs-9 form-group">
+											           <input type="hidden" id="approxprice" name="approxprice" value="500">
+				                                       <span class="session-cost" id="price"></span><br>
+				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
 											 		</div>
 											 	</div>
 											 	<div class="col-xs-12 button-div" >
@@ -709,6 +711,7 @@ function GetAdvisorPrice(){
 	
 function CheckLoggedIn(){
 	if(<%=isUserLoggedIn && isUserVerified%>){
+		GetAdvisorPrice();
 		$('#booksession').modal('show');
 	}else if (<%=!isUserLoggedIn%>) {
 		$('#loginmodal').modal('show');

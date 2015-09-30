@@ -778,7 +778,7 @@ public class QuestionsDAO {
 			//String q4in = generateQsForIn(words.size());
 			query = "SELECT * FROM questiontoadvisor WHERE A_ID=?";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, true);
+			pstmt.setInt(1, advisorId);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			QuestionsDTO question = new QuestionsDTO();
@@ -1016,7 +1016,7 @@ public class QuestionsDAO {
 			conn.setAutoCommit(false);
 			String query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category"
 					+ " INNER JOIN advisor_subcategory ON advisor_category.CATEGORY_ID=advisor_subcategory.CATEGORY_ID "
-					+ "WHERE advisor_category.CATEGORY = ? && advisor_subcategory.SUBCATEGORY=?;";
+					+ "WHERE advisor_category.CATEGORY = ? && advisor_subcategory.SUBCATEGORY=?";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, category);
@@ -1059,7 +1059,7 @@ public class QuestionsDAO {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			for(int aid :aids){
-				String query = "insert into questiontoadvisor "+"(Q_ID,AID) values" + "(?,?)";
+				String query = "insert into questiontoadvisor "+"(Q_ID,A_ID) values" + "(?,?)";
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setInt(1, qid);
                 pstmt.setInt(2, aid);

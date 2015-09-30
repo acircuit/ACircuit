@@ -24,6 +24,7 @@ import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SubCategoryDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class GetInitialAdvisors
@@ -43,12 +44,10 @@ public class GetAdvisors extends HttpServlet {
 		String paging = request.getParameter("paging");
 		String[] advisorIds = ids.split(":");
 		String[] initialAdvisors = null;
+		int advcount=0;
 		if(paging.equals("0")){
-			if(advisorIds.length > 10){
-				initialAdvisors = Arrays.copyOfRange(advisorIds, 0, 10);
-			}else{
+
 				initialAdvisors = advisorIds;
-			}
 		}else{
 			int page = Integer.valueOf(paging);
 			int startIndex = 0;
@@ -60,7 +59,7 @@ public class GetAdvisors extends HttpServlet {
 		Boolean isLeft = false;
 		  JSONArray array = new JSONArray();
 			for(String aid : initialAdvisors){
-				if(aid != null){
+				if(aid != null && advcount < 10){
 						MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 						AdvisorDTO advisor = cache.getAdvisor(Integer.valueOf(aid));
 						List<EducationDTO> education = new ArrayList<EducationDTO>();
@@ -122,14 +121,14 @@ public class GetAdvisors extends HttpServlet {
 							List<EducationDTO> education1 = advisor.getEducation();
 							int ed=0;
 							for(EducationDTO educ : education1){
-								if(educ.getType() != null &&  educ.getType().equals("pg") && educ.getInstitution() != null){
+								if(educ.getType() != null &&  educ.getType().equals("PG") && educ.getInstitution() != null){
 									jo.put("institution", educ.getInstitution());
 									ed++;
 								}
 							}
 							if(ed == 0){
 								for(EducationDTO educ : education1){
-									if(educ.getType().equals("ug") && educ.getInstitution() != null){
+									if(educ.getType().equals("UG") && educ.getInstitution() != null){
 										jo.put("institution", educ.getInstitution());
 										ed++;
 									}
@@ -163,8 +162,13 @@ public class GetAdvisors extends HttpServlet {
 							SessionDAO sessions= new SessionDAO();
 							consultations =  sessions.GetConsultations(advisor.getId());
 							jo.put("sessions", consultations);
-							
+							System.out.println(advisor.getImage());
+							GetRelativeImageURL image = new GetRelativeImageURL();
+							jo.put("image", advisor.getImage());
+							System.out.println(image.getImageURL(advisor.getImage()));
 							isLeft = false;
+							advcount++;
+							System.out.println("added");
 							array.add(jo);
 					//q= q+advisor.getId();
 				   }else{

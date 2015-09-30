@@ -138,6 +138,13 @@ public class QuestionsController extends HttpServlet {
 		QuestionsDAO ques = new QuestionsDAO();
 		int id = ques.SubmitQuestion(userId,question,category,subcategory);
 		if(id !=0){
+			if(category.equals("higherstudies")){
+				category = "studies";
+			}else if (category.equals("industry")) {
+				category = "industry";
+			}else if (category.equals("options")) {
+				category = "options";
+			}
 			List<Integer> aids = new ArrayList<Integer>();
 			QuestionsDAO ids = new QuestionsDAO();
 			aids = ids.GetSimilarAdvisorIds(category,subcategory);
@@ -146,13 +153,13 @@ public class QuestionsController extends HttpServlet {
 				isCommit = post.PostQuestionToAdvisors(aids,id);
 			}
 			if(isCommit){
-				String comment = "New Question posted on the forum";
-				String href = "adminquestions";
-				AdminNotificationDAO notify = new AdminNotificationDAO();
-				notify.InsertNotification(comment, href);
-			    response.getWriter().write("Your Question has been submitted");
-			
-			}
+
+					String comment = "New Question posted on the forum";
+					String href = "adminquestions";
+					AdminNotificationDAO notify = new AdminNotificationDAO();
+					notify.InsertNotification(comment, href);
+				    response.getWriter().write("Your Question has been submitted");
+				}
 			}
 		
 		}

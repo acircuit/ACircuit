@@ -121,6 +121,12 @@ public class AdvisorProfileController extends HttpServlet {
 			//Getting the number of consultations
 			SessionDAO sessions= new SessionDAO();
 			consultations =  sessions.GetConsultations(advisor.getId());
+			
+			//Calculating price
+			Double price = advisor.getPhonePrice();
+			Double commisionedPrice  = price +( price  * 20 /100);
+			Double finalPrice = commisionedPrice / 60;
+			advisor.setPhonePrice(Math.round(finalPrice));
             
 			List<UserDetailsDTO> userDetails = new ArrayList<UserDetailsDTO>();
 			  //Getting user details

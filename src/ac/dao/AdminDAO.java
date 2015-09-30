@@ -746,4 +746,46 @@ public class AdminDAO {
 		logger.info("Exit UpdateAmount method of AdminDAO");
 		return isCommit;
 	}
+	
+    public List<Integer> GetAdvisorIds(String qid){
+    	logger.info("Entered GetAdvisorIds method of AdminDAO");
+   		List<Integer> list = new ArrayList<Integer>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT A_ID FROM questiontoadvisor WHERE Q_ID=? ";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,qid );
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getInt("A_ID"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorIds method of AdminDAO");
+		return list;
+	}
 }

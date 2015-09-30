@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,27 @@ public class GetAdvisorController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of GetAdvisorController");
+		logger.info("Entered doPost method of AdvisorProfileController");
+		int userId = 0;
+		int advisorId = 0;
+		String advisorPhone="";
+		
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		try{
+			advisorId = (int) request.getSession().getAttribute("advisorId");
+		}catch(Exception e){
+			isError = true;
+		}
+		
+
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		//Getting the sessiondetails for the user
+		if(userId != 0 || advisorId != 0){
 		String category = request.getParameter("category");
 		List<Integer> list = new ArrayList<Integer>();
 		String ids = "";
@@ -68,7 +90,10 @@ public class GetAdvisorController extends HttpServlet {
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
 		
-		
+		System.out.println("higher" + higherStudiesSubCategory.size());
+		System.out.println("industry" + industrySubCategory.size());
+		System.out.println("options" + optionsSubCategory.size());
+
 		request.setAttribute("ids", ids);
 		request.setAttribute("industries", industries);
 		request.setAttribute("institutions", institutions);
@@ -79,6 +104,9 @@ public class GetAdvisorController extends HttpServlet {
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Experts.jsp");
         rd.forward(request, response);
+		}else{
+			response.sendRedirect("error");
+		}
 		logger.info("Exit doPost method of GetAdvisorController");
 	}
 }

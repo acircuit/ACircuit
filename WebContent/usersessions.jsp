@@ -126,7 +126,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				    		        <c:set value="useracceptsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                 <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
-				    		        <c:set value="usercurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                     <c:set value="usercurrentsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				    		        <a href="${sess}">
 					    			<div class="col-xs-12 col-sm-10 no-padding-xs">
@@ -180,7 +180,20 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				    		        <c:set value="usercancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                  <c:if test="${session.getStatus() == 'SESSION COMPLETE'}">
-				    		        <c:set value="userpastsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                    <c:forEach var="review" items="${userReviews}">
+				                         <c:if test="${review.getSessionId() == session.getSessionid()}">
+				                            <c:choose>
+				                            	<c:when test="${review.getRating() != null}">
+				    	                           <c:set value="userpastsession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                            	</c:when>
+				                                 <c:otherwise>
+				                                   <c:set value="useraftersession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                                 </c:otherwise>
+				                            </c:choose>
+				                            </c:if>
+				    	                    <c:if test="${review.getSessionId() == session.getSessionid() && review.getReview() != null}">
+				    	                    </c:if>
+				                      </c:forEach>
 				                 </c:if>
 				    		        <a href="${sess}">
 					    			<div class="col-xs-10">
