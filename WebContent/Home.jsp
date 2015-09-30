@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
+<meta name="description" content="Use Advisor Circuit to connect with people who have been there, done that to achieve your career goals. Discover a new way to get advice. Finally your very own career network. ">
 <meta name="author" content="">
 
   <link rel="shortcut icon" href="https://www.advisorcircuit.com/assets/img/PageTop_Logo.png"> 
@@ -44,7 +44,7 @@
 %>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Career Growth Online| Advisor Circuit</title>
 </head>
 <body>
  <div id="wrapper">

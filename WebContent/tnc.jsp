@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
+<meta name="description" content="Advisor | User | Terms & Conditions of Use">
 <meta name="author" content="">
 
   <link rel="shortcut icon" href="https://www.advisorcircuit.com/assets/img/PageTop_Logo.png"> 
@@ -68,7 +68,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 }
 }
 </style>
-<title>Insert title here</title>
+<title>Terms and Conditions | Advisor Circuit</title>
 
 <body>
  <div id="wrapper">
