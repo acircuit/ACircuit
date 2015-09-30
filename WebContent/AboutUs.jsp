@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="We would love to hear from you! Call us +91 9971232582 or mail us at contactus@advisorcircuit.com">
+<meta name="description" content="The What’s and Who’s of Advisor Circuit. Read on to know about our team.">
 <meta name="author" content="">
 
   <link rel="shortcut icon" href="https://www.advisorcircuit.com/assets/img/PageTop_Logo.png"> 
@@ -29,8 +29,8 @@
 <link href="assets/css/advisor.css" rel="stylesheet">
 <link href="assets/css/notification.css" rel="stylesheet">
 <link href="assets/css/contact-faq.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
@@ -40,7 +40,22 @@
     rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
+<%
+String sessionStatus = (String)request.getParameter("session");
+List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
+List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
+List<SessionDTO> pastSessions = (List<SessionDTO>)request.getAttribute("pastSessions");
+List<AdvisorDTO> advisorDetails1 = (List<AdvisorDTO>)request.getAttribute("advisorDetails1");
+List<ReviewsDTO> userReviews = (List<ReviewsDTO>)request.getAttribute("userReviews");
+List<SessionDTO> sessionDates = (List<SessionDTO>)request.getAttribute("sessionDates");
+List<AdvisorDTO> advisorsForReviews = (List<AdvisorDTO>)request.getAttribute("advisorsForReviews");
+pageContext.setAttribute("sessionStatus", sessionStatus);
+pageContext.setAttribute("userReviews", userReviews);
+pageContext.setAttribute("sessionDates", sessionDates);
+pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 
+
+%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
@@ -49,21 +64,11 @@
  .body-content{
 	background-color: white;
 	min-height: 400px;
-	padding:0px;
-	padding-top: 10px;
-    padding-right: 5px;
-    padding-left: 8px;
-}
-.right-info-div {
-    padding-top: 7px;
-    padding-left: 15px;
-}
-.form-label {
-    font-size: 11px;
+	padding: 15px;
 }
 }
 </style>
-<title>Contact us | Advisor Circuit</title>
+<title>About Us | Advisor Circuit</title>
 
 <body>
  <div id="wrapper">
@@ -75,78 +80,49 @@
 			       	  
 	</div>
 </div>
-   	<div class="main-body-div container no-padding"  id="page-content-wrapper">
-   	<div class="col-xs-12 body-head-div">
-							<span class="body-head-text">Contact Us</span>
+   	<div class="main-body-div container no-padding"  id="page-content-wrapper" >
+   	<div class="col-xs-12 body-head-div"  style="text-align:center !important">
+							<span class="body-head-text">ABOUT US</span>
 	</div>
    		  
-   			<div class="body-content col-xs-12">
-   			<div class="contact-us-head-div">
-   				<span class="contact-us-head-text">Drop us a message and we will get back to you in no time!</span>
-   			</div>
-   			<div class="col-xs-12 col-sm-8">
-   				<form class="book-session no-padding" method="post" action="contactus" id="contact-form">
-   					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Name</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" name="name" type="text" placeholder="Name" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Email Address</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" placeholder="Email" type="email" name="email" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Phone Number</label>
-											       <div class="col-xs-10 form-group">
-				                                       <input class="form-control" type="text" placeholder="Phone Number" name="phone" required>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label">Message</label>
-											       <div class="col-xs-10 form-group">
-				                                       <textarea class="form-control" name="message" required  placeholder="Message" ></textarea>
-											 		</div>
-					</div>
-					<div class="form-group each-form-div">
-											     <label class="col-xs-2 no-padding form-label"></label>
-											       <div class="col-xs-10 form-group">
-				                                      <button type="submit" class="btn send-contact-request" >Send</button>
-											 		</div>
-					</div>
-   				</form>
-   				</div>
-   				<div class="col-xs-12 col-sm-4 right-info-div">
-   				<div class="info-div-contact">
-   				<span class="red-contact-title">Email</span><br>
-				<span class="contact-detail-info">contactus@advisorcircuit.com</span>
-   				</div>
-   				<div class="info-div-contact">
-   				<span class="red-contact-title">PHONE</span><br>
-						<span class="contact-detail-info">9971232582 </span>	
-   				</div>
-   				<div class="info-div-contact">
-   					<span class="red-contact-title">ON THE WEB</span>	
-								<div class="social-icons">
-								<img src="assets/img/Facebook.png">
-								<img src="assets/img/Google Plus.png">
-								<img src="assets/img/LinkedIn.png">
-								<img src="assets/img/Twitter.png">
-				   			</div>
-   				</div>
-   				
+   			<div class="body-content faq-tabs col-xs-12">
+   		
 					
-							
-							
-					
-   	 </div>
-   
-</div>
+					  <!-- Tab panes -->
+					  <div class="tab-content">
+					    <div role="tabpanel" class="tab-pane active" id="customer" style="padding-top: 20px;">
+					    <div class="contact-us-head-div" style="margin-top: 12px; display: none;">
+			   			</div>
+			   			
+					    <span class="intro-text btext" style="text-decoration: underline; font-weight: bold; color: #000000">CAREER GOALS AREN’T MEANT TO BE COMPROMISED</span>
+					    <span class="tnc-text">We’re addicted to dreams. And it just doesn’t make any sense to lose out on them for lack of guidance.</span>
+					    <br><br>
+					    <span class="tnc-text">Our aim is to help people like us choose the right opportunities, prepare better for their career goals and forge passions into realities. We feel this can only be achieved if we network, connect, talk and learn from people who’ve been there and done that and this is why we built <a href = "https://www.advisorcircuit.com">www.advisorcircuit.com.</a></span>
+					    <br><br>
+					    <span class="tnc-text">At Advisor Circuit, people connect & talk to advisors conveniently and leverage their knowledge for the smallest or the most critical career decisions in their lives. </br>It’s a network that helps you reach where you want to go and faster.</span>
+					    <br><br>
+					    <span class="tnc-text"><span style="text-decoration: underline; font-weight: bold; color: #000000">Why did we start this?</span> Analytics, Consulting, KPO, Advertising, Education, Social sector, IT Services, Entrepreneurship & Marketing. These are the fields we shifted before homing on to what we really wanted to do. It was confusing, we didn't like it and we knew a lot of people were going through the same.</span>
+					    <br><br>
+					    <span class="tnc-text"><span style="text-decoration: underline; font-weight: bold; color: #000000">What did we realize?</span> We would have achieved a lot more if we’d have just spoken to the right people.</span>
+					    <br><br>
+					    <span class="tnc-text"><span style="text-decoration: underline; font-weight: bold; color: #000000">Who are we?</span> We’re a part, just like you of a network with great potential. <br>
+                        If you’re curious, follow us on <a href = "https://www.linkedin.com/company/advisor-circuit">LinkedIn</a> & <a href = "https://www.facebook.com/advisorcircuit">Facebook.</a></span>
+					    <br><br>
+					    <span class="intro-text btext" style="text-decoration: underline; font-weight: bold; color: #000000">Not a part of Advisor Circuit?</span>
+					    <button type="button" class="btn red-button sign-up-howp signup-bottom" data-toggle="modal" data-target="#signupmodal">Sign Up for Free</button>
+					    <br><br>
+					    <span class="tnc-text"><span style="text-decoration: underline; font-weight: bold; color: #000000">Share our vision?</span> We’re looking to work with talented, driven people. Say hello <a href = "contact">here.</a></span>
+
+					  
+		                  
+		                  
+					    </div>
+					    
+   </div>
+			</div>
 	 <%@include file="/footer.jsp" %>
 </div>
-
+</div>
 
 <script>
 

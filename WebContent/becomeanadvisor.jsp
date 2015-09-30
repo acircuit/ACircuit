@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
+<meta name="description" content=". Be a mentor, career counsellor or coach. Earn while doing something of value. Work from anywhere. Choose your own timings. Become an advisor now!  ">
 <meta name="author" content="">
 
   <link rel="shortcut icon" href="https://www.advisorcircuit.com/assets/img/PageTop_Logo.png"> 
@@ -57,7 +57,7 @@
 }
 }
 </style>
-<title>Insert title here</title>
+<title>Help career growth | Become an Advisor |– Join Advisor Circuit</title>
 
 <body>
  <div id="wrapper">
