@@ -125,9 +125,10 @@
 				 	</div>
 				 	
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button type="submit" class="btn gt-started" >Reset password</button>
+      						<button type="submit" class="btn gt-started" style="margin-bottom: 7px;">Reset password</button>
 				 	</div>
-				 	
+				 	<br>
+				 	<span class="back-to-login" style="color: #37b7b3;cursor: pointer;font-size:12px;">Login</span>
       		</form>
       	</div>
       </div>
@@ -179,6 +180,10 @@ $('body').on('click', '.move-to-signup', function(e){
 $('body').on('click', '.forgot', function(e){
 		$('#loginform').slideUp();
 		$('#resetform').slideDown();
+});	
+$('body').on('click', '.back-to-login', function(e){
+	$('#resetform').slideUp();
+	$('#loginform').slideDown();
 });	
 $( "#resetform" ).submit(function( event ) {
 	event.preventDefault();

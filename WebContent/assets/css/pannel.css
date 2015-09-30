@@ -755,7 +755,7 @@ color: #e92629;
 #filtermodalixs .modal-content {
     position: absolute!important;
     width:100%!important;
-    height: 100%!important;
+    min-height: 100%!important;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: 0px!important;
     background-color: #eeeeee!important;}

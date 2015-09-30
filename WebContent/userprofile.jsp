@@ -45,10 +45,20 @@
 pageContext.setAttribute("userverification", userverification);
 
 %>
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
+
+<style>
+@media (min-width: 320px) and (max-width: 767px) {
+.dark-button {
+    margin-left: 0px;
+}
+.dark-button, .red-button {
+    margin-top: 8px;
+}
+}
+</style>
+<title>Insert title here</title>
 <body>
  <div id="wrapper">
   <%@include file="/notify.jsp" %>
@@ -68,13 +78,13 @@ pageContext.setAttribute("userverification", userverification);
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #37b7b3;">
 		   			<div class="profile-owner-info col-xs-12 no-padding">
-		   				<div class="col-xs-4 dp-div-profile">
+		   				<div class="col-xs-12 col-sm-4 dp-div-profile">
 		   					 <img class="profile-dp" src="assets/img/Abhishek.JPG"><br>
 		   					<span class="btext change-do change-profile">Change Profile Picture</span>
 		   				
 				                                      <input type="file" class="custom-file-input" style="visibility:hidden;" name="dp"  aria-required="true">
 		   				</div>
-		   				<div class="col-xs-8 info-div-profile">
+		   				<div class="col-xs-12 col-sm-8 info-div-profile">
 		   					<span class="name-profile">${userDetails.getFullName() }</span><br>
 		   					<span class="email-profile">${userDetails.getEmail()}</span><br>
 		   					<c:if test="${userDetails.getPhone() != null}">
@@ -93,7 +103,7 @@ pageContext.setAttribute("userverification", userverification);
 		   				   <c:when test="${userDetails.getFullName() != null &&  userDetails.getGender() != null && userDetails.getOccupation() != null}">
 		   				   <form class="profile-form" action="userprofile" method="post" id="userprofileform">
 		   				        <div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
+		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Full-name</label>
 												       <div class="col-xs-9">
@@ -104,7 +114,7 @@ pageContext.setAttribute("userverification", userverification);
 		   						</div>
 		   						 
 		   						<div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
+		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Gender</label>
 												       <div class="col-xs-9 ">
@@ -177,7 +187,7 @@ pageContext.setAttribute("userverification", userverification);
 		   				   <c:otherwise>
 		   				   <form class="profile-form" action="userprofile" method="post">
 		   				          <div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
+		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Full-name</label>
 												       <div class="col-xs-9">
@@ -188,7 +198,7 @@ pageContext.setAttribute("userverification", userverification);
 		   						</div>
 		   						 
 		   						<div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
+		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Gender</label>
 												       <div class="col-xs-9 ">
@@ -205,7 +215,7 @@ pageContext.setAttribute("userverification", userverification);
 			   						</div>
 		   						</div>
 		   						<div class="col-xs-12 no-padding">
-		   							<div class="col-xs-6 no-padding">
+		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Occupation</label>
 												       <div class="col-xs-9">

@@ -152,7 +152,7 @@
 	<div class="body-content">
 		<div class="col-xs-12 col-sm-3 advisor-left-pannel">
 			<div class="verified-green-div">
-				<span> <img src="assets/img/verified.png" style="width: 32px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> Verified Expert </span> <img src="assets/img/info.png" style="width: 17px;margin-right: 6px;margin-left: 5px;margin-top: 4px;float:right;">
+				<span> <img src="assets/img/verified.png" style="width: 32px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> Verified Expert </span> <img src="assets/img/info.png" style="width: 17px;margin-right: 6px;margin-left: 5px;margin-top: 4px;float:right;" data-toggle="tooltip" data-placement="left" title="Tooltip on right">
 			</div>
 			<div class="can-help-container">
 				<div class="can-help-div">
@@ -437,6 +437,9 @@
 <script>
 
 $(document).ready(function () {
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
 	if(<%=isAdv%>){
    		$(".ask-a-question-button").hide();
    		$(".book-a-session-button").hide();
