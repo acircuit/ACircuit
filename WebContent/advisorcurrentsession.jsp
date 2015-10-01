@@ -90,14 +90,14 @@ pageContext.setAttribute("advName", advName);
 		   		    		</c:if>   
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">${advName}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advName}</span> <span class="name-other-text"></span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   			</div>
 					   			
 					   			<c:if test="${sessionDetails.getMode().equals('video') && sessionDetails.getStatus().equals('SESSION ON SCHEDULE') && sessionDetails.getDays() == 0 && sessionDetails.getHours() == 0 && sessionDetails.getMinutes() == 0}">
-					   			        <a href="AdvisorAccessTokenController?name=${advName}" target="blank" class="btn submit-button">Join Conference</a>
+					   			        <a href="AdvisorAccessTokenController?name=${advName}&sid=${sessionDetails.getSessionid()}" target="blank" class="btn submit-button">Join Conference</a>
 					   			</c:if>
 
 					   		</div>
@@ -155,7 +155,7 @@ pageContext.setAttribute("advName", advName);
 							   			       We will notify you as soon as the user confirms the session. 
 							   			    </span>
 							   			    </c:if>
-							   			    <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE'')}">
+							   			    <c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
 							   			    <span class="step-text-no">
 							   			       Prepare answers to the user’s query before the session.
 							   			       <br><br>

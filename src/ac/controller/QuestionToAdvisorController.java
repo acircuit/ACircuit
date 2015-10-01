@@ -41,7 +41,9 @@ public class QuestionToAdvisorController extends HttpServlet {
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		String aid = request.getParameter("aid");
-		
+		question = question.replaceAll("\r\n", "");
+		question = question.replaceAll("\r", "");
+		question = question.replaceAll("\n", "");
 		QuestionsDAO ques = new QuestionsDAO();
 		int id = ques.SubmitQuestionToAdvisor(question,category,subcategory,userId);
 		if(id !=0){

@@ -85,7 +85,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
    			<div class="body-content col-xs-12 no-padding">
    			
    				<div class="col-xs-12 col-sm-9 no-padding-xs" style="background-color: #EEEEEE;">
-		   			<div class="div-for-notifications col-xs-12 no-padding">
+		   			<div class="div-for-notifications col-xs-12 no-padding" style="display: none">
 			   			<div class="col-xs-12 col-sm-6">
 			   				<img class="noti-img" src="assets/img/current_session.png">
 			   				<div class="gborder-div">
@@ -136,16 +136,16 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
 				                                    <c:if test="${session.getStatus() == 'PENDING APPROVAL' || session.getStatus() == 'PENDING APPROVAL BY ADMIN'}">
-				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR' || session.getStatus() == 'SESSION CANCELLED BY ADMIN'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> On Schedule</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> On Schedule</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    </p>
 				                               </div>
@@ -203,10 +203,10 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
 				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR' || session.getStatus() == 'SESSION CANCELLED BY ADMIN'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'SESSION COMPLETE' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    </p>
 				                               </div>
@@ -390,11 +390,11 @@ $(document).ready(function () {
 });
 
 function similarprofile(value){
-	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
 		       +'<p class="adv-field">'+value.industry+'</p><br>'  
-               +'</div>';		
+               +'</div></a>';		
                $('.similar').append(html);
  }
 function MostViewedQuestionsCard(value){

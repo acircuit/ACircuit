@@ -18,6 +18,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
 import ac.dto.TimeDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 import ac.util.GetTimeLeftForSession;
 
 /**
@@ -64,6 +65,8 @@ public class AdvisorMyAccountCurrentSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO user = new SessionDAO();
 			  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());
+			  GetRelativeImageURL image = new GetRelativeImageURL();
+			  userDetails.setImage(image.getImageURL(userDetails.getImage()));
 			  SessionDTO dates= null;
 			  if(sessionDetails.getStatus().equals("ACCEPTED WITH NEW DATES")){
 				  SessionDAO newDates = new SessionDAO();

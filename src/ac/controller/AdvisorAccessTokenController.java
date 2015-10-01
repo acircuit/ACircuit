@@ -34,12 +34,14 @@ public class AdvisorAccessTokenController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
+		String sId = request.getParameter("sid");
 		name= name.replaceAll(" ", "");
 		name = name.toLowerCase();
 		AccessToken token = new AccessToken(SIGNINGKEY_SID, ACCOUNT_SID, SIGNINGKEY_SECRET);
 		token.addGrant(new EndpointGrant(name));
 		token.enableNTS();
 		request.setAttribute("token", token.toJWT());
+		request.setAttribute("sId",sId);
 		RequestDispatcher rd = getServletContext()
 				.getRequestDispatcher("/VideoCallAdvisor.jsp");
 		rd.forward(request, response);

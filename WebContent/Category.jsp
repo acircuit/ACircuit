@@ -7,23 +7,23 @@
   						<button class="big-button bblue" name="bb1"><img class="category-im svg" src="assets/img/home_higher_studies.svg">
   							<br class="hidden-xs"><span>Higher studies</span></button>
   							<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
+  						<span class="hidden-xs">Solve all your doubts regarding higher studies and how to prepare for it.</span>
   					</div>
   				</div>
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
   						<button class="big-button bpink" name="bb2"><img class="svg" src="assets/img/home_industry.svg">
-  							<br class="hidden-xs"><span>Industry</span></button>
+  							<br class="hidden-xs"><span>Career & Jobs</span></button>
   						<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
+  						<span class="hidden-xs">Explore and understand different career, job options and how to make it in the industry.</span>
   					</div>
   				</div>
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">
   						<button class="big-button bgreen" name="bb3"><img class="svg" src="assets/img/home_courses.svg">
-  							<br class="hidden-xs"><span>Courses</span></button>
+  							<br class="hidden-xs"><span>Course</span></button>
  							<br class="hidden-xs"><br class="hidden-xs">
-  						<span class="hidden-xs ">Understand the choices are available to you, the do's and don'ts. Talk to somebody with experience.</span>
+  						<span class="hidden-xs ">Have all your questions which come to mind while studying in college answered.</span>
   					</div>
   				</div>
   			</div>

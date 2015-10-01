@@ -1,6 +1,8 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,9 @@ import org.apache.log4j.Logger;
 import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.SessionDAO;
+import ac.dto.SessionDTO;
+import ac.dto.UserDetailsDTO;
+import ac.util.SendMail;
 
 /**
  * Servlet implementation class UserMyAccountCancelSessionController
@@ -41,9 +46,36 @@ public class UserMyAccountCancelSessionController extends HttpServlet {
 				notify.InsertNotification(comment,String.valueOf(aid),href); 
 			//notify admin
 			String comment1 = "The session request has been rejected by the user";
-			String href1 = "adminsessionviewdetails?sId="+sid;
+			String href1 = "adminsessionviewdetails?sid="+sid;
 			AdminNotificationDAO admin = new AdminNotificationDAO();
 			admin.InsertNotification(comment1, href1);
+			SessionDAO user = new SessionDAO();
+			int[] ids =   user.GetUserAdvisorIds(sid);
+			SessionDAO advisorName = new SessionDAO();
+			String advName = advisorName.GetAdvisorName(ids[0]);
+			SessionDAO users = new SessionDAO();
+			UserDetailsDTO userName  = users.GetUserName(ids[1]);
+			SessionDAO sessions = new SessionDAO();
+			SessionDTO sessionDetails = sessions.GetSessionDetails(sid);
+			Properties prop = new Properties();
+    		InputStream resourceAsStream = Thread.currentThread()
+    				.getContextClassLoader()
+    				.getResourceAsStream("ac/resources/Mail.properties");
+    		prop.load(resourceAsStream);
+			String subject = "User has rejected the session request- #"+sid;
+			String content = "Hello, <br><br>"
+					+ "The session had been rejected by the user.<br><br>"
+					+ "1.Session ID : "+sid+"<br>"
+					+ "2.Username: "+userName+"<br>"
+					+ "3.Advisorname:"+advName+"<br>"
+					+ "4.Mode: "+sessionDetails.getMode()+"<br>"
+					+ "5.Date and Time:"+sessionDetails.getAcceptedDate() +"and"+ sessionDetails.getAcceptedTime()+""
+					+ "6.Duration:"+sessionDetails.getDuration()+"<br>"
+					+ "7.Cost of session"+sessionDetails.getSessionPrice()+"<br>"
+					+ " <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+			SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+			mail.start();
+			
 			response.sendRedirect("usercancelledsession?sId="+sid);
 		}
 		logger.info("Entered doGet method of UserMyAccountCancelSessionController");

@@ -26,7 +26,14 @@ public class QuestionsDTO {
 	private Boolean toForum;
 	private String postedOnDate;
 	private String status;
+	private String advisorName;
 
+	public String getAdvisorName() {
+		return advisorName;
+	}
+	public void setAdvisorName(String advisorName) {
+		this.advisorName = advisorName;
+	}
 	public String getStatus() {
 		return status;
 	}

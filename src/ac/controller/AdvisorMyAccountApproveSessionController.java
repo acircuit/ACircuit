@@ -1,6 +1,9 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.dao.AdminNotificationDAO;
 import ac.dao.SessionDAO;
 import ac.dao.UserNotificationDAO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
+import ac.util.SendMail;
 
 /**
  * Servlet implementation class AdvisorMyAccountApproveSessionController
@@ -43,11 +49,11 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
 		  //Getting the session details for the page
 		  SessionDAO session = new SessionDAO();
 		  SessionDTO sessionDetails= session.GetSessionDetails(sid);
-		
 		  //Getting user details 
 		  SessionDAO user = new SessionDAO();
 		  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());
-		
+		  GetRelativeImageURL image = new GetRelativeImageURL();
+		  userDetails.setImage(image.getImageURL(userDetails.getImage()));
 		  request.setAttribute("sessionDetails", sessionDetails);
 		   request.setAttribute("userDetails", userDetails);
 		  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorrequestviewdetails.jsp");
@@ -82,6 +88,9 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
           String[] dateTime = null ;
           String acceptedDate="";
           String acceptedTime=""; 
+          sessionPlan = sessionPlan.replaceAll("\r\n", "");
+          sessionPlan = sessionPlan.replaceAll("\r", "");
+          sessionPlan = sessionPlan.replaceAll("\n", "");
           if(acceptedDateTime != null){
            dateTime = acceptedDateTime.split("::");
            acceptedDate = dateTime[0];
@@ -102,17 +111,99 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
           if(isCommit){
         	  if(isNewDatesCommit){
           		//Notify the user 
-  				String comment = "Your request has been accepted by the Advisor with revised dates! Choose 1 date and Pay to confirm the session";
+  				String comment = "Your request has been accepted by the Advisor with revised dates! Choose 1 date and Recharge your wallet.";
   				String href = "useracceptsession?sId="+sessionId;
   				UserNotificationDAO userNotification = new UserNotificationDAO();
   				userNotification.InsertNotification(comment, href, userId);
+  		   	    String comment1 = "Advisor accepted the session with revised dates";
+				String ahref = "adminsessions?sid="+sessionId;
+				//Notify Admin
+				AdminNotificationDAO notify = new AdminNotificationDAO();
+				notify.InsertNotification(comment1, ahref);
+				Properties prop = new Properties();
+        		InputStream resourceAsStream = Thread.currentThread()
+        				.getContextClassLoader()
+        				.getResourceAsStream("ac/resources/Mail.properties");
+        		prop.load(resourceAsStream);
+				//Send Mail to Admin
+				String subject = "Advisor accepted the session with revised dates!";
+				String content = "Hi, <br><br>Advisor accepted the session with revised dates <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+				SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+				mail.start();
+				SessionDAO adv = new SessionDAO();
+				String name = adv.GetAdvisorName(advisorId);
+				SessionDAO user = new SessionDAO();
+				UserDetailsDTO userDetails = user.GetUserDetails(Integer.valueOf(userId));
+			
+				String subject4 = "Your session request has been accepted by the advisor.";
+				String content4 = "Hello, <br><br>"
+						+ "Your session has been accepted!  However, the advisor was not comfortable with your dates so he’s sent you three of his own choice. He’s also sent across a session plan to help you understand how the session will be conducted."
+						+ "<br><br>"
+						+ "You can now accept the session with one of the advisor’s dates or cancel the session."
+						+ "<br><br>"
+						+ "Advisor Name:"+name+""
+								+ "<br>"
+						+ "Reply:"+sessionPlan+""
+						+ "Session Plan : "+sessionPlan+""
+						+ "<br><br>"
+						+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"/useracceptsession?sId="+sessionId+"'>Click here to view details and confirm session</a><br><br>"
+						+ "<span style='text-decoration:underline; font-weight:bold'>Remember this session will lapse if you fail to pay within 48 Hours.</span><br><br>"
+						+ "Please reach out to us for any doubts or clarifications!<br><br>"
+						+ "<span style='text-decoration:underline; font-weight:bold'>Team Advisor Circuit</span>"
+								+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+					SendMail mail1 = new SendMail(subject4, content4, userDetails.getEmail(),prop.getProperty("MAIL_ADMIN"));
+					mail1.start();
           	    response.sendRedirect("advisorcurrentsession?sId="+sessionId+"&action=newdates");
+          	    
+       
         	  }else{
         		//Notify the user 
-  				String comment = "Your request has been accepted by the Advisor! Pay to confirm the session";
+  				String comment = "Your request has been accepted by the Advisor! Recharge your wallet.";
   				String href = "useracceptsession?sId="+sessionId;
   				UserNotificationDAO userNotification = new UserNotificationDAO();
   				userNotification.InsertNotification(comment, href, userId);
+  				
+  			    String comment1 = "Advisor accepted the session";
+				String ahref = "adminsessions?sid="+sessionId;
+				//Notify Admin
+				AdminNotificationDAO notify = new AdminNotificationDAO();
+				notify.InsertNotification(comment1, ahref);
+				
+				Properties prop = new Properties();
+        		InputStream resourceAsStream = Thread.currentThread()
+        				.getContextClassLoader()
+        				.getResourceAsStream("ac/resources/Mail.properties");
+        		prop.load(resourceAsStream);
+				//Send Mail to Admin
+				String subject = "Advisor accepted the session!";
+				String content = "Hi, <br><br>Advisor accepted the session.<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+				SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+				mail.start();
+				
+				SessionDAO user = new SessionDAO();
+				UserDetailsDTO userDetails = user.GetUserDetails(Integer.valueOf(userId));
+				
+				SessionDAO adv = new SessionDAO();
+				String name = adv.GetAdvisorName(advisorId);
+				String subject4 = "Your session request has been accepted by the advisor.";
+				String content4 = "Hello, <br><br>"
+						+ "Your session request to "+name+" has been accepted!"
+						+ "<br><br>"
+						+ "To understand how the session will be conducted, the advisor has sent you a session plan. Please recharge your wallet with the minimum amount in order to confirm the session. "
+						+ "<br><br>"
+						+ "Advisor Name:"+name+""
+								+ "<br>"
+						+ "Accepted Date and Time:"+acceptedDate+","+acceptedTime+"<br>"
+						+ "Session Plan : "+sessionPlan+""
+						+ "<br><br>"
+						+ "<span style='text-decoration:underline; font-weight:bold'>Remember this session will lapse if you fail to pay within 48 Hours.</span><br><br>"
+						+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"/useracceptsession?sId="+sessionId+"'>Click here to confirm the Session</a><br><br>"
+						+ "Feel free to reach us if you have any questions!<br><br>"
+						+ "<span style='text-decoration:underline; font-weight:bold'>Team Advisor Circuit</span>"
+								+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+					SendMail mail1 = new SendMail(subject4, content4, userDetails.getEmail(),prop.getProperty("MAIL_ADMIN"));
+					mail1.start();
+  				
           	    response.sendRedirect("advisorcurrentsession?sId="+sessionId);
         	  }
         		

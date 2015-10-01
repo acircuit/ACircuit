@@ -39,7 +39,7 @@
                 List<String> languages = (List<String>)request.getAttribute("languages");
                 List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
                 List<AnswerDTO> answers = (List<AnswerDTO>)request.getAttribute("answers");
-             
+                List<AdvisorDTO> advisors = (List<AdvisorDTO>)request.getAttribute("advisors");
                 List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
                 List<String> popCats = (List<String>)request.getAttribute("popCats");
 
@@ -86,7 +86,7 @@
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
-			   			<span class="answers-count">32 Answers</span>
+			   			<span class="answers-count">${answers.size()} Answers</span>
 			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
@@ -94,7 +94,15 @@
 		   				<c:forEach items="${questions}" var="question">
  							 <div class="each-question-div row" id="${question.getQuestionId()}">
 				   				<div class="col-xs-12 tag-div">
-									<span class="tag">${question.getCategory()}</span>
+				   					<c:if test="${question.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${question.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${question.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${question.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div">
@@ -104,12 +112,16 @@
 				   				</div> 
 				   				<div class="col-xs-9 answer-div" >
 									<span class="by-whom">
-									<span class="nameA">Raghu Venkat </span> answered
+									<c:forEach items="${advisors }" var="advisor">
+										<c:if test="${advisor.getId() == question.getAdvisor_id()}">
+											<span class="nameA">${advisor.getName()} </span> answered
+										</c:if>
+									</c:forEach>
 									</span>
 									<p  class="answer-to-question">
 									<c:forEach items="${answers }" var="answer">
 										<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
-											${answer.getAnswer()} <span class="more">more</span>
+											${answer.getAnswer()} 
 										</c:if>
 									</c:forEach>
 									</p>
@@ -140,13 +152,13 @@
                     </div>
 	   			</div>
    			</div>
-   			<div class="load-more-div col-xs-12" style="margin-top:30px;">
+   	<!-- 		<div class="load-more-div col-xs-12" style="margin-top:30px;">
    				<div class="col-xs-9" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;">
 	   						<button type="button" class="btn load-more" style="width: 200px;">
 	  											Load more</button>
 	
 	   					</div>
-   			</div>
+   			</div> -->
    			</div>
    	 </div>
    	  <%@include file="/askqmodal.jsp" %>
@@ -191,7 +203,14 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">'+value.category+'</a>';
+	var html = '<a class="rel-category">';
+	  if(value.category == "higherstudies"){
+		  html+='Higher Studies</a>';
+	  }else if (value.category == "industry") {
+		  html+='Career & Jobs</a>';
+	}else if (value.category == "options") {
+		html+='Course</a>';
+	}
 	 $('.poptags').append(html);
 }
 function questioncard(value){
@@ -210,7 +229,7 @@ function questioncard(value){
 			+'<span class="nameA">Raghu Venkat </span> answered'
 			+'</span>'
 			+'<p class="answer-to-question">'
-			+value.answer+'<span class="more">more</span>'
+			+value.answer
 
 			+'</p>'
 			+'</div>'

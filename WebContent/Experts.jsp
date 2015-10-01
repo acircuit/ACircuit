@@ -72,15 +72,15 @@
 								  <c:if test="${langCounter <=10 }">
  									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
 									<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
+									<c:if test="${language.equals('English') || language.equals('Hindi')}">
 									<div class="form-group squaredThree">
 							  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
 								      <label for="lan${lang}"></label><span>${language}</span>
-							      </div>
+							       </div>
+							      </c:if>
 							      </c:if>
  							</c:forEach>
-							<c:if test="${languages.size() > 10 }">
  								<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
- 							  </c:if> 
   					</form>
    						<form>
    							<div class="filter-type">
@@ -89,7 +89,7 @@
     							<c:set value="0" var="indCounter"></c:set>
   							 <c:forEach var="industry" items="${industries}">
                                   <c:set value="${indCounter +1 }" var="indCounter"></c:set>
- 								  <c:if test="${indCounter <=10 }">							 
+ 								  <c:if test="${indCounter <=5 }">							 
  							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
 							      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
 							      <div class="form-group squaredThree">
@@ -98,7 +98,7 @@
 							      </div>
  							      </c:if>
  							  </c:forEach>
-							<c:if test="${industries.size() >10 }">
+							<c:if test="${industries.size() >5 }">
 						        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
 						     </c:if>  
 						</form>
@@ -109,16 +109,14 @@
     							   <c:set value="0" var="insCounter"></c:set>
  							   <c:forEach var="institution" items="${institutions}">
 							    <c:set value="${insCounter +1 }" var="insCounter"></c:set>
-								  <c:if test="${insCounter <=10 }">			
-							   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
-							      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
+								  <c:if test="${insCounter <=5 }">			
 							      <div class="form-group squaredThree">
 							  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
 								      <label for="col${institute}"></label><span>${institution}</span>
 							      </div>
  							      </c:if>
  							  </c:forEach>
-							 <c:if test="${institutions.size() > 10 }">
+							 <c:if test="${institutions.size() > 5 }">
 						        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
 						     </c:if>  
 						</form>
@@ -200,8 +198,8 @@
 							     <div class="col-xs-12">
 							    	<div class="col-xs-5 no-padding">
 							      		<form class="search-form-modal" >
-							      		<input  class="form-control search-box-modal" type="text" placeholder="Search"  name="word" autocomplete="off">
-							      		</form>
+<!-- 							      		<input  class="form-control search-box-modal" type="text" placeholder="Search"  name="word" autocomplete="off">
+ -->							      		</form>
 							    	</div>
 							    	<!-- <div class="col-xs-7">
 							   			 <span class="alpha">A</span>
@@ -264,52 +262,52 @@
 								              <c:set value="0" var="langCounter"></c:set>
 												 <c:forEach var="language" items="${languages}">
 					   							      <c:set value="${langCounter +1 }" var="langCounter"></c:set>
-													  <c:if test="${langCounter <=10 }">
-					 									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
+<%-- 													  <c:if test="${langCounter <=10 }">
+ --%>					 									<c:set var="lang" value="${language.replaceAll(' ','_')}"></c:set>
 														<c:set var="lang" value="${lang.replaceAll(',','')}"></c:set>
 														<div class="form-group squaredThree col-xs-12">
 												  	      <input type="checkbox" id="lan${lang}" name="${language}"/>
 													      <label for="lan${lang}"></label><span>${language}</span>
 												      </div>
-												      </c:if>
-					 							</c:forEach>
-												<c:if test="${languages.size() > 10 }">
+<%-- 												      </c:if>
+ --%>					 							</c:forEach>
+												<%-- <c:if test="${languages.size() > 10 }">
 					 								<a href="#" id="languageFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-					 							  </c:if> 
+					 							  </c:if>  --%>
 								       </div>
 								       <div class="filters-in-modal mobind" style="display: none">
 								       	<c:set value="0" var="indCounter"></c:set>
 			  							 <c:forEach var="industry" items="${industries}">
 			                                  <c:set value="${indCounter +1 }" var="indCounter"></c:set>
-			 								  <c:if test="${indCounter <=10 }">							 
-			 							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
+<%-- 			 								  <c:if test="${indCounter <=10 }">							 
+ --%>			 							      <c:set var="indus" value="${industry.replaceAll(' ','_')}"></c:set>
 										      <c:set var="indus" value="${indus.replaceAll(',','')}"></c:set>
 										      <div class="form-group squaredThree">
 										  	      <input type="checkbox" id="ind${indus}" name="${industry}"/>
 											      <label for="ind${indus}"></label><span>${industry}</span>
 										      </div>
-			 							      </c:if>
-			 							  </c:forEach>
-										<c:if test="${industries.size() >10 }">
+<%-- 			 							      </c:if>
+ --%>			 							  </c:forEach>
+										<%-- <c:if test="${industries.size() >10 }">
 									        <a href="#" id="industryFilter" data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-									     </c:if>  
+									     </c:if>   --%>
 						    			 </div>
 						    			  <div class="filters-in-modal mobins" style="display: none">
 								       	   <c:set value="0" var="insCounter"></c:set>
 				 							   <c:forEach var="institution" items="${institutions}">
 											    <c:set value="${insCounter +1 }" var="insCounter"></c:set>
-												  <c:if test="${insCounter <=10 }">			
-											   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
+<%-- 												  <c:if test="${insCounter <=10 }">			
+ --%>											   	  <c:set var="institute" value="${institution.replaceAll(' ','_')}"></c:set>
 											      <c:set var="institute" value="${institute.replaceAll(',','')}"></c:set>
 											      <div class="form-group squaredThree">
 											  	      <input type="checkbox" id="col${institute}" name="${institution}"/>
 												      <label for="col${institute}"></label><span>${institution}</span>
 											      </div>
-				 							      </c:if>
-				 							  </c:forEach>
-											 <c:if test="${institutions.size() > 10 }">
+<%-- 				 							      </c:if>
+ --%>				 							  </c:forEach>
+											<%--  <c:if test="${institutions.size() > 10 }">
 										        <a href="#" id="institutionFilter"  data-toggle="modal" onclick="OpenFIlterModal(this)" class="show-more-filter">Show more</a>
-										     </c:if>  
+										     </c:if>   --%>
 						    			 </div>
 								      </div>
 								      
@@ -348,13 +346,13 @@ function defaultcall(){
       	var obj = JSON.parse(response);
       	$.each(obj, function(key,value) {
       		if(value.name != "noadv"){
-      			 var word = value.designation+' in '+value.company;
+      			 var word = value.company;
         		 var length = word.length;
         		 if(length > 30){
         			 word = word.substring(0, 28);
         			 word = word+'..';
         		 }
-        		 value.designation = word;
+        		 value.company = word;
         		 expertcard(value);
       		}else{
       			 document.getElementById("loadmore").style.display = 'block';
@@ -424,9 +422,16 @@ function expertcard(value)
 			+'<div class="col-xs-8">'
 			+'<div class="Apinfo">'
 			+'<span class="Aname">'+value.name+'</span><br>'
-			+'<span class="Afeild">'+value.subcategory+'</span>'
-			+'<div class="attributes">'
-			+'<span> <img src="assets/img/experts_company.svg"> '+value.designation+' </span><br>'
+			+'<span class="Afeild">'+value.subcategory1;
+	 html = html
+	        if(typeof value.subcategory2 != 'undefined'){
+	        	+'|'+value.subcategory2+'</span>';
+	        }else{
+	        	+'</span>';
+	        }
+	html = html
+	        +'<div class="attributes">'
+			+'<span> <img src="assets/img/experts_company.svg"> '+value.company+' </span><br>'
 			+'<span> <img src="assets/img/experts_category.svg"> '+value.institution+'</span><br>'
 			+'<span> <img src="assets/img/experts_question.svg"> '+value.answers+' Answers</span>'
 			+'</div>'
@@ -435,7 +440,7 @@ function expertcard(value)
 			+'</div>'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="b-strip">'
-			+'<button type="button" class="btn red-button col-xs-4 col-sm-6 col-md-4"><span>Rs500/</span>session</button>'
+			+'<button type="button" class="btn red-button col-xs-4 col-sm-6 col-md-4"><span>Rs '+value.price+'/</span>min</button>'
 			+'<form class="ask-form col-xs-8 col-sm-6 col-md-8" style="padding-right:0px;"><input  class="form-control ask-box" type="text" placeholder="Ask a question"></form>'
 			+'</div>'
 			+'</div>'
@@ -498,13 +503,13 @@ var filterString = "";
 			            			 document.getElementById("loadmorefilters").style.display = 'none';
 			            			 return false;
 			            		 }
-			            		 var word = value.designation+' in '+value.company;
+			            		 var word = value.company;
 			            		 var length = word.length;
 			            		 if(length > 30){
 			            			 word = word.substring(0, 28);
 			            			 word = word+'..';
 			            		 }
-			            		 value.designation = word;
+			            		 value.company = word;
 			            		 expertcard(value);
 			            		 count++;
 			            		}else{
@@ -548,13 +553,13 @@ function GetLeftAdvisors(){
         			 document.getElementById("loadmorefilters").style.display = 'block';
         			 return false;
         		 }
-        		 var word = value.designation+' in '+value.company;
+        		 var word = value.company;
         		 var length = word.length;
         		 if(length > 30){
         			 word = word.substring(0, 28);
         			 word = word+'..';
         		 }
-        		 value.designation = word;
+        		 value.company = word;
 
         		 expertcard(value);
         		 count++;
@@ -657,13 +662,13 @@ function GetResultAccordingToSubCategory(elem){
       		var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
-          			 var word = value.designation+' in '+value.company;
+          			 var word = value.company;
             		 var length = word.length;
             		 if(length > 30){
             			 word = word.substring(0, 28);
             			 word = word+'..';
             		 }
-            		 value.designation = word;
+            		 value.company = word;
           		     expertcard(value);
           		     count++;
           			 document.getElementById("loadmoresub").style.display = 'none';
@@ -712,13 +717,13 @@ function GetResultsUsingSubCategory(){
           	var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
-          			 var word = value.designation+' in '+value.company;
+          			 var word = value.company;
             		 var length = word.length;
             		 if(length > 30){
             			 word = word.substring(0, 28);
             			 word = word+'..';
             		 }
-            		 value.designation = word;
+            		 value.company = word;
           		 expertcard(value);
 				 document.getElementById("loadmoresub").style.display  = "none";
 
@@ -763,13 +768,13 @@ function GetLeftAdvisorsUsingSubcategory(){
         	var noadv =false;
         	$.each(obj, function(key,value) {
         		 if(value.name !="noadv" &&  value.name !="id"){
-        			 var word = value.designation+' in '+value.company;
+        			 var word = value.company;
             		 var length = word.length;
             		 if(length > 30){
             			 word = word.substring(0, 28);
             			 word = word+'..';
             		 }
-            		 value.designation = word;
+            		 value.company = word;
         		  expertcard(value);
        			 document.getElementById("loadmoresub").style.display = 'none';
         		 }else if (value.name =="id") {
@@ -818,9 +823,23 @@ function GetMoreAdvisors(){
   		    paging++;
         	$.each(obj, function(key,value) {
         		 if(value.name !="noadv"){
+        			 var word="";
+        			 if(typeof value.company == "undefined"){
+        				 word = "Currently Studying"
+        			 }else{
+        				 word = value.company;
+                		 var length = word.length;
+                		 if(length > 30){
+                			 word = word.substring(0, 28);
+                			 word = word+'..';
+                		 }
+        			 }
+        			
+            		 value.company = word;
         		  expertcard(value);
+        		  document.getElementById("loadmore").style.visibility = "hidden";
         		 }else{
-        			 document.getElementById("loadmore").style.visibility = "hidden";
+        			 document.getElementById("loadmore").style.visibility = "block";
         		 }
         		}); 
         	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;

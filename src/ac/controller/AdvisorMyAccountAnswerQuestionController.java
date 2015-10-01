@@ -44,6 +44,9 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		     String qid = request.getParameter("qid");
 		     String aid = request.getParameter("aid");
 		     QuestionsDAO answers = new QuestionsDAO();
+		     answer = answer.replaceAll("\r\n", "");
+		     answer = answer.replaceAll("\r", "");
+		     answer = answer.replaceAll("\n", "");
 		     int aId = answers.SubmitAnswer(qid,aid,answer);
 		     //Marking the question as answered and incrementing the count
 		     QuestionsDAO question = new QuestionsDAO();

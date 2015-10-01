@@ -28,11 +28,13 @@ import org.apache.log4j.Logger;
 
 
 
+
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 import ac.dto.SessionDTO;
 import ac.jdbc.ConnectionFactory;
+import ac.util.GetRelativeImageURL;
 
 public class QuestionsDAO {
 	private static final Logger logger = Logger.getLogger(QuestionsDAO.class);
@@ -161,7 +163,7 @@ public class QuestionsDAO {
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				AnswerDTO que = new AnswerDTO();
-				que.setAdvisor_id(results.getInt("AID"));
+				que.setAdvisor_id(results.getInt("ADVISOR_ID"));
 				que.setQuestionId(results.getInt("QID"));
 				que.setAnswer(results.getString("ANSWER"));
 				que.setTime(results.getTimestamp("TIMESTAMP"));
@@ -308,7 +310,8 @@ public class QuestionsDAO {
 				AdvisorDTO adv = new AdvisorDTO();
 				adv.setId(results.getInt("ADVISOR_ID"));
 				adv.setName(results.getString("NAME"));
-				adv.setImage(results.getString("IMAGE"));
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				adv.setImage(image.getImageURL(results.getString("IMAGE")));
 				adv.setIndustry(results.getString("INDUSTRY"));
 				list.add(adv);
 			}

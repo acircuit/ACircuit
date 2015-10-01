@@ -1,6 +1,8 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.SendMail;
 
 /**
  * Servlet implementation class AdminMyAccountSessionViewDetailsController
@@ -99,6 +102,28 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
    				//Notification for Advisor
    				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
    				notify.InsertNotification(comment,aid,href); 
+   				SessionDAO user = new SessionDAO();
+        		UserDetailsDTO userDetails = user.GetUserName(Integer.valueOf(uid));
+        		SessionDAO query = new SessionDAO();
+        		SessionDTO sessionDetails =  query.GetSessionDetails(sId);
+        		Properties prop = new Properties();
+        		InputStream resourceAsStream = Thread.currentThread()
+        				.getContextClassLoader()
+        				.getResourceAsStream("ac/resources/Mail.properties");
+        		prop.load(resourceAsStream);
+   				String subject = "You have a new  session request.";
+				String content = "Hello, <br><br>"
+						+ "Someone is looking for your Advice. Following are the details:"
+						+ "<br><br>"
+						+ "Session Id:"+sId+""
+						+ "<br>"
+						+ "User Name:"+userDetails.getFullName()+""
+								+ "<br>"
+						+ "Query:"+sessionDetails.getQuery()+" "
+								+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"/approvesession?sId="+sId+"'>Click here to view the request</a><br>"
+								+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+				SendMail mail = new SendMail(subject, content, userDetails.getEmail(),prop.getProperty("MAIL_ADMIN"));
+				mail.start();
         	 }
          }else if (action != null && action.equals("reject")) {
         	 SessionDAO session = new SessionDAO();

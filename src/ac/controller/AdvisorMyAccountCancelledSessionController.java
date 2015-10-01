@@ -15,6 +15,7 @@ import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class AdvisorMyAccountCancelledSessionController
@@ -45,6 +46,8 @@ public class AdvisorMyAccountCancelledSessionController extends HttpServlet {
 			  //Getting user details 
 			  SessionDAO user = new SessionDAO();
 			  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());
+			  GetRelativeImageURL image = new GetRelativeImageURL();
+			  userDetails.setImage(image.getImageURL(userDetails.getImage()));
 
 			  request.setAttribute("sessionDetails", sessionDetails);
 			  request.setAttribute("userDetails", userDetails);

@@ -421,4 +421,47 @@ public class RegistrationDAO {
 		return isCommit;
 	}
 	
+	public Boolean  UpdateUserImage(int userId,String path) { 
+		logger.info("Entered UpdateUserImage method of RegistrationDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE userdetails SET IMAGE= ? WHERE USER_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, path);
+			pstmt.setInt(2, userId);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateUserImage method of RegistrationDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateUserImage method of RegistrationDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateUserImage method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateUserImage method of RegistrationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateUserImage method of RegistrationDAO");
+		return isCommit;
+	}
+	
 }

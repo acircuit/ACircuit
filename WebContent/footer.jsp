@@ -38,7 +38,7 @@ else if( session.getAttribute("advisorId") !=null){
 					</c:otherwise>
 				</c:choose>
 				</fmt:bundle>
-				<li>About Us</li>
+				<li><a href="aboutus" style="color: #4a4a4a">About Us</a></li>
 				<li><a href="tnc" style="color: #4a4a4a">Terms & Conditions</a></li>
 				<li><a href="privacypolicy" style="color: #4a4a4a">Privacy Policy </a></li>
 				<li><a href="contact" style="color: #4a4a4a">Contact Us </a></li>
@@ -67,7 +67,7 @@ else if( session.getAttribute("advisorId") !=null){
 				<span class="list-head">CONTACT</span>
 				<ul class="page-ul contact-ul">
 				<li><img src="assets/img/footer_email.png"> contactus@advisorcircuit.com</li>
-				<li><img src="assets/img/footer_phone.png"> +919971232582</li>
+				<li><img src="assets/img/footer_phone.png"> +91 9971232582</li>
 				</ul>
 				<div class="social-icons">
 				<a href="https://www.facebook.com/advisorcircuit" target="blank"><img src="assets/img/Facebook.png"></a>

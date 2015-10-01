@@ -277,6 +277,7 @@ public class MyCacheBuilder
 
 			GetRelativeImageURL relPath = new GetRelativeImageURL();
 			String path = relPath.getImageURL(adv.getImage());
+			logger.info(path);
             adv.setImage(path);
 			for(EducationDTO edu : education){
 				if(edu.getAdvisorId() == adv.getId()){

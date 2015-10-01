@@ -504,8 +504,13 @@ The advisor will then choose one of these dates or suggest 2 of their own if non
 					  </div>
    
 			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			
 	 <%@include file="/footer.jsp" %>
-</div>
 
 
 <script>

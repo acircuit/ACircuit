@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,14 @@ import org.apache.log4j.Logger;
 import ac.dao.RegistrationDAO;
 import ac.dao.SessionDAO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
+import ac.util.SetFormImage;
 
 /**
  * Servlet implementation class UserProfileController
  */
 @WebServlet("/UserProfileController")
+@MultipartConfig
 public class UserProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(UserProfileController.class);
@@ -43,6 +47,8 @@ public class UserProfileController extends HttpServlet {
 		if(userId != 0){
 			 SessionDAO user = new SessionDAO();
 			 UserDetailsDTO userDetails = user.GetUserDetails(userId);
+			 GetRelativeImageURL images = new GetRelativeImageURL();
+			 userDetails.setImage(images.getImageURL(userDetails.getImage()));
 			 request.setAttribute("userDetails", userDetails);
 			 RequestDispatcher rd = getServletContext().getRequestDispatcher("/usereditprofile");
 	         rd.forward(request, response);	
@@ -72,27 +78,44 @@ public class UserProfileController extends HttpServlet {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
 		if(userId != 0){
-			String name = request.getParameter("name");
-			String male = request.getParameter("radiomale");
-			String female = request.getParameter("radiofemale");
-			String occupation = request.getParameter("occupation");
-	        String  phone = request.getParameter("phone");
-	        String gender="";
-	        if(male.equals("male")){
-	        	gender = "male";
-	        }else{
-	        	gender = "female";
-	        }
-	        if(name != null && occupation != null){
-	        	
-	        	RegistrationDAO user = new RegistrationDAO();
-	        	Boolean isUpdated = user.UpdateUserProfile(name,gender,occupation,phone,userId );
-	        	if(isUpdated){
-	        		 request.setAttribute("profileUpdate", "true");
-	    			 doGet(request, response);
-	        	}
-	        	
-	        }
+			if(request.getParameter("email") != null){
+				String email = request.getParameter("email");
+				SetFormImage image = new SetFormImage();
+				String path = image.putImage(request, response, email, "USER");
+				System.out.println(path);
+				RegistrationDAO userImage = new RegistrationDAO();
+				Boolean isCommit =  userImage.UpdateUserImage(userId,path);
+				if(isCommit){
+					GetRelativeImageURL images = new GetRelativeImageURL();
+					request.getSession().setAttribute("path", images.getImageURL(path));
+					doGet(request, response);
+				}
+			}else{
+				String name = request.getParameter("name");
+				String male = request.getParameter("radiomale");
+				String female = request.getParameter("radiofemale");
+				String occupation = request.getParameter("occupation");
+		        String  phone = request.getParameter("phone");
+		        String gender="";
+		        if(male.equals("male")){
+		        	gender = "male";
+		        }else{
+		        	gender = "female";
+		        }
+		        if(name != null && occupation != null){
+		        	
+		        	RegistrationDAO user = new RegistrationDAO();
+		        	Boolean isUpdated = user.UpdateUserProfile(name,gender,occupation,phone,userId );
+		        	if(isUpdated){
+		        		 request.setAttribute("profileUpdate", "true");
+		    			 doGet(request, response);
+		        	}
+		        	
+		        }else{
+		        	doGet(request, response);
+		        }
+			}
+
 		}
 		if(isError){
 			response.sendRedirect("error");

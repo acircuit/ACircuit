@@ -106,19 +106,22 @@
 				<div class="col-xs-12" style="text-align:center;margin-bottom: 30px;">
 					<span class="form-head-text-b">Go Ahead, Become An Advisor TODAY!</span>
 				</div>
-					<form class="login-form col-xs-12 col-sm-4 col-sm-offset-4 no-padding" method="post" id="signupform" action="registration">
-	      			<div class="option-signin-buuton col-xs-12 no-padding form-group">
+					<form class="login-form col-xs-12 col-sm-4 col-sm-offset-4 no-padding" method="post" id="becomesignup"  action="registration" >
+	      			<!-- <div class="option-signin-buuton col-xs-12 no-padding form-group">
 					 		<button type="button" class="btn gt-started" style="background-color: #007ab9;margin-top: 0px;"><img src="assets/img/icon-linkedin.png" style="width: 13px;margin-top: -6px;margin-right: 4px;"> Linkedin</button>
-				 	</div>
+				 	</div> -->
+				 	 	<div id="emailerrorbecome" class="error-in-modal" style="display: none;">
+				      	  <span>This email is already registerd with us. Please try with different email Id.</span>
+				      	</div>
 				 	<input type="hidden" name="type" value="advisor">
-				 	<div class="option-signin col-xs-12 no-padding" style="margin-top: -25px;">
+				 	<!-- <div class="option-signin col-xs-12 no-padding" style="margin-top: -25px;">
 				 		<span class="import-text">OR</span>
-				 	</div>
+				 	</div> -->
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="name" type="text" placeholder="Name" required aria-required="true">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						  <input class="form-control" placeholder="Email" type="email" name="email" required aria-required="true" autocomplete="off">
+      						  <input class="form-control" placeholder="Email" type="email" id="becomeemail" name="email" required aria-required="true" autocomplete="off">
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="password" placeholder="Password" required type="password" autocomplete="off">
@@ -129,7 +132,7 @@
 								<span class="policy-text">By registering you accept the <a href="tnc" target="blank">T&Cs</a> and <a href="privacypolicy" target="blank">Privacy Policy</a></span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button type="submit" class="btn gt-started" >Get Started</button>
+      						<button id="become-submit" type="submit" class="btn gt-started" >Get Started</button>
 				 	</div>
 				 	
       		</form>
@@ -145,7 +148,32 @@
 <script>
 
 $(document).ready(function () {
-	
+
+});
+$( "#becomesignup" ).submit(function( event ) {
+	  event.preventDefault();
+		$.ajax({
+	        url : 'login', // Your Servlet mapping or JSP(not suggested)
+	        data : {"email":$("#becomeemail").val()},
+	        type : 'GET',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	          	if(response == "true"){
+	          		$('#emailerrorbecome').slideDown();
+	          		$('#become-submit').prop('disabled', true);
+	          	}else{
+	          		$('#emailerrorbecome').slideUp();
+	          		$('#become-submit').prop('disabled', false);
+	          		document.getElementById("signupform").submit();
+	          	}
+	          	 $('.black-screen').hide();
+
+	          },
+	          error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    });
 });
 </script>
 </body>

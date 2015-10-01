@@ -490,11 +490,11 @@ $(document).ready(function () {
 
 
 function similarprofile(value,category,subcategory){
-	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
-		       +'<p class="adv-field">'+category+','+subcategory+'</p><br>'  
-               +'</div>';		
+		       +'<p class="adv-field">'+subcategory+'</p><br>'  
+               +'</div></a>';		
                $('.similar').append(html);
  }
 $('.d1').on("changeDate", function() {

@@ -18,6 +18,7 @@ import ac.cache.MyCacheBuilder;
 import ac.dao.AdminNotificationDAO;
 import ac.dao.FeedDAO;
 import ac.dao.QuestionsDAO;
+import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 
@@ -74,18 +75,25 @@ public class QuestionsController extends HttpServlet {
 		}
 
 		
-		
-		SimpleDateFormat format = new SimpleDateFormat("dd MMM");
+		List<Integer> advId = new ArrayList<Integer>();
+		SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 		for(QuestionsDTO que1 : list1) {
 		 int count=0;
 		 for(AnswerDTO ans : list){
 			 if(que1.getQuestionId() == ans.getQuestionId()){
 				 count ++;
 				 que1.setLastUpdated(format.format(ans.getTime()));
+				 advId.add(ans.getAdvisor_id());
+				 que1.setAdvisor_id(ans.getAdvisor_id());
 			 }
 		 }
 		 que1.setCount(count);
 		}
+		
+		QuestionsDAO adv = new QuestionsDAO();
+		List<AdvisorDTO> advisors = adv.GetAdvisorName(list);
+		
+		
 		//Getting Most Viewed Questions
 		List<QuestionsDTO> mostViewedQuestions = new ArrayList<QuestionsDTO>();
 		QuestionsDAO views = new QuestionsDAO();
@@ -111,6 +119,8 @@ public class QuestionsController extends HttpServlet {
 		request.setAttribute("optionsSubCategory", optionsSubCategory);
 		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
 		request.setAttribute("popCats", popCats);
+		request.setAttribute("advisors", advisors);
+		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Questions.jsp");
         rd.forward(request, response);
 		}else{
@@ -135,6 +145,9 @@ public class QuestionsController extends HttpServlet {
 		String question = request.getParameter("question");
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
+		question = question.replaceAll("\r\n", "");
+		question = question.replaceAll("\r", "");
+		question = question.replaceAll("\n", "");
 		QuestionsDAO ques = new QuestionsDAO();
 		int id = ques.SubmitQuestion(userId,question,category,subcategory);
 		if(id !=0){

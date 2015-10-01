@@ -15,8 +15,8 @@
 											       <div class="col-xs-6">
 												     <div class="form-group"> 
 												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal" required aria-required="true">
-														  <option value="higherstudies">Higher studies</option>
-														  <option value="industry">Industry</option>
+														  <option value="studies">Higher studies</option>
+														  <option value="industry">Career & Jobs</option>
 														  <option value="options">Courses</option>
 														</select>
 														 </div>

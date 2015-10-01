@@ -69,8 +69,6 @@
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
-		   		    		<button type="button" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
-		   		    		<a href="advisorcancelsession?sId=${sessionDetails.getSessionid()}" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</a>
 					   		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request waiting for your approval</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
@@ -85,10 +83,12 @@
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
+					   		<c:if test="${!sessionDetails.getResume().equals('')}">
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
 					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		</c:if>
 					   		<form action="approvesession" method="post">
 					   		<input type="hidden" value="${sessionDetails.getSessionid()}" name="sId">
 					   		<div class="col-xs-12 no-padding">
@@ -171,8 +171,8 @@
 					   			</div>
 					   			<input type="hidden" name="uid" value="${sessionDetails.getUserid()}">
 					   			<div class="col-xs-12 no-padding">
-					   			<button type="submit" class="btn two-buttons" style="background-color: #f2624d;color:white;">Accept Session</button>
-		   		    		<button type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</button>
+					   			<button type="submit" class="btn two-buttons" style="background-color: #f2624d;color:white;" onclick="AcceptSession()">Accept Session</button>
+		   		    		<a href="advisorcancelsession?sId=${sessionDetails.getSessionid()}" type="button" class="btn two-buttons" style="background-color: #6c6c6c;color:white;">Reject Session</a>
 					   			</div>
 					   			</form>
 					   			

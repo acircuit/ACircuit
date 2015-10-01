@@ -73,7 +73,7 @@
    				<div class="col-xs-12 col-sm-9 qa-left-section">
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
-			   			<span class="search-item">Higher Studies in MBA India</span>
+			   			<!-- <span class="search-item">Higher Studies in MBA India</span> -->
 			   			<button type="button" class="btn red-button ask-question-button">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">

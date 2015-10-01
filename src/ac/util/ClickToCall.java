@@ -25,6 +25,7 @@ import com.twilio.sdk.resource.list.CallList;
 
 
 
+
 import ac.controller.UserMyAccountCurrentSessionsController;
 import ac.dao.SessionDAO;
 import ac.dto.CostDTO;
@@ -76,13 +77,15 @@ public class ClickToCall extends HttpServlet {
 			int advId = advisor.GetAdvisorId(sId);
 			SessionDAO price = new SessionDAO();
 			Double advPrice = price.GetAdvisorPrice(advId, mode);
+			Double commisionedPrice  = advPrice +( advPrice  * 20 /100);
+			Double finalPrice = commisionedPrice / 60;
 			int durationInMinutes = (int) (totalDuration / 60);
 			int remainder = (int) (totalDuration % 60);
 			if(remainder != 0){
 				durationInMinutes = durationInMinutes +1;
 			}
-			Double totalCost = advPrice * durationInMinutes;
-			response.getWriter().write(String.valueOf(durationInMinutes)+":" +String.valueOf(advPrice)+":"+String.valueOf(totalCost));
+			Double totalCost = finalPrice * durationInMinutes;
+			response.getWriter().write(String.valueOf(durationInMinutes)+":" +String.valueOf(finalPrice)+":"+String.valueOf(totalCost));
 	    }else{
 
 	    	 TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
@@ -103,7 +106,7 @@ public class ClickToCall extends HttpServlet {
 	 		    // Build a filter for the CallList
 	 		    List<NameValuePair> params1 = new ArrayList<NameValuePair>();
 	 		    params1.add(new BasicNameValuePair("Url", prop.getProperty("CONFERENCE_XML_URL")));
-	 		    params1.add(new BasicNameValuePair("To","+91"+ advisorPhone));
+	 		    params1.add(new BasicNameValuePair("To",advisorPhone));
 	 		    params1.add(new BasicNameValuePair("From","+13368037448"));
 	 		    params1.add(new BasicNameValuePair("StatusCallback",prop.getProperty("STATUSCALLBACK_URL_ADVISOR")));	
 	 		    params.add(new BasicNameValuePair("StatusCallbackEvent", "ringing"));

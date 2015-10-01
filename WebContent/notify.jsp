@@ -7,7 +7,7 @@
 			<span class="cross-noti">X</span>
 		</div>
 	    <div class="notify-text-div" id="verifyaccount" style="display: none" >
-			<span class="notify-text">Success : Thankyou for registring. Please verify your Account to book session.<a onclick="ResendLink()">Resend Mail</a></span>
+			<span class="notify-text">Success : Thank You for registering. Please verify your Account.<a onclick="ResendLink()">Resend Mail</a></span>
 			<span class="cross-noti">X</span>
 		</div>
 		 <div class="notify-text-div" id="sessionconfirmedbyuser" style="display: none" >
@@ -16,6 +16,10 @@
 		</div>
 		 <div class="notify-text-div" id="rechargesuccess" style="display: none" >
 			<span class="notify-text">Success : Your recharge has been successful and your wallet has been successfully updated</span>
+			<span class="cross-noti">X</span>
+		</div>
+		 <div class="notify-text-div" id="rechargesuccessaftersession" style="display: none" >
+			<span class="notify-text">Success : Your wallet has been successfuly recharged. PLEASE CONFIRM THE SESSION NOW FROM THE SESSION DETAILS PAGE </span>
 			<span class="cross-noti">X</span>
 		</div>
 		<div class="notify-text-div" id="userverificationsuccess" style="display: none" >

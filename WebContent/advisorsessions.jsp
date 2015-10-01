@@ -72,7 +72,7 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
    			<div class="body-content col-xs-12 no-padding">
    			
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
-		   			<div class="div-for-notifications col-xs-12 no-padding">
+		   			<div class="div-for-notifications col-xs-12 no-padding" style="display: none">
 			   			<div class="col-xs-6">
 			   				<img class="noti-img" src="assets/img/current_session.png">
 			   				<div class="gborder-div">
@@ -127,16 +127,16 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
 				                                    <c:if test="${session.getStatus() == 'PENDING APPROVAL'}">
-				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i>Pending Approval</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'ACCEPTED' || session.getStatus() == 'ACCEPTED WITH NEW DATES' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Accepted</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                     <c:if test="${session.getStatus() == 'SESSION ON SCHEDULE' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> On Schedule</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> On Schedule</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    </p>
 				                               </div>
@@ -181,10 +181,10 @@ pageContext.setAttribute("usersForReviews", usersForReviews);
 				                                    <p class="subject">“${session.getQuery()}”</p><br>
 				                                    <p class="session-status" >Status: 
 				                                     <c:if test="${session.getStatus() == 'SESSION CANCELLED BY USER' || session.getStatus() == 'SESSION CANCELLED BY ADVISOR'}">
-				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Rejected</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    <c:if test="${session.getStatus() == 'SESSION COMPLETE' }">
-				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><span class="time"> 23 min ago</span>
+				                                      <span class="condition"><i class="fa fa-check"></i> Session successfully completed</span><!-- <span class="time"> 23 min ago</span> -->
 				                                    </c:if>
 				                                    </p>
 				                               </div>

@@ -6,6 +6,13 @@ import java.util.List;
 public class AdvisorDTO implements Serializable {
 	
 	private int id;
+	private int qid;
+	public int getQid() {
+		return qid;
+	}
+	public void setQid(int qid) {
+		this.qid = qid;
+	}
 	private String name;
 	private String gender;
 	private String industry;

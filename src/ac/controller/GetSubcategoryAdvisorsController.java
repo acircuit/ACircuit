@@ -114,22 +114,23 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						jo.put("name", advisor.getName());
 						jo.put("id", advisor.getId());
 						List<SubCategoryDTO> subcats1 = advisor.getSubCategories();
-						for(SubCategoryDTO sub :subcats1){
-							if(sub.getCategoryId() == catId){
-								jo.put("subcategory", sub.getSubCategory());
-							}
+						int i=1;
+						List<SubCategoryDTO> subcats = advisor.getSubCategories();
+						for(SubCategoryDTO sub :subcats){
+								jo.put("subcategory"+i, sub.getSubCategory());
+								i++;
 						}
 						List<EducationDTO> education1 = advisor.getEducation();
 						int ed=0;
 						for(EducationDTO educ : education1){
-							if(educ.getType().equals("UG") && educ.getInstitution() != null){
+							if(educ.getType().equals("PG") && educ.getInstitution() != null){
 								jo.put("institution", educ.getInstitution());
 								ed++;
 							}
 						}
 						if(ed == 0){
 							for(EducationDTO educ : education1){
-								if(educ.getType().equals("PG") && educ.getInstitution() != null){
+								if(educ.getType().equals("UG") && educ.getInstitution() != null){
 									jo.put("institution", educ.getInstitution());
 									ed++;
 								}
@@ -164,7 +165,10 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						consultations =  sessions.GetConsultations(advisor.getId());
 						jo.put("sessions", consultations);
 						System.out.println(jo.get("name"));
-						
+						Double price = advisor.getPhonePrice();
+						Double commisionedPrice  = price +( price  * 20 /100);
+						Double finalPrice = commisionedPrice / 60;
+						jo.put("price", Math.round(finalPrice));
 						jo.put("image", advisor.getImage());
 						array.add(jo);
 						isLeft = false;

@@ -93,7 +93,7 @@ public class RegistrationController extends HttpServlet {
         					notify.InsertNotification(comment, href);
         					
         					
-        					String userComment = "Welcome to Advisor Circuit. Find your Advisor now ! If you need any help, call us on +91 9999372087";
+        					String userComment = "Welcome to Advisor Circuit. Find your Advisor now ! If you need any help, call us on +91 9971232582";
         					String userHref = "advisors?category=all";
         					UserNotificationDAO user = new UserNotificationDAO();
         					user.InsertNotification(userComment, userHref, String.valueOf(userId));
@@ -105,6 +105,32 @@ public class RegistrationController extends HttpServlet {
         					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("USER_REGISTRATION_VERIFICATION_LINK"), userId)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
         					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
         					mail.start();
+        					
+        					String subject2 ="";
+        					String content2 ="";
+        					subject2 = "Welcome to Advisor Circuit";
+        					content2 = "Hi, <br><br>"
+        							+ "Thank you for creating an account with us. We are thrilled to have you on board. You can now solve away all your career troubles by connecting to the right expert in the field of your choice"
+        							+ "<br><br>"
+        							+ "Here's a quick guide to help you get started:"
+        							+ "<br><br>"
+        							+ "<span style='text-decoration:underline; font-weight:bold'>1. Search our Advisors</span><br>"
+        							+ "Pick your advisor depending on the category of advice – Higher Studies, different Careers and Jobs or General Questions."
+        							+ "<br><br>"
+        							+ "<span style='text-decoration:underline; font-weight:bold'>2. Ask Questions</span><br>"
+        							+ "Post a question to any one or ALL advisors for FREE and get expert answers to your career queries"
+        							+ "<br><br>"
+        							+ "<span style='text-decoration:underline; font-weight:bold'>3. Take sessions</span><br>"
+        							+ "Book a one on one session within seconds and get great career advice from people who have first-hand experience with the doubts that you face"
+        							+ "<br><br>"
+        							+ "As an introductory offer, we have recharged your wallet with Rs100!  So take your first session for free and start exploring Advisor Circuit now. "
+        							+ "<br><br>"
+        							+ "Cheers,<br>"
+        							+ "Team Advisor Circuit<br><br>"
+        							+ "<img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+        					SendMail mail2 = new SendMail(subject2, content2, email,prop.getProperty("MAIL_ADMIN"));
+        					mail2.start();
+        					
         					String subject1= "A New User Sign Up!";
         					String content1 = "Hi, <br><br> A new user has signed up with us. Following are the details: <br>Full Name : "+fullname+"<br>Email Id : " +email+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
         					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));

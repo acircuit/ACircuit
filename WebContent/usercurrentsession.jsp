@@ -124,10 +124,12 @@ pageContext.setAttribute("sess", sess);
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
+					   		<c:if test="${!sessionDetails.getResume().equals('')}">
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
 					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		</c:if>
 					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
 					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
 					   			<span class="timeslots-proposed">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span>
@@ -295,9 +297,9 @@ function GetCost(){
 	}); 
 }
 function ShowModal(details){
-	document.getElementById("duration").innerHTML = details[0];
-	document.getElementById("advprice").innerHTML = details[1];
-	document.getElementById("cost").innerHTML = details[2];
+	document.getElementById("duration").innerHTML = details[0]+' Minute(s)';
+	document.getElementById("advprice").innerHTML = 'Rs.'+details[1]+'/min';
+	document.getElementById("cost").innerHTML = 'Rs.'+details[2];
 	document.getElementById("sessionduration").value = details[0];
 	document.getElementById("sessioncost").value = details[2];
 	$('#details').modal('show');

@@ -18,6 +18,7 @@ import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.BookASessionDAO;
 import ac.dao.SessionDAO;
+import ac.dto.UserDetailsDTO;
 import ac.util.SendMail;
 import ac.util.SetCV;
 
@@ -61,6 +62,10 @@ public class BookASessionController extends HttpServlet {
         		&& aId != null && !aId.isEmpty() && !mode.isEmpty() && !duration.isEmpty() && !query.isEmpty() && !slot1Date.isEmpty() && !slot2Date.isEmpty()
         		&& !slot3Date.isEmpty() && !slot1Time.isEmpty() && !slot2Time.isEmpty() && !slot3Time.isEmpty() && !approxprice.isEmpty()
         		){
+        	
+        	query = query.replaceAll("\r\n", "");
+			query = query.replaceAll("\r", "");
+			query = query.replaceAll("\n", "");
         	if(uid != null && phone != null){
         	     //Entering the userphone number
         	     SessionDAO user = new SessionDAO();
@@ -78,20 +83,34 @@ public class BookASessionController extends HttpServlet {
 	        BookASessionDAO session = new BookASessionDAO();
 	        sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	if(sessionId != 0){
-        	
+        	   SessionDAO user = new SessionDAO();
+        		UserDetailsDTO userDetails = user.GetUserName(userId);
         		
+        		SessionDAO advisor = new SessionDAO();
+        		String name =advisor.GetAdvisorName(Integer.valueOf(aId));
         		Properties prop = new Properties();
         		InputStream resourceAsStream = Thread.currentThread()
         				.getContextClassLoader()
         				.getResourceAsStream("ac/resources/Mail.properties");
         		prop.load(resourceAsStream);
         		String comment = "You've got a new Session request";
-				String href = "adminsessionviewdetails?sId="+sessionId;
+				String href = "adminsessionviewdetails?sid="+sessionId;
 				AdminNotificationDAO admin = new AdminNotificationDAO();
 				admin.InsertNotification(comment, href);
 				//Send Mail to Admin
-				String subject = "A new session request!";
-				String content = "Hi, <br><br>A new SESSION REQUEST by the user ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+				String subject = "New session request – "+sessionId;
+				String content = "Hello, <br><br>"
+						+ "There is a new session request."
+						+ "<br><br>"
+						+ "Session Id:"+sessionId+""
+						+ "<br>"
+						+ "User Name:"+userDetails.getFullName()+""
+								+ "<br>"
+						+ "Advisor Name: "+name+""
+								+ "<br>"
+						+ "Query:"+query+" "
+								+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"/adminsessionviewdetails?sid="+sessionId+"'>Click here to view the request</a><br>"
+								+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 				SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
 				mail.start();
         		response.sendRedirect("usersessions?session=booked");

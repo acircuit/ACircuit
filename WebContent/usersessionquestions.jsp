@@ -75,7 +75,7 @@
    			<div class="body-content col-xs-12 no-padding">
    			
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
-		   			<div class="div-for-notifications col-xs-12 no-padding">
+		   			<div class="div-for-notifications col-xs-12 no-padding" style="display: none">
 			   			<div class="col-xs-12 col-sm-6">
 			   				<img class="noti-img" src="assets/img/questions.png">
 			   				<div class="gborder-div">
@@ -353,11 +353,11 @@ $(document).ready(function () {
     });
 });
 function similarprofile(value){
-	var html = '<div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
 		       +'<p class="adv-field">'+value.industry+'</p><br>'  
-               +'</div>';		
+               +'</div></a>';		
                $('.similar').append(html);
  }
 function MostViewedQuestionsCard(value){

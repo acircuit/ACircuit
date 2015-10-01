@@ -1233,7 +1233,7 @@ public class SessionDAO {
 	
 	public int[] GetUserAdvisorIds(String sId){
 		logger.info("Entered GetUserAdvisorIds method of SessionDAO");
-		int[] ids = null;
+		int[] ids = new int[2];
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
@@ -1307,13 +1307,14 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT FULL_NAME,IMAGE FROM userdetails WHERE USER_ID=?";
+			String query ="SELECT FULL_NAME,IMAGE,EMAIL FROM userdetails WHERE USER_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1,id);
 			ResultSet results = pstmt.executeQuery();
 			if(results.first()){
 				user.setFullName(results.getString("FULL_NAME"));
 				user.setImage(results.getString("IMAGE"));
+				user.setEmail(results.getString("EMAIL"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetUserName method of SessionDAO threw error:"+e.getMessage());
@@ -1746,7 +1747,7 @@ public class SessionDAO {
 		try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="UPDATE twiliovideo SET CONVERSATION_END=? WHERE SESSION_ID = ? ";
+			String query ="UPDATE twiliovideo SET CONVERSATION_END=? WHERE SESSION_ID=? AND CONVERSATION_END IS NULL; ";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
 			pstmt.setString(2, sId);

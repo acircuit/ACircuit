@@ -72,7 +72,7 @@ UserDetailsDTO userDetails = (UserDetailsDTO)request.getAttribute("userDetails")
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="btext name">${userDetails.getFullName()}</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span><br>
 						   		<br>
 						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>

@@ -125,15 +125,15 @@
    				</div>
    				<div class="info-div-contact">
    				<span class="red-contact-title">PHONE</span><br>
-						<span class="contact-detail-info">9971232582 </span>	
+						<span class="contact-detail-info">+91 9971232582 </span>	
    				</div>
    				<div class="info-div-contact">
    					<span class="red-contact-title">ON THE WEB</span>	
 								<div class="social-icons">
-								<img src="assets/img/Facebook.png">
-								<img src="assets/img/Google Plus.png">
-								<img src="assets/img/LinkedIn.png">
-								<img src="assets/img/Twitter.png">
+								<a href="https://www.facebook.com/advisorcircuit" target="blank"><img src="assets/img/Facebook.png"></a>
+								<a href="https://www.linkedin.com/company/advisor-circuit?trk=ppro_cprof" target="blank"><img src="assets/img/LinkedIn.png"></a>
+								<a href="https://twitter.com/advisorcircuit" target="blank"><img src="assets/img/Twitter.png"></a>
+								<a href="https://plus.google.com/+Advisorcircuitsocial/" target="blank"><img src="assets/img/Google Plus.png"></a>
 				   			</div>
    				</div>
    				

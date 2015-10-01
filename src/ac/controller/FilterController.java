@@ -142,7 +142,7 @@ public class FilterController extends HttpServlet {
 				JSONObject jo = new JSONObject();
 				jo.put("name", advisor.getName());
 				jo.put("id",advisor.getId());
-				List<CategoryDTO> list = advisor.getCategories();
+/*				List<CategoryDTO> list = advisor.getCategories();
 				int catId =0;
 				if(category.equals("higherstudies")){
 					for(CategoryDTO cat : list){
@@ -190,6 +190,12 @@ public class FilterController extends HttpServlet {
 							jo.put("subcategory", sub.getSubCategory());
 						}
 					}
+				}*/
+				int i=1;
+				List<SubCategoryDTO> subcats = advisor.getSubCategories();
+				for(SubCategoryDTO sub :subcats){
+						jo.put("subcategory"+i, sub.getSubCategory());
+						i++;
 				}
 				List<EducationDTO> education1 = advisor.getEducation();
 				int ed=0;
@@ -239,7 +245,10 @@ public class FilterController extends HttpServlet {
 				array.add(jo);
 				System.out.println("added");
 				isLeft = false;
-
+				Double price = advisor.getPhonePrice();
+				Double commisionedPrice  = price +( price  * 20 /100);
+				Double finalPrice = commisionedPrice / 60;
+				jo.put("price", Math.round(finalPrice));
 				//q= q+advisor.getId();
 				}else{
 					isLeft = true;

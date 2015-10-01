@@ -77,12 +77,14 @@ pageContext.setAttribute("userverification", userverification);
    			
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
 		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #37b7b3;">
+		   			<form action="userprofile" method="post" enctype="multipart/form-data" id="userimageform">
 		   			<div class="profile-owner-info col-xs-12 no-padding">
 		   				<div class="col-xs-12 col-sm-4 dp-div-profile">
-		   					 <img class="profile-dp" src="assets/img/Abhishek.JPG"><br>
+		   					 <img class="profile-dp" src="${userDetails.getImage()}"><br>
 		   					<span class="btext change-do change-profile">Change Profile Picture</span>
-		   				
-				                                      <input type="file" class="custom-file-input" style="visibility:hidden;" name="dp"  aria-required="true">
+		   				             <input type="hidden" name="email" value="${userDetails.getEmail()}">
+				                     <input type="file" class="custom-file-input" style="visibility:hidden;" name="file"  aria-required="true">
+				                                      <button type="submit" class="btn red-button "  style="width: 90px;margin-right: 10px;">Save</button>
 		   				</div>
 		   				<div class="col-xs-12 col-sm-8 info-div-profile">
 		   					<span class="name-profile">${userDetails.getFullName() }</span><br>
@@ -91,8 +93,10 @@ pageContext.setAttribute("userverification", userverification);
 		   					 <span class="pno-profile">${userDetails.getPhone()}</span>
 		   					</c:if>
 		   				</div>
+						    
 		   			</div>
-			   			
+		   			
+			   		</form>	
 		   			</div>
 		   			<div class="profile-form-div col-xs-12 no-padding">
 		   				<div class="profil-form-head-div">
@@ -261,9 +265,9 @@ pageContext.setAttribute("userverification", userverification);
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
-							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
+							<a type="button" href="advisors?category=all" class="btn red-button " style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
 						</div>
 						
 <!-- 						<div class="col-xs-12" style="margin-top:10px;">
@@ -306,6 +310,7 @@ pageContext.setAttribute("userverification", userverification);
    			
    			</div>
    	 </div>
+   	  <%@include file="/askqmodal.jsp" %>
    	 <%@include file="/footer.jsp" %>
 </div>
 
@@ -313,6 +318,7 @@ pageContext.setAttribute("userverification", userverification);
 <script>
 $(document).ready(function () {
 	$("#userprofileform").validate();
+	$("#userimageform").validate();
 	starinputconversion();
 	if("${userverification.equals('true') }"){
 		debugger;

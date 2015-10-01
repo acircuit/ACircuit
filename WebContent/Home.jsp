@@ -85,7 +85,7 @@
 			   	</div>
 			   	<div class="banner-search-div">
 			  
-			   	<span class="big-font-banner">Your very own Career Network</span><br>
+			   	<span class="big-font-banner">Your Personal Career Network</span><br>
 			   	<span class="small-font-banner">Connect with people who’ve been there done that to achieve your goals</span><br><br>
 			   		<div class="Bblue">
 						<div class="category-filter-div container no-padding">
@@ -105,7 +105,7 @@
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div hm-top-svg no-padding-xs">
 					  						<img class="svg" src="assets/img/home_industry.svg">
-					  							<br class="hidden-xs"><span class="svg-b-text border-pink">Industry & Jobs</span>
+					  							<br class="hidden-xs"><span class="svg-b-text border-pink">Career & Jobs</span>
 					  						
 					  					</div>
 					  				</div>
@@ -261,18 +261,18 @@
 					<span class="bqstart">“</span>
 				</div>
 				<div class="ad-speaks">
-					<span>Had a great session with Ms Richa! Thank you so much team Advisor Circuit for the great help. I   would like to recommend anyone who needs career guidance to get in touch with them !</span>
+					<span>You guys have conceptualized a really innovative and helpful concept. Your team is really dedicated and supportive to help the people to get the best out of the service. You‘re providing a chance to directly connect to advisors for pragmatic advice.<br>This is the USP of Advisor Circuit.</span>
 				</div>
 	   		</div>
 	   		<fmt:bundle basename="ac.resources.Testimonials" prefix="path.">
 	   		<div class="user-images-div col-xs-12 col-sm-10 col-sm-offset-1">
-	   		<div class="user-div">
+	   		<div class="user-div" id="timg2">
 	   		<span class="t-text">You guys have conceptualized a really innovative and helpful concept. Your team is really dedicated and supportive to help the people to get the best out of the service. You‘re providing a chance to directly connect to advisors for pragmatic advice.<br>This is the USP of Advisor Circuit.</span>
 	   			<img class="user-img img-disable" src="<fmt:message key="harsh"/>"><br>
 	   			<span class="user-name">Harsh Vardhan</span><br>
 	   			<!-- <span class="user-desig">Student</span> -->
 	   		</div>
-	   		<div class="user-div" id="timg2">
+	   		<div class="user-div" >
 	   		<span class="t-text">Had a great session with Ms Richa! Thank you so much team Advisor Circuit for the great help. I   would like to recommend anyone who needs career guidance to get in touch with them ! </span>
 	   			<img class="user-img img-disable"  src="<fmt:message key="abhisha"/>"><br>
 	   			<span class="user-name">Abhisha Arya</span><br>
@@ -338,9 +338,9 @@ jQuery('img.svg').each(function(){
 		$('#timg2').find('.user-name').show();
 		$('#timg2').find('.user-desig').show();
 		$('#timg2').find('img').removeClass('img-disable');
-		expertcard('Gaurav Agarawal','Startups','Co Founder, Gamezop','B.Comm(H),SRCC','0 questions answered','.ad1');
-		expertcard('Sankalan Prasad','MBA India','Manager, ABC','MBA, IIM B','1 question answered','.ad2');
-		expertcard('Surbhi Choudhary','Masters Abroad','Project Manager,OYO Rooms','Masters, HEC Paris','1 question answered','.ad3');
+		expertcard('Avik Juneja','MS Abroad','Power Management Architect','PHD(Comp), North Carolina SU','60 ','.ad1','assets/AdvisorImages/avik.juneja@gmail.com/Avik.jpg');
+		expertcard('Tushar Bindal','MBA India','Analyst, Goldman Sachs','MBA, IIM Calcutta','40','.ad2','assets/AdvisorImages/tushicomeng@gmail.com/Tushar.jpg');
+		expertcard('Arushi Kumar','Audit',' Deloitte,Senior Consultant','Electronics & Comm Engg,DTU','26','.ad3','assets/AdvisorImages/arushi.kumar90@gmail.com/Arushi.jpg');
 		    });
 
 //attach scroll event to render fixed header at particular moment
@@ -382,7 +382,7 @@ $('body').on('click', '.suggestion', function(e){
 		$('.suggestion').hide();
 });
 
-function expertcard(name,pro,a1,a2,a3,container)
+function expertcard(name,pro,a1,a2,a3,container,img)
 {
 	var html='<div class="col-xs-12 expert-card-div">'
 			+'<div class="expert-card">'
@@ -390,7 +390,7 @@ function expertcard(name,pro,a1,a2,a3,container)
 			+'<div class="col-xs-4 blueT  no-padding">'
 			
 			+'<div class="Adp" style="text-align:center;">'
-			+'<img src="assets/img/Abhishek.JPG">'
+			+'<img src="'+img+'">'
 			+'</div>'
 			
 			
@@ -407,7 +407,7 @@ function expertcard(name,pro,a1,a2,a3,container)
 			+'<div class="attributes">'
 			+'<span> <img src="assets/img/experts_company.svg"> '+a1+'</span>'
 			+'<span> <img src="assets/img/experts_category.svg">'+a2+'</span>'
-			+'<span> <img src="assets/img/experts_question.svg">'+a3+'</span>'
+			+'<span style="visibility:hidden;> <img src="assets/img/experts_question.svg">'+a3+'</span>'
 			+'</div>'
 			+'</div>'
 			+'</div>'

@@ -86,10 +86,12 @@
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
+					   		<c:if test="${!sessionDetails.getResume().equals('')}">
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
 					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		</c:if>
 					   				<div class="next-step-div col-xs-12" style="margin-top: 35px;">
 					   				<div class="col-xs-12">
 							   			<span class="next-step-text btext">Next Steps</span>

@@ -43,6 +43,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			isError = true;
 		}
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format=new SimpleDateFormat("dd-MMM-yyyy");
 		//Getting the sessiondetails for the user
 		if(userId != 0){
 			  String sid = request.getParameter("sId");
@@ -52,6 +53,7 @@ public class UserMyAccountCurrentSessionsController extends HttpServlet {
 			  SessionDTO sessionDetails= session.GetSessionDetails(sid);
 			  if(sessionDetails.getAcceptedDate() != null){
 				  String accDate = sdf.format(sessionDetails.getAcceptedDate());
+				  sessionDetails.setAccepDate(format.format(sessionDetails.getAcceptedDate()));
 				  String time = sessionDetails.getAcceptedTime();
 				  String timestamp = accDate+" "+ time+":00";
 				  Timestamp ts = Timestamp.valueOf(timestamp);

@@ -30,7 +30,7 @@
 	 AesCryptUtil aesUtil=new AesCryptUtil(workingKey);
 	 String encRequest = aesUtil.encrypt(ccaRequest);
 	%>
-	<form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> 
+	<form id="nonseamless" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> 
 		<input type="hidden" id="encRequest" name="encRequest" value="<%= encRequest %>">
 		<input type="hidden" name="access_code" id="access_code" value="<%= accessCode %>">
 		<input type="hidden" name="redirect_url" id="redirect_url" value="http://192.168.2.49:8081/MCPG_JSP_KIT_2/ccavResponseHandler.jsp">

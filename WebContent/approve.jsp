@@ -143,7 +143,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span><br>
 					   				<c:choose>
                                         <c:when test="${wallet <= sessionDetails.getPrice()}">
-					   				          <span class="make-payment-text">You have Rs.${wallet} in your wallet, recharge with Rs.${amountdue} to confirm the session. Show wallet balance also</span>
+					   				          <span class="make-payment-text">You have Rs.${wallet} in your wallet, recharge with Rs.${amountdue} to confirm the session.</span>
                                         </c:when>
                                         <c:otherwise>
 					   				          <span class="make-payment-text">Your Wallet has enough money. Please confirm the session</span>
@@ -176,10 +176,12 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   			${sessionDetails.getQuery()}
 					   			</p>
 					   		</div>
+					   		<c:if test="${!sessionDetails.getResume().equals('')}">
 					   		<div class="attached-file-div col-xs-12">
 					   			<span class="attachd-text">Attached File</span>
 					   			<a class="link btext" href="DownloadFile?sid=${sessionDetails.getSessionid()}">resume</a>
 					   		</div>
+					   		</c:if>
 					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
 					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
 					   			<span class="timeslots-proposed">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span>

@@ -17,6 +17,8 @@ import ac.dao.AdminNotificationDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.PaymentDAO;
 import ac.dao.SessionDAO;
+import ac.dto.SessionDTO;
+import ac.dto.UserDetailsDTO;
 import ac.util.SendMail;
 
 import com.ccavenue.security.AesCryptUtil;
@@ -151,6 +153,12 @@ public class UserMyAccountPaymentController extends HttpServlet {
 				String sId = request.getParameter("sid");
 				SessionDAO advisor = new SessionDAO();
 				int aid = advisor.GetAdvisorId(sId);
+				SessionDAO advisorName = new SessionDAO();
+				String advName = advisorName.GetAdvisorName(aid);
+				SessionDAO user = new SessionDAO();
+				UserDetailsDTO userName  = user.GetUserName(userId);
+				SessionDAO sessions = new SessionDAO();
+				SessionDTO sessionDetails = sessions.GetSessionDetails(sId);
 					if(date != null && !date.equals("") ){
 						String[] acceptedDate = date.split(",");
 						//Update Date and status
@@ -162,7 +170,7 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			   				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
 			   				notify.InsertNotification(comment,String.valueOf(aid),href); 
 			        		String comment1 = "User confirmed the session";
-							String href1 = "adminsessionviewdetails?sId="+sId;
+							String href1 = "adminsessionviewdetails?sid="+sId;
 							AdminNotificationDAO admin = new AdminNotificationDAO();
 							admin.InsertNotification(comment1, href1);
 					}else{
@@ -175,14 +183,22 @@ public class UserMyAccountPaymentController extends HttpServlet {
 			   				AdvisorNotificationDAO notify = new AdvisorNotificationDAO();
 			   				notify.InsertNotification(comment,String.valueOf(aid),href); 
 			   				String comment1 = "User confirmed the session";
-							String href1 = "adminsessionviewdetails?sId="+sId;
+							String href1 = "adminsessionviewdetails?sid="+sId;
 							AdminNotificationDAO admin = new AdminNotificationDAO();
 							admin.InsertNotification(comment1, href1);
 					}
 					
 				if(isStatusCommit){
-					String subject = "User confirmed the session!";
-					String content = "Hi, <br><br>User has confirmed the session ! Following are the details <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
+					String subject = "Session had been confirmed- #"+sId+"!";
+					String content = "Hello, <br><br>A session had been confirmed by the user<br><br>"
+							+ "1.Session ID : "+sId+"<br>"
+							+ "2.Username: "+userName+"<br>"
+							+ "3.Advisorname:"+advName+"<br>"
+							+ "4.Mode: "+sessionDetails.getMode()+"<br>"
+							+ "5.Date and Time:"+sessionDetails.getAcceptedDate() +"and"+ sessionDetails.getAcceptedTime()+""
+							+ "6.Duration:"+sessionDetails.getDuration()+"<br>"
+							+ "7.Cost of session"+sessionDetails.getSessionPrice()+"<br>"
+							+ " <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 					SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
 					mail.start();
 			          response.sendRedirect("usercurrentsession?sId="+sId+"&session=Success");

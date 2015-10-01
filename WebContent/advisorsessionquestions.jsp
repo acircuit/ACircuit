@@ -66,7 +66,7 @@
    			<div class="body-content col-xs-12 no-padding">
    			
    				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
-		   			<div class="div-for-notifications col-xs-12 no-padding">
+		   			<div class="div-for-notifications col-xs-12 no-padding" style="display: none">
 			   			<div class="col-xs-6">
 			   				<img class="noti-img" src="assets/img/questions.png">
 			   				<div class="gborder-div">
