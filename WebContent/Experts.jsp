@@ -346,14 +346,19 @@ function defaultcall(){
       	var obj = JSON.parse(response);
       	$.each(obj, function(key,value) {
       		if(value.name != "noadv"){
-      			 var word = value.company;
-        		 var length = word.length;
-        		 if(length > 30){
-        			 word = word.substring(0, 28);
-        			 word = word+'..';
-        		 }
+      			if(typeof value.company == "undefined"){
+   				 word = "Currently Studying"
+   			 }else{
+   				 word = value.company;
+           		 var length = word.length;
+           		 if(length > 30){
+           			 word = word.substring(0, 28);
+           			 word = word+'..';
+           		 }
+   			 }
         		 value.company = word;
         		 expertcard(value);
+        		 document.getElementById("loadmore").style.display = 'none';
       		}else{
       			 document.getElementById("loadmore").style.display = 'block';
       		}
@@ -502,12 +507,16 @@ var filterString = "";
 			            			 document.getElementById("loadmorefilters").style.display = 'none';
 			            			 return false;
 			            		 }
-			            		 var word = value.company;
-			            		 var length = word.length;
-			            		 if(length > 30){
-			            			 word = word.substring(0, 28);
-			            			 word = word+'..';
-			            		 }
+			            		 if(typeof value.company == "undefined"){
+			           				 word = "Currently Studying"
+			           			 }else{
+			           				 word = value.company;
+			                   		 var length = word.length;
+			                   		 if(length > 30){
+			                   			 word = word.substring(0, 28);
+			                   			 word = word+'..';
+			                   		 }
+			           			 }
 			            		 value.company = word;
 			            		 expertcard(value);
 			            		 count++;
@@ -552,12 +561,16 @@ function GetLeftAdvisors(){
         			 document.getElementById("loadmorefilters").style.display = 'block';
         			 return false;
         		 }
-        		 var word = value.company;
-        		 var length = word.length;
-        		 if(length > 30){
-        			 word = word.substring(0, 28);
-        			 word = word+'..';
-        		 }
+        		 if(typeof value.company == "undefined"){
+       				 word = "Currently Studying"
+       			 }else{
+       				 word = value.company;
+               		 var length = word.length;
+               		 if(length > 30){
+               			 word = word.substring(0, 28);
+               			 word = word+'..';
+               		 }
+       			 }
         		 value.company = word;
 
         		 expertcard(value);
@@ -661,12 +674,16 @@ function GetResultAccordingToSubCategory(elem){
       		var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
-          			 var word = value.company;
-            		 var length = word.length;
-            		 if(length > 30){
-            			 word = word.substring(0, 28);
-            			 word = word+'..';
-            		 }
+          			if(typeof value.company == "undefined"){
+          				 word = "Currently Studying"
+          			 }else{
+          				 word = value.company;
+                  		 var length = word.length;
+                  		 if(length > 30){
+                  			 word = word.substring(0, 28);
+                  			 word = word+'..';
+                  		 }
+          			 }
             		 value.company = word;
           		     expertcard(value);
           		     count++;
@@ -716,12 +733,16 @@ function GetResultsUsingSubCategory(){
           	var noadv = false;
           	$.each(obj, function(key,value) {
           		if(value.name !="noadv" && value.name !="id"){
-          			 var word = value.company;
-            		 var length = word.length;
-            		 if(length > 30){
-            			 word = word.substring(0, 28);
-            			 word = word+'..';
-            		 }
+          			if(typeof value.company == "undefined"){
+          				 word = "Currently Studying"
+          			 }else{
+          				 word = value.company;
+                  		 var length = word.length;
+                  		 if(length > 30){
+                  			 word = word.substring(0, 28);
+                  			 word = word+'..';
+                  		 }
+          			 }
             		 value.company = word;
           		 expertcard(value);
 				 document.getElementById("loadmoresub").style.display  = "none";
@@ -767,12 +788,16 @@ function GetLeftAdvisorsUsingSubcategory(){
         	var noadv =false;
         	$.each(obj, function(key,value) {
         		 if(value.name !="noadv" &&  value.name !="id"){
-        			 var word = value.company;
-            		 var length = word.length;
-            		 if(length > 30){
-            			 word = word.substring(0, 28);
-            			 word = word+'..';
-            		 }
+        			 if(typeof value.company == "undefined"){
+           				 word = "Currently Studying"
+           			 }else{
+           				 word = value.company;
+                   		 var length = word.length;
+                   		 if(length > 30){
+                   			 word = word.substring(0, 28);
+                   			 word = word+'..';
+                   		 }
+           			 }
             		 value.company = word;
         		  expertcard(value);
        			 document.getElementById("loadmoresub").style.display = 'none';
@@ -811,6 +836,7 @@ function GetLeftAdvisorsUsingSubcategory(){
 
 var paging =1;
 function GetMoreAdvisors(){
+	debugger;
 	 $('.black-screen').show();
   	$.ajax({
         url : 'GetAdvisors', // Your Servlet mapping or JSP(not suggested)
@@ -821,6 +847,7 @@ function GetMoreAdvisors(){
         	var obj = JSON.parse(response);
   		    paging++;
         	$.each(obj, function(key,value) {
+        		debugger;
         		 if(value.name !="noadv"){
         			 var word="";
         			 if(typeof value.company == "undefined"){

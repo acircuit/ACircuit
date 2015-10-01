@@ -15,7 +15,9 @@ import org.apache.log4j.Logger;
 
 import ac.dao.AdminDAO;
 import ac.dao.FeedDAO;
+import ac.dao.SessionDAO;
 import ac.dto.ReviewsDTO;
+import ac.dto.UserDetailsDTO;
 
 /**
  * Servlet implementation class AdminMyAccountReviewsController
@@ -81,6 +83,30 @@ public class AdminMyAccountReviewsController extends HttpServlet {
 				
 				AdminDAO update = new AdminDAO();
 				update.UpdateReviewsStatus(sessionId,"APPROVED");
+		           //Getting the username and the advisor name
+		           SessionDAO ids = new SessionDAO();
+		           int[] id = ids.GetUserAdvisorIds(sessionId);
+		  
+		            SessionDAO uname = new SessionDAO();
+		            UserDetailsDTO user = uname.GetUserName(id[1]); 
+		            SessionDAO aname = new SessionDAO();
+		            String advName = aname.GetAdvisorName(id[0]);
+		            
+		            SessionDAO reviews = new SessionDAO();
+		            ReviewsDTO reviewDetails = reviews.GetReviews(sessionId);
+		  
+		           //Adding to the feeds table
+			       FeedDAO feed = new FeedDAO();
+			       int feedId = feed.InsertFeedType("review");
+			       if(feedId != 0){
+				      //Inserting feed content
+			          FeedDAO rev = new FeedDAO();
+			          Boolean isCommit = rev.InsertReviewFeed(feedId,reviewDetails.getId(),advName,user.getFullName(),user.getImage(),reviewDetails.getReview(),reviewDetails.getRating() );
+			          if(isCommit){
+			        	
+			          }
+
+			        }
 			}else{
 				AdminDAO update = new AdminDAO();
 				update.UpdateReviewsStatus(sessionId,"REJECTED");

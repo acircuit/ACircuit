@@ -45,22 +45,22 @@ public class GetAdvisors extends HttpServlet {
 		String[] advisorIds = ids.split(":");
 		String[] initialAdvisors = null;
 		int advcount=0;
-		if(paging.equals("0")){
-
+		int startIndex = 0;
+		int endIndex = 10;
 				initialAdvisors = advisorIds;
-		}else{
+		if(!paging.equals("0")){
 			int page = Integer.valueOf(paging);
-			int startIndex = 0;
-			int endIndex = 0;
+
 			startIndex = 11+ (page-1)*6;
             endIndex = startIndex +5;
-			initialAdvisors = Arrays.copyOfRange(advisorIds, startIndex, endIndex);
+		}else{
+			
 		}
 		System.out.println(ids);
 		Boolean isLeft = false;
 		  JSONArray array = new JSONArray();
 			for(String aid : initialAdvisors){
-				if(aid != null && advcount < 10){
+				if(aid != null && advcount >= startIndex && advcount < endIndex){
 						MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 						AdvisorDTO advisor = cache.getAdvisor(Integer.valueOf(aid));
 						List<EducationDTO> education = new ArrayList<EducationDTO>();
@@ -175,7 +175,6 @@ public class GetAdvisors extends HttpServlet {
 							jo.put("image", advisor.getImage());
 							System.out.println(image.getImageURL(advisor.getImage()));
 							isLeft = false;
-							advcount++;
 							System.out.println("added");
 							Double price = advisor.getPhonePrice();
 							Double commisionedPrice  = price +( price  * 20 /100);
@@ -187,6 +186,7 @@ public class GetAdvisors extends HttpServlet {
 						isLeft = true;
 						
 				   }
+				advcount++;
 				}
                 if(isLeft){
                 	JSONObject jo = new JSONObject();

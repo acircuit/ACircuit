@@ -1829,11 +1829,12 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT RATING,REVIEW,POSTED_ON,STATUS FROM sessionreviews WHERE SESSION_ID= ?";
+			String query = "SELECT REVIEW_ID,RATING,REVIEW,POSTED_ON,STATUS FROM sessionreviews WHERE SESSION_ID= ?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, sid);
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
+				reviews.setId(results.getInt("REVIEW_ID"));
 				reviews.setRating(results.getString("RATING"));
 				reviews.setReview(results.getString("REVIEW"));
 				reviews.setDate(sdf.format(results.getDate("POSTED_ON")));

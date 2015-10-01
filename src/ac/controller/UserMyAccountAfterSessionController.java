@@ -91,30 +91,13 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 				Boolean isStatusCommit =  status.UpdateStatus("SESSION COMPLETE", sid);
 				if(isStatusCommit){
 
-			           //Getting the username and the advisor name
-			           SessionDAO name = new SessionDAO();
-			           String advName = name.GetAdvisorName(Integer.valueOf(aId));
-			  
-			            SessionDAO uname = new SessionDAO();
-			            UserDetailsDTO user = uname.GetUserName(userId); 
-			  
-			           //Adding to the feeds table
-				       FeedDAO feed = new FeedDAO();
-				       int feedId = feed.InsertFeedType("review");
-				       if(feedId != 0){
-					      //Inserting feed content
-				          FeedDAO reviews = new FeedDAO();
-				          Boolean isCommit = reviews.InsertReviewFeed(feedId,reviewId,advName,user.getFullName(),user.getImage(),review,rating );
-				          if(isCommit){
-				        	//Notify advisor
-				  			String advisorComment = "User just gave feedback for the session with session id :"+sid;
-				  			String advisorHref = "advisorprofile?a="+aId;
-				  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
-				  			advisor.InsertNotification(advisorComment,aId, advisorHref);
-				        	 response.sendRedirect("userpastsession?sId="+sid); 
-				          }
 
-				        }
+				     //Notify advisor
+			  			String advisorComment = "User just gave feedback for the session with session id :"+sid;
+			  			String advisorHref = "advisorprofile?a="+aId;
+			  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
+			  			advisor.InsertNotification(advisorComment,aId, advisorHref);
+			        	 response.sendRedirect("userpastsession?sId="+sid); 
 				}
 		  }
 		}

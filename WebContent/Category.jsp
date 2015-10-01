@@ -1,6 +1,6 @@
 
        <div class="category-filter-div container no-padding">
-  			<div class="col-xs-12 choose-div no-padding-xs">Choose your area of advice</div>
+  			<div class="col-xs-12 choose-div no-padding-xs">Choose Area of advice</div>
   			<div class="col-xs-12 no-padding">
   				<div class="col-xs-12 col-sm-4 no-padding-xs">
   					<div class="big-button-div no-padding-xs">

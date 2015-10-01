@@ -51,8 +51,13 @@ public class SearchController extends HttpServlet {
 		list = dao.CheckInKeyWords(tokens);
 		String adIds = "";
 		for(Integer id :list){
-			adIds = adIds + id;
+			adIds = adIds + id+":";
 		}
+		if(!adIds.equals("")){
+			   int pos = adIds.lastIndexOf(':');
+			   adIds = adIds.substring(0, pos);
+			}
+		System.out.println("Ids"+adIds);
 		if(list.size() > 0){
 			//Check if the keywords is in the Trie
 			Trie trie = MyCacheBuilder.trie;

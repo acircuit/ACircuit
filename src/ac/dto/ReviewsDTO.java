@@ -4,7 +4,14 @@ import java.util.Date;
 
 public class ReviewsDTO {
  
-	 private int sessionId;
+	 private int id;
+	 public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	private int sessionId;
 	 private int userId;
 	 private int advisorId;
 	 private String review;

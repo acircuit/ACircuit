@@ -196,14 +196,14 @@
 									<td>${pay.getDate()}</td>
 									<td>${pay.getRechargeId()}</td>
 									<td class="rid">${pay.getTrackinId()}</td>
-									<td class="max-a">${pay.getAmount()}</td>		
+									<td class="max-a" id="${pay.getTrackinId()}">${pay.getAmount()}</td>		
 									</tr>
 								</c:forEach>
 								</tbody></table>
 						</div>
 						<form id="refund-form">
 						<div class="refund-input-div-modal col-xs-12 form-group">
-							<input type="text" name="value" data-max="${amount}" placeholder="Enter amount" data-tid="" class="form-control refund-input">
+							<input type="text" name="value" id="inputamount" data-max="${amount}" placeholder="Enter amount" data-tid="" class="form-control refund-input">
 						</div>
 						<div class=" col-xs-12 form-group">
 							<button id="refundbutton" type="button" class="btn gt-started" >Refund amount</button>
@@ -297,13 +297,14 @@ $('body').on( 'click', '#refundbutton', function(event) {
 	var checkmax=$('.refund-input').attr('data-max');
 	var value= $('.refund-input').val();
 	var tranID=$('.refund-input').attr('data-tid');
-	console.log(checkmax);
-	console.log(value);
+	console.log(tranID);
+	alert($("#"+tranID).innerHTML);
 	if(value>checkmax)
 		{
-		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  transaction amount.</label>')
-		}else if (value>"${amount}") {
-			$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  wallet amount.</label>')
+		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  wallet amount.</label>')
+		}
+	if (value>$("#"+tranID).innerHTML) {
+			$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  transaction amount.</label>')
 
 		}
 	else{
@@ -319,7 +320,7 @@ $('body').on( 'click', '#refundbutton', function(event) {
 						if(response == "true"){
 			        		document.getElementById("userrefundsuccessfull").style.display = "block";
 			        		document.getElementById("userrefunderror").style.display = "hide";
-			        		document.reload();
+			        		location.reload();
 
 			        	}else if (response == "false") {
 			        		document.getElementById("userrefunderror").style.display = "block";
