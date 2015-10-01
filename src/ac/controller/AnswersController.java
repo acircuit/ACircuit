@@ -79,7 +79,6 @@ public class AnswersController extends HttpServlet {
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
 		
-		System.out.println(advisors.size());
 		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
 		request.setAttribute("popCats", popCats);
 		request.setAttribute("question", que);

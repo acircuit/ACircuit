@@ -36,9 +36,10 @@ public class SearchDAO {
 			String query="";
 			//String q4in = generateQsForIn(words.size());
 			for (String word : words) {
-				query = "SELECT DISTINCT ADVISOR_ID FROM advisordetails WHERE KEYWORDS LIKE ?";	
+				query = "SELECT DISTINCT ADVISOR_ID FROM advisordetails WHERE KEYWORDS LIKE ? AND ISACTIVE=?";	
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, '%' + word + '%');
+				pstmt.setBoolean(2, true);
 				ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			/*	AdvisorDTO dto = new AdvisorDTO();

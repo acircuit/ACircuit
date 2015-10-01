@@ -206,7 +206,7 @@
 					
 					
 					
-					
+					<!-- 
 			   			
 			   			<div class="col-xs-12 new-expert-div no-padding">
 							<div class="col-xs-12 new-expert-card ">
@@ -263,7 +263,7 @@
 							</div>
 							<div class="col-xs-12 ">
 							<span class="all-r btext">See all reviews</span>
-							</div>
+							</div> -->
 							<div class="col-xs-11" style="margin-top: 10px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
@@ -443,7 +443,14 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">'+value.category+'</a>';
+	var html = '<a class="rel-category">';
+	  if(value.category == "studies"){
+		  html+='Higher Studies</a>';
+	  }else if (value.category == "industry") {
+		  html+='Career & Jobs</a>';
+	}else if (value.category == "options") {
+		html+='Course</a>';
+	}
 	 $('.poptags').append(html);
 }
 $('.datepicker').datepicker({

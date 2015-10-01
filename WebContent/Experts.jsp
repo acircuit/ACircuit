@@ -423,11 +423,10 @@ function expertcard(value)
 			+'<div class="Apinfo">'
 			+'<span class="Aname">'+value.name+'</span><br>'
 			+'<span class="Afeild">'+value.subcategory1;
-	 html = html
 	        if(typeof value.subcategory2 != 'undefined'){
-	        	+'|'+value.subcategory2+'</span>';
+	        	 html+='|'+value.subcategory2+'</span>';
 	        }else{
-	        	+'</span>';
+	        	 html+='</span>';
 	        }
 	html = html
 	        +'<div class="attributes">'

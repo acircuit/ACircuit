@@ -113,9 +113,9 @@ position:absolute;
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-body">
-								      <span id="ques${question.getQuestionId()}" class="ask-question-modal-head">User Question</span><br>
+								      <span  class="ask-question-modal-head">User Question</span><br>
 								      <br>
-								      <p>${question.getQuestion()}</p>
+								      <p id="ques${question.getQuestionId()}">${question.getQuestion()}</p>
 								      <div class="row" style="padding:10px;">
 										    <a id="${question.getQuestionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
 										    <a id="${question.getQuestionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   

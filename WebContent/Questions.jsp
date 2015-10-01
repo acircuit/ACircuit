@@ -204,7 +204,7 @@ function MostViewedQuestionsCard(value){
 } 
 function Populartags(value){
 	var html = '<a class="rel-category">';
-	  if(value.category == "higherstudies"){
+	  if(value.category == "studies"){
 		  html+='Higher Studies</a>';
 	  }else if (value.category == "industry") {
 		  html+='Career & Jobs</a>';

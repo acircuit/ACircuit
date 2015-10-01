@@ -87,7 +87,8 @@ public class UserDashboardController extends HttpServlet {
 					  activity.setAdvisorName(review.getAdvisorName());
 					  activity.setUserName(review.getUserName());
 					  activity.setRating(review.getRating());
-					  activity.setImage(review.getImage());
+					  GetRelativeImageURL images = new GetRelativeImageURL();
+					  activity.setImage(images.getImageURL(review.getImage()));
 					  activity.setReview(review.getReview());
 					  activity.setReviewPostedOn(review.getReviewPostedOn()); 
 				  }
@@ -100,7 +101,8 @@ public class UserDashboardController extends HttpServlet {
 					  activity.setSubcategory(answer.getSubcategory());
 					  activity.setPostedon(answer.getPostedon());
 					  activity.setAdvisorName(answer.getAdvisorName());
-					  activity.setImage(answer.getImage());
+					  GetRelativeImageURL images = new GetRelativeImageURL();
+					  activity.setImage(images.getImageURL(answer.getImage()));
 					  activity.setAnswer(answer.getAnswer());
 					  activity.setAnswerpostedon(answer.getAnswerpostedon());
 				  }

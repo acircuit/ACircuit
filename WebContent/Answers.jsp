@@ -74,12 +74,20 @@
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<!-- <span class="search-item">Higher Studies in MBA India</span> -->
-			   			<button type="button" class="btn red-button ask-question-button">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 			   				<div class="each-question-div row" id="1">
 				   				<div class="col-xs-12 tag-div">
-									<span class="tag">${question.getCategory()}</span>
+									<c:if test="${question.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${question.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${question.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${question.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div">
@@ -100,13 +108,17 @@
 						   				<div class="col-xs-12 col-sm-12  answer-div">
 												<div class="advisor_ans col-xs-12 no-padding">
 						                            <div class="advisor">
-						                                <div class="advisor_details col-xs-12 no-padding" >
-						                                    <img class="adv-img" src="assets/img/Abhishek.JPG">
+						                               <div class="advisor_details col-xs-12 no-padding" >
+						                               <a href="advisorprofile?a=${advisor.getId()}">
+						                                
+						                                    <img class="adv-img" src="${advisor.getImage()}">
 						                                    <p class="adv-name">${advisor.getName()}</p>
 						                                    <p class="adv-field">${advisor.getIndustry()}</p>
 						                                    <p class="written-on" >${answer.getDate()}</p>
-						                                    <span  class="red-action-a"><a > <img src="assets/img/answer_ask.svg"> Ask Question</a>
-						                                    <a> <img src="assets/img/answer_book.svg"> Book Session</a></span>
+						                                </a>
+						                                    
+						                                    <span  class="red-action-a"><a href="advisorprofile?a=${advisor.getId()}" > <img src="assets/img/answer_ask.svg"> Ask Question</a>
+						                                    <a href="advisorprofile?a=${advisor.getId()}"> <img src="assets/img/answer_book.svg"> Book Session</a></span>
 						                                </div>
 						                             </div>
 						                            <div class="adv_ans col-xs-12 col-sm-11 no-padding">
@@ -148,16 +160,17 @@
                     </div>
 	   			</div>
    			</div>
-   			<div class="load-more-div col-xs-12" style="margin-top:30px;">
+   			<!-- <div class="load-more-div col-xs-12" style="margin-top:30px;">
    				<div class="col-xs-9" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;">
 	   						<button type="button" class="btn load-more" style="width: 200px;">
 	  											Load more</button>
 	
 	   					</div>
-   			</div>
+   			</div> -->
    		</div>	
    	 </div>
-	 <%@include file="/footer.jsp" %>
+   	    	  <%@include file="/askqmodal.jsp" %>
+   	 	 <%@include file="/footer.jsp" %>
 </div>
 <script>
 $('body').on('click', '.Cfilter', function(e){

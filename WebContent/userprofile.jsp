@@ -362,7 +362,14 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">'+value.category+'</a>';
+	var html = '<a class="rel-category">';
+	  if(value.category == "studies"){
+		  html+='Higher Studies</a>';
+	  }else if (value.category == "industry") {
+		  html+='Career & Jobs</a>';
+	}else if (value.category == "options") {
+		html+='Course</a>';
+	}
 	 $('.poptags').append(html);
 }
 $('body').on('click', '.add-more-interest', function(e){

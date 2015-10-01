@@ -43,6 +43,8 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 		}
 		if(userId != 0){
 			List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+			List<QuestionsDTO> pendingQuestions = new ArrayList<QuestionsDTO>();
+			List<QuestionsDTO> answeredQuestions = new ArrayList<QuestionsDTO>();
 			//Getting all the questions asked by the user
 			QuestionsDAO questions = new QuestionsDAO();
 			list = questions.GetUserQuestions(userId);
@@ -54,6 +56,9 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 			for(QuestionsDTO question : list){
 				if(question.getIsAnswered()){
 					qids.add(question.getQuestionId());
+					answeredQuestions.add(question);
+				}else{
+					pendingQuestions.add(question);
 				}
 			
 			}
@@ -90,7 +95,8 @@ public class UserMyAccountQuestionsController extends HttpServlet {
 			request.setAttribute("industrySubCategory", industrySubCategory);
 			request.setAttribute("optionsSubCategory", optionsSubCategory);
 
-			request.setAttribute("questions", list);
+			request.setAttribute("answeredQuestions", answeredQuestions);
+			request.setAttribute("pendingQuestions", pendingQuestions);
 			request.setAttribute("advisorDetails", advisorDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/usersessionquestions.jsp");
 	        rd.forward(request, response);

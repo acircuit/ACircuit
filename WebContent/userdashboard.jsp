@@ -183,7 +183,15 @@ pageContext.setAttribute("type", type);
 						    <div class="each-question-div col-xs-12">
 							<span class="new-expert-head">New Answer Posted by ${activity.getAdvisorName()}</span><br>
 				   				<div class="col-xs-12 tag-div no-padding">
-									<span class="tag">${activity.getCategory()}</span>
+									<c:if test="${question.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${question.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${question.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${activity.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div no-padding">
@@ -192,7 +200,7 @@ pageContext.setAttribute("type", type);
 				   					<span class="updated-on">Posted on ${activity.getPostedon()}</span>
 				   				</div> 
 				   				 <div class="col-xs-12 question-div no-padding">
-									<span class="question">${activity.getAnswer()}</span>
+									<span class="answer">${activity.getAnswer()}</span>
 				   					<br>
 				   					<span class="updated-on">Posted on ${activity.getAnswerpostedon()}</span>
 				   				</div> 
@@ -208,7 +216,7 @@ pageContext.setAttribute("type", type);
 					
 					
 					</c:forEach>
-			   		<div class="col-xs-12 new-expert-div no-padding">
+<!-- 			   		<div class="col-xs-12 new-expert-div no-padding">
 							<div class="col-xs-12 new-expert-card ">
 								<span class="new-expert-head">New Expert Added to Category <span class="btext"> MBA India </span></span><br>
 									<img src="assets/img/Abhishek.JPG">
@@ -260,7 +268,7 @@ pageContext.setAttribute("type", type);
 									<br>
 									<span class="review-text">I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015). Let me share a personal perspective that I have shared with countless young MBA.</span>
 									
-							</div>
+							</div> -->
 							<div class="col-xs-12 ">
 							<span class="all-r btext">See all reviews</span>
 							</div>
@@ -358,7 +366,14 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">'+value.category+'</a>';
+	var html = '<a class="rel-category">';
+	  if(value.category == "studies"){
+		  html+='Higher Studies</a>';
+	  }else if (value.category == "industry") {
+		  html+='Career & Jobs</a>';
+	}else if (value.category == "options") {
+		html+='Course</a>';
+	}
 	 $('.poptags').append(html);
 }
 $('.datepicker').datepicker({

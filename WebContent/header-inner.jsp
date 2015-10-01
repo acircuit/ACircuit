@@ -104,8 +104,8 @@ pageContext.setAttribute("source", source);
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search">
-					         <div id="headersuggestions" class="dropdown sugg">
+					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search" >
+					         <div id="headersuggestionsmob" class="dropdown suggmob">
 					          			
 					          	</div></form>
 

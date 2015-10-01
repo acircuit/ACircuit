@@ -56,6 +56,7 @@ public class GetAdvisors extends HttpServlet {
             endIndex = startIndex +5;
 			initialAdvisors = Arrays.copyOfRange(advisorIds, startIndex, endIndex);
 		}
+		System.out.println(ids);
 		Boolean isLeft = false;
 		  JSONArray array = new JSONArray();
 			for(String aid : initialAdvisors){
@@ -63,6 +64,7 @@ public class GetAdvisors extends HttpServlet {
 						MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 						AdvisorDTO advisor = cache.getAdvisor(Integer.valueOf(aid));
 						List<EducationDTO> education = new ArrayList<EducationDTO>();
+						System.out.println("Name"+advisor.getName());
 						education = advisor.getEducation();
 						String indus = advisor.getIndustry();
 		
