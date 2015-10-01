@@ -105,7 +105,7 @@
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div hm-top-svg no-padding-xs">
 					  						<img class="svg" src="assets/img/home_industry.svg">
-					  							<br class="hidden-xs"><span class="svg-b-text border-pink">Career & Jobs</span>
+					  							<br><span class="svg-b-text border-pink">Career & Jobs</span>
 					  						
 					  					</div>
 					  				</div>
@@ -114,7 +114,7 @@
 					  				<div class="col-xs-4 no-padding">
 					  					<div class="big-button-div hm-top-svg no-padding-xs">
 					  						<img class="svg" src="assets/img/home_courses.svg">
-					  							<br class="hidden-xs"><span class="svg-b-text border-green">Courses</span>
+					  							<br><span class="svg-b-text border-green">Courses</span>
 					  							
 					  					</div>
 					  				</div>
