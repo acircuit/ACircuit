@@ -43,7 +43,7 @@ pageContext.setAttribute("source", source);
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box-i" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
-					          	</div></form></li>
+					          	</div></form><span class="make-search-small">X</span></li>
 					          	<li><div><ul class="nav navbar-nav navbar-right ">
 						          	 <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
@@ -104,7 +104,7 @@ pageContext.setAttribute("source", source);
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box visible-xs" type="text"  placeholder="Search" >
+					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-i visible-xs" type="text"  placeholder="Search" >
 					         <div id="headersuggestionsmob" class="dropdown suggmob">
 					          			
 					          	</div></form>
@@ -179,20 +179,28 @@ pageContext.setAttribute("source", source);
    	}
    	$('body').on('focus', '.search-box-i', function(e){
    		$('.hsuggestion').show();
+   		$('.make-search-small').show();
    		$('#bs-example-navbar-collapse-1 .first-ul>li:not(li:nth-child(4))').hide();
    		$('#bs-example-navbar-collapse-1 .first-ul').addClass('inc-searchulli');
    		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(4)').addClass('inc-searchulli');
    		$('.search-form').addClass('inc-searchbox');
     }).on('blur',".search-box-i", function() {
-    	 $('#bs-example-navbar-collapse-1 .first-ul>li').show();
+    	/*  $('#bs-example-navbar-collapse-1 .first-ul>li').show();
+    	$('#bs-example-navbar-collapse-1 .first-ul').removeClass('inc-searchulli');
+   		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(4)').removeClass('inc-searchulli');
+    	$('.search-form').removeClass('inc-searchbox'); */
+    });
+   	
+   	$('body').on('click', '.make-search-small', function(e){
+   		$(this).hide();
+   		$('#bs-example-navbar-collapse-1 .first-ul>li').show();
     	$('#bs-example-navbar-collapse-1 .first-ul').removeClass('inc-searchulli');
    		$('#bs-example-navbar-collapse-1 .first-ul li:nth-child(4)').removeClass('inc-searchulli');
     	$('.search-form').removeClass('inc-searchbox');
     });
-   	
    	$('body').on('click', '.hsuggestion', function(e){
    		var suge= $(this).html();
-   		$('.search-box').val(suge);
+   		$('.search-box-i').val(suge);
    		$('.hsuggestion').hide();
     });
 	if(<%=source.equals("admin")%>){
