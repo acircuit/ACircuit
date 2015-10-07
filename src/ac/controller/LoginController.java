@@ -67,6 +67,8 @@ public class LoginController extends HttpServlet {
 		logger.info("Entered doPost method of LoginController");
 		String username = request.getParameter("email");
 		String password = request.getParameter("password");
+		String url = request.getParameter("url");
+		System.out.println(url);
 		logger.info(username + password);
 			try{
 				if(!username.isEmpty() && username != null  && !password.isEmpty() &&  password != null){
@@ -91,7 +93,12 @@ public class LoginController extends HttpServlet {
 						        }else{
 							        session.setAttribute("isVerified", false);
 						        }
-					        	response.getWriter().write("userdashboard");
+						        if(url != null){
+						        	response.getWriter().write(url);
+						        }else{
+						        	response.getWriter().write("userdashboard");
+
+						        }
 						        
 							}else{
 							AdvisorDTO advisor = new AdvisorDTO();

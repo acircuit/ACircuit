@@ -134,7 +134,6 @@
    						<div class="col-xs-12 col-sm-8 " style="padding-left:0px">
    							<div class="big-text">Expert Advisors <span class="small-text"></span></div>
    							
-   							 <span class="small-text" style="visibility: hidden;">10 out of 132 Advisors</span>
    						</div>
    						
    						<div class="col-xs-12 col-sm-4 sort">
@@ -143,7 +142,7 @@
 								<button type="button" class="btn visible-xs filter-button" data-toggle="modal" data-target="#filtermodalixs">
 								 Filter
 								</button>
-
+                           
 								
    							<div class="dropdown" style="visibility: hidden;">
 							  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -159,7 +158,11 @@
 							</div>
    						</div>
    					</div>
+   					<div>
+   							 <span class="small-text reset-filter" style="float: left">Reset filters</span>
+   							 </div>
    					<div class="col-xs-12 Afilter-container">
+   					  
    					<div class="filters-active">
 	   						<span>Filters:</span>
 	   						<span class="filterlist" id="filtervalues"></span>
@@ -425,7 +428,6 @@ function defaultcall(){
 
       },
       error : function(request, textStatus, errorThrown) {
-          alert(errorThrown);
           
       }
     });
@@ -516,19 +518,20 @@ function expertcard(value)
 	}
 var adIds = "";
 var filterString = ""; 
-		$('body').on('change', '.squaredThree input[type=checkbox]', function() {
+$('body').on('change','.squaredThree input[type=checkbox]', function() {
 	$('.black-screen').show();
 	var text=$(this).attr('name');
   	var value=$(this).attr('id');
-	var adid = "";
-	if(adIds != ""){
+	var adid = "${ids}";
+<%-- 	if(adIds != ""){
 		adid = adIds;
 	}else{
 		adid = '<%=ids%>'
-	}
+	} --%>
+
     $('.card-container').html('');
 		  if ($(this).is(':checked')) {
-		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+"</span>")
+		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+"</span><span class='activef close-active' id="+value+">x</span>")
 		    
 		  } else {
 		 	 $('.filterlist [value='+value+']').remove();
@@ -591,23 +594,108 @@ var filterString = "";
 
 			            },
 			            error : function(request, textStatus, errorThrown) {
-			                alert(errorThrown);
 			                
 			            }
 			        });
 
 		  	}else{
+		  		location.reload();
 		    	   defaultcall();
 		       }
 });
+function CallFilters(){
+	$('.black-screen').show();
+	var text=$(this).attr('name');
+  	var value=$(this).attr('id');
+	var adid = "${ids}";
+<%-- 	if(adIds != ""){
+		adid = adIds;
+	}else{
+		adid = '<%=ids%>'
+	} --%>
+
+    $('.card-container').html('');
+		  if ($(this).is(':checked')) {
+		    $('.filterlist').append("<span class='activef' id="+value+" value="+value+">"+text+"</span><span class='close-active' id="+value+">x</span>")
+		    
+		  } else {
+		 	 $('.filterlist [value='+value+']').remove();
+		  }
+		  var filters = document.getElementById("filtervalues").childNodes;
+		  	var length = filters.length;
+		  	if(length >0){
+		  		filterString = "";
+		       for (var k = 0; k <= length-1; k++) {
+		           var id = filters[k].id;
+		           var text = filters[k].innerHTML;
+		           var filterType = id.substring(0,3);
+		           if(filterType == "col"){
+		           	filterString = filterString +"college:"+text+"::";
+		           }else if (filterType == "ind") {
+			           	filterString = filterString +"industry:"+text+"::";
+				    }else if (filterType == "lan") {
+			           	filterString = filterString +"language:"+text+"::";
+					}
+		       }
+		       var pos = filterString.lastIndexOf('::');
+		       filterString = filterString.substring(0,pos);
+			    	$.ajax({
+			            url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
+			            data : {"category":'<%=category%>',"filterString" :filterString,"ids":adid},
+			            type : 'POST',
+			            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+			            success : function(response) {
+	           			 document.getElementById("loadmore").style.display = 'none';
+	        			 document.getElementById("loadmoresub").style.display = 'none';
+
+			            	var obj = JSON.parse(response);
+			            	var count=0;
+			            	$.each(obj, function(key,value) {
+			            		if(value.name !="noadv"){
+			            		 if(count >10){
+			            			 document.getElementById("loadmorefilters").style.display = 'none';
+			            			 return false;
+			            		 }
+			            		 if(typeof value.company == "undefined"){
+			           				 word = "Currently Studying"
+			           			 }else{
+			           				 word = value.company;
+			                   		 var length = word.length;
+			                   		 if(length > 30){
+			                   			 word = word.substring(0, 28);
+			                   			 word = word+'..';
+			                   		 }
+			           			 }
+			            		 value.company = word;
+			            		 expertcard(value);
+			            		 count++;
+			            		}else{
+			           			 document.getElementById("loadmorefilters").style.display = 'block';
+			            		}
+			            		}); 
+			            	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+			               					// create an empty div in your page with some id
+			            	 $('.black-screen').hide();
+
+			            },
+			            error : function(request, textStatus, errorThrown) {
+			                
+			            }
+			        });
+
+		  	}else{
+		  		location.reload();
+		    	   defaultcall();
+		       }
+}
 var filterPaging =1;
 function GetLeftAdvisors(){
-	var id = "";
-	if(adIds != ""){
+	var id = '<%=ids%>'
+<%-- 	if(adIds != ""){
 		id = adIds;
 	}else{
 		id = '<%=ids%>'
-	}
+	} --%>
 	$.ajax({
         url : 'FilterController', // Your Servlet mapping or JSP(not suggested)
         data : {"category":'<%=category%>',"filterString" :filterString,"ids":id,"paging":filterPaging},
@@ -648,12 +736,18 @@ function GetLeftAdvisors(){
 
         },
         error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
             
         }
     });
 }
-
+$('body').on('click', '.close-active', function(e){
+	var value = $(this).attr('id');
+	$(this).remove();
+	 $('.filterlist [value='+value+']').remove();
+	 $('.filters').find('input[id="'+value+'"]').attr('checked', false);
+	 CallFilters();
+	
+});
 $('body').on('click', '.filters-type-xs li', function(e){
 	 var type=$(this).find('span').html();
 	 $('.filter-modal-head').html('Filters '+type+' ');
@@ -674,6 +768,7 @@ $('body').on('click', '.filters-type-xs li', function(e){
 
 $('body').on('click', '.reset-filter', function(e){
 	$('input:checkbox').removeAttr('checked');
+	location.reload();
 	defaultcall();
 	$('.filterlist').html('');
 });
@@ -717,19 +812,21 @@ var categ = "";
 var subcateg ="";
 function GetResultAccordingToSubCategory(elem){
  	$('.black-screen').show();
-
 	var id = elem.id;
 	var cat = id.split(",");
 	categ= cat[0];
 	subcateg = cat[1];
     $('.card-container').html('');
+	$('.filterlist').html('');
+	$('.squaredThree input[type=checkbox]').prop("checked", false);
 	$.ajax({
         url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
         data : {"category":cat[0],"subcategory":cat[1]},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
-       
+			 document.getElementById("loadmore").style.display  = "none";
+
           	var obj = JSON.parse(response);
           	var count=0;
       		var noadv = false;
@@ -751,7 +848,7 @@ function GetResultAccordingToSubCategory(elem){
           			 document.getElementById("loadmoresub").style.display = 'none';
           		}else if (value.name =="id") {
         			 adIds = value.ids;
-        			 document.getElementById("loadmore").style.display  = "none";
+        			 document.getElementById("loadmoresub").style.display  = "none";
         			 if(noadv){
               			 document.getElementById("loadmoresub").style.display = 'block';
  
@@ -761,7 +858,6 @@ function GetResultAccordingToSubCategory(elem){
         			 }
 				}else if (value.name =="noadv") {
 					 noadv = true;
-					 document.getElementById("loadmore").style.display  = "none";
           			 document.getElementById("loadmoresub").style.display = 'block';
 				}
           		}); 
@@ -771,7 +867,6 @@ function GetResultAccordingToSubCategory(elem){
 
           },
           error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
             
         }
     });
@@ -782,6 +877,8 @@ function GetResultsUsingSubCategory(){
 	   var category = sel.options[sel.selectedIndex].value;
 	   var sel1 = document.getElementById('subcategory-menu');
 	   var subcategory = sel1.options[sel1.selectedIndex].value;
+		$('.filterlist').html('');
+		$('.squaredThree input[type=checkbox]').prop("checked", false);
     $('.card-container').html('');
 	$.ajax({
         url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
@@ -789,7 +886,8 @@ function GetResultsUsingSubCategory(){
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
-       
+			 document.getElementById("loadmore").style.display  = "none";
+
           	var obj = JSON.parse(response);
           	var count=0;
           	var noadv = false;
@@ -816,7 +914,7 @@ function GetResultsUsingSubCategory(){
 				}else if (value.name =="id") {
        			 adIds = value.ids;
     			 document.getElementById("loadmore").style.display  = "none";
-    			 document.getElementById("loadmore").style.display  = "none";
+    			 document.getElementById("loadmoresub").style.display  = "block";
     			 if(noadv){
           			 document.getElementById("loadmoresub").style.display = 'block';
 
@@ -832,7 +930,6 @@ function GetResultsUsingSubCategory(){
 
           },
           error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
             
         }
     });
@@ -840,9 +937,13 @@ function GetResultsUsingSubCategory(){
 var subpaging =1;
 function GetLeftAdvisorsUsingSubcategory(){
 	 $('.black-screen').show();
+	   var sel = document.getElementById('category-menu');
+	   var category = sel.options[sel.selectedIndex].value;
+	   var sel1 = document.getElementById('subcategory-menu');
+	   var subcategory = sel1.options[sel1.selectedIndex].value;
   	$.ajax({
-        url : 'GetSubcategoryAdvisorsController', // Your Servlet mapping or JSP(not suggested)
-        data : {"category":categ,"subcategory":subcateg,"paging":subpaging},
+        url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
+        data : {"category":category,"subcategory":subcategory,"paging":subpaging},
         type : 'POST',
         dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
         success : function(response) {
@@ -889,7 +990,6 @@ function GetLeftAdvisorsUsingSubcategory(){
 
         },
         error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
             
         }
     });
@@ -935,7 +1035,6 @@ function GetMoreAdvisors(){
 
         },
         error : function(request, textStatus, errorThrown) {
-            alert(errorThrown);
             
         }
     });
@@ -968,7 +1067,7 @@ function OpenFIlterModal(elem){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
 	 	   } */
-	 	   html = html + "<div class='form-group col-xs-3 squaredThree'><input type='checkbox' id='ind"+ind+"' name='"+"${industry}"+"' /><label for='ind"+ind+"'></label><span>"+"${industry}"+"</span></div>";
+	 	   html = html + "<div class='form-group col-xs-6 squaredThree'><input type='checkbox' id='ind"+ind+"' name='"+"${industry}"+"' /><label for='ind"+ind+"'></label><span>"+"${industry}"+"</span></div>";
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;
 	 	$('#filModal').modal('show');
@@ -992,7 +1091,7 @@ function OpenFIlterModal(elem){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
 	 	   } */
-	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='lan"+ind+"' name='"+"${lang}"+"' /><label for='lan"+ind+"'></label><span>"+"${lang}"+"</span></div>";
+	 	   html = html + "<div class='form-group col-xs-6 squaredThree'><input type='checkbox' id='lan"+ind+"' name='"+"${lang}"+"' /><label for='lan"+ind+"'></label><span>"+"${lang}"+"</span></div>";
 
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;
@@ -1017,7 +1116,7 @@ function OpenFIlterModal(elem){
 		     html = html +"<div  class='col-xs-3 alpha-div-filter scrollable-content filters-in-modal'><span>"+startingletter.toUpperCase()+"</span><br>";
 		     started = true;
 	 	   } */
-	 	   html = html + "<div class='form-group squaredThree'><input type='checkbox' id='col"+ind+"' name='"+"${ins}"+"' /><label for='col"+ind+"'></label><span>"+"${ins}"+"</span></div>";
+	 	   html = html + "<div class='form-group col-xs-6 squaredThree'><input type='checkbox' id='col"+ind+"' name='"+"${ins}"+"' /><label for='col"+ind+"'></label><span>"+"${ins}"+"</span></div>";
 	 	   
 	 	</c:forEach>
 	 	document.getElementById("filterModal").innerHTML = html;

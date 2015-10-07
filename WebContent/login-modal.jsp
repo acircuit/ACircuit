@@ -96,6 +96,7 @@
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						<input class="form-control" id="email" type="email" name="email" required aria-required="true" placeholder="Email">
 				 	</div>
+				 	
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" id="password" name="password" placeholder="Password" type="password" required>
 				 	</div>
@@ -175,8 +176,8 @@ $('body').on( 'keyup', '#signupemail', function(event) {
 	$('#emailerror').slideUp();
 });	
 $('body').on('click', '.move-to-signup', function(e){
-   		$('#loginmodal').modal('show');
-   		$('#signupmodal').modal('hide');
+   		$('#loginmodal').modal('hide');
+   		$('#signupmodal').modal('show');
     });	
 $('body').on('click', '.forgot', function(e){
 		$('#loginform').slideUp();
@@ -244,7 +245,7 @@ $( "#loginform" ).submit(function( event ) {
 	  }
 			$.ajax({
 		        url : 'login', // Your Servlet mapping or JSP(not suggested)
-		        data : {"email":$("#email").val(),"password":$("#password").val()},
+		        data : {"email":$("#email").val(),"password":$("#password").val(),"url":"${url}"},
 		        type : 'POST',
 		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		        success : function(response) {
@@ -258,7 +259,11 @@ $( "#loginform" ).submit(function( event ) {
 		          		}
 					}
 		          	else{
-		          		document.getElementById("invalidusername").style.display = "none";
+		          		if(response != ""){
+		          			location.href = response;
+		          		}else{
+			          		document.getElementById("invalidusername").style.display = "none";
+		          		}
 		          	}
 		          	 $('.black-screen').hide();
 

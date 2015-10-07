@@ -621,8 +621,16 @@ margin: 10px 0px 10px 0px;
     padding: 0px 6px 0px 6px;
     background-color: #2DABC2;
     color: white;
-    margin-right: 2px;
+    margin-right: 0px;
     margin-bottom: 10px;
+    font-size: 13px;
+}
+.close-active{
+	padding: 0px 6px 0px 6px;
+	background-color: #2DABC2;
+	margin-right: 2px;
+	color: white;
+	margin-bottom: 10px;
     font-size: 13px;
 }
 .filter-button{

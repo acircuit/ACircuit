@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
+<%@page import="java.lang.*" %>
 <%@page import="ac.dto.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -41,20 +42,13 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-
-List<SessionDTO> sessions = (List<SessionDTO>)request.getAttribute("sessions");
-pageContext.setAttribute("sessions", sessions);
-
+String url = (String)request.getAttribute("url1");
+pageContext.setAttribute("url", url);
 
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
-<style>
-.link-div-on-right{
-position:absolute;
-}
-</style>
 <title>Insert title here</title>
 
 <body>
@@ -69,53 +63,23 @@ position:absolute;
 </div>
    	<div class="main-body-div no-padding remove-padding" id="page-content-wrapper" >
    	
-   			<div class="body-error col-xs-12" style="background-color: #EEEEEE;text-align:left;">
-   					<div class="col-xs-4 link-div-on-right" style="max-width: 320px;">
-   						 <div class="list-group">
-						  <a href="adminquestions" class="list-group-item">Questions</a>
-						  <a href="adminsessions" class="list-group-item">Sessions</a>
-						  <a href="adminuser" class="list-group-item">User</a>
-						  <a href="adminadvisor" class="list-group-item">Advisor</a>
-						  <a href="adminreviews" class="list-group-item">Reviews</a>
-						  <a href="admincontactus" class="list-group-item">Contact US</a>
-						  <a href="adminpaymenthistory" class="list-group-item">Payment History</a>
-						  <a href="adminpromotions" class="list-group-item">Promotions</a>
-						</div>
-   					</div>
-   					<div class="col-xs-8 col-xs-offset-4">
-   						<div class="panel panel-default">
-						      <!-- Default panel contents -->
-						      <div class="panel-heading">Payment History</div>
-						
-						      <!-- Table -->
-						      <table class="table">
-						        <thead>
-						          <tr>
-						            <th>Session Id</th>
-						            <th>Date</th>
-						            <th>Session Duration</th>
-						            <th>Session Price</th>
-						            <th>Action</th>
-						          </tr>
-						        </thead>
-						        <tbody>
-						         <c:forEach items="${sessions}" var="session">
-						           <tr>
-						            <th scope="row">${session.getSessionid()}</th>
-						            <td>${session.getAcceptedDate()}</td>
-						            <td>${session.getSessionDuration()}</td>
-						            <td>${session.getSessionPrice()}</td>
-                                    <td><a href="adminsessionviewdetails?sid=${session.getSessionid()}" target="blank">View Details</a></td>
-						          </tr>
-						        </c:forEach>
-						        </tbody>
-						      </table>
-						    </div>
-   					</div>
+   			<div class="body-error error-div col-xs-12" >
+   			<img src="assets/img/brokenlink.svg"><br>
+   					<span class="error-message-big">Oops!</span> 
+   					<br>
+   					<!-- <span class="page-error">Page Error</span> -->
+   					<br><br>
+   					<span class="error-message-text">Please <a data-toggle="modal" data-target="#loginmodal">Login</a> to continue</span>
 			</div>
 	 <%@include file="/footer.jsp" %>
 </div>
 </div>
 
+<script>
+
+$(document).ready(function () {
+	
+});
+</script>
 </body>
 </html>

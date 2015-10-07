@@ -20,6 +20,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.GetRelativeImageURL;
 import ac.util.SendMail;
 
 /**
@@ -36,7 +37,8 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doGet method of AdminMyAccountSessionViewDetailsController");
-		  String sid = request.getParameter("sid");
+	       String sid = request.getParameter("sid");
+		  
 			Boolean isAdmin = false;
 			Boolean isError = false;
 			try{
@@ -64,18 +66,23 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
 		  //Getting user details 
 		  SessionDAO advisor = new SessionDAO();
 		  AdvisorDTO advisorDetails= advisor.GetAdvisorDetails(sessionDetails.getAdvisorid());
+		  
 		  SessionDAO user = new SessionDAO();
 		  UserDetailsDTO userDetails  =user.GetUserDetails(sessionDetails.getUserid());
-		  
+		  GetRelativeImageURL image = new GetRelativeImageURL();
+		  String relImage = image.getImageURL(userDetails.getImage());
+		  userDetails.setImage(relImage);
 		  
 		  SessionDAO reviews = new SessionDAO();
 		  ReviewsDTO review = reviews.GetReviews(sid);
+		  
 		
 		  request.setAttribute("sessionDetails", sessionDetails);
 		   request.setAttribute("advisorDetails", advisorDetails);
 		   request.setAttribute("review", review);
 			  request.setAttribute("newDates", dates);
 			  request.setAttribute("userDetails", userDetails);
+			  
 
 		  RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminsessionviewdetails.jsp");
           rd.forward(request, response);

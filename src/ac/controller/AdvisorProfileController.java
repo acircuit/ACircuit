@@ -39,6 +39,7 @@ public class AdvisorProfileController extends HttpServlet {
 		logger.info("Entered doPost method of AdvisorProfileController");
 		int userId = 0;
 		int advisorId = 0;
+		Boolean admin = false;
 		String advisorPhone="";
 		
 		Boolean isError =false;
@@ -52,11 +53,15 @@ public class AdvisorProfileController extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
+		try{
+			admin = (Boolean) request.getSession().getAttribute("admin");
+		}catch (Exception e){
+			isError = true;
+		}
 		
-
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
-		if(userId != 0 || advisorId != 0){
+		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
 		String aId = request.getParameter("a");
 		if(aId != null){
 			MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
@@ -68,6 +73,7 @@ public class AdvisorProfileController extends HttpServlet {
             	 if(pro.getIsCurrent()){
             		 currentDesignation = pro.getDesignation();
             		 currentCompany = pro.getCompany();
+            	 
             	 }
              }
              //Getting the sub categories

@@ -65,9 +65,24 @@ public class SearchController extends HttpServlet {
 			if(words.size() > 0){
 				// Increase the Hit of the word.
 				Map<String, Integer> map = MyCacheBuilder.map;
-				int hit = map.get(word);
-				map.remove(word);
-				map.put(word, hit+1);
+				System.out.println(word);
+				if(map.get(word) != null){
+					int hit = map.get(word);
+					map.remove(word);
+					map.put(word, hit+1);
+				}else{
+					// If the keywors is not in the Trie, Then update trie, map and suf=ggestions table
+					//Updating table
+					//Put the search keyword in the table
+					ac.dao.SearchDAO key = new ac.dao.SearchDAO();
+					Boolean isCommit = key.PutSearchKeyWordInSuggestionTable(word);
+					MyCacheBuilder cacheBuilder1 = MyCacheBuilder .getCacheBuilder();
+					Map<String, Integer> map1 = MyCacheBuilder.map;
+					Trie trie1 = MyCacheBuilder.trie;
+					trie1.load(keyWord);
+					map1.put(keyWord, 1);
+				}
+				
 			}else{
 				// If the keywors is not in the Trie, Then update trie, map and suf=ggestions table
 				//Updating table

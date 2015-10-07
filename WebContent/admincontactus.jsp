@@ -82,7 +82,7 @@ border-top:0px !important;
 						  <a href="adminreviews" class="list-group-item">Reviews</a>
 						  <a href="admincontactus" class="list-group-item">Contact US</a>
 						  <a href="adminpaymenthistory" class="list-group-item">Payment History</a>
-						  <a href="#" class="list-group-item">Promotions</a>
+						  <a href="adminpromotions" class="list-group-item">Promotions</a>
 						</div>
    					</div>
    					<div class="col-xs-8 col-xs-offset-4">

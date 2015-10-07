@@ -78,8 +78,8 @@ position:absolute;
 						  <a href="adminadvisor" class="list-group-item">Advisor</a>
 						  <a href="adminreviews" class="list-group-item">Reviews</a>
 						  <a href="admincontactus" class="list-group-item">Contact US</a>
-						  <a href="admincontactus" class="list-group-item">Payment History</a>
-						  <a href="#" class="list-group-item">Promotions</a>
+						  <a href="adminpaymenthistory" class="list-group-item">Payment History</a>
+						  <a href="adminpromotions" class="list-group-item">Promotions</a>
 						</div>
    					</div>
    					<div class="col-xs-8 col-xs-offset-4">
@@ -113,7 +113,7 @@ position:absolute;
 							          <ul class="dropdown-menu " style="min-width: 273px;padding: 0px;border: 0px;">
 										 <a id="${advisor.getId()}" class="list-group-item" onclick="DeactivateAdvisor(this)">Deactivate Profile</a>
 										 <a id="${advisor.getId()}" href="" class="list-group-item" onclick="ActivateAdvisor(this)">Activate Profile</a>
-										 <a id="${advisor.getId()}" target="blank" href="adminviewuserprofile?email=${user.getEmail()}" class="list-group-item">View Profile</a>
+										 <a id="${advisor.getId()}" target="blank" href="AdvisorProfileController?a=${advisor.getId()}" class="list-group-item">View Profile</a>
 							          </ul>
 							        </li>                    
                                    </td>

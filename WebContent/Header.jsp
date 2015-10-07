@@ -104,7 +104,8 @@ else if( session.getAttribute("advisorId") !=null){
 					        <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
-					          	
+
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -114,7 +115,8 @@ else if( session.getAttribute("advisorId") !=null){
   ga('create', 'UA-58914838-1', 'auto');
   ga('send', 'pageview');
 
-</script>					          	
+</script>
+
 					          	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),

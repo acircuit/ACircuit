@@ -37,10 +37,11 @@ public class QuestionsController extends HttpServlet {
 		logger.info("Entered doPost method of QuestionsController");
 		int userId = 0;
 		int advisorId = 0;
+		Boolean admin = false;
 		String advisorPhone="";
 		
 		Boolean isError =false;
-		try{
+		try{ 
 			userId = (int) request.getSession().getAttribute("userId");
 		}catch(Exception e){
 			isError = true;
@@ -50,9 +51,16 @@ public class QuestionsController extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
+		try{
+			admin = (Boolean) request.getSession().getAttribute("admin");
+		}catch(Exception e){
+			isError = true;
+		}
+	
+		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
-		if(userId != 0 || advisorId != 0){
+		if(userId != 0 || advisorId != 0 || admin != null && admin){
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();

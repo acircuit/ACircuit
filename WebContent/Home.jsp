@@ -448,6 +448,7 @@ function expertcard(name,pro,a1,a2,a3,container,img)
    	            	
    	            },
    	            error : function(request, textStatus, errorThrown) {
+   	                alert(errorThrown);
    	            }
    	        }); 
    	    }

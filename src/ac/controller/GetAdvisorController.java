@@ -105,7 +105,12 @@ public class GetAdvisorController extends HttpServlet {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Experts.jsp");
         rd.forward(request, response);
 		}else{
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			/*url = url.substring(url.lastIndexOf('/')+1);*/
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		logger.info("Exit doPost method of GetAdvisorController");
 	}
