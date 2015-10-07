@@ -72,10 +72,10 @@ pageContext.setAttribute("source", source);
 					            <ul class="nav sidebar-nav">
 					                <li>
 							          <c:if test="${source.equals('user') }">
-							           <a href="userdashboard"><img src="assets/img/Abhishek.JPG" style="width: 55px;height: 55px;border-radius: 50%;border: 2px solid white;"></a>
+							           <a href="userdashboard"><img src="<%=path %>" style="width: 55px;height: 55px;border-radius: 50%;border: 2px solid white;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-							           <a href="advisordashboard"><img src="assets/img/Abhishek.JPG" style="width: 32px;height: 32px;border-radius: 50%;border: 2px solid white;"></a>
+							           <a href="advisordashboard"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;border: 2px solid white;"></a>
 							          </c:if>
 							          </li>
 					                <li>
@@ -104,11 +104,20 @@ pageContext.setAttribute("source", source);
 									<span class="hamb-bottom"></span>
 					            </button>
 					       
-					         <form class="search-form"  style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-i visible-xs" type="text"  placeholder="Search" >
+					         <form class="search-form" action="Search" method="get" style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-i visible-xs" type="text"  placeholder="Search" name="word">
 					         <div id="headersuggestionsmob" class="dropdown suggmob">
 					          			
 					          	</div></form>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-58914838-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 			          	
    	<script>
@@ -172,7 +181,6 @@ pageContext.setAttribute("source", source);
    	            	
    	            },
    	            error : function(request, textStatus, errorThrown) {
-   	                alert(errorThrown);
    	            }
    	        }); 
    	    }

@@ -91,12 +91,6 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 				Boolean isStatusCommit =  status.UpdateStatus("SESSION COMPLETE", sid);
 				if(isStatusCommit){
 
-
-				     //Notify advisor
-			  			String advisorComment = "User just gave feedback for the session with session id :"+sid;
-			  			String advisorHref = "advisorprofile?a="+aId;
-			  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
-			  			advisor.InsertNotification(advisorComment,aId, advisorHref);
 			        	 response.sendRedirect("userpastsession?sId="+sid); 
 				}
 		  }

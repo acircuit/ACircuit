@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.dao.AdminDAO;
+import ac.dao.AdvisorNotificationDAO;
 import ac.dao.FeedDAO;
 import ac.dao.SessionDAO;
 import ac.dto.ReviewsDTO;
@@ -103,7 +104,13 @@ public class AdminMyAccountReviewsController extends HttpServlet {
 			          FeedDAO rev = new FeedDAO();
 			          Boolean isCommit = rev.InsertReviewFeed(feedId,reviewDetails.getId(),advName,user.getFullName(),user.getImage(),reviewDetails.getReview(),reviewDetails.getRating() );
 			          if(isCommit){
-			        	
+
+
+						     //Notify advisor
+					  			String advisorComment = "User just gave feedback for the session with session id :"+sessionId;
+					  			String advisorHref = "advisorprofile?a="+id[0];
+					  			AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
+					  			advisor.InsertNotification(advisorComment,String.valueOf(id[0]), advisorHref);
 			          }
 
 			        }

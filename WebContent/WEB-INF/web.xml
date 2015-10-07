@@ -514,7 +514,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>error</servlet-name>
-    <jsp-file>/error.jsp</jsp-file>
+    <jsp-file>/Home.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>error</servlet-name>

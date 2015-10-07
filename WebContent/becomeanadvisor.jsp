@@ -151,7 +151,6 @@ $(document).ready(function () {
 
 });
 $( "#becomesignup" ).submit(function( event ) {
-	  event.preventDefault();
 		$.ajax({
 	        url : 'login', // Your Servlet mapping or JSP(not suggested)
 	        data : {"email":$("#becomeemail").val()},
@@ -161,10 +160,10 @@ $( "#becomesignup" ).submit(function( event ) {
 	          	if(response == "true"){
 	          		$('#emailerrorbecome').slideDown();
 	          		$('#become-submit').prop('disabled', true);
+	          	  event.preventDefault();
 	          	}else{
 	          		$('#emailerrorbecome').slideUp();
 	          		$('#become-submit').prop('disabled', false);
-	          		document.getElementById("signupform").submit();
 	          	}
 	          	 $('.black-screen').hide();
 

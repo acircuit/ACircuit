@@ -47,7 +47,7 @@
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
       						 <input type="checkbox" value="true" id="updates" name="updates" checked="checked"/>
 								<label for="updates"></label>
-								<span class="policy-text">I wish to receive updates from new offers</span>
+								<span class="policy-text">I wish to receive updates and new offers</span>
 				 	</div>
 <!-- 				 	<div class="option-signin col-xs-12 no-padding form-group">
 				 		  <span class="option-text">OR SIGN UP VIA</span>
@@ -165,7 +165,6 @@ $('body').on( 'blur focusout', '#signupemail', function(event) {
 
 	          },
 	          error : function(request, textStatus, errorThrown) {
-	            alert(errorThrown);
 	            
 	        }
 	    });
@@ -212,7 +211,7 @@ $( "#resetform" ).submit(function( event ) {
     });
     });
 $( "#signupform" ).submit(function( event ) {
-	  event.preventDefault();
+	  
 		$.ajax({
 	        url : 'login', // Your Servlet mapping or JSP(not suggested)
 	        data : {"email":$("#signupemail").val()},
@@ -222,16 +221,15 @@ $( "#signupform" ).submit(function( event ) {
 	          	if(response == "true"){
 	          		$('#emailerror').slideDown();
 	          		$('#signup-submit').prop('disabled', true);
+	          		event.preventDefault();
 	          	}else{
 	          		$('#emailerror').slideUp();
 	          		$('#signup-submit').prop('disabled', false);
-	          		document.getElementById("signupform").submit();
 	          	}
 	          	 $('.black-screen').hide();
 
 	          },
 	          error : function(request, textStatus, errorThrown) {
-	            alert(errorThrown);
 	            
 	        }
 	    });

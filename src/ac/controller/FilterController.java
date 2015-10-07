@@ -110,6 +110,7 @@ public class FilterController extends HttpServlet {
 			List<EducationDTO> education = new ArrayList<EducationDTO>();
 			education = advisor.getEducation();
 			String indus = advisor.getIndustry();
+			indus = indus.replaceAll("&amp;", "&");
 			List<AdvisorLanguageDTO> language1 = advisor.getLanguage();
 			for(int i=0;i<myarray.length;i++){
 				if(myarray[i].equals("college")){
@@ -118,8 +119,9 @@ public class FilterController extends HttpServlet {
 							advCollege++;
 						}
 					}
-				}else if (myarray[i].equals("industry") && indus.equals(myarray[i+1])) {
+				}else if (myarray[i].equals("industry") && indus.equals(myarray[i+1].replaceAll("&amp;", "&"))) {
 					advIndus++;
+					System.out.println("Industry"+ myarray[i+1]);
 				}else if (myarray[i].equals("language")) {
 					for(AdvisorLanguageDTO lan : language1){
 						if(lan.getLanguage().equals(myarray[i+1])){
@@ -245,8 +247,10 @@ public class FilterController extends HttpServlet {
 				array.add(jo);
 				System.out.println("added");
 				isLeft = false;
-				Double price = advisor.getPhonePrice();
-				Double commisionedPrice  = price +( price  * 20 /100);
+				SessionDAO advPrice = new SessionDAO();
+				Double[] prices = advPrice.GetAdvisorPrices(String.valueOf(advisor.getId()));
+/*				Double price = advisor.getPhonePrice();
+*/				Double commisionedPrice  = prices[0] +( prices[0]  * 20 /100);
 				Double finalPrice = commisionedPrice / 60;
 				jo.put("price", Math.round(finalPrice));
 				//q= q+advisor.getId();

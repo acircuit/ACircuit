@@ -40,9 +40,10 @@
 <%
 
                 List<QuestionsDTO> answeredQuestions = (List<QuestionsDTO>)request.getAttribute("answeredQuestions");
-                    AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
+                 List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
                     List<QuestionsDTO> newQuestions = (List<QuestionsDTO>)request.getAttribute("newQuestions");
-
+                     Integer advId = (Integer) request.getAttribute("advisorId");
+             		pageContext.setAttribute("advId", advId);
 	
 
 %>
@@ -96,7 +97,6 @@
 									    		<span class="tab-head-text">New Questions Added</span>
 									    	</div>
 										<c:forEach items="${newQuestions}" var="question">
-									    	<c:if test="${!question.getIsAnswered() }">
 									
 									    	
 									           	<div class="tab-content-div row">
@@ -125,7 +125,7 @@
 								      <form class="ask-form" action="advisoranswerquestion" id="${question.getQuestionId()}" method="post"> 
 								      	<textarea  class="form-control ask-question"  placeholder="Type your Answer" name="answer"> </textarea>
 								      	<input type="hidden" name="qid" value="${question.getQuestionId()}">
-								        <input type="hidden" name="aid" value="${advisorDetails.getId()}">
+								      	<input type="hidden" name="aid" value="${advId}">
 									       <br><br>
 									       <div class="row" style="padding:10px;">
 										       
@@ -139,7 +139,6 @@
 								  </div>
 								</div>	
 									       
-									        </c:if>
 									        </c:forEach>
 									</div>
 								
@@ -163,11 +162,16 @@
 									   					</c:if>
 									   				</div> 
 									   				<div class="col-xs-9 answer-div">
+									   				    <c:forEach var="advisor" items="${advisorDetails }">
+									   				    <c:if test="${question.getAdvisor_id() == advisor.getId() }">
 														<div class="advisor_details" >
-									                                    <img class="adv-img" src="${advisorDetails.getImage()}">
-									                                    <span class="adv-name">You wrote</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
+									                                    <img class="adv-img" src="${advisor.getImage()}">
+									                                    <span class="adv-name">${advisor.getName()} wrote</span><span class="adv-date"> on ${question.getLastUpdated() }</span>
 									                                    <p class="subject">“${question.getAnswer()}”</p><br>
 									                         </div>
+									                         </c:if>
+									    			    </c:forEach>
+									                         
 									    			    </div>
 									   			    </div>
 											    </div>	
@@ -202,121 +206,7 @@
    	 <%@include file="/footer.jsp" %>
 </div>
 
-<div class="modal fade" id="booksession" tabindex="-1" role="dialog" aria-labelledby="booksession">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								    	<div class="modal-head-bsession">
-								    		<span class="modal-head-text">Book A Session</span>
-								    	</div>
-								    	<div class="modal-main-body row">
-								    		<span class="modal-body-text">Session with Charles Dixon</span>
-								    		<form class="book-session no-padding" method="post" enctype="multipart/form-data" action="bookasession">
-								    			<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Select Mode </label>
-											       <div class="col-xs-9 form-group">
-				                                         <div class="col-xs-6">
-				                                         	 <div class="roundedOne">
-																<input type="radio" value="phone" id="phone" name="mode" />
-																<label for="phone"></label>
-																<span class="available-type-text">Phone</span>
-																
-															</div>
-														</div>
-														<div class="col-xs-6">
-				                                         	 <div class="roundedOne">
-																<input type="radio" value="video" id="video" name="mode" />
-																<label for="video"></label>
-																<span class="available-type-text">video</span>
-																
-															</div>
-														</div>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Session Duration </label>
-											       <div class="col-xs-9 form-group">
-				                                        <select class="collapsed-filter-button inpt-mw" id="duration" name="duration">
-														</select> 
-											 		</div>
-											 	</div>
-											 	<input type="hidden" name="aId" value="${advisor.getId()}">
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Approximate Cost</label>
-											       <div class="col-xs-9 form-group">
-											           <input type="hidden" name="approxprice" value="500">
-				                                       <span class="session-cost">Rs 500</span><br>
-				                                        <span class="session-cost-text">Payment will not be collected until this advisor has accepted your request.</span><br>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Query Description</label>
-											       <div class="col-xs-9 form-group">
-				                                       <textarea class="form-control" name="query"></textarea>
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											     <label class="col-xs-3 no-padding form-label">Attachments</label>
-											       <div class="col-xs-9 form-group">
-				                                      <input type="file" class="custom-file-input" name="resume">
-											 		</div>
-											 	</div>
-											 	<span class="modal-body-text">Propose three time slots for booking a session</span>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 1</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot1date">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot1time">
-														  
-														  
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 2</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot2date">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot2time">
-														
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="form-group each-form-div">
-											 	<label class="col-xs-3 no-padding form-label">Slot 3</label>
-											       <div class="col-xs-9 form-group">
-											       <div class="col-xs-6">
-											        <input class="datepicker form-control inpt-mw" placeholder="Date" data-provide="datepicker" name="slot3date">
-											       </div>
-											       <div class="col-xs-6">
-											        <select class="collapsed-filter-button inpt-mw" name="slot3time">
-														
-													</select> 
-											       </div>
-				                                     
-											 		</div>
-											 	</div>
-											 	<div class="col-xs-12 button-div" >
-											 	<button type="submit" class="btn book-button" >Book</button>
-											 	<button type="button" class="btn cancel-button" data-dismiss="modal">Cancel</button>
-											 	
-											 	</div>
-								    		</form>
-								    	</div>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
+
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">

@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import ac.cache.MyCacheBuilder;
+import ac.dao.QuestionsDAO;
 import ac.dao.RegistrationDAO;
 import ac.dao.SessionDAO;
 import ac.dto.UserDetailsDTO;
@@ -49,6 +52,25 @@ public class UserProfileController extends HttpServlet {
 			 UserDetailsDTO userDetails = user.GetUserDetails(userId);
 			 GetRelativeImageURL images = new GetRelativeImageURL();
 			 userDetails.setImage(images.getImageURL(userDetails.getImage()));
+			 
+			 
+				//Getting Popular categories
+				QuestionsDAO cats = new QuestionsDAO();
+				List<String> popCats = cats.GetPopularCategories();
+				
+				//Getting the sub categories
+				MyCacheBuilder higher = MyCacheBuilder.getCacheBuilder();
+				List<String> higherStudiesSubCategory = higher.getHigherStudiesSubCategory();
+				
+				MyCacheBuilder industry = MyCacheBuilder.getCacheBuilder();
+				List<String> industrySubCategory = industry.getIndustrySubCategory();
+				
+				MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
+				List<String> optionsSubCategory = option.getOpionsSubCategory();
+			 
+				request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
+				request.setAttribute("industrySubCategory", industrySubCategory);
+				request.setAttribute("optionsSubCategory", optionsSubCategory);
 			 request.setAttribute("userDetails", userDetails);
 			 RequestDispatcher rd = getServletContext().getRequestDispatcher("/usereditprofile");
 	         rd.forward(request, response);	

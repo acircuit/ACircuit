@@ -123,8 +123,10 @@ public class AdvisorProfileController extends HttpServlet {
 			consultations =  sessions.GetConsultations(advisor.getId());
 			
 			//Calculating price
-			Double price = advisor.getPhonePrice();
-			Double commisionedPrice  = price +( price  * 20 /100);
+			SessionDAO advPrice = new SessionDAO();
+			Double[] prices = advPrice.GetAdvisorPrices(String.valueOf(advisor.getId()));
+/*			Double price = advisor.getPhonePrice();
+*/			Double commisionedPrice  = prices[0] +( prices[0]  * 20 /100);
 			Double finalPrice = commisionedPrice / 60;
 			advisor.setPhonePrice(Math.round(finalPrice));
             

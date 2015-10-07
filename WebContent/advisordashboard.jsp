@@ -63,7 +63,7 @@
 							<div class="user-name-info" style="text-align:center;">
 								<span class="user-name">${advisorDetails.getName()}</span><br>
 								<span class="user-email">${advisorDetails.getEmail()}</span><br>
-								<a href="" style="visibility: hidden;"><span class="user-settings">Edit Profile Settings</span></a>
+								<a href="advisorprofile?a=${advisorDetails.getId()}"><span class="user-settings">View Profile</span></a>
 							</div>
 				   		</div>
 				   	</div>
@@ -136,9 +136,17 @@
 					     <c:if test="${activity.getFeedType().equals('question')}">
 					     <div class="col-xs-12 no-padding">
 						    <div class="each-question-div col-xs-12">
-							<span class="new-expert-head">New Question Posted in Q&A Forum</span><br>
+							<span class="new-expert-head">New Question Posted in <a href="questions">Q&A Forum</a></span><br>
 				   				<div class="col-xs-12 tag-div no-padding">
-									<span class="tag">${activity.getCategory()}</span>
+									<c:if test="${activity.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${activity.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${activity.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${activity.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div no-padding">
@@ -158,13 +166,10 @@
 							<div class="col-xs-12 userr-card ">
 							<span class="new-expert-head">New Review Added</span><br>
 									<img src="${activity.getImage()}">
-									<span class="btext rfrom">${activity.getUserName()}</span> to <span class="rto btext"> ${activity.getAdvisorName()}</span>
+									<span class="btext rfrom">${activity.getUserName()}</span> to <span class="rto btext">${activity.getAdvisorName()}</span>
 									<br>
 									<span class="review-text">${activity.getReview()}</span>
 									
-							</div>
-							<div class="col-xs-12 ">
-							<span class="all-r btext">See all reviews</span>
 							</div>
 							<div class="col-xs-11" style="margin-top: 10px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
@@ -178,7 +183,15 @@
 						    <div class="each-question-div col-xs-12">
 							<span class="new-expert-head">New Answer Posted by ${activity.getAdvisorName()}</span><br>
 				   				<div class="col-xs-12 tag-div no-padding">
-									<span class="tag">${activity.getCategory()}</span>
+									<c:if test="${activity.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${activity.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${activity.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${activity.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div no-padding">
@@ -187,7 +200,7 @@
 				   					<span class="updated-on">Posted on ${activity.getPostedon()}</span>
 				   				</div> 
 				   				 <div class="col-xs-12 question-div no-padding">
-									<span class="question">${activity.getAnswer()}</span>
+									<span class="answer">${activity.getAnswer()}</span>
 				   					<br>
 				   					<span class="updated-on">Posted on ${activity.getAnswerpostedon()}</span>
 				   				</div> 
@@ -263,11 +276,11 @@
 							</div>
 							<div class="col-xs-12 ">
 							<span class="all-r btext">See all reviews</span>
-							</div> -->
+							</div> 
 							<div class="col-xs-11" style="margin-top: 10px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
-						</div>
+						</div>-->
 			   		</div>
 
 	   			<div class="col-xs-12 col-sm-3">

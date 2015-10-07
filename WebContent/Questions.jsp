@@ -42,7 +42,10 @@
                 List<AdvisorDTO> advisors = (List<AdvisorDTO>)request.getAttribute("advisors");
                 List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
                 List<String> popCats = (List<String>)request.getAttribute("popCats");
-
+                Boolean isUserVerified =false;
+        	       if(session.getAttribute("isVerified") != null){
+        	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
+        	       }
         		pageContext.setAttribute("ids", ids);
 	
 
@@ -68,6 +71,7 @@
 <title>Get answers to career queries I Advisor Circuit</title>
 <body>
  <div id="wrapper">
+  <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -87,7 +91,7 @@
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
 			   			<span class="answers-count">${answers.size()} Answers</span>
-			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" onclick="OpenAskAQuestion()">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 
@@ -110,22 +114,27 @@
 				   					<br>
 				   					<span class="count-answers">${question.getCount()} answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>
 				   				</div> 
-				   				<div class="col-xs-9 answer-div" >
-									<span class="by-whom">
-									<c:forEach items="${advisors }" var="advisor">
-										<c:if test="${advisor.getId() == question.getAdvisor_id()}">
-											<span class="nameA">${advisor.getName()} </span> answered
-										</c:if>
-									</c:forEach>
-									</span>
-									<p  class="answer-to-question">
-									<c:forEach items="${answers }" var="answer">
-										<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
-											${answer.getAnswer()} 
-										</c:if>
-									</c:forEach>
-									</p>
-				   				</div>
+								<c:forEach items="${answers }" var="answer">
+								<c:forEach items="${advisors }" var="advisor">
+								<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
+										<c:if test="${ answer.getAdvisor_id() == advisor.getId()}">
+								
+						   				<div class="col-xs-9 answer-div" >
+											
+											<span class="by-whom">
+												<span class="nameA">${advisor.getName()} </span> answered
+											</span>
+											<p  class="answer-to-question">
+													${answer.getAnswer()} 
+											</p>
+						   				</div>
+									</c:if>
+				   				</c:if>
+				   				
+				   			</c:forEach>
+				   				
+							</c:forEach>
+				   				
 				   				<div class="col-xs-11">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
@@ -213,7 +222,17 @@ function Populartags(value){
 	}
 	 $('.poptags').append(html);
 }
+
+function OpenAskAQuestion(){
+	if(<%=isUserVerified%>){
+		$('#askquestion').modal('show');
+		$("#userverificationmodal").modal("hide");
+	}else{
+		$("#userverificationmodal").modal("show");
+	}	
+}
 function questioncard(value){
+
 	var html='<div class="each-question-div row" id="">'
 			+'<div class="col-xs-12 tag-div">'
 			+'<span class="tag">'+value.category+'</span>'
@@ -223,23 +242,21 @@ function questioncard(value){
 			+'<a href="answers?q='+value.id+'"><span class="question">'+value.question+'</span></a>'
 			+'<br>'
 			+'<span class="count-answers">'+value.count+' answers</span><span class="updated-on">Last Updated on '+value.lastupdated+'</span>'
-			+'</div> '
-			+'<div class="col-xs-9 answer-div">'
-			+'<span class="by-whom">'
-			+'<span class="nameA">Raghu Venkat </span> answered'
-			+'</span>'
-			+'<p class="answer-to-question">'
-			+value.answer
-
-			+'</p>'
-			+'</div>'
-			+'<div class="col-xs-11">'
-			+'<div style="border-bottom: 1px solid lightgray;"></div>'
-			+'</div>'
-
-			+'</div>';
+			+'</div> ';
 			
-	        $('.white-body-div').append(html);
+
+		return html;
+}
+function answercard(value){
+	var html = '<div class="col-xs-9 answer-div">'
+	+'<span class="by-whom">'
+	+'<span class="nameA">'+value.name+' </span> answered'
+	+'</span>'
+	+'<p class="answer-to-question">'
+	+ value.answer
+	+'</p>'
+	+'</div>';
+	return html;
 }
 
 
@@ -263,14 +280,7 @@ $('body').on('click', '.less', function(e){
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');
 });
 
-	function GetResultAccordingToSubCategory(elem){
-		$('.black-screen').show();
-		var id = elem.id;
-		var cat = id.split(",");
-		categ= cat[0];
-		subcateg = cat[1];
-		
-	}
+
 
 	
 	function GetResultAccordingToSubCategory(elem){
@@ -286,9 +296,28 @@ $('body').on('click', '.less', function(e){
 	        type : 'POST',
 	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	        success : function(response) {
+
+	        	var qcard="";
+          		var acard="";
 	          	var obj = JSON.parse(response);
 	          	$.each(obj, function(key,value) {
-	          		 questioncard(value);
+	          		if(typeof value.answer != "undefined"){
+	          			acard =acard+ answercard(value);
+	          		}else{
+	          			qcard = qcard+ questioncard(value);
+	          			var card = qcard + acard;
+	          			card = card  +'</p>'
+	        			+'</div>'
+	        			+'<div class="col-xs-11">'
+	        			+'<div style="border-bottom: 1px solid lightgray;"></div>'
+	        			+'</div>'
+
+	        			+'</div>';
+	        	        $('.white-body-div').append(card);
+	        	        qcard="";
+	        	        acard="";
+	          		}
+	          		 
 	          	}); 
 	          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
 	             					// create an empty div in your page with some id
@@ -315,9 +344,28 @@ $('body').on('click', '.less', function(e){
 		        type : 'POST',
 		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		        success : function(response) {
+
+		        	var qcard="";
+	          		var acard="";
 		          	var obj = JSON.parse(response);
 		          	$.each(obj, function(key,value) {
-		          		 questioncard(value);
+		          		if(typeof value.answer != "undefined"){
+		          			acard =acard+ answercard(value);
+		          		}else{
+		          			qcard = qcard+ questioncard(value);
+		          			var card = qcard + acard;
+		          			card = card  +'</p>'
+		        			+'</div>'
+		        			+'<div class="col-xs-11">'
+		        			+'<div style="border-bottom: 1px solid lightgray;"></div>'
+		        			+'</div>'
+
+		        			+'</div>';
+		        	        $('.white-body-div').append(card);
+		        	        qcard="";
+		        	        acard="";
+		          		}
+		          		 
 		          	}); 
 		          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
 		             					// create an empty div in your page with some id

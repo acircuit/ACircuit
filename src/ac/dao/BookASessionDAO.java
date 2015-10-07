@@ -26,7 +26,7 @@ public class BookASessionDAO {
 		Date date2=null;
 		Date date3=null;
 		int sessionId = 0;
-		SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			date1 =  (Date) formatter.parse(slot1Date);
 			date2 =  (Date) formatter.parse(slot2Date);

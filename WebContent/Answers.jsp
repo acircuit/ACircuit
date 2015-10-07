@@ -45,7 +45,10 @@
                 Integer count = (Integer) request.getAttribute("count");
                 List<QuestionsDTO> mostViewedQuestions = (List<QuestionsDTO>)request.getAttribute("mostViewedQuestions");
                 List<String> popCats = (List<String>)request.getAttribute("popCats");
-               
+                Boolean isUserVerified =false;
+        	       if(session.getAttribute("isVerified") != null){
+        	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
+        	       }
 				pageContext.setAttribute("ids", ids);
 	
 
@@ -74,7 +77,7 @@
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<!-- <span class="search-item">Higher Studies in MBA India</span> -->
-			   			<button type="button" class="btn red-button ask-question-button" data-toggle="modal" data-target="#askquestion">Ask question</button>
+			   			<button type="button" class="btn red-button ask-question-button" onclick="OpenAskAQuestion()">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 			   				<div class="each-question-div row" id="1">
@@ -143,20 +146,16 @@
 	   			
 	   			<div class="col-xs-12 col-sm-3">
 		   			<div  class="related col-xs-12">
-	                    <div class="rel-section">
+	                    <div class="rel-section mostviewed">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
-	                           <c:forEach items="${mostViewedQuestions}" var="viewed">
-	                                 <p class="rel_ques"><a class="rel_ques" href="answers?q=${viewed.getQuestionId()}">${viewed.getQuestion()}</a></p>
-	                          </c:forEach>
+	                          
 	
 	                    </div>
 					</div>
 					<div class="related col-xs-12">
-                    <div class="rel-section">
+                    <div class="rel-section poptags">
                         <h2>POPULAR CATEGORIES</h2>
-                         <c:forEach items="${popCats}" var="pop">
-                            <a class="rel-category">${pop}</a>
-	                    </c:forEach>
+                        
                     </div>
 	   			</div>
    			</div>
@@ -173,6 +172,60 @@
    	 	 <%@include file="/footer.jsp" %>
 </div>
 <script>
+$(document).ready(function () {
+   	if(<%=isAdv%>){
+   		$(".ask-a-question-button").hide();
+   		$(".book-a-session-button").hide();
+   	} 
+	$.ajax({
+        url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
+        data : {},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		if(value.type == "question"){
+              		MostViewedQuestionsCard(value);
+      			}else if (value.type == "category") {
+      				Populartags(value);
+				}
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
+	
+});
+function OpenAskAQuestion(){
+	
+	if(<%=isUserVerified%>){
+		$('#askquestion').modal('show');
+		$("#userverificationmodal").modal("hide");
+	}else{
+		$("#userverificationmodal").modal("show");
+	}
+}
+function MostViewedQuestionsCard(value){
+	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
+	 $('.mostviewed').append(html);
+} 
+function Populartags(value){
+	var html = '<a class="rel-category">';
+	  if(value.category == "studies"){
+		  html+='Higher Studies</a>';
+	  }else if (value.category == "industry") {
+		  html+='Career & Jobs</a>';
+	}else if (value.category == "options") {
+		html+='Course</a>';
+	}
+	 $('.poptags').append(html);
+}
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');
 });

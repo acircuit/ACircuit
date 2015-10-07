@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import sun.security.util.PendingException;
 import ac.dao.QuestionsDAO;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
@@ -56,30 +57,48 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 			for(QuestionsDTO advQuestions : questions){
 				if(advQuestions.getIsAnswered()){
 					ids.add(advQuestions.getQuestionId());
-					answeredQuestions.add(advQuestions);
-				}else{
-					newQuestions.add(advQuestions);
 				}
 			}
 			QuestionsDAO ans = new QuestionsDAO();
 			List<AnswerDTO> answer = ans.GetAnswersFromQuestionIds(ids);
 			SimpleDateFormat format = new SimpleDateFormat("dd MMM");
-			for(QuestionsDTO que1 : questions) {
-			 for(AnswerDTO ans1 : answer){
-				 if(que1.getQuestionId() == ans1.getQuestionId() && que1.getIsAnswered()){
+			for(QuestionsDTO que1 : questions) 
+			{
+				Boolean isQuestionPending=true;
+			 for(AnswerDTO ans1 : answer)
+			 {
+				 if(que1.getQuestionId() == ans1.getQuestionId())
+				 {
+			
 					 que1.setLastUpdated(format.format(ans1.getTime()));
 					 que1.setAnswer(ans1.getAnswer());
-				 }
+					 que1.setAdvisor_id(ans1.getAdvisor_id());
+			
+					 if(ans1.getAdvisor_id() == advisorId)
+						 {
+							 isQuestionPending = false;
+						 }
+				}	
+			 }
+			 
+			 if(!isQuestionPending)
+			 {
+				 answeredQuestions.add(que1);
+			 }
+			 else
+			 {
+				 newQuestions.add(que1);
 			 }
 			}
 			//Get Advisor Image
 			SessionDAO adv = new SessionDAO();
-			 AdvisorDTO advisorDetails =  adv.GetAdvisorDetails(advisorId);
+			List<AdvisorDTO> advisorDetails =  adv.GetAdvisorDetailsUsingQuestions(answeredQuestions);
 			 
-			
+			System.out.println("Answered"+answeredQuestions.size() + "Pending" +newQuestions.size());
 			request.setAttribute("answeredQuestions", answeredQuestions);
 			request.setAttribute("newQuestions", newQuestions);
 			request.setAttribute("advisorDetails", advisorDetails);
+			request.setAttribute("advisorId", advisorId);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorsessionquestions.jsp");
 	        rd.forward(request, response);
 			

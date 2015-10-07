@@ -16,6 +16,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import ac.dao.QuestionsDAO;
+import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 
@@ -44,18 +45,38 @@ public class GetSubcategoryQuestionsController extends HttpServlet {
 		list = answers.GetAnswers(ques);
 		JSONArray array = new JSONArray();
 		SimpleDateFormat format = new SimpleDateFormat("dd MMM");
+		QuestionsDAO adv = new QuestionsDAO();
+		List<AdvisorDTO> advisors = adv.GetAdvisorName(list);
 		for(QuestionsDTO que1 : ques) {
 			JSONObject jo = new JSONObject();
 			jo.put("id", que1.getQuestionId());
-			jo.put("category", que1.getCategory());
+			if(que1.getCategory().equals("studies")){
+				jo.put("category", "Higher Studies");
+			}else if (que1.getCategory().equals("industry")) {
+				jo.put("category", "Career & Jobs");
+
+			}else if (que1.getCategory().equals("options")) {
+				jo.put("category", "Course");
+			}
 			jo.put("subcategory",que1.getSubcategory());
 			jo.put("question",que1.getQuestion());
+			
 		 int count=0;
 		 for(AnswerDTO ans : list){
-			 if(que1.getQuestionId() == ans.getQuestionId()){
+			if(que1.getQuestionId() == ans.getQuestionId()){
 				 count ++;
 				 jo.put("lastupdated", format.format(ans.getTime()));
-				 jo.put("answer", ans.getAnswer());
+
+				 for(AdvisorDTO advisor : advisors){
+
+				 if(ans.getAdvisor_id() ==advisor.getId() ){
+					 JSONObject ao = new JSONObject();
+					 ao.put("answer", ans.getAnswer());
+
+					 ao.put("name", advisor.getName());
+					 array.add(ao);
+				 }
+				 }
 			 }
 		 }
 		 jo.put("count", count);

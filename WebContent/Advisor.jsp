@@ -118,8 +118,8 @@
 							
 							</span><br>
 							<span class="Afeild">${currentDesignation} in ${currentCompany}</span>
-							<span class="stars-xs visible-xs"><span class="rating-no">4.5</span>
-							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="4" disabled></span>
+							<span class="stars-xs visible-xs"><span class="rating-no">${rateCount}</span>
+							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${rateCount}" disabled></span>
 							<div class="dquotes">
 								<span class="bqstart">“</span>
 							</div>
@@ -152,7 +152,7 @@
 	<div class="body-content">
 		<div class="col-xs-12 col-sm-3 advisor-left-pannel">
 			<div class="verified-green-div">
-				<span> <img src="assets/img/verified.png" style="width: 32px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> Verified Expert </span> <img src="assets/img/info.png" style="width: 17px;margin-right: 6px;margin-left: 5px;margin-top: 4px;float:right;" data-toggle="tooltip" data-placement="left" title="Tooltip on right">
+				<span> <img src="assets/img/verified.png" style="width: 32px;margin-right: 6px;margin-left: 5px;margin-top: -10px;"> Verified Expert </span> <img src="assets/img/info.png" style="width: 17px;margin-right: 6px;margin-left: 5px;margin-top: 4px;float:right;" data-toggle="tooltip" data-placement="right" title="We have a three tier process for Advisor verification: Tier 1: Social & Web Identity verification. Tier 2: Education & Professional background verification through documents. Tier 3: Personal verification for ability to advice<br>We make sure you get the quality your career deserves.">
 			</div>
 			<div class="can-help-container">
 				<div class="can-help-div">
@@ -219,7 +219,7 @@
 				    <c:forEach items="${advisor.getEducation()}" var="education">
 				       <div class="bio-element">
 						   <span class="bio-title">${education.getCourse()}</span>
-						   <span class="bio-subtitle">${education.getInstitution()}</span><span class="seperator">|</span><span class="bio-subtitle"> New Delhi</span>
+						   <span class="bio-subtitle">${education.getInstitution()}</span><span class="seperator">|</span>
 						   <span class="bio-subtitle3">${education.getDuration()}</span>
 					   </div>
 				    </c:forEach>
@@ -431,6 +431,16 @@
 								    </div>
 								  </div>
 								</div>
+								   			<div class="modal fade" id="userverificationmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								     <p>Please verify your account thrugh the verification link sent to you via email.<a onclick="ResendLink()">Resend Mail</a> </p>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 				   	  <%@include file="/askqmodal.jsp" %>
 				   	 <%@include file="/footer.jsp" %>
 								
@@ -445,7 +455,7 @@ $(document).ready(function () {
    		$(".book-a-session-button").hide();
    	} 
 	$('.datepicker').datepicker({
-	    format: 'mm/dd/yyyy',
+	    format: 'dd-mm-yyyy',
 	    startDate: '-0d',
 	    datesDisabled:'13',
 	    autoclose:true,
@@ -458,10 +468,10 @@ $(document).ready(function () {
 	}
 	var j=0;
 	var htmld="";
-	for(j=15;j<91;){
+	for(j=5;j<61;){
 		htmld='<option value="'+j+'">'+j+' Minutes</option>';
 		$('#duration').append(htmld);
-		j=j+15;
+		j=j+5;
 	}
 	$("#book-session-form").validate();
 	starinputconversion();
@@ -720,19 +730,26 @@ function CheckLoggedIn(){
 		$('#loginmodal').modal('show');
 	}
 	else if (<%=!isUserVerified%>) {
-		document.getElementById("verifytobook").style.display = "block";
+		$("#userverificationmodal").modal("show");
 	}else{
    		$('#loginmodal').modal('show');
 	}
 
 }	
 function CheckLoggedInForQuestions(){
-	if(<%=session.getAttribute("userId") !=null %>){
+	if(<%=isUserLoggedIn && isUserVerified%>){
+		GetAdvisorPrice();
 		$('#askquestion').modal('show');
-	}else{
+	}else if (<%=!isUserLoggedIn%>) {
 		$('#loginmodal').modal('show');
 	}
+	else if (<%=!isUserVerified%>) {
+		$("#userverificationmodal").modal("show");
+	}else{
+   		$('#loginmodal').modal('show');
+	}
 }
+
 $('#category-menu-on-modal').on('change', function() {
 	 var values= ( this.value ); // or $(this).val()
 	if(values=='higherstudies')

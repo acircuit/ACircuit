@@ -1,13 +1,13 @@
 <div class="collapsed-filter hidden-xs" style="padding-top: 11px;">
    						<div class="col-xs-3 Choosec-div" >
-   							<span class="Choosec">Choose your area of advice</span>
+   							<span class="Choosec">Area of advice</span>
    						</div>
    						<div class="col-xs-9">
    							<div class="col-xs-4">
    					
    							<select class="collapsed-filter-button" id="category-menu">
 								  <option value="higherstudies">Higher studies</option>
-								  <option value="industry">Industry</option>
+								  <option value="industry">Career & Jobs</option>
 								  <option value="options">Courses</option>
 								 
 								</select>

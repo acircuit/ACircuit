@@ -105,6 +105,8 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
    				SessionDAO user = new SessionDAO();
         		UserDetailsDTO userDetails = user.GetUserName(Integer.valueOf(uid));
         		SessionDAO query = new SessionDAO();
+        		SessionDAO adv = new SessionDAO();
+        		AdvisorDTO advisorEmail = adv.GetAdvisorDetails(Integer.valueOf(aid));
         		SessionDTO sessionDetails =  query.GetSessionDetails(sId);
         		Properties prop = new Properties();
         		InputStream resourceAsStream = Thread.currentThread()
@@ -120,9 +122,9 @@ public class AdminMyAccountSessionViewDetailsController extends HttpServlet {
 						+ "User Name:"+userDetails.getFullName()+""
 								+ "<br>"
 						+ "Query:"+sessionDetails.getQuery()+" "
-								+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"/approvesession?sId="+sId+"'>Click here to view the request</a><br>"
+								+ "<a style='text-decoration:underline; font-weight:bold' href='"+prop.getProperty("PROJECT")+"'>Click here to view the request</a><br>"
 								+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
-				SendMail mail = new SendMail(subject, content, userDetails.getEmail(),prop.getProperty("MAIL_ADMIN"));
+				SendMail mail = new SendMail(subject, content, advisorEmail.getEmail(),prop.getProperty("MAIL_ADMIN"));
 				mail.start();
         	 }
          }else if (action != null && action.equals("reject")) {

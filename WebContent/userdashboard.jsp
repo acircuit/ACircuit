@@ -36,7 +36,13 @@
 <%
 String type = request.getParameter("type");
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
-Double amount = (Double) request.getAttribute("amount");        
+Double amount = (Double) request.getAttribute("amount");   
+Boolean isUserVerified =false;
+String email="";
+   if(session.getAttribute("isVerified") != null){
+	isUserVerified = (Boolean) session.getAttribute("isVerified");
+   }
+
 pageContext.setAttribute("type", type);
 
 %>
@@ -140,9 +146,17 @@ pageContext.setAttribute("type", type);
 					     <c:if test="${activity.getFeedType().equals('question')}">
 					     <div class="col-xs-12 no-padding">
 						    <div class="each-question-div col-xs-12">
-							<span class="new-expert-head">New Question Posted in Q&A Forum</span><br>
+							<span class="new-expert-head">New Question Posted in <a href="questions">Q&A Forum</a></span><br>
 				   				<div class="col-xs-12 tag-div no-padding">
-									<span class="tag">${activity.getCategory()}</span>
+									<c:if test="${activity.getCategory().equals('studies')}">
+										<span class="tag">Higher Studies</span>
+			   						</c:if>
+				   					<c:if test="${activity.getCategory().equals('industry')}">
+										<span class="tag">Career & Jobs</span>
+				   					</c:if>
+				   					<c:if test="${activity.getCategory().equals('options')}">
+										<span class="tag">Course</span>
+				   					</c:if>
 									<span class="tag">${activity.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div no-padding">
@@ -167,9 +181,7 @@ pageContext.setAttribute("type", type);
 									<span class="review-text">${activity.getReview()}</span>
 									
 							</div>
-							<div class="col-xs-12 ">
-							<span class="all-r btext">See all reviews</span>
-							</div>
+							
 							<div class="col-xs-11" style="margin-top: 10px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
@@ -183,13 +195,13 @@ pageContext.setAttribute("type", type);
 						    <div class="each-question-div col-xs-12">
 							<span class="new-expert-head">New Answer Posted by ${activity.getAdvisorName()}</span><br>
 				   				<div class="col-xs-12 tag-div no-padding">
-									<c:if test="${question.getCategory().equals('studies')}">
+									<c:if test="${activity.getCategory().equals('studies')}">
 										<span class="tag">Higher Studies</span>
 			   						</c:if>
-				   					<c:if test="${question.getCategory().equals('industry')}">
+				   					<c:if test="${activity.getCategory().equals('industry')}">
 										<span class="tag">Career & Jobs</span>
 				   					</c:if>
-				   					<c:if test="${question.getCategory().equals('options')}">
+				   					<c:if test="${activity.getCategory().equals('options')}">
 										<span class="tag">Course</span>
 				   					</c:if>
 									<span class="tag">${activity.getSubcategory()}</span>
@@ -216,7 +228,7 @@ pageContext.setAttribute("type", type);
 					
 					
 					</c:forEach>
-<!-- 			   		<div class="col-xs-12 new-expert-div no-padding">
+<!--   			   		<div class="col-xs-12 new-expert-div no-padding">
 							<div class="col-xs-12 new-expert-card ">
 								<span class="new-expert-head">New Expert Added to Category <span class="btext"> MBA India </span></span><br>
 									<img src="assets/img/Abhishek.JPG">
@@ -268,14 +280,14 @@ pageContext.setAttribute("type", type);
 									<br>
 									<span class="review-text">I am not a fresher. But I do have an MBA (Michigan, Ross, 93-95), and I do work at Mu Sigma (since March 2015). Let me share a personal perspective that I have shared with countless young MBA.</span>
 									
-							</div> -->
+							</div> 
 							<div class="col-xs-12 ">
 							<span class="all-r btext">See all reviews</span>
 							</div>
 							<div class="col-xs-11" style="margin-top: 10px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
-						</div>
+						</div> -->
 			   		</div>	
 			   			
 	   			
@@ -283,7 +295,7 @@ pageContext.setAttribute("type", type);
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;font-size:14px;" >Book a session</a>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;background-color: #6c6c6c;color:white;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;background-color: #6c6c6c;color:white;" onclick="OpenAskAQuestion()">Ask a question</button>
 						</div>
 		   			<div  class="related col-xs-12 ">
 	                    <div class="rel-section mostviewed">
@@ -334,7 +346,7 @@ $(document).ready(function () {
 	}else{
 		document.getElementById("verifyaccount").style.display = "none";
 	}
-	
+
 	
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
@@ -360,6 +372,14 @@ $(document).ready(function () {
     });
 	
 });
+function OpenAskAQuestion(){
+	if(<%=isUserVerified%>){
+		$('#askquestion').modal('show');
+		$("#userverificationmodal").modal("hide");
+	}else{
+		$("#userverificationmodal").modal("show");
+	}	
+}
 
 function MostViewedQuestionsCard(value){
 	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
@@ -543,6 +563,8 @@ $('body').on('click', '.less', function(e){
 
 		}
 		});
+	
+
 </script>
 </body>
 </html>

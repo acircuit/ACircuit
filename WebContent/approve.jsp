@@ -242,7 +242,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 <script>
 $(document).ready(function () {
 	$('.datepicker').datepicker({
-	    format: 'mm/dd/yyyy',
+	    format: 'dd-mm-yyyy',
 	    startDate: '-3d'
 	});
 	var i=0;

@@ -165,8 +165,10 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 						consultations =  sessions.GetConsultations(advisor.getId());
 						jo.put("sessions", consultations);
 						System.out.println(jo.get("name"));
-						Double price = advisor.getPhonePrice();
-						Double commisionedPrice  = price +( price  * 20 /100);
+						SessionDAO advPrice = new SessionDAO();
+						Double[] prices = advPrice.GetAdvisorPrices(String.valueOf(advisor.getId()));
+/*						Double price = advisor.getPhonePrice();
+*/						Double commisionedPrice  = prices[0] +( prices[0]  * 20 /100);
 						Double finalPrice = commisionedPrice / 60;
 						jo.put("price", Math.round(finalPrice));
 						jo.put("image", advisor.getImage());

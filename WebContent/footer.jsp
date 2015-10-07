@@ -21,7 +21,7 @@ else if( session.getAttribute("advisorId") !=null){
 				   					<div style="border-bottom: 1px solid lightgray;margin-bottom: 30px;"></div>
 				   					</div>
 	<div class="col-xs-12 col-sm-4 logo-div-footer hidden-xs">
-		<img src="https://www.advisorcircuit.com/assets/img/logo-black.png" class="logo">
+		<img src="https://www.advisorcircuit.com/ACircuit/assets/img/logo-black.png" class="logo">
 	</div>
 	<div class="col-xs-12 col-sm-8 links-div-footer no-padding-xs">
 			<div class="col-xs-12 col-sm-4 tab-on-xs">

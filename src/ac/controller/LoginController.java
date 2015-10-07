@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
 		logger.info("Entered doPost method of LoginController");
 		String username = request.getParameter("email");
 		String password = request.getParameter("password");
-
+		logger.info(username + password);
 			try{
 				if(!username.isEmpty() && username != null  && !password.isEmpty() &&  password != null){
 					

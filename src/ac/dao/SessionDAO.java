@@ -148,7 +148,7 @@ public class SessionDAO {
 		Boolean isCommit = false ;
 		Date date1=null;
 		if(!isNewDates){
-	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 	       try {
 		    	date1 = sdf.parse(date);
 		   } catch (ParseException e3) {
@@ -216,7 +216,7 @@ public class SessionDAO {
 		Boolean isCommit = false;
 		Date date1=null;
 		Date date2=null;
-		SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
 		try {
 			date1 =  (Date) formatter.parse(slot1Date);
 			date2 =  (Date) formatter.parse(slot2Date);
@@ -1866,9 +1866,10 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT * FROM sessionreviews WHERE ADVISOR_ID =?";
+			String query = "SELECT * FROM sessionreviews WHERE ADVISOR_ID =? AND STATUS = ?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, aid);
+			pstmt.setString(2, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
 				ReviewsDTO review = new ReviewsDTO();
@@ -2204,6 +2205,54 @@ public class SessionDAO {
 		logger.info("Entered GetRefundDetails method of SessionDAO");
 		return refunds;
 	}
+	
+	public List<AdvisorDTO> GetAdvisorDetailsUsingQuestions(List<QuestionsDTO> questions){
+		logger.info("Entered GetAdvisorDetailsUsingQuestions method of SessionDAO");
+		List<AdvisorDTO> advisors = new ArrayList<AdvisorDTO>();
+ 	try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(questions.size());
+			System.out.println(q4in);
+			String query = "SELECT NAME,IMAGE,ADVISOR_ID FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (QuestionsDTO question : questions) {
+				pstmt.setInt(i++, question.getAdvisor_id());
+			}
+			System.out.println(query);
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				AdvisorDTO advisor = new AdvisorDTO();
+				advisor.setName(results.getString("NAME"));
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				advisor.setImage(image.getImageURL(results.getString("IMAGE")));
+				advisor.setId(results.getInt("ADVISOR_ID"));
+				advisors.add(advisor);
+			}
+		
+		} catch (SQLException e) {
+			logger.error("GetAdvisorDetailsUsingQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorDetailsUsingQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorDetailsUsingQuestions method of SessionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorDetailsUsingQuestions method of SessionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	return advisors;
+	}
+	
+	
+	
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

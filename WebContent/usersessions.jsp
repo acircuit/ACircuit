@@ -51,6 +51,10 @@ pageContext.setAttribute("userReviews", userReviews);
 pageContext.setAttribute("sessionDates", sessionDates);
 pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 pageContext.setAttribute("sessionStatus", sessionStatus);
+Boolean isUserVerified =false;
+if(session.getAttribute("isVerified") != null){
+	isUserVerified = (Boolean) session.getAttribute("isVerified");
+}
 
 %>
 </head>
@@ -269,7 +273,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<a href="advisors?category=all" class="btn red-button " style="width: 100%;margin-bottom: 10px;" >Book a session</a>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;" onclick="OpenAskAQuestion()">Ask a question</button>
 						</div>
 						
 						<div class="col-xs-12 similar" style="margin-top:10px;">
@@ -292,47 +296,7 @@ pageContext.setAttribute("sessionStatus", sessionStatus);
    			
    			</div>
    	 </div>
-   	 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								      <span class="ask-question-modal-head">Ask Question</span><br>
-								      <br>
-								      <form class="ask-form"> 
-								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" > </textarea>
-								      
-									       <br><br>
-									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
-										       <div class="col-xs-9">
-											       <div class="col-xs-6">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														  <option value="higherstudies">Higher studies</option>
-														  <option value="industry">Industry</option>
-														  <option value="options">Courses</option>
-														</select>
-											       </div>
-											       <div class="col-xs-6">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															 
-														</select>
-														
-											       </div>
-											      <br>
-											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
-													</div>
-													<button type="button" class="btn red-button ask-question-button" onclick="SubmitQuestion()">Ask question</button>
-										       </div>
-									       </div>
-								        </form>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
+   	  <%@include file="/askqmodal.jsp" %>
    	 <%@include file="/footer.jsp" %>
 </div>
 
@@ -388,7 +352,14 @@ $(document).ready(function () {
     });
 	
 });
-
+function OpenAskAQuestion(){
+	if(<%=isUserVerified%>){
+		$('#askquestion').modal('show');
+		$("#userverificationmodal").modal("hide");
+	}else{
+		$("#userverificationmodal").modal("show");
+	}	
+}
 function similarprofile(value){
 	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 

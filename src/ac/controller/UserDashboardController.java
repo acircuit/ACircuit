@@ -76,7 +76,7 @@ public class UserDashboardController extends HttpServlet {
 				  if(question.getFeedId() == activity.getFeedId()){
 					  activity.setQuestionId(question.getQuestionId());
 					  activity.setQuestion(question.getQuestion());
-					  activity.setCategory(question.getSubcategory());
+					  activity.setCategory(question.getCategory());
 					  activity.setSubcategory(question.getSubcategory());
 					  activity.setQuestionPostedOn(question.getQuestionPostedOn());
 				  }

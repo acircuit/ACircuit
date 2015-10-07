@@ -40,10 +40,13 @@
 <%
 
                 List<QuestionsDTO> pendingQuestions = (List<QuestionsDTO>)request.getAttribute("pendingQuestions");
-List<QuestionsDTO> answeredQuestions = (List<QuestionsDTO>)request.getAttribute("answeredQuestions");
+                List<QuestionsDTO> answeredQuestions = (List<QuestionsDTO>)request.getAttribute("answeredQuestions");
 
                 List<AdvisorDTO> advisorDetails = (List<AdvisorDTO>)request.getAttribute("advisorDetails");
-
+                Boolean isUserVerified =false;
+     	       if(session.getAttribute("isVerified") != null){
+     	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
+     	       }
 	
 
 %>
@@ -178,7 +181,7 @@ List<QuestionsDTO> answeredQuestions = (List<QuestionsDTO>)request.getAttribute(
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
 							<br>
-							<button type="button" class="btn dark-button" style="width: 100%;" data-toggle="modal" data-target="#askquestion">Ask a question</button>
+							<button type="button" class="btn dark-button" style="width: 100%;" onclick="OpenAskAQuestion()">Ask a question</button>
 						</div>
 						
 						<div class="col-xs-12 similar" style="margin-top:10px;display: none">
@@ -248,6 +251,14 @@ $(document).ready(function () {
         }
     });
 });
+function OpenAskAQuestion(){
+	if(<%=isUserVerified%>){
+		$('#askquestion').modal('show');
+		$("#userverificationmodal").modal("hide");
+	}else{
+		$("#userverificationmodal").modal("show");
+	}	
+}
 function similarprofile(value){
 	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 

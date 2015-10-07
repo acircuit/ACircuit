@@ -123,7 +123,7 @@ public class RegistrationController extends HttpServlet {
         							+ "<span style='text-decoration:underline; font-weight:bold'>3. Take sessions</span><br>"
         							+ "Book a one on one session within seconds and get great career advice from people who have first-hand experience with the doubts that you face"
         							+ "<br><br>"
-        							+ "As an introductory offer, we have recharged your wallet with Rs100!  So take your first session for free and start exploring Advisor Circuit now. "
+        							+ "Start exploring Advisor Circuit now! Call +91 9971232582 for any queries"
         							+ "<br><br>"
         							+ "Cheers,<br>"
         							+ "Team Advisor Circuit<br><br>"

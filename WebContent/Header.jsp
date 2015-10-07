@@ -104,6 +104,17 @@ else if( session.getAttribute("advisorId") !=null){
 					        <div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div> --></form>
+					          	
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58914838-1', 'auto');
+  ga('send', 'pageview');
+
+</script>					          	
 					          	<script>
    	$(document).ready(function () {
   var trigger = $('.hamburger'),
@@ -204,26 +215,7 @@ else if( session.getAttribute("advisorId") !=null){
     });
    	
    	
-   	function ResendLink(){
-   		var email = $("#session-email").val();
-   		var id = <%=userd%>;
-   		$.ajax({
-   	        url : 'ResendLinkController', // Your Servlet mapping or JSP(not suggested)
-   	        data : {"resendLink" :email,"id":id},
-   	        type : 'POST',
-   	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-   	        success : function(response) {
-   	        	if(response == "true"){
-   			         alert("We have resent the verification mail on your Email Id. Please activate your account to book sessions.");
-   	        	}
-   	           					// create an empty div in your page with some id
-   	        },
-   	        error : function(request, textStatus, errorThrown) {
-   	            alert(errorThrown);
-   	            
-   	        }
-   	    });	
-   	}
+
 	$('#category-menu-on-modal').on('change', function() {
 		 var values= ( this.value ); // or $(this).val()
 		if(values=='higherstudies')

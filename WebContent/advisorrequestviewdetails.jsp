@@ -223,7 +223,7 @@
 <script>
 $(document).ready(function () {
 	$('.datepicker').datepicker({
-	    format: 'mm/dd/yyyy',
+	    format: 'dd/mmyyyy',
 	    startDate: '-3d'
 	});
 	$("#reject-reason-form").validate();

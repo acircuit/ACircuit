@@ -188,16 +188,16 @@
 		<!-- <div class="hquotes">
 		</div> -->
 			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
-				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
-				<span class="no-of-answers">15 Answers</span>
+				<span class="question-in-qa">Which is better for an engineering student- an MBA straight out of college or post some work experience?</span>
+				<span class="no-of-answers">Talking from a point of view of Jobs & Careers, I personally think it depends on which industry you want to go into ..</span>
 			</div>
 			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
-				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
-				<span class="no-of-answers">15 Answers</span>
+				<span class="question-in-qa">How can I qualify for scholarships to pursue my master's in the US?</span>
+				<span class="no-of-answers">There are two types of help you can get in Professional Masters; scholarships & Financial Aid ..</span>
 			</div>
 			<div  class="questions-div-each col-xs-10 col-xs-offset-1">
-				<span class="question-in-qa">Common Admission Test (CAT): Nearly 100 days to go for the CAT 2015. Is it OK if I start preparing now and get a  90+ score/ percentile?</span>
-				<span class="no-of-answers">15 Answers</span>
+				<span class="question-in-qa">I'm a fourth year student sitting for placements. I'm confused between Technical & Non Technical Job Profiles, how can I decide which one to go for?</span>
+				<span class="no-of-answers">Where do you really see yourself 5 years from now? Do you see yourself close to your home turf as a structural engineer -designing state-of-art buildings?</span>
 			</div> 
 		</div>
 		<%-- <div class="col-xs-12  text-center-xs no-padding-xs tab-button-div">
@@ -448,7 +448,6 @@ function expertcard(name,pro,a1,a2,a3,container,img)
    	            	
    	            },
    	            error : function(request, textStatus, errorThrown) {
-   	                alert(errorThrown);
    	            }
    	        }); 
    	    }
