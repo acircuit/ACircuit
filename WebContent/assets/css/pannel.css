@@ -891,6 +891,11 @@ color: #e92629;
     float: right;
     margin-right: 36px;
 }
+.ask-box{
+	font-size:11px;
+	padding-top:3px;
+	height:25px!important;
+}
 }
 @media (min-width: 462px) and (max-width: 767px) {
   .Adp img {
