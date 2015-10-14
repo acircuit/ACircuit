@@ -17,6 +17,7 @@ import ac.dto.AdvisorDTO;
 import ac.dto.ContactUsDTO;
 import ac.dto.PromotionsDTO;
 import ac.dto.QuestionsDTO;
+import ac.dto.RefundDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
@@ -787,5 +788,100 @@ public class AdminDAO {
 		}
 		logger.info("Exit GetAdvisorIds method of AdminDAO");
 		return list;
+	}
+    
+    public List<RefundDTO> GetUserRefunds(){
+    	logger.info("Entered GetUserRefunds method of AdminDAO");
+   		List<RefundDTO> list = new ArrayList<RefundDTO>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT userrefund.ID,userrefund.RESPONSE,userrefund.TRACKING_ID,userrefund.AMOUNT,userrefund.STATUS,userrefund.ISAPPROVED,userdetails.USER_ID,userdetails.FULL_NAME FROM userrefund INNER JOIN userdetails ON userrefund.USER_ID = userdetails.USER_ID; ";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				RefundDTO refund = new RefundDTO();
+				refund.setId(results.getInt("ID"));
+				refund.setAmount(Double.valueOf(results.getString("AMOUNT")));
+				refund.setTrackingid(results.getString("TRACKING_ID"));
+				refund.setUserId(results.getInt("USER_ID"));
+				refund.setUsername(results.getString("FULL_NAME"));
+				refund.setStatus(results.getInt("STATUS"));
+				refund.setIsApproved(results.getBoolean("ISAPPROVED"));
+				refund.setResponse(results.getString("RESPONSE"));
+				list.add(refund);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetUserRefunds method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetUserRefunds method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserRefunds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserRefunds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserRefunds method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetUserRefunds method of AdminDAO");
+		return list;
+	}
+    
+	public Boolean  UpdateRefundDetails(String status, String response, String refundId) { 
+		logger.info("Entered UpdateUserIsActive method of AdminDAO");
+		Boolean isCommit = false ;
+
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE userrefund SET RESPONSE=?,STATUS=?,ISAPPROVED=? WHERE ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, response);
+			pstmt.setString(2, status);
+			pstmt.setBoolean(3, true);
+			pstmt.setString(4, refundId);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateUserIsActive method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateUserIsActive method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateUserIsActive method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateUserIsActive method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateUserIsActive method of AdminDAO");
+		return isCommit;
 	}
 }

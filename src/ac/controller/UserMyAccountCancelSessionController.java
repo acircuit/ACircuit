@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,14 @@ public class UserMyAccountCancelSessionController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doGet method of UserMyAccountCancelSessionController");
+		int userId = 0;
+		Boolean isError =false;
+		try{
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		if(userId != 0){
 		String sid= request.getParameter("sId");
 		SessionDAO update = new SessionDAO();
 		Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY USER", sid);
@@ -77,6 +86,14 @@ public class UserMyAccountCancelSessionController extends HttpServlet {
 			mail.start();
 			
 			response.sendRedirect("usercancelledsession?sId="+sid);
+		}
+		}
+		if(isError){
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of UserMyAccountCancelSessionController");
 	}

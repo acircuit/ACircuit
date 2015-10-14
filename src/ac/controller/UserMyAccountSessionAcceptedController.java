@@ -40,6 +40,7 @@ public class UserMyAccountSessionAcceptedController extends HttpServlet {
 		}
 		//Getting the sessiondetails for the user
 		if(userId != 0){
+			System.out.println(userId);
 			  String sid = request.getParameter("sId");
 			  //Getting the session details for the page
 			  SessionDAO session = new SessionDAO();
@@ -66,7 +67,11 @@ public class UserMyAccountSessionAcceptedController extends HttpServlet {
 		}
 		
 		if(isError){
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		
 		logger.info("Entered doGet method of UserMyAccountSessionAcceptedController");

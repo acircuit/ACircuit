@@ -30,8 +30,7 @@ public class GetAdvisorController extends HttpServlet {
 	 * This controller will get the list of advisors depending upon the Get Parameter
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Entered doPost method of GetAdvisorController");
-		logger.info("Entered doPost method of AdvisorProfileController");
+		logger.info("Entered doGet method of GetAdvisorController");
 		int userId = 0;
 		int advisorId = 0;
 		String advisorPhone="";
@@ -107,11 +106,12 @@ public class GetAdvisorController extends HttpServlet {
 		}else{
 			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
 			String url1 = url.toString();
-			/*url = url.substring(url.lastIndexOf('/')+1);*/
 			request.setAttribute("url1", url1);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
 	        rd.forward(request, response);
 		}
-		logger.info("Exit doPost method of GetAdvisorController");
+		logger.info("Exit doGet method of GetAdvisorController");
 	}
+	
+
 }

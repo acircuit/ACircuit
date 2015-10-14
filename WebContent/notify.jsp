@@ -20,7 +20,7 @@ int usdId=0;
 			<span class="cross-noti">X</span>
 		</div>
 	    <div class="notify-text-div" id="verifyaccount" style="display: none" >
-			<span class="notify-text">Success : Thank You for registering. Please verify your Account.<a onclick="ResendLink()">Resend Mail</a></span>
+			<span class="notify-text">Success : Thank You for registering. VERIFY YOUR ACCOUNT TO GET RS.100 IN YOUR WALLET.<a onclick="ResendLink()">Resend Mail</a></span>
 			<span class="cross-noti">X</span>
 		</div>
 		 <div class="notify-text-div" id="sessionconfirmedbyuser" style="display: none" >
@@ -64,7 +64,7 @@ int usdId=0;
 			<span class="cross-noti">X</span>
 		</div>
 		<div class="notify-text-div" id="userrefundsuccessfull" style="display: none" >
-			<span class="notify-text">Success: The refund process is successful.</span>
+			<span class="notify-text">Success: The refund request has been sent to admin. We will contact you within 24 hours .</span>
 			<span class="cross-noti">X</span>
 		</div>
 		<div class="notify-text-div" id="userrefunderror" style="display: none" >

@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,18 +64,25 @@ public class QuestionToAdvisorController extends HttpServlet {
 						String href = "adminquestions";
 						AdminNotificationDAO notify = new AdminNotificationDAO();
 						notify.InsertNotification(comment, href);
-						response.getWriter().write("Your Question has been submitted");
+						response.getWriter().write("Your question has been submitted for just a few checks. We'll get back to you with a go ahead within two hours, thank you!");
 				    }
 				}*/
 				String comment = "New Question posted to advisor";
 				String href = "adminquestions";
 				AdminNotificationDAO notify = new AdminNotificationDAO();
 				notify.InsertNotification(comment, href);
-				response.getWriter().write("Your Question has been submitted");
+				response.getWriter().write("Your question has been submitted for just a few checks. We'll get back to you with a go ahead within two hours, thank you!");
 			}
 
 		}
 		
+		}
+		if(isError){
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		
 		logger.info("Exit doPost method of QuestionToAdvisorController");	}

@@ -35,12 +35,20 @@ public class AdminPromotionsController extends HttpServlet {
 		try{
 			isAdmin = (Boolean) request.getSession().getAttribute("admin"); 
 			}catch(Exception e){
-				response.sendRedirect("error");
+				StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+				String url1 = url.toString();
+				request.setAttribute("url1", url1);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+		        rd.forward(request, response);
 				isError = true;
 			}
 		if(isAdmin == null){
 			isError = true;
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		if(isError!= null &&  !isError){
 	   		List<PromotionsDTO> list = new ArrayList<PromotionsDTO>();

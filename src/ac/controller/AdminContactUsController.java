@@ -40,7 +40,11 @@ public class AdminContactUsController extends HttpServlet {
 			}
 		if(isAdmin == null){
 			isError = true;
-			response.sendRedirect("Error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		
 		if(isError!= null &&  !isError){

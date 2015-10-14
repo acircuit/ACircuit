@@ -60,7 +60,7 @@ public class QuestionsController extends HttpServlet {
 		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
-		if(userId != 0 || advisorId != 0 || admin != null && admin){
+		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();
@@ -132,7 +132,11 @@ public class QuestionsController extends HttpServlet {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Questions.jsp");
         rd.forward(request, response);
 		}else{
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		
 		logger.info("Exit doPost method of QuestionsController");
@@ -179,12 +183,18 @@ public class QuestionsController extends HttpServlet {
 					String href = "adminquestions";
 					AdminNotificationDAO notify = new AdminNotificationDAO();
 					notify.InsertNotification(comment, href);
-				    response.getWriter().write("Your Question has been submitted");
+				    response.getWriter().write("Your question has been submitted for just a few checks. We'll get back to you with a go ahead within two hours, thank you!");
 				}
 			}
 		
 		}
-		
+		if(isError){
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
+		}
 		
 		
 		logger.info("Exit doPost method of QuestionsController");

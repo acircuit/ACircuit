@@ -34,6 +34,28 @@ public class AnswersController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doPost method of AnswersController");
+		int userId = 0;
+		int advisorId = 0;
+		Boolean admin = false;
+		String advisorPhone="";
+		
+		Boolean isError =false;
+		try{ 
+			userId = (int) request.getSession().getAttribute("userId");
+		}catch(Exception e){
+			isError = true;
+		}
+		try{
+			advisorId = (int) request.getSession().getAttribute("advisorId");
+		}catch(Exception e){
+			isError = true;
+		}
+		try{
+			admin = (Boolean) request.getSession().getAttribute("admin");
+		}catch(Exception e){
+			isError = true;
+		}
+		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
 		String q_id = request.getParameter("q");
 		String last_Updated = "";
 		QuestionsDTO que = new QuestionsDTO();
@@ -91,7 +113,13 @@ public class AnswersController extends HttpServlet {
 		request.setAttribute("optionsSubCategory", optionsSubCategory);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Answers.jsp");
         rd.forward(request, response);
-		
+		}else{
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
+		}
 		
 		logger.info("Exit doPost method of AnswersController");
 	}

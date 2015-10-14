@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,15 @@ public class AdvisorMyAccountCancelSession extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Entered doGet method of AdvisorMyAccountCancelSession");
+		int advisorId = 0;
+		Boolean isError =false;
+		try{
+			advisorId = (int) request.getSession().getAttribute("advisorId");
+		}catch(Exception e){
+			isError = true;
+		}
+		//Getting the sessiondetails for the user
+		if(advisorId != 0){
 		String sid= request.getParameter("sId");
 		SessionDAO update = new SessionDAO();
 		Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY ADVISOR", sid);
@@ -74,6 +84,14 @@ public class AdvisorMyAccountCancelSession extends HttpServlet {
 					+ " <br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 			SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
 			mail.start();
+		}
+		}
+		if(isError){
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountCancelSession");
 	}

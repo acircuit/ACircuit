@@ -29,6 +29,7 @@
 <link href="assets/css/advisor.css" rel="stylesheet">
 <link href="assets/css/notification.css" rel="stylesheet">
 <link href="assets/css/contact-faq.css" rel="stylesheet">
+    <script src="//cdn.ckeditor.com/4.5.4/basic/ckeditor.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
 <!-- Fonts from Google Fonts -->
 <link href='https://fonts.googleapis.com/css?family=Lato:300,400,900'
     rel='stylesheet' type='text/css'>
-<link href="assets/css/font-awesome.min.css" rel="stylesheet"
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 
 
@@ -107,7 +108,7 @@
 					<div class="form-group each-form-div">
 											     <label class="col-xs-2 no-padding form-label">Message</label>
 											       <div class="col-xs-10 form-group">
-				                                       <textarea class="form-control" name="message" required  placeholder="Message" ></textarea>
+				                                       <textarea class="form-control" id="message" name="message" required  placeholder="Message" maxlength="2000" ></textarea>
 											 		</div>
 					</div>
 					<div class="form-group each-form-div">
@@ -149,8 +150,9 @@
 
 
 <script>
-
+CKEDITOR.replace( 'message' );
 $(document).ready(function () {
+	   CKEDITOR.config.removePlugins = 'about';
 	$("#contact-form").validate();
 	starinputconversion();
 });

@@ -70,7 +70,16 @@
 					   		<span class="status"><i class="fa fa-check"></i> Request sent to Advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<span class="btext name">${advisorDetails.getName()}</span><br><br>
-						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
+						   		<span class="mode">Mode</span>
+						   		<c:choose>
+						   		    <c:when test="${sessionDetails.getMode().equals('video')}">
+						   		     <span class="mode-type"><img src="assets/img/video.png"> Video session</span><br>
+						   		    </c:when>
+						   		    <c:otherwise>
+						   		      <span class="mode-type"><img src="assets/img/phone.png"> Phone session</span><br>
+						   		    </c:otherwise>
+						   		</c:choose>
+						   			
 						   		<br>
 						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   		</div>

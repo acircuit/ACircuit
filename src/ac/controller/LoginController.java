@@ -93,10 +93,13 @@ public class LoginController extends HttpServlet {
 						        }else{
 							        session.setAttribute("isVerified", false);
 						        }
-						        if(url != null){
-						        	response.getWriter().write(url);
+						        if(url != null && !url.equals("")){
+						        	if(url.indexOf("null") != -1){
+						        		url=url.substring(0, url.indexOf("null") - 1);
+						        	}
+						        	response.getWriter().write(url); 
 						        }else{
-						        	response.getWriter().write("userdashboard");
+						        	response.getWriter().write("advisors?category=all");
 
 						        }
 						        
@@ -116,7 +119,12 @@ public class LoginController extends HttpServlet {
 							    session.setAttribute("path", image.getImageURL(advisor.getImage()));
 								request.getSession().setAttribute("isLogin",
 										"advisor");
-								response.getWriter().write("advisordashboard");
+								 if(url != null && !url.equals("")){
+							        	response.getWriter().write(url); 
+							        }else{
+										response.getWriter().write("advisordashboard");
+
+							        }
 							
 							}else{
 								response.getWriter().write("invalid");

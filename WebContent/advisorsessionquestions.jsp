@@ -123,7 +123,7 @@
 								      <span class="ask-question-modal-head">Answer Question</span><br>
 								      <br>
 								      <form class="ask-form" action="advisoranswerquestion" id="${question.getQuestionId()}" method="post"> 
-								      	<textarea  class="form-control ask-question"  placeholder="Type your Answer" name="answer"> </textarea>
+								      	<textarea  class="form-control ask-question" id="answer"  placeholder="Type your Answer" name="answer" required="required" maxlength="6000"> </textarea>
 								      	<input type="hidden" name="qid" value="${question.getQuestionId()}">
 								      	<input type="hidden" name="aid" value="${advId}">
 									       <br><br>
@@ -206,57 +206,15 @@
    	 <%@include file="/footer.jsp" %>
 </div>
 
-
-<div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								      <span class="ask-question-modal-head">Ask Question</span><br>
-								      <br>
-								      <form class="ask-form"> 
-								      	<textarea  class="form-control ask-question"  placeholder="Type your Question" > </textarea>
-								      
-									       <br><br>
-									       <div class="row">
-										       <div class="col-xs-3"><span>Select category :</span></div>
-										       <div class="col-xs-9">
-											       <div class="col-xs-6">
-												       <select class="form-control collapsed-filter-button" id="category-menu-on-modal">
-														  <option value="volvo">Volvo</option>
-														  <option value="saab">Saab</option>
-														  <option value="mercedes">Mercedes</option>
-														  <option value="audi">Audi</option>
-														</select>
-											       </div>
-											       <div class="col-xs-6">
-												          <select class="form-control collapsed-filter-button" id="subcategory-menu-on-modal">
-															  <option value="volvo">Volvo</option>
-															  <option value="saab">Saab</option>
-															  <option value="mercedes">Mercedes</option>
-															  <option value="audi">Audi</option>
-														</select>
-														
-											       </div>
-											      <br>
-											      <br>
-											        <div class="form-group squaredThree" >
-														  	<input type="checkbox" id="21" name="Post anonymously" />
-															<label for="2l"></label><span>Post anonymously</span>
-													</div>
-													<button type="button" class="btn red-button ask-question-button">Ask question</button>
-										       </div>
-									       </div>
-								        </form>
-								      </div>
-								      
-								    </div>
-								  </div>
-								</div>
 								
 
 
 <script>
+CKEDITOR.replace( 'answer' );
+
 $(document).ready(function () {
+	   CKEDITOR.config.removePlugins = 'about';
+
 	starinputconversion();
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)

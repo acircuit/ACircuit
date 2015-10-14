@@ -32,6 +32,7 @@
 <link href="assets/css/nav-mobile.css" rel="stylesheet">
 <link href="assets/css/qa.css" rel="stylesheet">
 <link href="assets/css/advisor.css" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.5.4/basic/ckeditor.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
@@ -85,6 +86,7 @@
 			       <%@include file="/Header.jsp" %>
 	  
 	</div>
+
 </div>
    	<div class="main-body-div container"  id="page-content-wrapper">
 		   	<!-- <div class="advisor-page-heading" >
@@ -350,7 +352,7 @@
 											 	<div class="form-group each-form-div">
 											     <label class="col-xs-3 no-padding form-label">Query Description</label>
 											       <div class="col-xs-9 form-group">
-				                                       <textarea class="form-control" name="query" required></textarea>
+				                                       <textarea id="userquery" class="form-control" name="query" required maxlength="8000"></textarea>
 											 		</div>
 											 	</div>
 											 	<div class="form-group each-form-div">
@@ -445,8 +447,14 @@
 				   	 <%@include file="/footer.jsp" %>
 								
 <script>
-
+CKEDITOR.replace( 'userquery' );
 $(document).ready(function () {
+	   CKEDITOR.config.removePlugins = 'about';
+		if("${type.equals('signup') }"){
+			document.getElementById("verifyaccount").style.display = "block";
+		}else{
+			document.getElementById("verifyaccount").style.display = "none";
+		}
 	$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()
 		})
@@ -503,7 +511,7 @@ function similarprofile(value,category,subcategory){
 	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
-		       +'<p class="adv-field">'+subcategory+'</p><br>'  
+		       +'<p class="adv-field">'+value.industry+'</p><br>'  
                +'</div></a>';		
                $('.similar').append(html);
  }

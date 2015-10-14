@@ -147,6 +147,6 @@ public class ActivityDTO implements Comparable<ActivityDTO>{
 	
 	@Override
 	public int compareTo(ActivityDTO obj) {
-		return obj.getFeedtime().compareTo(this.getFeedtime());
+		return this.getFeedtime().compareTo(obj.getFeedtime());
 	}
 }

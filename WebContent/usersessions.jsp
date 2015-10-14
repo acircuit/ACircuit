@@ -184,7 +184,9 @@ if(session.getAttribute("isVerified") != null){
 				    		        <c:set value="usercancelledsession?sId=${session.getSessionid()}" var="sess"></c:set>
 				                 </c:if>
 				                  <c:if test="${session.getStatus() == 'SESSION COMPLETE'}">
-				                    <c:forEach var="review" items="${userReviews}">
+				                  <c:choose>
+				                      <c:when test="${userReviews.size() > 0 }">
+				                                 <c:forEach var="review" items="${userReviews}">
 				                         <c:if test="${review.getSessionId() == session.getSessionid()}">
 				                            <c:choose>
 				                            	<c:when test="${review.getRating() != null}">
@@ -198,6 +200,13 @@ if(session.getAttribute("isVerified") != null){
 				    	                    <c:if test="${review.getSessionId() == session.getSessionid() && review.getReview() != null}">
 				    	                    </c:if>
 				                      </c:forEach>
+				                      
+				                      </c:when>
+				                      <c:otherwise>
+				                                 <c:set value="useraftersession?sId=${session.getSessionid()}" var="sess"></c:set>
+				                      </c:otherwise>
+				                  </c:choose>
+				                   
 				                 </c:if>
 				    		        <a href="${sess}">
 					    			<div class="col-xs-10">
@@ -214,9 +223,6 @@ if(session.getAttribute("isVerified") != null){
 				                                    </c:if>
 				                                    </p>
 				                               </div>
-										<div class="due-time-div">
-					    					<span class="due-time">Due in 02:45 hrs</span>
-					    				</div>
 					    			</div>
 					    			<div class="col-xs-2 mode-div">
 					    				 <img class="mode-img" src="assets/img/phone.png"> <span class="mode-type">${session.getMode()} </span>

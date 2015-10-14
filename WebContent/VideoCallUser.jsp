@@ -154,14 +154,12 @@
 	  
   }
   function SetConversationEnd(){
-	  alert(123);
 		$.ajax({
 		    url : 'SetTwilioVideoCallDetails', // Your Servlet mapping or JSP(not suggested)
 		    data : {"sId" :"${sId}","type" : "end"},
 		    type : 'POST',
 		    dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		    success : function(response) {
-		    	alert(response);
 		    	if(response == "true"){
 		    		alert("Hope you had a wonderfull session");
 		    	}

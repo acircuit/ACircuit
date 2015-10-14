@@ -105,7 +105,7 @@
 			   			<div class="col-xs-12 col-sm-4 ">
 			   			<div class="refund-policy-div col-xs-7 col-sm-6 no-padding">
 			   					<span class="current-balance-text-s">Refund</span><br>
-			   					<img class="" src="assets/img/info_refund.png"><span class="refund-policy-text-s">The refund policy text/descriptopn</span><br>
+			   					<img class="" src="assets/img/info_refund.png" data-toggle="tooltip" data-placement="bottom" title="You can refund any amount left  in your wallet if you do not have any upcoming session."> <br>
 														
 			   				</div>
 			   				<div class="recharg-button-div col-xs-5 col-sm-6 no-padding">
@@ -199,11 +199,11 @@
 									<th>Amount</th>		
 									</tr>
 								<c:forEach items="${payments}" var="pay">
-								<tr class="payment-row">
+								<tr class="payment-row" >
 									<td>${pay.getDate()}</td>
 									<td>${pay.getRechargeId()}</td>
 									<td class="rid">${pay.getTrackinId()}</td>
-									<td class="max-a" id="${pay.getTrackinId()}">${pay.getAmount()}</td>		
+									<td class="max-a paid" id="${pay.getTrackinId()}">${pay.getAmount()}</td>		
 									</tr>
 								</c:forEach>
 								</tbody></table>
@@ -211,6 +211,7 @@
 						<form id="refund-form">
 						<div class="refund-input-div-modal col-xs-12 form-group">
 							<input type="text" name="value" id="inputamount" data-max="${amount}" placeholder="Enter amount" data-tid="" class="form-control refund-input">
+							<input type="hidden" id="recamount">
 						</div>
 						<div class=" col-xs-12 form-group">
 							<button id="refundbutton" type="button" class="btn gt-started" >Refund amount</button>
@@ -238,6 +239,9 @@
 
 <script>
 $(document).ready(function () {
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
 	if("${recharge.equals('Success') }"){
 		document.getElementById("rechargesuccess").style.display = "block";
 	}else{
@@ -300,6 +304,8 @@ $('#refundmodal .payment-row').on('click', function() {
 	$('#refund-form').slideDown();
 	$('.refund-input-div-modal').find('.error').remove();
 	var tid=$(this).find('.rid').text();
+	var paid=$(this).find('.paid').text();
+	$("#recamount").val(paid);
 	var selectedamount=$(this).find('.max-a').text();
 	$('.refund-input').attr('data-tid',tid);
 	$('.refund-input').val(selectedamount);
@@ -307,26 +313,28 @@ $('#refundmodal .payment-row').on('click', function() {
 	
 });
 $('body').on( 'click', '#refundbutton', function(event) { 
+	debugger;
 	$('.refund-input').closest('.form-group').find('.error').remove();
-	var checkmax=$('.refund-input').attr('data-max');
-	var value= $('.refund-input').val();
+	var checkmax=parseFloat($('.refund-input').attr('data-max'));
+	var value= parseFloat($('.refund-input').val());
 	var tranID=$('.refund-input').attr('data-tid');
 	console.log(tranID);
+	var paid =  parseFloat($("#recamount").val());
 	if(value>checkmax)
 		{
 		$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  wallet amount.</label>')
 		}
-	if (value>$("#"+tranID).innerHTML) {
+	if (value> paid) {
 			$(this).closest('.form-group').append('<label id="value-error" class="error" for="value">The amount entered should be less than the  transaction amount.</label>')
 
 		}
 	else{
 
-			if(value< checkmax && value < "${amount}"){
+			if(value< checkmax && value < paid){
 				$(this).closest('.form-group').find('.error').remove();
 				$.ajax({
 			        url : 'GetEncRequestForRefund', // Your Servlet mapping or JSP(not suggested)
-			        data : {"tranId" : tranID,"amount" : value,"uid" : "${userId}"},
+			        data : {"tranId" : tranID,"amount" : value,"uid" : "${userId}",action:"user"},
 			        type : 'POST',
 			        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 			        success : function(response) {

@@ -139,7 +139,7 @@ public class RegistrationController extends HttpServlet {
         					request.getSession().setAttribute("email", email);
         					  GetRelativeImageURL image = new GetRelativeImageURL();
         					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
-        					response.sendRedirect("userdashboard?type=signup");
+        					response.sendRedirect("advisors?category=all&type=signup");
     					}
 
     				}

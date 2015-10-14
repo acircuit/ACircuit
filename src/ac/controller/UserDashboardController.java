@@ -123,7 +123,7 @@ public class UserDashboardController extends HttpServlet {
 			List<String> optionsSubCategory = option.getOpionsSubCategory();
 			
 			Collections.sort(activities);
-			
+
 			request.setAttribute("higherStudiesSubCategory", higherStudiesSubCategory);
 			request.setAttribute("industrySubCategory", industrySubCategory);
 			request.setAttribute("optionsSubCategory", optionsSubCategory);
@@ -135,7 +135,11 @@ public class UserDashboardController extends HttpServlet {
 		}
 		if(isError){
 			
-			response.sendRedirect("Error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 			
 		logger.info("Entered doPost method of UserDashboardController");

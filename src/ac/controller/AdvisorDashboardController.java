@@ -40,7 +40,11 @@ public class AdvisorDashboardController extends HttpServlet {
 		try{
 			advisorId = (int) request.getSession().getAttribute("advisorId");
 		}catch(Exception e){
-			response.sendRedirect("Error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 			isError = true;
 		}
 		if(advisorId != 0){

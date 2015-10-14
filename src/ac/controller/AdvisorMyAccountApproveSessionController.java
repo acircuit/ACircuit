@@ -60,7 +60,11 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
           rd.forward(request, response);
 		}
 		if(isError){
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		
 		logger.info("Entered doGet method of AdvisorMyAccountApproveSessionController");
@@ -96,7 +100,10 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
            acceptedDate = dateTime[0];
            acceptedTime = dateTime[1];
           }
-
+          System.out.println(date1);
+          System.out.println(date2);
+          System.out.println(time1);
+          System.out.println(time2);
           Boolean isNewDatesCommit = false;
           if(sessionPlan != null && sessionId != null){
         	 if(date1 != null && date2 != null  && time1 != null && time2 != null
@@ -231,7 +238,11 @@ public class AdvisorMyAccountApproveSessionController extends HttpServlet {
          }
 		}
 		if(isError){
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		logger.info("Entered doPost method of AdvisorMyAccountApproveSessionController");
 	}

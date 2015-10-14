@@ -144,6 +144,7 @@ pageContext.setAttribute("type", type);
 					</div>
 					<c:forEach items="${activities }" var="activity">
 					     <c:if test="${activity.getFeedType().equals('question')}">
+					     
 					     <div class="col-xs-12 no-padding">
 						    <div class="each-question-div col-xs-12">
 							<span class="new-expert-head">New Question Posted in <a href="questions">Q&A Forum</a></span><br>
@@ -172,6 +173,7 @@ pageContext.setAttribute("type", type);
 						</div>
 					     </c:if>
 					     <c:if test="${activity.getFeedType().equals('review')}">
+					     
 					      <div class="col-xs-12 review-div-container no-padding">
 							<div class="col-xs-12 userr-card ">
 							<span class="new-expert-head">New Review Added</span><br>
@@ -191,6 +193,7 @@ pageContext.setAttribute("type", type);
 					     </c:if>
 					     
 					     <c:if test="${activity.getFeedType().equals('answer')}">
+					     
 					     <div class="col-xs-12 no-padding">
 						    <div class="each-question-div col-xs-12">
 							<span class="new-expert-head">New Answer Posted by ${activity.getAdvisorName()}</span><br>

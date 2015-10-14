@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +42,24 @@ public class AdvisorMyAccountPaymentHistroryController extends HttpServlet {
 			List<SessionDTO> payments = new ArrayList<SessionDTO>();
 			PaymentDAO payment = new PaymentDAO();
 			payments = payment.GetAdvisorPaymentHistory(advisorId);
+			for(SessionDTO pay : payments){
+				  String price =  pay.getSessionPrice();
+				  DecimalFormat decim = new DecimalFormat("#.##");
+				  Double price1 = Double.valueOf(price) * 5 /6;
+				  pay.setSessionPrice(decim.format(price1));
+			}
 			request.setAttribute("payments", payments);
 			System.out.println(payments.size());
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorpaymenthistory.jsp");
 	        rd.forward(request, response);
 		}
-		
+		if(isError){
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
+		}
 		logger.info("Exit doGet method of AdvisorMyAccountPaymentHistroryController");
 	}
 

@@ -2,6 +2,7 @@ package ac.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,6 +60,13 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 					//Notification for user
 					UserNotificationDAO notify = new UserNotificationDAO();
 					Boolean isNotificationCommit =  notify.InsertNotification(comment,href,String.valueOf(uid)); 
+					
+					SessionDAO session = new SessionDAO();
+					String name = session.GetAdvisorName(advisorId);
+					String comment1 = name+" answered a question";
+					String href1 = "answers?q="+qid;
+					AdminNotificationDAO admin = new AdminNotificationDAO();
+					admin.InsertNotification(comment1, href1);
 					if(isNotificationCommit){
 						 //Adding to the feeds table
 						FeedDAO feed = new FeedDAO();
@@ -85,7 +93,11 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		     }
 		}
 		if(isError){
-			response.sendRedirect("error");
+			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			String url1 = url.toString();
+			request.setAttribute("url1", url1);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountAnswerQuestionController");
 	}

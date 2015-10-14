@@ -76,17 +76,36 @@ pageContext.setAttribute("review", review);
 						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span><br>
 						   		<br>
-						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
+						   		<c:choose>
+						   		      <c:when test="${sessionDetails.getStatus().equals('SESSION COMPLETE')}">
+						   		      			<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getSessionDuration()} Minutes</span>
+						   		       </c:when>
+						   		       <c:otherwise>
+						   						<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
+						   		       
+						   		       </c:otherwise>
+						   		</c:choose>
 					   		</div>
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
+					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()} IST</span>
 					   		</div>
-					   		<div class="total-cost-div col-xs-12 no-padding">
+					   		<c:choose>
+						   		      <c:when test="${sessionDetails.getStatus().equals('SESSION COMPLETE')}">
+						   		      	<div class="total-cost-div col-xs-12 no-padding">
+					   				<span class="total-cost-text">Total cost</span><br>
+					   				<span class="total-cost-rs">Rs ${sessionDetails.getSessionPrice()}</span>
+					   		         </div>
+						   		       </c:when>
+						   		       <c:otherwise>
+						   							<div class="total-cost-div col-xs-12 no-padding">
 					   				<span class="total-cost-text">Total cost</span><br>
 					   				<span class="total-cost-rs">Rs ${sessionDetails.getPrice()}</span>
-					   		</div>
+					   		         </div>
+						   		       
+						   		       </c:otherwise>
+						   		</c:choose>
 					   		<div class="query-description-div col-xs-12 no-padding">
 					   			<span class="query-description-head">Query Description</span>
 					   			<p class="q-description">

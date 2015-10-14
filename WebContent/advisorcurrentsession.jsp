@@ -105,7 +105,7 @@ pageContext.setAttribute("advName", advName);
 					   		  <div class="col-xs-12 no-padding session-date-div">
 					   		  <span class="prop-time-text">Session Date</span><br>
 					   		
-					   		   <span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
+					   		   <span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()} IST</span>
 					   		   </div>
 					   		</c:if>
 					   		<div class="advisor-description-div col-xs-12 no-padding">

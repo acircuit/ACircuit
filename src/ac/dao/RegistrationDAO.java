@@ -15,7 +15,9 @@ import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
+import ac.dto.AdvisorDTO;
 import ac.dto.PromotionsDTO;
+import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
 
 public class RegistrationDAO {
@@ -462,6 +464,213 @@ public class RegistrationDAO {
 		}
 		logger.info("Exit UpdateUserImage method of RegistrationDAO");
 		return isCommit;
+	}
+	
+	public UserDetailsDTO  CheckEmailExistsUser(String email) { 
+		logger.info("Entered CheckEmailExistsUser method of UserLoginDAO");
+		ResultSet results = null;
+		UserDetailsDTO user = new UserDetailsDTO();
+		try {
+
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT USER_ID,IMAGE,ISVERIFIED FROM userdetails WHERE EMAIL = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,email);
+		    results = pstmt.executeQuery();
+		    if(results.first()){
+		    	user.setUserId(results.getInt("USER_ID"));
+		    	user.setImage(results.getString("IMAGE"));
+		    	user.setIsVerified(results.getBoolean("ISVERIFIED"));
+		    }
+		logger.info("Exit CheckEmailExistsUser method of UserLoginDAO");
+		}catch(Exception e){
+			logger.error("CheckEmailExistsUser method of UserLoginDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("CheckEmailExistsUser method of UserLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}	
+		return user;
+       }
+	
+	public AdvisorDTO  CheckEmailExistsAdvisor(String email) { 
+		logger.info("Entered CheckEmailExistsAdvisor method of AdvisorLoginDAO");
+		ResultSet results = null;
+		AdvisorDTO adv = new AdvisorDTO();
+		try {
+
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="SELECT ADVISOR_ID,IMAGE,ISVERIFIED,ISACTIVE FROM advisordetails WHERE EMAIL = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,email);
+		    results = pstmt.executeQuery();
+		    if(results.first()){
+		    	adv.setId(results.getInt("ADVISOR_ID"));
+		    	adv.setImage(results.getString("IMAGE"));
+		    	adv.setIsVerified(results.getBoolean("ISVERIFIED"));
+		    	adv.setIsActive(results.getBoolean("ISACTIVE"));
+		    }
+		logger.info("Exit CheckEmailExistsAdvisor method of AdvisorLoginDAO");
+		}catch(Exception e){
+			logger.error("CheckEmailExistsAdvisor method of AdvisorLoginDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("CheckEmailExistsAdvisor method of AdvisorLoginDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}	
+		return adv;
+        }
+	
+	public Integer setUserDetailsViaOthers(String email, 
+			String fullname,String absolutePath) {
+		logger.info("Entered setUserDetails method of RegistrationDAO");
+		int result = 0;
+		int userId = 0;
+		Boolean isNewsLetterSubscribed = false;
+		Boolean isDetailsCommit = false;
+		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));
+		mbCal.setTimeInMillis(new Date().getTime());
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));
+		cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));
+		cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+		Date date = cal.getTime();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into userdetails"
+					+ "(EMAIL,FULL_NAME,IMAGE,DATE_OF_REGISTRATION,ISVERIFIED) values"
+					+ "(?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, email);
+			pstmt.setString(2, fullname);
+			pstmt.setString(3, absolutePath);
+			Timestamp time = new java.sql.Timestamp(date.getTime());
+			pstmt.setTimestamp(4, time);
+			pstmt.setBoolean(5, true);
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				conn.commit();
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (null != generatedKeys && generatedKeys.next()) {
+					userId = generatedKeys.getInt(1);
+				}
+			}
+			logger.info("Exit setUserDetails method of RegistrationDAO");
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("setUserDetails method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("setUserDetails method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("setUserDetails method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("setUserDetails method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("setUserDetails method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return userId;
+	}
+	
+	
+	public Integer setAdvisorDetailsViaOthers(String email,String name) {
+		logger.info("Entered setAdvisorDetailsViaOthers method of RegistrationDAO");
+		int result = 0;
+		int advisorId = 0;
+		Boolean isNewsLetterSubscribed = false;
+		Boolean isDetailsCommit = false;
+		Calendar mbCal = new GregorianCalendar(TimeZone.getTimeZone("IST"));
+		mbCal.setTimeInMillis(new Date().getTime());
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, mbCal.get(Calendar.YEAR));
+		cal.set(Calendar.MONTH, mbCal.get(Calendar.MONTH));
+		cal.set(Calendar.DAY_OF_MONTH, mbCal.get(Calendar.DAY_OF_MONTH));
+		cal.set(Calendar.HOUR_OF_DAY, mbCal.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, mbCal.get(Calendar.MINUTE));
+		cal.set(Calendar.SECOND, mbCal.get(Calendar.SECOND));
+		cal.set(Calendar.MILLISECOND, mbCal.get(Calendar.MILLISECOND));
+		Date date = cal.getTime();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into advisordetails"
+					+ "(EMAIL,NAME,DATE_OF_REGISTRATION) values"
+					+ "(?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query,
+					Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, email);
+			pstmt.setString(2, name);
+			Timestamp time = new java.sql.Timestamp(date.getTime());
+			pstmt.setTimestamp(3, time);
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				conn.commit();
+				ResultSet generatedKeys = pstmt.getGeneratedKeys();
+				if (null != generatedKeys && generatedKeys.next()) {
+					advisorId = generatedKeys.getInt(1);
+				}
+			}
+			logger.info("Exit setAdvisorDetailsViaOthers method of RegistrationDAO");
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("setAdvisorDetailsViaOthers method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("setAdvisorDetailsViaOthers method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("setAdvisorDetailsViaOthers method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("setAdvisorDetailsViaOthers method of RegistrationDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("setAdvisorDetailsViaOthers method of RegistrationDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return advisorId;
 	}
 	
 }

@@ -39,7 +39,12 @@ public class HomeFilter implements Filter {
 		HttpServletRequest request1 = (HttpServletRequest)request;
 		if (request1.getSession().getAttribute("userId") != null || request1.getSession().getAttribute("advisorId")!= null) {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect("error");
+			if(request1.getSession().getAttribute("userId") != null){
+				httpResponse.sendRedirect("userdashboard");
+			}else if (request1.getSession().getAttribute("advisorId")!= null) {
+				httpResponse.sendRedirect("advisordashboard");
+			}
+			
 		}
 		chain.doFilter(request, response);
 	}

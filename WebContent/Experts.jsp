@@ -24,6 +24,7 @@
 <link href="assets/css/star-rating.css" rel="stylesheet">
 <link href="assets/css/nav-mobile.css" rel="stylesheet">
 <link href="assets/css/qa.css" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.5.4/basic/ckeditor.js"></script>
 
 
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
@@ -39,8 +40,10 @@
                 List<String> industries = (List<String>)request.getAttribute("industries");
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
+        	       String type = request.getParameter("type");
 
         		pageContext.setAttribute("ids", ids);
+       			pageContext.setAttribute("type", type);
 
 
 %>
@@ -48,6 +51,8 @@
 <body>
 
 	<div id="wrapper">
+	 <%@include file="/notify.jsp" %>
+	
 	<div class="black-screen"><img src="assets/img/719.GIF"></div>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
@@ -328,7 +333,7 @@
 								      <br>
 								      <form class="ask-form" id="ask-form-modal" method="post" enctype="multipart/form-data">
 									      <div class="form-group each-form-div"> 
-									      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" required></textarea>
+									      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" required maxlength="2000"></textarea>
 									      </div>
 									      <br><br>
 									       <div class="row">
@@ -373,8 +378,15 @@
 								</div>
     <!-- /#wrapper -->
    	<script>
+   	CKEDITOR.replace( 'question' );
+   		   
    	$(document).ready(function () {
-
+   		CKEDITOR.config.removePlugins = 'about';
+   		if("${type.equals('signup') }"){
+			document.getElementById("verifyaccount").style.display = "block";
+		}else{
+			document.getElementById("verifyaccount").style.display = "none";
+		}
    		var whattype='<%=category%>';
 	if(whattype =="higherstudies")
 		{
@@ -465,9 +477,14 @@ function expertcard(value)
 			+'<div class="Adp" style="text-align:center;">'
 			+'<img src="'+value.image+'">'
 			+'</div>'
-			+'</a>'
-			+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>'
-			+'<div class="count" >';
+			+'</a>';
+	html = html 
+	        if(value.ratecount > 0){
+				+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>';
+	        }else{
+				+'<input name="rating" class="rating" style ="" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>';
+	        }
+	html = html+'<div class="count" >';
 			
 	 html = html 
 	         if(value.reviews == 0){

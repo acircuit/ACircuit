@@ -29,10 +29,12 @@ import org.apache.log4j.Logger;
 
 
 
+
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
 import ac.dto.SessionDTO;
+import ac.dto.SubCategoryDTO;
 import ac.jdbc.ConnectionFactory;
 import ac.util.GetRelativeImageURL;
 
@@ -258,10 +260,12 @@ public class QuestionsDAO {
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				AnswerDTO que = new AnswerDTO();
+				que.setId(results.getInt("AID"));
 				que.setAdvisor_id(results.getInt("ADVISOR_ID"));
 				que.setQuestionId(results.getInt("QID"));
 				que.setAnswer(results.getString("ANSWER"));
 				que.setTime(results.getTimestamp("TIMESTAMP"));
+				que.setUpvote(results.getInt("UPVOTE_COUNT"));
 				list.add(que);
 			}
 			logger.info("Exit GetAllAnswers method of QuestionsDAO");
@@ -298,10 +302,12 @@ public class QuestionsDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(aId.size());
-			String query = "SELECT ADVISOR_ID,NAME,IMAGE,INDUSTRY FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + " )";
+			String query = "SELECT ADVISOR_ID,NAME,IMAGE,INDUSTRY FROM advisordetails WHERE ISACTIVE=? AND ISVERIFIED=? AND ADVISOR_ID IN ( "+ q4in + " )";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
-			int i = 1;
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			int i = 3;
 			for (Integer item : aId) {
 				pstmt.setInt(i++, item);
 			}
@@ -339,6 +345,55 @@ public class QuestionsDAO {
 		}
 
 		logger.info("Exit GetAdvisorDetails method of QuestionsDAO");
+		return list;
+	}
+	
+	
+	public List<SubCategoryDTO> GetAdvisorSubcategories(List<Integer> aId) {
+		logger.info("Entered GetAdvisorSubcategories method of QuestionsDAO");
+		List<SubCategoryDTO> list = new ArrayList<SubCategoryDTO>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(aId.size());
+			String query = "SELECT ADVISOR_ID,SUBCATEGORY FROM advisor_subcategory WHERE ADVISOR_ID IN ( "+ q4in + " )";
+			PreparedStatement pstmt;
+			pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (Integer item : aId) {
+				pstmt.setInt(i++, item);
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				SubCategoryDTO adv = new SubCategoryDTO();
+				adv.setAdvisorId(results.getInt("ADVISOR_ID"));
+				adv.setSubCategory(results.getString("SUBCATEGORY"));
+				list.add(adv);
+			}
+			logger.info("Exit GetAdvisorSubcategories method of QuestionsDAO");
+		} catch (SQLException e) {
+			logger.error("GetAdvisorSubcategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorSubcategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorSubcategories method of QuestionsDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorSubcategories method of QuestionsDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+
+		logger.info("Exit GetAdvisorSubcategories method of QuestionsDAO");
 		return list;
 	}
 	
@@ -728,7 +783,7 @@ public class QuestionsDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(advisorAnswers.size());
-			String query = "SELECT NAME,IMAGE,ADVISOR_ID FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + " )";
+			String query = "SELECT NAME,IMAGE,ADVISOR_ID FROM advisordetails WHERE   ADVISOR_ID IN ( "+ q4in + " ) ";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			int i = 1;
@@ -1141,11 +1196,173 @@ public class QuestionsDAO {
 		return uid;
 
 	}
+    
+	public int CheckUpvoteDetails( String aid, String type, int id){
+		logger.info("Entered CheckUpvoteDetails method of QuestionsDAO");
+		int upid =0;
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT UPVOTE_ID FROM answerupvote WHERE ANSWER_ID=? AND UPVOTED_BY=? AND ID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,Integer.valueOf(aid) );
+			pstmt.setString(2, type);
+			pstmt.setInt(3, id );
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				upid = results.getInt("UPVOTE_ID");
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("CheckUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("CheckUpvoteDetails method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("CheckUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("CheckUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("CheckUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit CheckUpvoteDetails method of QuestionsDAO");
+		return upid;
+
+	}
+	
+	public Boolean InsertUpvoteDetails(String aid,String type,int id){
+		logger.info("Entered InsertUpvoteDetails method of QuestionsDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "insert into answerupvote "+"(ANSWER_ID,UPVOTED_BY,ID) values" + "(?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, aid);
+			pstmt.setString(2, type);
+			pstmt.setInt(3, id);
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				conn.commit();
+				isCommit = true;
+			}else{
+				conn.rollback();
+			}
+		}catch (SQLException e) {
+				logger.error("InsertUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.error("InsertUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			} catch (PropertyVetoException e) {
+				logger.error("InsertUpvoteDetails method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}finally{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		logger.info("Exit InsertUpvoteDetails method of QuestionsDAO");
+		return isCommit;	
+	}
 
 	
+	
+	public Boolean UpdateUpvote(String aid){
+		logger.info("Entered UpdateUpvote method of QuestionsDAO");
+		Boolean isCommit = false;
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query = "UPDATE answers SET UPVOTE_COUNT=UPVOTE_COUNT+1 WHERE AID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.valueOf(aid));
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("UpdateUpvote method of QuestionsDAO threw error:"+e.getMessage());
+				e1.printStackTrace();
+			}	
+			logger.error("UpdateUpvote method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("UpdateUpvote method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("UpdateUpvote method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateUpvote method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}		
+		logger.info("Entered UpdateUpvote method of QuestionsDAO");
+		return isCommit;
+	}
 
+	public int GetUpvoteCount( String aid){
+		logger.info("Entered GetUpvoteCount method of QuestionsDAO");
+		int upCount =0;
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT UPVOTE_COUNT FROM answers WHERE AID=?";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,Integer.valueOf(aid) );
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				upCount = results.getInt("UPVOTE_COUNT");
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetUpvoteCount method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetUpvoteCount method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUpvoteCount method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUpvoteCount method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUpvoteCount method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetUpvoteCount method of QuestionsDAO");
+		return upCount;
 
-
+	}
 	
 	private String generateQsForIn(int numQs) {
 		String items = "";

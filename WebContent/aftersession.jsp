@@ -27,6 +27,7 @@
 <link href="assets/css/qa.css" rel="stylesheet">
 <link href="assets/css/ud.css" rel="stylesheet">
 <link href="assets/css/session.css" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.5.4/basic/ckeditor.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
@@ -83,7 +84,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		<div class="col-xs-12 no-padding session-date-div">
 					   		<span class="prop-time-text">Session Date</span><br>
 					   		
-					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()}</span>
+					   		<span class="session-date">${sessionDetails.getAcceptedDate()}, ${sessionDetails.getAcceptedTime()} IST</span>
 					   		</div>
 					   		<div class="total-cost-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   			<div class="col-xs-4 no-padding">
@@ -106,7 +107,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		<input type="hidden" value="${sessionDetails.getSessionid() }" name="id">
 					   		<input type="hidden" value="${advisorDetails.getId()}" name="aid">
 					   		<div class="write-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
-					   				<textarea rows="5" cols="" class="form-control" name="review"></textarea>
+					   				<textarea rows="5" cols="" id="review" class="form-control" name="review" required="required" maxlength="3000"></textarea>
 					   				<br>
 					   				<div class="col-xs-2 no-padding"><span class="rating">Your Rating :</span></div><div class="col-xs-5 no-padding"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="0"></div>
 					   			<div class="col-xs-5 no-padding"><button type="submit" class="btn submit-button" >Submit</button></div>
@@ -160,7 +161,9 @@ Double wallet = (Double)request.getAttribute("wallet");
 
 
 <script>
+CKEDITOR.replace( 'review' );
 $(document).ready(function () {
+	   CKEDITOR.config.removePlugins = 'about';
 	$('.datepicker').datepicker({
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'

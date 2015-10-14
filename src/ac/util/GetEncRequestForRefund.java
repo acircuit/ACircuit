@@ -29,6 +29,8 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
+import ac.dao.AdminDAO;
+import ac.dao.AdminNotificationDAO;
 import ac.dao.SessionDAO;
 
 import com.ccavenue.security.AesCryptUtil;
@@ -51,7 +53,21 @@ public class GetEncRequestForRefund extends HttpServlet {
 	     String tranId = request.getParameter("tranId");
 	     String amount = request.getParameter("amount");
 	     String uid = request.getParameter("uid");
-
+	     String action = request.getParameter("action");
+	     if(action.equals("user")){
+	    	  SessionDAO refund = new SessionDAO();
+              Boolean isCommit = refund.InsertRefundDetails(uid,amount,tranId);
+              if(isCommit){
+            		String comment = "A user has asked for refund";
+    				String href = "adminrefund";
+    				AdminNotificationDAO admin = new AdminNotificationDAO();
+    				admin.InsertNotification(comment, href);
+    				response.getWriter().write("true");
+              }else{
+            	  response.getWriter().write("false");
+              }
+	     }else if (action.equals("admin")) {
+	    	 String refundId = request.getParameter("refundId");
 	    	 String workingKey = prop.getProperty("WORKING_KEY");	
 			 String accessCode = prop.getProperty("ACCESS_CODE");
 			 Enumeration enumeration=request.getParameterNames();
@@ -86,8 +102,8 @@ public class GetEncRequestForRefund extends HttpServlet {
 		                String[] refundResponse = content.split("&");
 		                String[] status= refundResponse[0].split("=");
 		                String[] encResponse= refundResponse[1].split("=");
-		                SessionDAO refund = new SessionDAO();
-		                Boolean isCommit = refund.InsertRefundDetails(status[1],encResponse[1],uid,amount,tranId);
+		                AdminDAO refund = new AdminDAO();
+		                Boolean isCommit = refund.UpdateRefundDetails(status[1],encResponse[1],refundId);
 		                if(status[1].equals("0") && isCommit){
 		                	//The refund process is successfull
 		                	//Update refund table
@@ -111,6 +127,9 @@ public class GetEncRequestForRefund extends HttpServlet {
 		            // writing exception to log
 		            e.printStackTrace();
 		        }
+		}
+
+	    	
 		}
 
 }

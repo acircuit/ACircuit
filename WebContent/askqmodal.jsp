@@ -1,3 +1,5 @@
+<script src="//cdn.ckeditor.com/4.5.4/basic/ckeditor.js"></script>
+
 <div class="modal fade" id="askquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -6,7 +8,7 @@
 								      <br>
 								      <form class="ask-form" id="ask-form-modal" method="post" enctype="multipart/form-data">
 									      <div class="form-group each-form-div"> 
-									      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" required></textarea>
+									      	<textarea  class="form-control ask-question"  placeholder="Type your Question" id="question" required maxlength="2000"></textarea>
 									      </div>
 									      <br><br>
 									       <div class="row">
@@ -59,7 +61,9 @@
 								  </div>
 								</div> 
 <script>
+CKEDITOR.replace( 'question' );
 $(document).ready(function () {
+	CKEDITOR.config.removePlugins = 'about';
 	$("#ask-form-modal").validate();
 	
 	var option1="";

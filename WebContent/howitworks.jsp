@@ -59,6 +59,7 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 </head>
 <title>How the circuit works | Advisor Circuit</title>
 

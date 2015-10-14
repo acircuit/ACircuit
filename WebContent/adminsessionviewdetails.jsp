@@ -83,6 +83,12 @@ pageContext.setAttribute("review", review);
 						   		<br>
 						   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
 					   		</div>
+					   		<div class="propsed-time-slots-div col-xs-12 no-padding">
+					   		<span class="propsed-time-slots-head">Proposed Time Slots</span><br>
+					   			<span class="timeslots-proposed">${sessionDetails.getDate1()}, ${sessionDetails.getTime1()}</span>
+					   			<span class="timeslots-proposed">${sessionDetails.getDate2()}, ${sessionDetails.getTime2()}</span>
+					   			<span class="timeslots-proposed">${sessionDetails.getDate3()}, ${sessionDetails.getTime3()}</span>
+					   		</div>
 					   		<div class="col-xs-5 no-padding" style="padding-top: 40px;">
 					   			<c:if test="${sessionDetails.getStatus().equals('SESSION ON SCHEDULE')}">
 					   					<button type="button" class="btn submit-button" onclick="GetCost()">Done Talking?</button>

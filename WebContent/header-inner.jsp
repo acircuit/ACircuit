@@ -25,7 +25,13 @@ pageContext.setAttribute("source", source);
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					         <a class="navbar-brand hidden-xs" href="#"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+					    <c:if test="${source.equals('user') }">
+
+					         <a class="navbar-brand hidden-xs" href="userdashboard"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+							          </c:if>
+							           <c:if test="${source.equals('advisor') }">
+					         <a class="navbar-brand hidden-xs" href="advisordashboard"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+							          </c:if>
 					        
 					    </fmt:bundle>
 					         
@@ -35,7 +41,7 @@ pageContext.setAttribute("source", source);
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav first-ul">
 
-					        <li><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
+					        <li><a href="advisors?category=all">Advisors <span class="sr-only">(current)</span></a></li>
 					        <li><a href="questions">Q&A</a></li>
 					        <!-- <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li> -->
@@ -106,8 +112,9 @@ pageContext.setAttribute("source", source);
 					       
 					         <form class="search-form" action="Search" method="get" style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-i visible-xs" type="text"  placeholder="Search" name="word">
 					         <div id="headersuggestionsmob" class="dropdown suggmob">
-					          			
+					          		
 					          	</div></form>
+					          	
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -255,3 +262,12 @@ pageContext.setAttribute("source", source);
 
    	
    	</script>
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="//v2.zopim.com/?3O1oN7WcsBdgCN1h4zUZeEgf0nCudKAr";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zopim Live Chat Script-->

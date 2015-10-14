@@ -29,10 +29,10 @@
 <!-- Custom styles for this template https://code.jquery.com/jquery-1.11.3.min.js<link href="assets/css/main.css" rel="stylesheet">
 
 <!-- Fonts from Google Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Lato:300,400,900'
-    rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
+    
 <%
                 String ids = (String) request.getAttribute("ids");
                 List<String> industries = (List<String>)request.getAttribute("industries");
@@ -121,13 +121,16 @@
 						                                </a>
 						                                    
 						                                    <span  class="red-action-a"><a href="advisorprofile?a=${advisor.getId()}" > <img src="assets/img/answer_ask.svg"> Ask Question</a>
-						                                    <a href="advisorprofile?a=${advisor.getId()}"> <img src="assets/img/answer_book.svg"> Book Session</a></span>
+						                                    <a href="advisorprofile?a=${advisor.getId()}"> <img src="assets/img/answer_book.svg"> Book Session</a>
+						                                    </span>
 						                                </div>
 						                             </div>
 						                            <div class="adv_ans col-xs-12 col-sm-11 no-padding">
-						                                <p>${answer.getAnswer()}</p>
+						                                <p>${answer.getAnswer()}:</p>
+						                                <span class="upvote" id="${answer.getId()}:${advisor.getId()}" onclick="UpdateUpvote(this)">Upvote | ${answer.getUpvote()}</span>
 						                            </div>
-			                        			</div>
+						                        </div>
+			                        			
 							   				</div>
 							   				<div class="col-xs-11">
 							   					<div style="border-bottom: 1px solid lightgray;"></div>
@@ -225,6 +228,28 @@ function Populartags(value){
 		html+='Course</a>';
 	}
 	 $('.poptags').append(html);
+}
+function UpdateUpvote(elem){
+	var id = elem.id;
+	var data = id.split(':');
+	$('.black-screen').show();
+	$.ajax({
+        url : 'UpdateAnswerUpvote', // Your Servlet mapping or JSP(not suggested)
+        data : {"answerId":data[0],"aid":data[1]},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	if(response != "false"){
+        		document.getElementById(''+id).innerHTML ="Upvoted |"+response;
+        	}
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
 }
 $('body').on('click', '.Cfilter', function(e){
 	$('.body-content').removeClass('border-top');

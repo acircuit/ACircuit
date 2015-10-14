@@ -36,8 +36,13 @@ public class AdminMyAccountPaymentHistoryController extends HttpServlet {
 			try{
 				isAdmin = (Boolean) request.getSession().getAttribute("admin"); 
 				}catch(Exception e){
-					response.sendRedirect("Error");
+					
 					isError = true;
+					StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+					String url1 = url.toString();
+					request.setAttribute("url1", url1);
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+			        rd.forward(request, response);
 				}
 			if(isAdmin == null){
 				isError = true;

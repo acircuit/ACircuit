@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import ac.dao.QuestionsDAO;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
+import ac.dto.SubCategoryDTO;
 
 /**
  * Servlet implementation class GetSimilarProfilesController
@@ -44,15 +45,32 @@ public class GetSimilarProfilesController extends HttpServlet {
         if(aids.size() > 0){
     		QuestionsDAO advDetails = new QuestionsDAO();
     		list = advDetails.GetAdvisorDetails(aids);
+    		List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
+    		QuestionsDAO subs = new QuestionsDAO();
+    		sub = subs.GetAdvisorSubcategories(aids);
             for(AdvisorDTO advisor : list){
+        		String subcategories = "";
+            	for(SubCategoryDTO subcat : sub){
+            		System.out.println(subcat.getAdvisorId());
+            		System.out.println(advisor.getId());
+            		if(subcat.getAdvisorId() == advisor.getId()){
+            			subcategories = subcategories +subcat.getSubCategory()+"|";
+            		}
+            	}
+            	if(!subcategories.equals("") ){
+            	int index = subcategories.lastIndexOf("|");
+            	subcategories =subcategories.substring(0, index);
+            	}
+            	System.out.println(subcategories);
             	JSONObject jo = new JSONObject();
     			jo.put("id", advisor.getId());
     			jo.put("image", advisor.getImage());
     			jo.put("name",advisor.getName());
-    			jo.put("industry",advisor.getIndustry());
+    			jo.put("industry",subcategories);
     			array.add(jo);
 
             }
+            
         }
 
 		response.getWriter().write(array.toJSONString());

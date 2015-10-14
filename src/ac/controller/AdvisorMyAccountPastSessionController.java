@@ -1,6 +1,7 @@
 package ac.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,7 +45,12 @@ public class AdvisorMyAccountPastSessionController extends HttpServlet {
 			  //Getting the session details for the page
 			  SessionDAO session = new SessionDAO();
 			  SessionDTO sessionDetails= session.GetSessionDetails(sid);
-			
+			  if(sessionDetails.getStatus().equals("SESSION COMPLETE")){
+				  String price =  sessionDetails.getSessionPrice();
+				  DecimalFormat decim = new DecimalFormat("#.##");
+				  Double price1 = Double.valueOf(price) * 5 /6;
+				  sessionDetails.setSessionPrice(decim.format(price1));
+				 }
 			  //Getting user details 
 			  SessionDAO user = new SessionDAO();
 			  UserDetailsDTO userDetails= user.GetUserDetails(sessionDetails.getUserid());
@@ -55,6 +61,13 @@ public class AdvisorMyAccountPastSessionController extends HttpServlet {
 			  RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorpastsession.jsp");
 	          rd.forward(request, response);
 		}
+	     if(isError){
+	    		StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+				String url1 = url.toString();
+				request.setAttribute("url1", url1);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+		        rd.forward(request, response);
+	     }
 	
 		logger.info("Entered doGet method of AdvisorMyAccountPastSessionController");
 	}
