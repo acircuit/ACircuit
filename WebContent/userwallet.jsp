@@ -313,7 +313,6 @@ $('#refundmodal .payment-row').on('click', function() {
 	
 });
 $('body').on( 'click', '#refundbutton', function(event) { 
-	debugger;
 	$('.refund-input').closest('.form-group').find('.error').remove();
 	var checkmax=parseFloat($('.refund-input').attr('data-max'));
 	var value= parseFloat($('.refund-input').val());

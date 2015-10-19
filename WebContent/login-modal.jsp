@@ -417,8 +417,12 @@ $( "#loginform" ).submit(function( event ) {
 	    var url = '/me?fields=id,name,email';
 	    FB.api(url, function(response) {
 	      console.log('Successful login');
-	     //Firirng ajax to check the email id
-	      CheckEmail(response,login);
+	      if(typeof response.email !== "undefined"){
+	    	//Firirng ajax to check the email id
+		      CheckEmail(response,login);
+	      }else{
+	    	  alert("There was a problem signing up with your facebook account. Please Sign up through our platform.");
+	      }
 	    });
 	  }
 	  function FBLogin(login){

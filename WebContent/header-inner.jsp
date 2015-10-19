@@ -50,7 +50,7 @@ pageContext.setAttribute("source", source);
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			
 					          	</div></form><span class="make-search-small">X</span></li>
-					          	<li><div><ul class="nav navbar-nav navbar-right ">
+					          	<li><div><ul class="nav navbar-nav navbar-right " >
 						          	 <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
 							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 273px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;">
@@ -109,23 +109,19 @@ pageContext.setAttribute("source", source);
 					    			<span class="hamb-middle"></span>
 									<span class="hamb-bottom"></span>
 					            </button>
-					       
-					         <form class="search-form" action="Search" method="get" style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-i visible-xs" type="text"  placeholder="Search" name="word">
+					       <div style="position: absolute;top: -17px;left: 1%;"><ul class="nav navbar-nav navbar-right " style="border-top: 0px;">
+						          	 <li class="dropdown">
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important;margin-left: 63px;"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
+							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 319px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;margin-top: 12px;">
+										
+							          </ul></div>
+					         <form class="search-form" action="Search" method="get" style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-xs visible-xs" type="text"  placeholder="Search" name="word">
 					         <div id="headersuggestionsmob" class="dropdown suggmob">
 					          		
 					          	</div></form>
 					          	
+					          	
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-58914838-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 			          	
    	<script>
    	$(document).ready(function () {
@@ -262,12 +258,3 @@ pageContext.setAttribute("source", source);
 
    	
    	</script>
-<!--Start of Zopim Live Chat Script-->
-<script type="text/javascript">
-window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-$.src="//v2.zopim.com/?3O1oN7WcsBdgCN1h4zUZeEgf0nCudKAr";z.t=+new Date;$.
-type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-</script>
-<!--End of Zopim Live Chat Script-->

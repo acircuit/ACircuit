@@ -2,6 +2,7 @@ package ac.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,6 +22,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.CallFactory;
 import com.twilio.sdk.resource.instance.Call;
 import com.twilio.sdk.resource.list.CallList;
+
 
 
 
@@ -94,7 +96,7 @@ public class ClickToCall extends HttpServlet {
 	 	    Call call1 = null;
 	 		    // Build a filter for the CallList
 	 		    List<NameValuePair> params = new ArrayList<NameValuePair>();
-	 		    params.add(new BasicNameValuePair("Url", prop.getProperty("CONFERENCE_XML_URL")));
+	 		    params.add(new BasicNameValuePair("Url", MessageFormat.format(prop.getProperty("CONFERENCE_XML_URL"), sId)));
 	 		    params.add(new BasicNameValuePair("To","+91" +userPhone));
 	 		    params.add(new BasicNameValuePair("From","+13368037448"));
 	 		    params.add(new BasicNameValuePair("StatusCallback",prop.getProperty("STATUSCALLBACK_URL_USER")));
@@ -105,7 +107,7 @@ public class ClickToCall extends HttpServlet {
 	 		    
 	 		    // Build a filter for the CallList
 	 		    List<NameValuePair> params1 = new ArrayList<NameValuePair>();
-	 		    params1.add(new BasicNameValuePair("Url", prop.getProperty("CONFERENCE_XML_URL")));
+	 		    params1.add(new BasicNameValuePair("Url", MessageFormat.format(prop.getProperty("CONFERENCE_XML_URL"), sId)));
 	 		    params1.add(new BasicNameValuePair("To",advisorPhone));
 	 		    params1.add(new BasicNameValuePair("From","+13368037448"));
 	 		    params1.add(new BasicNameValuePair("StatusCallback",prop.getProperty("STATUSCALLBACK_URL_ADVISOR")));	

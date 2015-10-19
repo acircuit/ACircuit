@@ -520,7 +520,7 @@ function expertcard(value)
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="b-strip">'
 			+'<a  href=advisorprofile?a='+value.id+' class="btn red-button col-xs-4 col-sm-6 col-md-4"><span>Rs '+value.price+'/</span>min</a>'
-			+'<form class="ask-form col-xs-8 col-sm-6 col-md-8" style="padding-right:0px;"><a href=advisorprofile?a='+value.id+' id="'+value.id+'"><span class="form-control">Ask a Question for FREE</span></button></a>'
+			+'<form class="ask-form col-xs-8 col-sm-6 col-md-8" style="padding-right:0px;"><a href=advisorprofile?a='+value.id+' id="'+value.id+'"><span class="form-control ask-box">Ask a Question for FREE</span></button></a>'
 			+'</div>'
 			+'</div>'
 			+'</div>'

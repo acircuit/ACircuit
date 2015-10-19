@@ -20,6 +20,7 @@ import ac.dao.PaymentDAO;
 import ac.dao.SessionDAO;
 import ac.dto.SessionDTO;
 import ac.dto.UserDetailsDTO;
+import ac.util.CreateTwiml;
 import ac.util.SendMail;
 
 import com.ccavenue.security.AesCryptUtil;
@@ -126,7 +127,11 @@ public class UserMyAccountPaymentController extends HttpServlet {
 							
 						}
 						if(isStatusCommit){
-					          response.sendRedirect("usercurrentsession?sId="+sId+"&session="+order_status);
+							  CreateTwiml twiml = new CreateTwiml();
+							  Boolean isCreated =  twiml.CreateTwimlXML(sId);
+							  if(isCreated){
+						          response.sendRedirect("usercurrentsession?sId="+sId+"&session="+order_status);
+							  }
 						}
 					}
 				
@@ -225,41 +230,46 @@ public class UserMyAccountPaymentController extends HttpServlet {
 							AdminNotificationDAO admin = new AdminNotificationDAO();
 							admin.InsertNotification(comment1, href1);
 							if(isStatusCommit){
-								String subject = "Session had been confirmed- #"+sId+"!";
-								String content = "Hello, <br><br>A session had been confirmed by the user<br><br>"
-										+ "1.Session ID : "+sId+"<br>"
-										+ "2.Username: "+userName.getFullName()+"<br>"
-										+ "3.Advisorname:"+advName+"<br>"
-										+ "4.Mode: "+sessionDetails.getMode()+"<br>"
-										+ "5.Date and Time:"+sessionDetails.getAcceptedDate() +"and"+ sessionDetails.getAcceptedTime()+""
-										+ "6.Duration:"+sessionDetails.getDuration()+"<br>"
-										+ "7.Cost of session"+sessionDetails.getSessionPrice()+"<br>"
-										+ " <br><img src=\"https://www.advisorcircuit.com/ACircuit/assets/img/logo_black.png\" style='float:right' width='15%'>";
-								SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
-								mail.start();
-								
-								String subject4 = "You have a session coming up!";
-								String content4 = "Hello, <br><br>"
-										+ "We see you have a session coming up:"
-										+ "<br><br>"
-										+ "<p style ='font-weight:bold'>Session with "+advName+"</p>"
-										+ "<br>"
-										+ "Date: "+sessionDetails.getAcceptedDate()+""
-										+ "<br>"
-										+ "Time: "+sessionDetails.getAcceptedTime()+"<br>"
-										+ "Mode of Communication: "+sessionDetails.getMode()+""
-										+ "<br>"
-										+ "Duration:"+sessionDetails.getDuration()+"<br>"
-										+ "<span>Simply go to your session page and press the “Join Call” button at the time of your session and you will receive a call on your registered number with us. Make sure your wallet is recharged enough before the session for you to solve all your doubts. You can always refund any balance left later. </span><br><br>"
-										+ "<span>You can view more details by logging in to your account. Have a great session!</span><br><br>"
-										+ "Feel free to reach us if you have any questions!<br><br>"
-										+ "<span style='text-decoration:underline; font-weight:bold'>Team Advisor Circuit</span>"
-												+ "<br><img src=\"https://www.advisorcircuit.com/ACircuit/assets/img/logo_black.png\" style='float:right' width='15%'>";
-									SendMail mail1 = new SendMail(subject4, content4, userName.getEmail(),prop.getProperty("MAIL_ADMIN"));
-									mail1.start();
-								
-								
-						          response.sendRedirect("usercurrentsession?sId="+sId+"&session=Success");
+								 CreateTwiml twiml = new CreateTwiml();
+								  Boolean isCreated =  twiml.CreateTwimlXML(sId);
+								  if(isCreated){
+										String subject = "Session had been confirmed- #"+sId+"!";
+										String content = "Hello, <br><br>A session had been confirmed by the user<br><br>"
+												+ "1.Session ID : "+sId+"<br>"
+												+ "2.Username: "+userName.getFullName()+"<br>"
+												+ "3.Advisorname:"+advName+"<br>"
+												+ "4.Mode: "+sessionDetails.getMode()+"<br>"
+												+ "5.Date and Time:"+sessionDetails.getAcceptedDate() +"and"+ sessionDetails.getAcceptedTime()+""
+												+ "6.Duration:"+sessionDetails.getDuration()+"<br>"
+												+ "7.Cost of session"+sessionDetails.getSessionPrice()+"<br>"
+												+ " <br><img src=\"https://www.advisorcircuit.com/ACircuit/assets/img/logo_black.png\" style='float:right' width='15%'>";
+										SendMail mail = new SendMail(subject, content, prop.getProperty("MAIL_ADMIN"),prop.getProperty("MAIL_ADMIN"));
+										mail.start();
+										
+										String subject4 = "You have a session coming up!";
+										String content4 = "Hello, <br><br>"
+												+ "We see you have a session coming up:"
+												+ "<br><br>"
+												+ "<p style ='font-weight:bold'>Session with "+advName+"</p>"
+												+ "<br>"
+												+ "Date: "+sessionDetails.getAcceptedDate()+""
+												+ "<br>"
+												+ "Time: "+sessionDetails.getAcceptedTime()+"<br>"
+												+ "Mode of Communication: "+sessionDetails.getMode()+""
+												+ "<br>"
+												+ "Duration:"+sessionDetails.getDuration()+"<br>"
+												+ "<span>Simply go to your session page and press the “Join Call” button at the time of your session and you will receive a call on your registered number with us. Make sure your wallet is recharged enough before the session for you to solve all your doubts. You can always refund any balance left later. </span><br><br>"
+												+ "<span>You can view more details by logging in to your account. Have a great session!</span><br><br>"
+												+ "Feel free to reach us if you have any questions!<br><br>"
+												+ "<span style='text-decoration:underline; font-weight:bold'>Team Advisor Circuit</span>"
+														+ "<br><img src=\"https://www.advisorcircuit.com/ACircuit/assets/img/logo_black.png\" style='float:right' width='15%'>";
+											SendMail mail1 = new SendMail(subject4, content4, userName.getEmail(),prop.getProperty("MAIL_ADMIN"));
+											mail1.start();
+										
+										
+								          response.sendRedirect("usercurrentsession?sId="+sId+"&session=Success");
+								  }
+
 							}
 					}
 					

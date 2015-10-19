@@ -50,11 +50,11 @@ else if( session.getAttribute("advisorId") !=null){
 				<c:choose>
 					<c:when test="<%=isLogged %>">
 					   <li><a href="advisors?category=all" style="color: #4a4a4a">Advisors</a></li>
-				       <li><a href="questions" style="color: #4a4a4a">Q&A</a></li>
+				       <li><a href="#" style="color: #4a4a4a">Q&A</a></li>
 					</c:when>
 					<c:otherwise>
 					   <li><a onclick="OpenLogin('advisors')" style="color: #4a4a4a">Advisors</a></li>
-				       <li><a onclick="OpenLogin('questions')" style="color: #4a4a4a">Q&A</a></li>
+				       <li><a onclick="#" style="color: #4a4a4a">Q&A</a></li>
 					</c:otherwise>
 				</c:choose>
 				
@@ -105,13 +105,4 @@ if(forxs<763){
 	$(this).closest('.tab-on-xs').find('.social-icons').slideDown();
 	}
 });
-</script>
-<script type="text/javascript">
-  var _mfq = _mfq || [];
-  (function() {
-    var mf = document.createElement("script");
-    mf.type = "text/javascript"; mf.async = true;
-    mf.src = "//cdn.mouseflow.com/projects/b6a63ff2-ccc7-4949-9c20-4946a32dd324.js";
-    document.getElementsByTagName("head")[0].appendChild(mf);
-  })();
 </script>

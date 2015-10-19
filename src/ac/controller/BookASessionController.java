@@ -85,6 +85,7 @@ public class BookASessionController extends HttpServlet {
 	        BookASessionDAO session = new BookASessionDAO();
 	        sessionId = session.SetSessionDetails(mode, duration,query,slot1Date,slot2Date,slot3Date,slot1Time,slot2Time,slot3Time,approxprice,aId,userId,absoluteURL);
         	if(sessionId != 0){
+        		
         	   SessionDAO user = new SessionDAO();
         		UserDetailsDTO userDetails = user.GetUserName(userId);
         		

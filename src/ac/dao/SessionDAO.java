@@ -43,8 +43,6 @@ public class SessionDAO {
 	Statement stmt = null;
 	private static final Logger logger = Logger.getLogger(SessionDAO.class);
 	
-	
-	
 	public SessionDTO GetSessionDetails(String sid){
 		
 		logger.info("Entered GetSessionDetails method of SessionDAO");
@@ -100,6 +98,8 @@ public class SessionDAO {
 		logger.info("Entered GetSessionDetails method of SessionDAO");
 		return dto;
 	}
+	
+
 	
 	public UserDetailsDTO GetUserDetails(int uid){
 		

@@ -262,7 +262,9 @@ function CallSSE(){
 	
 function CallTwilio(){
 	
-	if("${wallet}" < "${sessionDetails.getPrice()}"){
+	var wallet =  parseFloat("${wallet}");
+	var price = parseFloat("${sessionDetails.getPrice()}");
+	if(wallet < price){
 		alert("Please recharge your wallet");
 	}else{
 		$.ajax({
