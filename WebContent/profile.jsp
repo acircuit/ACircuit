@@ -69,9 +69,14 @@ cursor:pointer;
    		  
    			<div class="body-content col-xs-12 no-padding" >
    			     
-   			     <span class="body-head-text" style="font-family: Lato-Light;font-size: 24px" >Advisor Registration</span>
-   			     <div class="profile-owner-info col-xs-12 no-padding">
-   			     sds
+   			     <span class="body-head-text" style="font-family: Lato-Light;font-size: 24px;color: #4a4a4a" >Advisor Registration</span>
+   			     <div class="profile-form-div col-md-12 col-xs-12 no-padding">
+   			     <span style="float: left;font-family: OpenSans;font-size: 20px;margin-right: 3%;color: #9b9b9b ">Profile Completion</span>
+   			     <div class="progress col-md-4" style="margin-top: 1%">
+                    <div id="pb" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                         20%
+                    </div>
+                 </div>
    			     </div>
    				<div class="col-md-12 col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
 <!-- 		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #37b7b3;">
@@ -446,6 +451,10 @@ $(document).ready(function () {
 	}else{
 		document.getElementById("advisorverificationsuccess").style.display = "none";
 	}
+});
+$('#pb').css({
+    'background-image': 'none',
+    'background-color': '#7ed321'
 });
  $('.category-menu').on('change', function() {
 	$(this).closest('.each-interest-div').find('.subcategory-menu').html('<option>Sub Category</option>');
