@@ -125,6 +125,33 @@ padding: 10px;
 .each-interest-div{
 	
 }
+@media (min-width: 768px) {
+
+
+.pro .navbar
+{
+	max-width:300px;
+	margin-right: 0;
+	margin-left: 0;
+}	
+
+.pro .navbar-nav,
+.pro .navbar-nav > li,
+.pro .navbar-left,
+.pro .navbar-right,
+.pro .navbar-header
+{float:none !important;}
+
+.pro .navbar-right .dropdown-menu {left:0;right:auto;}
+.pro .navbar-collapse .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+}
+.prof-font {
+	font-family: Open Sans;
+    font-size: 19px;
+    color: #9b9b9b;
+}
+}
 /* .skills-pool{
 	min-height:100px;
 	margin-top: 15px;

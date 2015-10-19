@@ -67,10 +67,14 @@ cursor:pointer;
 							<span class="body-head-text"><a href="advisordashboard">Dashboard </a>> Profile</span>
 	</div>
    		  
-   			<div class="body-content col-xs-12 no-padding">
-   			
-   				<div class="col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
-		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #37b7b3;">
+   			<div class="body-content col-xs-12 no-padding" >
+   			     
+   			     <span class="body-head-text" style="font-family: Lato-Light;font-size: 24px" >Advisor Registration</span>
+   			     <div class="profile-owner-info col-xs-12 no-padding">
+   			     sds
+   			     </div>
+   				<div class="col-md-12 col-xs-12 col-sm-9 ud-left-section" style="background-color: #EEEEEE;">
+<!-- 		   			<div class="div-for-notifications col-xs-12 no-padding" style="border-top: 4px solid #37b7b3;">
 		   			<div class="profile-owner-info col-xs-12 no-padding">
 		   				<div class="col-xs-4 dp-div-profile">
 		   					 <img class="profile-dp" src="assets/img/Abhishek.JPG"><br>
@@ -86,8 +90,15 @@ cursor:pointer;
 		   				</div>
 		   			</div>
 			   			
-		   			</div>
-		   			<div class="profile-form-div col-xs-12 no-padding">
+		   			</div> -->
+		   			<div class="profile-form-div col-md-3 no-padding pro" style="margin-right: 0px;">
+                               <ul class="nav navbar-nav">
+                                   <li class="active"><a href="#" class="profil-form-head">General Information</a></li>
+                                   <li><a href="#" class="profil-form-head">Education/Professional Background</a></li>
+                                   <li><a href="#" class="profil-form-head">Mode/Skills</a></li>
+                                </ul>
+   					</div>
+		   			<div class="profile-form-div col-md-9 col-xs-12 no-padding" style="border-left: 1px solid #979797;">
 		   				<div class="profil-form-head-div">
 		   					<span class="profil-form-head">Account Information Edit</span>
 		   				</div>
@@ -368,7 +379,7 @@ cursor:pointer;
 						
 			   	</div>
 	   			
-	   			<div class="col-xs-12 col-sm-3">
+<%-- 	   			<div class="col-xs-12 col-sm-3">
 	   			<div class="col-xs-12 text-center no-padding-xs">
 							<button type="button" class="btn red-button " style="width: 100%;margin-bottom: 10px;" data-toggle="modal" data-target="#booksession">Book a session</button>
 							<br>
@@ -415,7 +426,7 @@ cursor:pointer;
 	                    </c:forEach>
                     </div>
 	   			</div>
-   			</div>
+   			</div> --%>
    			
    			</div>
    	 </div>
