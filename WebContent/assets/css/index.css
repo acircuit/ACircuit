@@ -46,7 +46,7 @@ position: relative;
 }
 .small-font-banner{
 	font-family: latol;
-    font-size: 23px;
+    font-size: 18px;
     color: #ffffff;
     font-weight: 100;
 }
@@ -445,7 +445,40 @@ display: block;
     margin-right: 3px;
 }
 
-
+.banner-left-div{
+	text-align:left;
+	    padding-left: 75px;
+}
+.carousel-indicators {
+    bottom: -35px!important;
+}
+.carousel-indicators li{
+    margin-right:16px!important;
+}
+.banner-c{
+width: 83%;
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+.offer-text-big{
+	color:yellow;
+	font-size:14px;
+}
+.offer-text-small{
+	color: lightgray;
+    font-size: 10px;
+    display: block;
+    margin-top: -2px;
+}
+@media (max-width: 962px) and (min-width: 767px)
+{
+.big-font-banner {
+    font-size: 20px;
+}
+.small-font-banner {
+    font-size: 14px;
+}
+}
 @media (max-width: 767px) and (min-width: 462px)
 {
 	
@@ -467,11 +500,22 @@ display: block;
 }
 @media (max-width: 767px) and (min-width: 320px)
 {
-	.top-div {
-    display: block!important;}
-    .hm-top-svg svg {
+.top-div {
+    display: block!important;
+}
+.hm-top-svg svg {
     width: 76px;
     height: 44px;
+}
+.banner-left-div {
+    text-align: center;
+}
+.signupT-div {
+    margin-top: 0px;
+    margin-bottom: 26px;
+}
+.banner-c {
+    width: 100%;;
 }
 .svg-b-text {
     font-size: 13px;

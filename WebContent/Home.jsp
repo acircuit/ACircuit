@@ -84,11 +84,11 @@
 					  </div><!-- /.container-fluid -->
 					</nav>
 			   	</div>
-			   	<div class="banner-search-div">
-			  
+			   	<div class="banner-search-div col-xs-12 no-padding-xs">
+			  <div class="col-xs-12 col-sm-6 banner-left-div no-padding-xs">
 			   	<span class="big-font-banner">Your Personal Career Network</span><br>
-			   	<span class="small-font-banner">Connect with people who’ve been there done that to achieve your goals</span><br><br>
-			   		<div class="Bblue">
+			   	<span class="small-font-banner">Connect with people who’ve been there done that to achieve your goals Connect with people who’ve been there done that to achieve your goals <br> Connect with people who’ve been there done that to achieve your goals<br>Connect with people who’ve been there done that to achieve your goals<br><br>- hhghghgftyyf gfyugyugy yugyugyug <br><br>- hhghghgftyyf gfyugyugy yugyugyug <br><br>- hhghghgftyyf gfyugyugy yugyugyug</span><br><br>
+			   		<!-- <div class="Bblue">
 						<div class="category-filter-div container no-padding">
 					  			<div class="col-xs-12 choose-div no-padding-xs">Get your queries answered in</div>
 					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 no-padding">
@@ -122,9 +122,15 @@
 					  			
 					  			</div>
 					  		</div>
+   					</div> -->
+   					<div class="col-xs-12 no-padding signupT-div">
+   						<div class="col-xs-12 col-md-5 no-padding">
+   							<button type="button" class="btn red-button signupT-button" data-toggle="modal" data-target="#signupmodal">Sign Up For Free</button>
+   						</div>
+   					<div class="col-xs-12 col-md-7 no-padding">
+   						<span class="offer-text-big">GET Rs.100</span><br>
+   						<span class="offer-text-small">Signup now</span>
    					</div>
-   					<div class="col-xs-12 col-sm-6 col-sm-offset-3 signupT-div">
-   						<button type="button" class="btn red-button signupT-button" data-toggle="modal" data-target="#signupmodal">Sign Up For Free</button>
    					</div>
 			   	<!-- <form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
 			   	<input  class="form-control banner-search-box" type="text" placeholder="Search your industry, advisor, interest" onkeyup="FindSearchSuggestions(this)" name="word" autocomplete="off">
@@ -132,7 +138,37 @@
 					          			
 					          	</div>
 			   	</form> -->
-			  	
+			  	</div>
+			  	<div class="col-xs-12 col-sm-6 banner-right-div">
+			  		<div id="carousel-example-generic" class="carousel slide banner-c" data-ride="carousel">
+						  <!-- Indicators -->
+						  <ol class="carousel-indicators">
+						    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						  </ol>
+						
+						  <!-- Wrapper for slides -->
+						  <div class="carousel-inner" role="listbox">
+						    <div class="item active">
+						      <img src="assets/img/home_slide1.png" alt="..." style="width:100%;">
+						      
+						    </div>
+						    <div class="item">
+						     <img src="assets/img/home_slide2.png" alt="..." style="width:100%;">
+						      
+						    </div>
+						     <div class="item">
+						     <img src="assets/img/home_slide3.png" alt="..." style="width:100%;">
+						      
+						    </div>
+						    
+						  </div>
+						
+						 
+						  
+						</div>
+			  	</div>
 			   	</div>
 </div>
 
