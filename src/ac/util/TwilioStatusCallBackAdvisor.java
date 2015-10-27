@@ -66,7 +66,7 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 					e.printStackTrace();
 				} 
 			    SessionDAO dao1 = new SessionDAO();
-			    dao1.UpdateCallStatus(call.getStatus(),call.getDuration(),callDuration,callStatus,call.getSid());
+			    dao1.UpdateCallStatus(call.getDuration(),call.getStatus(),callStatus,callDuration,call.getSid());
 		    }else{
 		    	SessionDAO dao1 = new SessionDAO();
 				dao1.UpdateDuration(callDuration,"advisor",callSid,callStatus);
@@ -91,7 +91,7 @@ public class TwilioStatusCallBackAdvisor extends HttpServlet {
 			System.out.println("busy");
 
 		    SessionDAO dao1 = new SessionDAO();
-		    dao1.UpdateCallStatus(call.getStatus(),call.getDuration(),callDuration,callStatus,call.getSid());
+		    dao1.UpdateCallStatus(call.getDuration(),call.getStatus(),callStatus,callDuration,call.getSid());
 		}else if (callStatus.equals("completed") ) {
 			System.out.println("completed");
 			SessionDAO dao1 = new SessionDAO();

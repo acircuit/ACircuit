@@ -1,4 +1,5 @@
 <link href="assets/css/login.css" rel="stylesheet">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <!-- Modal -->
@@ -27,6 +28,7 @@
 									
 				 			</div>
 				 	</div>
+				 	<input class="form-control" type="hidden" id="url" value="${url }" name="redirecturl">
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="name" type="text" placeholder="Name" required aria-required="true">
 				 	</div>
@@ -457,7 +459,21 @@ $( "#loginform" ).submit(function( event ) {
 		        success : function(response) {
 		          	if(response != "false"){
 		          		$("#invalidusernameviaothers").hide();
-		          		window.location.href = response;
+		          		if("${url}" != ""){
+		          			var url="${url}".substring(0, "${url}".indexOf("null") - 1);
+		          			if(response == "advisors?category=all&type=signup"){
+		          				if(url.indexOf("?") != -1){
+			          				url = url.concat("&type=signup");
+			          			}else{
+			          				url = url.concat("?type=signup");
+			          			}
+		          			}
+		          			
+		          			window.location.href = url;
+		          		}else{
+		          			window.location.href = response;	
+		          		}
+		          		
 		          	}else if (response == "false") {
 						$("#invalidusernameviaothers").show();
 					}

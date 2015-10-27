@@ -72,6 +72,7 @@
        				isUserLoggedIn = true;
        			   }
        			   pageContext.setAttribute("advisorId", advisorId);
+       			
 %>
 
 </head>
@@ -119,7 +120,9 @@
 							</c:forEach>
 							
 							</span><br>
+							<c:if test="${currentDesignation != null &&  currentCompany != null  && !currentCompany.equals('')}">
 							<span class="Afeild">${currentDesignation} in ${currentCompany}</span>
+							</c:if>
 							<span class="stars-xs visible-xs"><span class="rating-no">${rateCount}</span>
 							<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="${rateCount}" disabled></span>
 							<div class="dquotes">
@@ -212,8 +215,11 @@
 						
 					</div>
 					</c:forEach>
-				</div>	
+				</div>
+				<c:if test="${advisor.getLinkedIn() != null && !advisor.getLinkedIn().equals('') }">
 				<span class="view-linkedin"> <i class="fa fa-linkedin"></i> <a href="${advisor.getLinkedIn()}" target="blank">View Linkedin Profile</a></span>
+				
+				</c:if>	
 			</div>
 			<span class="bio-heading">Education</span>
 			<div class="border-b">

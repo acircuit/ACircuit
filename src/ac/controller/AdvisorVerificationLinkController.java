@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import ac.dao.AdvisorLoginDAO;
+import ac.dao.SessionDAO;
 import ac.dao.UserLoginDAO;
+import ac.dto.AdvisorDTO;
+import ac.util.GetRelativeImageURL;
 
 /**
  * Servlet implementation class AdvisorVerificationLinkController
@@ -33,10 +36,13 @@ public class AdvisorVerificationLinkController extends HttpServlet {
 		 Boolean isCommit = advisor.UpdateAdvisorVerification(aId,true);
 		 if(isCommit){
 			 //Getting the user email
-			 AdvisorLoginDAO adv = new AdvisorLoginDAO();
-			 String email = adv.GetAdvisorEmail(aId);
+			 SessionDAO adv = new SessionDAO();
+			 AdvisorDTO advsr = adv.GetAdvisorDetails(Integer.valueOf(aId));
 			 request.getSession().setAttribute("advisorId",Integer.valueOf(aId));
-			 request.getSession().setAttribute("email", email);
+			 request.getSession().setAttribute("email", advsr.getEmail());
+				GetRelativeImageURL image = new GetRelativeImageURL();
+				String img = image.getImageURL(advsr.getImage());
+				request.getSession().setAttribute("path",img );
 			 response.sendRedirect("profile?advisorverification=true");
 		 }
 		

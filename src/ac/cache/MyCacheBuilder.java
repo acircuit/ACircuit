@@ -123,6 +123,7 @@ public class MyCacheBuilder
 		
 		Element element2 = new Element( 3, optionSub );
 		subCategoryCache.put(element2);
+		
 	}
 	
 	public List<String> getHigherStudiesSubCategory(){

@@ -178,6 +178,11 @@
 <script>
 
 $(document).ready(function () {
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
    	if(<%=isAdv%>){
    		$(".ask-a-question-button").hide();
    		$(".book-a-session-button").hide();

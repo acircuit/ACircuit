@@ -45,6 +45,7 @@ public class RegistrationController extends HttpServlet {
 		String fullname = request.getParameter("name");
 		String type = request.getParameter("type");
 		String updates = request.getParameter("updates");
+		String redirecturl = request.getParameter("redirecturl");
 		Properties prop = new Properties();
         InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("ac/resources/Mail.properties");
         Properties prop1 = new Properties();
@@ -139,7 +140,22 @@ public class RegistrationController extends HttpServlet {
         					request.getSession().setAttribute("email", email);
         					  GetRelativeImageURL image = new GetRelativeImageURL();
         					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
-        					response.sendRedirect("advisors?category=all&type=signup");
+        					 if(redirecturl != null && !redirecturl.equals("")){
+						        	if(redirecturl.indexOf("null") != -1){
+						        		
+						        		redirecturl=redirecturl.substring(0, redirecturl.indexOf("null") - 1);
+						        		if(redirecturl.indexOf("?") != -1){
+						        			redirecturl = redirecturl.concat("&type=signup");
+					          			}else{
+					          				redirecturl = redirecturl.concat("?type=signup");
+					          			}
+						        	}
+						        	response.sendRedirect(redirecturl); 
+						        }else{
+						        	response.sendRedirect("advisors?category=all&type=signup");
+
+						        }
+        					
     					}
 
     				}
@@ -152,12 +168,20 @@ public class RegistrationController extends HttpServlet {
         	}else if (type.equals("advisor")) {
         		
 				try {
+					String absolutePath="";
+    				//Setting the image retrieved from the user to the required file location
+    			    File source = new File(prop1.getProperty("DUMMY_ADVISOR_IMAGE_SOURCE_PATH"));
+    			    absolutePath = MessageFormat.format(prop1.getProperty("DUMMY_ADVISOR_IMAGE_DESTINATION_PATH"), email);
+    				File dest = new File(absolutePath);
+    			    FileUtils.copyFile(source, dest);
+					
+					
 					  //Hashing the retrieved password from the user.
 					PasswordHashing securedPass = new PasswordHashing();
 					String hashPassword = securedPass.doHash(password);
 					//Setting the user details in the userdetails table
     				RegistrationDAO dao = new RegistrationDAO();
-    				int advisorId = dao.setAdvisorDetails(email,hashPassword,fullname,updates);
+    				int advisorId = dao.setAdvisorDetails(email,hashPassword,fullname,updates,absolutePath);
     				if(advisorId != 0){
     					String comment = fullname+" signed up as a advisor";
     					String href = "AdminViewUserProfile?email="+email;
@@ -169,12 +193,12 @@ public class RegistrationController extends HttpServlet {
     					AdvisorNotificationDAO advisor = new AdvisorNotificationDAO();
     					advisor.InsertNotification(advisorComment,String.valueOf(advisorId), advisorHref );*/
     					
-    				/*	String subject ="";
+    					String subject ="";
     					String content ="";
     					subject = "Thank you for registering on Advisor Circuit";
     					content = "Hi, <br><br> Thank you for registering on Advisor Circuit. Please Click on the below link to activate your account:<br> <a href='"+MessageFormat.format(prop.getProperty("ADVISOR_REGISTRATION_VERIFICATION_LINK"), advisorId)+"'>Click Here to Activate Your Account</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-    					mail.start();*/
+    					mail.start();
     					String subject1= "A New Advisor Sign Up!";
     					String content1 = "Hi, <br><br> A new advisor has signed up with us. Following are the details: <br>Full Name : "+fullname+"<br>Email Id : " +email+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));

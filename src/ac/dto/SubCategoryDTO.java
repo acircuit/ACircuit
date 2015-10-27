@@ -1,5 +1,7 @@
 package ac.dto;
 
+import java.util.List;
+
 public class SubCategoryDTO {
 	
 	private int id;
@@ -12,7 +14,14 @@ public class SubCategoryDTO {
 	private int advisorId;
 	private int categoryId;
     private String subCategory;
+    private List<String> skills;
     
+	public List<String> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<String> skills) {
+		this.skills = skills;
+	}
 	public int getAdvisorId() {
 		return advisorId;
 	}

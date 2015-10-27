@@ -64,6 +64,7 @@
 								<span class="user-name">${advisorDetails.getName()}</span><br>
 								<span class="user-email">${advisorDetails.getEmail()}</span><br>
 								<a href="advisorprofile?a=${advisorDetails.getId()}"><span class="user-settings">View Profile</span></a>
+								<a href="profile"><span class="user-settings">Edit Profile</span></a>
 							</div>
 				   		</div>
 				   	</div>

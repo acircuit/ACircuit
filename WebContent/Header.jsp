@@ -23,8 +23,8 @@ else if( session.getAttribute("advisorId") !=null){
 		username=(String)session.getAttribute("username");
 		advisord = (Integer)session.getAttribute("advisorId");
 }
-
-
+String type = request.getParameter("type");
+	pageContext.setAttribute("type", type);
 %>
 
 <c:choose>
@@ -109,7 +109,9 @@ else if( session.getAttribute("advisorId") !=null){
 
 
 					          	<script>
+					            
    	$(document).ready(function () {
+   		
   var trigger = $('.hamburger'),
       overlay = $('.overlay'),
      isClosed = false;
@@ -144,8 +146,7 @@ else if( session.getAttribute("advisorId") !=null){
    	</script>
 				</c:otherwise>
 </c:choose>
-     
-			          	
+         	
    	
    	<script type="text/javascript">
     function ShowLogin(){

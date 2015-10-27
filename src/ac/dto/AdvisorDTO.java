@@ -27,12 +27,33 @@ public class AdvisorDTO implements Serializable {
 	private String image;
 	private Boolean phone; 
 	private Boolean video;
+	private String status;
+	private List<CategoryDTO> interests;
+	public List<CategoryDTO> getInterests() {
+		return interests;
+	}
+	public void setInterests(List<CategoryDTO> interests) {
+		this.interests = interests;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	private List<EducationDTO> education;
 	private List<ProfessionalBackgroundDTO> profession;
 	private List<CategoryDTO> categories;
 	private List<SubCategoryDTO> subCategories;
 	private List<AdvisorLanguageDTO> language;
 	private List<AdvisorSkillsDTO> skills;
+	private List<String> languages;
+	public List<String> getLanguages() {
+		return languages;
+	}
+	public void setLanguages(List<String> languages) {
+		this.languages = languages;
+	}
 	public List<AdvisorSkillsDTO> getSkills() {
 		return skills;
 	}
@@ -43,7 +64,13 @@ public class AdvisorDTO implements Serializable {
 	private Boolean isVerified;
 	private double phonePrice;
 	private double videoPrice;
-	
+	public Boolean getIsVisible() {
+		return isVisible;
+	}
+	public void setIsVisible(Boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+	private Boolean isVisible;
 	public double getPhonePrice() {
 		return phonePrice;
 	}

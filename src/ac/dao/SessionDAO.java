@@ -313,7 +313,7 @@ public class SessionDAO {
  	try {
 			conn =ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query ="SELECT NAME,IMAGE,ADVISOR_ID,EMAIL,PHONE_NUMBER FROM advisordetails WHERE ADVISOR_ID=?";
+			String query ="SELECT NAME,IMAGE,ADVISOR_ID,EMAIL,PHONE_NUMBER,ISVISIBLE,ISACTIVE FROM advisordetails WHERE ADVISOR_ID=?";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, aid);
 			ResultSet results = pstmt.executeQuery();
@@ -324,6 +324,8 @@ public class SessionDAO {
                 advisor.setId(results.getInt("ADVISOR_ID"));
                 advisor.setEmail(results.getString("EMAIL"));
                 advisor.setPhoneNo(results.getString("PHONE_NUMBER"));
+                advisor.setIsVisible(results.getBoolean("ISVISIBLE"));
+                advisor.setIsActive(results.getBoolean("ISACTIVE"));
 			}
 		} catch (SQLException e) {
 			logger.error("GetAdvisorDetails method of SessionDAO threw error:"+e.getMessage());

@@ -141,9 +141,10 @@ public class ForgotPasswordDAO {
 			try {
 				conn =ConnectionFactory.getConnection();
 				conn.setAutoCommit(false);
-                query ="SELECT ADVISOR_ID,EMAIL FROM advisordetails WHERE EMAIL = ?";
+                query ="SELECT ADVISOR_ID,EMAIL FROM advisordetails WHERE EMAIL = ? AND ISACTIVE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1,userName);
+				pstmt.setBoolean(1, true);
 			    results = pstmt.executeQuery();
 			    if(results.first()){
 			    	profile.setId(results.getInt("ADVISOR_ID"));

@@ -36,10 +36,11 @@ public class SearchDAO {
 			String query="";
 			//String q4in = generateQsForIn(words.size());
 			for (String word : words) {
-				query = "SELECT DISTINCT ADVISOR_ID FROM advisordetails WHERE KEYWORDS LIKE ? AND ISACTIVE=?";	
+				query = "SELECT DISTINCT ADVISOR_ID FROM advisordetails WHERE KEYWORDS LIKE ? AND ISACTIVE=? AND ISVISIBLE=?";	
 				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, '%' + word + '%');
 				pstmt.setBoolean(2, true);
+				pstmt.setBoolean(3, true);
 				ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 			/*	AdvisorDTO dto = new AdvisorDTO();
@@ -503,9 +504,10 @@ public class SearchDAO {
 				pstmt.setString(1, "options");
 				pstmt.setBoolean(2, true);
 			}else{
-				query = "SELECT ADVISOR_ID FROM advisordetails WHERE  ISACTIVE=?";
+				query = "SELECT ADVISOR_ID FROM advisordetails WHERE  ISACTIVE=? AND ISVISIBLE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setBoolean(1, true);
+				pstmt.setBoolean(2, true);
 			}
 			
 			ResultSet results = pstmt.executeQuery();

@@ -62,7 +62,7 @@
    					
    					<span class="thanku-text">Thank You</span>
    					<br><br>
-   					<span class="thanku-message-text">Thank you for reaching out to us. We will get back to you within 48 hours.</span>
+   					<span class="thanku-message-text">We have sent you a mail on your registered email Id.</span>
 			</div>
 	 <%@include file="/footer.jsp" %>
 </div>

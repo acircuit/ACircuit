@@ -34,7 +34,7 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet"
     type="text/css">
 <%
-String type = request.getParameter("type");
+
 UserDetailsDTO userDetails = (UserDetailsDTO) request.getAttribute("userDetails");
 Double amount = (Double) request.getAttribute("amount");   
 Boolean isUserVerified =false;
@@ -43,7 +43,7 @@ String email="";
 	isUserVerified = (Boolean) session.getAttribute("isVerified");
    }
 
-pageContext.setAttribute("type", type);
+
 
 %>
 </head>

@@ -40,10 +40,10 @@
                 List<String> industries = (List<String>)request.getAttribute("industries");
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
-        	       String type = request.getParameter("type");
+        	       
 
         		pageContext.setAttribute("ids", ids);
-       			pageContext.setAttribute("type", type);
+       			
 
 
 %>

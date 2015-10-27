@@ -181,7 +181,7 @@ public class SignUpViaOthers extends HttpServlet {
         					  GetRelativeImageURL image = new GetRelativeImageURL();
         					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
         					 request.getSession().setAttribute("isVerified", true);
-        					response.getWriter().write("advisors?category=all");
+        					response.getWriter().write("advisors?category=all&type=signup");
     					}
 
     				}

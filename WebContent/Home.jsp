@@ -86,9 +86,26 @@
 			   	</div>
 			   	<div class="banner-search-div col-xs-12 no-padding-xs">
 			  <div class="col-xs-12 col-sm-6 banner-left-div no-padding-xs">
-			   	<span class="big-font-banner">Your Personal Career Network</span><br>
-			   	<span class="small-font-banner">Connect with people who’ve been there done that to achieve your goals Connect with people who’ve been there done that to achieve your goals <br> Connect with people who’ve been there done that to achieve your goals<br>Connect with people who’ve been there done that to achieve your goals<br><br>- hhghghgftyyf gfyugyugy yugyugyug <br><br>- hhghghgftyyf gfyugyugy yugyugyug <br><br>- hhghghgftyyf gfyugyugy yugyugyug</span><br><br>
-			   		<!-- <div class="Bblue">
+			   	<span class="big-font-banner">Your Personal Career Network</span><br><br>
+<!-- 			   	<span class="small-font-banner">Leave behind calling everbody you know, wasting hours on the<br>web & social networks for some career advice.<br><span>Simply connect to our handpicked advisors who've had <br> first hand success with the goals you want to achieve.</span> <br><br><span style="margin-bottom: 10px;">- Explore Careers</span> <br>- <span style="margin-bottom: 10px">Pursue MBA & Higher Studies</span> <br>- <span>Job Interviews & Resume Preparation</span></span><br><br>
+ -->			   		
+                    <span class="small-font-banner visible-xs">Leave behind calling everbody you know, wasting hours on the web & social networks for some career advice.<br></span>
+                     <span class="small-font-banner visible-xs" style="display: inline-block;margin-top: 10px;">Simply connect to our handpicked advisors who've had first hand success with the goals you want to achieve.<br><br></span>
+                      
+                     <span class="small-font-banner visible-xs no-padding" >- Explore Careers</span>
+                      <span class="small-font-banner visible-xs no-padding" >- Pursue MBA & Higher Studies</span>
+                      <span class="small-font-banner visible-xs no-padding"  >- Job Interviews & Resume Preparation</span>
+                     
+                    <span class="small-font-banner hidden-xs">Leave behind calling everbody you know, wasting hours on the<br>web & social networks for some career advice.<br></span>
+                     <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 10px;">Simply connect to our handpicked advisors who've had <br> first hand success with the goals you want to achieve.<br><br></span>
+                      
+                      <span class="small-font-banner hidden-xs" style="display: inline-block;">- Explore Careers</span><br>
+                      <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 8px;">- Pursue MBA & Higher Studies<br></span>
+                      <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 8px;">- Job Interviews & Resume Preparation</span>
+                       
+                      
+                        
+                      <!-- <div class="Bblue">
 						<div class="category-filter-div container no-padding">
 					  			<div class="col-xs-12 choose-div no-padding-xs">Get your queries answered in</div>
 					  			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 no-padding">
@@ -124,12 +141,12 @@
 					  		</div>
    					</div> -->
    					<div class="col-xs-12 no-padding signupT-div">
-   						<div class="col-xs-12 col-md-5 no-padding">
-   							<button type="button" class="btn red-button signupT-button" data-toggle="modal" data-target="#signupmodal">Sign Up For Free</button>
+   						<div class="col-xs-12 col-md-5 no-padding" >
+   							<button type="button" class="btn red-button signupT-button" style="padding: 10px" data-toggle="modal" data-target="#signupmodal">Sign Up To Explore</button>
    						</div>
-   					<div class="col-xs-12 col-md-7 no-padding">
+   					<div class="col-xs-12 col-md-7 " >
    						<span class="offer-text-big">GET Rs.100</span><br>
-   						<span class="offer-text-small">Signup now</span>
+   						<span class="offer-text-small">Signup now and get Rs 100 cash in your wallet</span>
    					</div>
    					</div>
 			   	<!-- <form class="banner-search-form col-xs-12 col-sm-6 col-sm-offset-3 hidden-xs" action="Search">
@@ -139,7 +156,7 @@
 					          	</div>
 			   	</form> -->
 			  	</div>
-			  	<div class="col-xs-12 col-sm-6 banner-right-div">
+			  	<div class="col-xs-12 col-sm-6 banner-right-div hidden-xs">
 			  		<div id="carousel-example-generic" class="carousel slide banner-c" data-ride="carousel">
 						  <!-- Indicators -->
 						  <ol class="carousel-indicators">

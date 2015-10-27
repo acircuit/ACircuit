@@ -98,6 +98,7 @@ position:absolute;
 						            <th>Email</th>
 						            <th>Phone No</th>
 						            <th>ISACTIVE</th>
+						            <th>ISVISIBLE</th>
 						            <th>Action</th>
 						          </tr>
 						        </thead>
@@ -109,6 +110,7 @@ position:absolute;
 						            <td>${advisor.getEmail()}</td>
 						            <td>${advisor.getPhoneNo()}</td>
 						            <td>${advisor.getIsActive()}</td>
+						            <td>${advisor.getIsVisible()}</td>
 						            <td>
 						              <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
@@ -116,7 +118,27 @@ position:absolute;
 										 <a id="${advisor.getId()}" class="list-group-item" onclick="DeactivateAdvisor(this)">Deactivate Profile</a>
 										 <a id="${advisor.getId()}" href="" class="list-group-item" onclick="ActivateAdvisor(this)">Activate Profile</a>
 										 <a id="${advisor.getId()}" target="blank" href="AdvisorProfileController?a=${advisor.getId()}" class="list-group-item">View Profile</a>
+										 <a id="${advisor.getId()}" class="list-group-item" onclick="ShowAdvisor(this)">Show Advisor</a>
+										 <a id="${advisor.getId()}"  class="list-group-item" onclick="HideAdvisor(this)">Hide Advisor</a>
+										 <a id="${advisor.getId()}" target="blank" href="adminprofile?a=${advisor.getId()}" class="list-group-item">Create/Edit Profile</a>
+										 <a id="${advisor.getId()}"  class="list-group-item" data-toggle="modal" data-target="#price${advisor.getId()}">Set Advisor Price</a>
+										
 							          </ul>
+							           <div class="modal fade" id="price${advisor.getId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span  class="ask-question-modal-head">Set Price</span><br>
+								      <br>
+								      <input type="text" id="pr${advisor.getId()}">
+								      <div class="row" style="padding:10px;">
+										    <a id="${advisor.getId()}"  class="btn red-button ask-question-button" onclick="SetPrice(this)">Submit</a>
+									  </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 							        </li>                    
                                    </td>
 						          </tr>
@@ -190,6 +212,43 @@ function DeactivateAdvisor(elem){
     });
 }
 
+function ShowAdvisor(elem){
+	var id = elem.id;
+	$.ajax({
+        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
+        data : {"advisorId":id, "action": "show"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
+
+function HideAdvisor(elem){
+	var id = elem.id;
+	$.ajax({
+        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
+        data : {"advisorId":id, "action": "hide"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	 location.reload();
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+}
 function ActivateAdvisor(elem){
 	var id = elem.id;
 	$.ajax({
@@ -207,6 +266,25 @@ function ActivateAdvisor(elem){
             
         }
     });
+}
+function SetPrice(elem){
+	var id = elem.id;
+		$.ajax({
+	        url : 'adminadvisor', // Your Servlet mapping or JSP(not suggested)
+	        data : {"advisorId":id,"price":$("#pr"+id).val() ,"action": "setprice"},
+	        type : 'POST',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+	        	 location.reload();
+	        	 $('.black-screen').hide();
+
+	        },
+	        error : function(request, textStatus, errorThrown) {
+	            alert(errorThrown);
+	            
+	        }
+	    });
+
 }
 </script>
 </body>

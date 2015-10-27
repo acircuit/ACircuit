@@ -39,10 +39,7 @@ int usdId=0;
 			<span class="notify-text">Success : You have successfully verified your account. Please complete your profile to book session. </span>
 			<span class="cross-noti">X</span>
 		</div>
-		<div class="notify-text-div" id="advisorverificationsuccess" style="display: none" >
-			<span class="notify-text">Success : You have successfully verified your account. Please complete your registration process b completing our profile.. </span>
-			<span class="cross-noti">X</span>
-		</div>
+		<div class="alert alert-success" role="alert" id="advisorverificationsuccess" style="display: none">Success : You have successfully verified your account. Please complete your registration process by completing your profile.</div>
 		<div class="notify-text-div" id="verifytobook" style="display: none" >
 			<span class="notify-text">Info: Please verify your account to book sessions.<a onclick="ResendLink()">Resend Mail</a></span>
 			<span class="cross-noti">X</span>

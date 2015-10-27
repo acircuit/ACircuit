@@ -93,12 +93,16 @@ public class AdvisorMyAccountQuestionsController extends HttpServlet {
 			//Get Advisor Image
 			SessionDAO adv = new SessionDAO();
 			List<AdvisorDTO> advisorDetails =  adv.GetAdvisorDetailsUsingQuestions(answeredQuestions);
+			
+			SessionDAO details = new SessionDAO();
+			AdvisorDTO advDetails = details.GetAdvisorDetails(advisorId);
 			 
 			System.out.println("Answered"+answeredQuestions.size() + "Pending" +newQuestions.size());
 			request.setAttribute("answeredQuestions", answeredQuestions);
 			request.setAttribute("newQuestions", newQuestions);
 			request.setAttribute("advisorDetails", advisorDetails);
 			request.setAttribute("advisorId", advisorId);
+			request.setAttribute("advDetails", advDetails);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/advisorsessionquestions.jsp");
 	        rd.forward(request, response);
 			

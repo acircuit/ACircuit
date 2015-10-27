@@ -505,6 +505,54 @@
     <url-pattern>/adminrefunds</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>generalinfo</servlet-name>
+    <servlet-class>ac.controller.AdvisorRegistrationGeneralInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>generalinfo</servlet-name>
+    <url-pattern>/generalinfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>profile</servlet-name>
+    <servlet-class>ac.controller.AdvisorEditProfileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>profile</servlet-name>
+    <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>educationinfo</servlet-name>
+    <servlet-class>ac.controller.AdvisorRegistrationEducationInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>educationinfo</servlet-name>
+    <url-pattern>/educationinfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>professionalbackground</servlet-name>
+    <servlet-class>ac.controller.AdvisorRegistrationProfessionalBackgroundConroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>professionalbackground</servlet-name>
+    <url-pattern>/professionalbackground</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>skills</servlet-name>
+    <servlet-class>ac.controller.AdvisorRegistrationSkillsController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>skills</servlet-name>
+    <url-pattern>/skills</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>/adminprofile</servlet-name>
+    <servlet-class>ac.controller.AdminProfileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>/adminprofile</servlet-name>
+    <url-pattern>/adminprofile</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>payment</servlet-name>
     <jsp-file>/ccavRequestHandler.jsp</jsp-file>
   </servlet>
@@ -559,14 +607,6 @@
   <servlet-mapping>
     <servlet-name>usereditprofile</servlet-name>
     <url-pattern>/usereditprofile</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>advisorcreateprofile</servlet-name>
-    <jsp-file>/profile.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>advisorcreateprofile</servlet-name>
-    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>reset</servlet-name>

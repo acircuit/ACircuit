@@ -65,11 +65,11 @@ pageContext.setAttribute("url", url);
    	
    			<div class="body-error error-div col-xs-12" >
    			<img src="assets/img/brokenlink.svg"><br>
-   					<span class="error-message-big">Oops!</span> 
+   					<span class="error-message-big">Please <a data-toggle="modal" data-target="#loginmodal">Sign In</a> or <a data-toggle="modal" data-target="#signupmodal">Sign Up</a>  to continue</span> 
    					<br>
    					<!-- <span class="page-error">Page Error</span> -->
    					<br><br>
-   					<span class="error-message-text">Please <a data-toggle="modal" data-target="#loginmodal">Login</a> to continue</span>
+   					<!-- <span class="error-message-text">Please <a data-toggle="modal" data-target="#loginmodal">Login</a> to continue</span> -->
 			</div>
 	 <%@include file="/footer.jsp" %>
 </div>

@@ -14,12 +14,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.AdvisorSkillsDTO;
 import ac.dto.ContactUsDTO;
 import ac.dto.PromotionsDTO;
 import ac.dto.QuestionsDTO;
 import ac.dto.RefundDTO;
 import ac.dto.ReviewsDTO;
 import ac.dto.SessionDTO;
+import ac.dto.SkillsDTO;
+import ac.dto.SubCategoryDTO;
 import ac.dto.UserDetailsDTO;
 import ac.jdbc.ConnectionFactory;
 
@@ -225,7 +228,7 @@ public class AdminDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String query="";
-			query = "SELECT ADVISOR_ID,NAME,PHONE_NUMBER,EMAIL,ISACTIVE FROM advisordetails ";	
+			query = "SELECT ADVISOR_ID,NAME,PHONE_NUMBER,EMAIL,ISACTIVE,ISVISIBLE FROM advisordetails ";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
@@ -235,6 +238,7 @@ public class AdminDAO {
 			adv.setEmail(results.getString("EMAIL"));
 			adv.setPhoneNo(results.getString("PHONE_NUMBER"));
 			adv.setIsActive(results.getBoolean("ISACTIVE"));
+			adv.setIsVisible(results.getBoolean("ISVISIBLE"));
 			list.add(adv);
 			}
 		} catch (SQLException e) {
@@ -883,5 +887,290 @@ public class AdminDAO {
 		}
 		logger.info("Exit UpdateUserIsActive method of AdminDAO");
 		return isCommit;
+	}
+	
+	public Boolean  UpdateAdvisorVisibility(Boolean value,String aid) { 
+		logger.info("Entered UpdateAdvisorVisibility method of AdminDAO");
+		Boolean isCommit = false ;
+         try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE advisordetails SET ISVISIBLE=? WHERE ADVISOR_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, value);
+			pstmt.setString(2, aid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateAdvisorVisibility method of AdminDAO");
+		return isCommit;
+	}
+	
+	public Boolean  UpdatePrice(String price,String aid) { 
+		logger.info("Entered UpdateAdvisorVisibility method of AdminDAO");
+		Boolean isCommit = false ;
+         try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE advisordetails SET PHONE_PRICE=?,VIDEO_PRICE=? WHERE ADVISOR_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setDouble(1, Double.valueOf(price));
+			pstmt.setDouble(2, Double.valueOf(price));
+			pstmt.setString(3, aid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("UpdateAdvisorVisibility method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit UpdateAdvisorVisibility method of AdminDAO");
+		return isCommit;
+	}
+	
+	
+	public List<AdvisorSkillsDTO> GetAdvisorSkills(List<SubCategoryDTO> sub){
+		
+		logger.info("Entered GetAdvisorSkills method of RegistrationDAO");
+		List<AdvisorSkillsDTO> subcat = new ArrayList<AdvisorSkillsDTO>(); 
+		
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(sub.size());
+			String query ="SELECT * FROM advisorskills WHERE SUBCATEGORY_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (SubCategoryDTO subs : sub) {
+				pstmt.setInt(i++, subs.getId());
+			}
+			ResultSet results = pstmt.executeQuery();
+			while(results.next()){
+				AdvisorSkillsDTO skill =  new AdvisorSkillsDTO();
+				skill.setSkill(results.getString("SKILL"));
+				skill.setSubId(results.getInt("SUBCATEGORY_ID"));
+				subcat.add(skill);
+			}
+		} catch (SQLException e) {
+			logger.error("GetAdvisorSkills method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorSkills method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorSkills method of RegistrationDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorSkills method of RegistrationDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		logger.info("Entered GetAdvisorSubCategory method of RegistrationDAO");
+		return subcat;
+	}
+	
+	public Boolean  SetAdvisorKeywords(String keywords,String aid) { 
+		logger.info("Entered SetAdvisorKeywords method of AdminDAO");
+		Boolean isCommit = false ;
+         try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query ="UPDATE advisordetails SET KEYWORDS=? WHERE ADVISOR_ID = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keywords);
+			pstmt.setString(2, aid);
+			int result = pstmt.executeUpdate(); 
+			if(result >0) {
+				conn.commit();
+				isCommit = true;
+			}
+		}catch(Exception e){
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					logger.error("SetAdvisorKeywords method of AdminDAO threw error:"+e2.getMessage());
+					e2.printStackTrace();
+				}
+				logger.error("SetAdvisorKeywords method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("SetAdvisorKeywords method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("SetAdvisorKeywords method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit SetAdvisorKeywords method of AdminDAO");
+		return isCommit;
+	}
+	
+	public String CheckSubCategory(String cat,String subcat){
+		
+		logger.info("Entered CheckSubCategory method of AdminDAO");
+		String subcategory="";
+		String query = "";
+		try {
+			conn =ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			if(cat.equals("studies")){
+				query ="SELECT SUBCATEGORY FROM higherstudies WHERE SUBCATEGORY=?";
+			}else if (cat.equals("options")) {
+				query ="SELECT SUBCATEGORY FROM options WHERE SUBCATEGORY=?";
+			}else{
+				query ="SELECT SUBCATEGORY FROM industry WHERE SUBCATEGORY=?";
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, subcat);
+
+			ResultSet results = pstmt.executeQuery();
+			if(results.first()){
+				subcategory = results.getString("SUBCATEGORY");
+			}
+		} catch (SQLException e) {
+			logger.error("CheckSubCategory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("CheckSubCategory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("CheckSubCategory method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("CheckSubCategory method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		
+		logger.info("Entered CheckSubCategory method of AdminDAO");
+		return subcategory;
+	}
+	
+	public Boolean InsertSubCategory(String cat,String subcat) {
+		logger.info("Entered InsertSubCategory method of AdminDAO");
+		int result = 0;
+		Boolean isCommit = false;
+		String query ="";
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			if(cat.equals("studies")){
+				query ="insert into higherstudies (SUBCATEGORY) values"+"(?)";
+			}else if (cat.equals("options")) {
+				query ="insert into options (SUBCATEGORY) values"+"(?)";
+			}else{
+				query ="insert into industry (SUBCATEGORY) values"+"(?)";
+			}
+
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, subcat);
+			result = pstmt.executeUpdate();
+			if (result > 0) {
+				conn.commit();
+				isCommit = true;
+			}else{
+				isCommit = false;
+
+			}
+			logger.info("Exit InsertSubCategory method of AdminDAO");
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("InsertSubCategory method of AdminDAO threw error:"
+						+ e.getMessage());
+				e1.printStackTrace();
+			}
+			logger.error("InsertSubCategory method of AdminDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("InsertSubCategory method of AdminDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("InsertSubCategory method of AdminDAO threw error:"
+					+ e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("InsertSubCategory method of AdminDAO threw error:"
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return isCommit;
+	}
+	
+	private String generateQsForIn(int numQs) {
+		String items = "";
+		for (int i = 0; i < numQs; i++) {
+			if (i != 0)
+				items += ", ";
+			items += "?";
+		}
+		return items;
 	}
 }

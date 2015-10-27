@@ -109,10 +109,10 @@ pageContext.setAttribute("source", source);
 					    			<span class="hamb-middle"></span>
 									<span class="hamb-bottom"></span>
 					            </button>
-					       <div style="position: absolute;top: -17px;left: 1%;"><ul class="nav navbar-nav navbar-right " style="border-top: 0px;">
+					       <div class="visible-xs" style="position: absolute;top: -17px;left: 1%;"><ul class="nav navbar-nav navbar-right " style="border-top: 0px;">
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important;margin-left: 63px;"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
-							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 319px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;margin-top: 12px;">
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important;margin-left: 63px;"><img src="assets/img/header_notification.svg" style="width:15px;"><span class="badge" id="notification_count_mob"></span></a>
+							          <ul id="notifications-mob" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 319px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;margin-top: 12px;">
 										
 							          </ul></div>
 					         <form class="search-form" action="Search" method="get" style="position: absolute;top: 4px;right: 11%;"><input  class="form-control search-box-xs visible-xs" type="text"  placeholder="Search" name="word">
@@ -226,6 +226,16 @@ pageContext.setAttribute("source", source);
 		        document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);
+		eventSource.addEventListener('notify', function(event) {
+	        document.getElementById('notifications-mob').innerHTML = event.data;
+	    }, false);
+	eventSource.addEventListener('count', function(event) {
+		
+		if(event.data >0){
+			 document.getElementById('notification_count_mob').style.display = 'inline-block';
+	        document.getElementById('notification_count_mob').innerHTML = event.data;
+		}
+    }, false);
 		eventSource.addEventListener('id', function(event) {
 			id1= event.data;
 	    }, false);
@@ -241,6 +251,16 @@ pageContext.setAttribute("source", source);
 				document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);
+		eventSource.addEventListener('notify', function(event) {
+	        document.getElementById('notifications-mob').innerHTML = event.data;
+	    }, false);
+	eventSource.addEventListener('count', function(event) {
+		
+		if(event.data >0){
+			 document.getElementById('notification_count_mob').style.display = 'inline-block';
+	        document.getElementById('notification_count_mob').innerHTML = event.data;
+		}
+    }, false);
 	
 	}else if (<%=source.equals("advisor")%>) {
 		var eventSource = new EventSource("AdvisorNotificationSSE");
@@ -253,6 +273,16 @@ pageContext.setAttribute("source", source);
 		        document.getElementById('notification_count').innerHTML = event.data;
 			}
 	    }, false);
+		eventSource.addEventListener('notify', function(event) {
+	        document.getElementById('notifications-mob').innerHTML = event.data;
+	    }, false);
+	eventSource.addEventListener('count', function(event) {
+		
+		if(event.data >0){
+			 document.getElementById('notification_count_mob').style.display = 'inline-block';
+	        document.getElementById('notification_count_mob').innerHTML = event.data;
+		}
+    }, false);
 
 	}
 

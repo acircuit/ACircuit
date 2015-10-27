@@ -59,6 +59,7 @@
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -176,6 +177,11 @@
 </div>
 <script>
 $(document).ready(function () {
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
    	if(<%=isAdv%>){
    		$(".ask-a-question-button").hide();
    		$(".book-a-session-button").hide();
