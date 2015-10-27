@@ -52,7 +52,7 @@ public class AdvisorRegistrationEducationInfoController extends HttpServlet {
 			 for (int i = 0; i < course.length; i++) {
 				 type[i] = request.getParameter("type"+i);
 			}
-
+ 
 			String edit = request.getParameter("edit");
 			List<EducationDTO> education = new ArrayList<EducationDTO>();
 			// Deleting the Education Details
