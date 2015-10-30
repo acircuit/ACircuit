@@ -73,7 +73,7 @@ public class AdvisorRegistrationSkillsController extends HttpServlet {
 					}else if (subcategory[i].equals("industry")) {
 						industryskills = request.getParameterValues("industry"+i+"[]"); 
 						isIndustry = true;
-					}else if (subcategory[i].equals("startup")) {
+					}else if (subcategory[i].equals("Startups")) {
 						startupskills = request.getParameterValues("startup"+i+"[]"); 
 					}
 				}
@@ -141,7 +141,7 @@ public class AdvisorRegistrationSkillsController extends HttpServlet {
 									categoryDTO.setSkills(mastersindiaskills);
 								}else if (categoryDTO.getSubcategory().equals("Masters Abroad")) {
 									categoryDTO.setSkills(mastersabroadskills);
-								}else if (categoryDTO.getSubcategory().equals("startup")) {
+								}else if (categoryDTO.getSubcategory().equals("Startups")) {
 									categoryDTO.setSkills(startupskills);
 								}else{
 									categoryDTO.setSkills(industryskills);
