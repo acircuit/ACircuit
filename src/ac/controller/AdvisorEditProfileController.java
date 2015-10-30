@@ -62,7 +62,7 @@ public class AdvisorEditProfileController extends HttpServlet {
 			
 			//Getting advisor languages
 			RegistrationDAO lang = new RegistrationDAO();
-			profile.setLanguages(lang.GetAdvisorLanguages(advisorId));
+			profile.setLanguage(lang.GetAdvisorLanguages(advisorId));
 			
 			
 			//Getting advisor education

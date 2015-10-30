@@ -228,7 +228,7 @@ public class AdminDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String query="";
-			query = "SELECT ADVISOR_ID,NAME,PHONE_NUMBER,EMAIL,ISACTIVE,ISVISIBLE FROM advisordetails ";	
+			query = "SELECT ADVISOR_ID,NAME,PHONE_NUMBER,EMAIL,ISACTIVE,ISVISIBLE,REGISTRATION_STATUS FROM advisordetails ";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
@@ -239,6 +239,7 @@ public class AdminDAO {
 			adv.setPhoneNo(results.getString("PHONE_NUMBER"));
 			adv.setIsActive(results.getBoolean("ISACTIVE"));
 			adv.setIsVisible(results.getBoolean("ISVISIBLE"));
+			adv.setStatus(results.getString("REGISTRATION_STATUS"));
 			list.add(adv);
 			}
 		} catch (SQLException e) {

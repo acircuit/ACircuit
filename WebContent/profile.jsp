@@ -57,7 +57,7 @@ cursor:pointer;
 }
 </style>
 
-<title>Insert title here</title>
+<title>Advisor Registration</title>
 <body>
  <div id="wrapper">
  <%@include file="/notify.jsp" %>
@@ -85,7 +85,7 @@ cursor:pointer;
    			     </c:if>
    			      <c:if test="${action != null && advisor.getStatus().equals('Skills')}">
    			      <div class="alert alert-success" role="alert">
-   			       You are going great. Please fill out your modes of communication and area of interests.   
+   			       You are going great. Please fill out your modes of communication and area of advice.   
    			     </div>
    			     </c:if>
    			     <c:if test="${action != null && advisor.getStatus().equals('Complete')}">
@@ -237,43 +237,26 @@ cursor:pointer;
 										</div>
 			   						</div>
 		   						</div>
-		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Languages</span>
-		   				        </div>
-		   				        <div class="languages">
-		   							<div class="col-xs-12 no-padding">
-			   							<div class="col-xs-12 col-sm-6 no-padding">
-				   							<div class="form-group each-form-div col-xs-12 no-padding">
-													     <label class="col-xs-3 no-padding form-label">Language</label>
-													      <div class="col-xs-9">
-						                                       <input class="form-control" id="lang" name="language[]">
-						                                       <span class="add-language btext">Add more</span>
-													 		</div>
-													 		
-											</div>
-				   						</div>
-		   							</div>
-		   						</div>
-		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Industry</span>
-		   				        </div>
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Industry</label>
 												      <div class="col-xs-9">
-					                                       <input class="form-control" id="industry" name="industry">
+					                                       <input class="form-control" id="industry" name="industry" onkeyup="GetIndustrySuggesions(this)">
+					                                       <span class="label label-default">Example: Advertising</span>
+					                                       <div id="industrysuggestions" class="suggestions">
+					                                       </div>
 												 		</div>
 										</div>
 			   						</div>
 		   						</div>
-		   						
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Experience</label>
 												      <div class="col-xs-9">
 					                                       <input class="form-control" id="experience"  name="experience">
+					                                       <span class="label label-default">Example: 5 years</span>
 												 		</div>
 										</div>
 			   						</div>
@@ -294,10 +277,36 @@ cursor:pointer;
 												     <label class="col-xs-3 no-padding form-label">Introduction</label>
 												      <div class="col-xs-9">
 					                                       <textarea class="form-control" id="intro" name="intro"></textarea>
+					                                       <span class="label label-default visible-md visible-lg">Example: Graduate from SRCC. Been in the consulting <br> field  for 3 years and love it. Enjoy dancing, reading<br> in my spare time.</span>
+												 			<span class="label label-default visible-sm ">Example: Graduate from SRCC.<br> Been in the consulting <br>field  for 3 years and love it.<br> Enjoy dancing, reading in <br>my spare time.</span>
+												 			<span class="label label-default visible-xs">Example:Graduate from SRCC.<br> Been in the consulting field <br> for 3 years and love it.<br> Enjoy dancing, reading in my<br> spare time.</span>
 												 		</div>
 										</div>
 			   						</div>
 		   						</div>
+		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					       <span class="profil-form-head">Languages Known</span>
+		   				        </div>
+		   				        <div class="languages">
+		   							<div class="col-xs-12 no-padding">
+			   							<div class="col-xs-12 col-sm-6 no-padding">
+				   							<div class="form-group each-form-div col-xs-12 no-padding">
+													     <label class="col-xs-3 no-padding form-label">Language</label>
+													      <div class="col-xs-9">
+						                                       <input class="form-control" id="lang" name="language[]">
+						                                       <span class="add-language btext">Add more</span>
+													 		</div>
+													 		
+											</div>
+				   						</div>
+		   							</div>
+		   						</div>
+		   						<!-- <div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					       <span class="profil-form-head">Industry</span>
+		   				        </div> -->
+		   						
+		   						
+		   		
 						            
 						            </c:when>
 						            <c:otherwise>
@@ -377,45 +386,26 @@ cursor:pointer;
 										</div>
 			   						</div>
 		   						</div>
-		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Languages</span>
-		   				        </div>
-		   				        <div class="languages">
-		   							<div class="col-xs-12 no-padding">
-			   							<div class="col-xs-12 col-sm-6 no-padding">
-				   							<div class="form-group each-form-div col-xs-12 no-padding">
-													     <label class="col-xs-3 no-padding form-label">Language</label>
-													      <div class="col-xs-9">
-													           <c:forEach items="${advisor.getLanguages()}" var="lang">
-						                                         <input class="form-control" id="lang" name="language[]" value="${lang}">
-													           </c:forEach>
-						                                       <span class="add-language btext">Add more</span>
-													 		</div>
-													 		
-											</div>
-				   						</div>
-		   							</div>
-		   						</div>
-		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Industry</span>
-		   				        </div>
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Industry</label>
 												      <div class="col-xs-9">
-					                                       <input class="form-control" id="industry" name="industry" value="${advisor.getIndustry()}" >
+					                                       <input class="form-control" id="industry" name="industry" value="${advisor.getIndustry()}" onkeyup="GetIndustrySuggesions(this)">
+					                                       <span class="label label-default">Example: Advertising</span>
+					                                         <div id="industrysuggestions" class="suggestions">
+					                                       </div>
 												 		</div>
 										</div>
 			   						</div>
 		   						</div>
-		   						
 		   						<div class="col-xs-12 no-padding">
 		   							<div class="col-xs-12 col-sm-6 no-padding">
 			   							<div class="form-group each-form-div col-xs-12 no-padding">
 												     <label class="col-xs-3 no-padding form-label">Experience</label>
 												      <div class="col-xs-9">
 					                                       <input class="form-control" id="experience" name="experience" value="${advisor.getExperience()}">
+					                                       <span class="label label-default">Example: 5 years</span>
 												 		</div>
 										</div>
 			   						</div>
@@ -436,10 +426,40 @@ cursor:pointer;
 												     <label class="col-xs-3 no-padding form-label">Introduction</label>
 												      <div class="col-xs-9">
 					                                       <textarea class="form-control" id="intro" name="intro" >${advisor.getIntro()}</textarea>
+					                                       <span class="label label-default visible-md visible-lg">Example: Graduate from SRCC. Been in the consulting <br> field  for 3 years and love it. Enjoy dancing, reading<br> in my spare time.</span>
+												 			<span class="label label-default visible-sm ">Example: Graduate from SRCC.<br> Been in the consulting <br>field  for 3 years and love it.<br> Enjoy dancing, reading in <br>my spare time.</span>
+												 			<span class="label label-default visible-xs">Example:Graduate from SRCC.<br> Been in the consulting field <br> for 3 years and love it.<br> Enjoy dancing, reading in my<br> spare time.</span>
+												 		
 												 		</div>
 										</div>
+										
 			   						</div>
 		   						</div>
+		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					       <span class="profil-form-head">Languages Known</span>
+		   				        </div>
+		   				        <div class="languages">
+		   							<div class="col-xs-12 no-padding">
+			   							<div class="col-xs-12 col-sm-6 no-padding">
+				   							<div class="form-group each-form-div col-xs-12 no-padding">
+													     <label class="col-xs-3 no-padding form-label">Language</label>
+													      <div class="col-xs-9">
+													           <c:forEach items="${advisor.getLanguage()}" var="lang">
+						                                         <input class="form-control" id="lang" name="language[]" value="${lang.getLanguage()}">
+													           </c:forEach>
+						                                       <span class="add-language btext">Add more</span>
+													 		</div>
+													 		
+											</div>
+				   						</div>
+		   							</div>
+		   						</div>
+		   						<!-- <div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					       <span class="profil-form-head">Industry</span>
+		   				        </div> -->
+		   						
+		   						
+
 						            
 						            
 						            </c:otherwise>
@@ -555,6 +575,7 @@ cursor:pointer;
 														     <label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>
 														      <div class="col-xs-9">
 							                                       <input class="form-control" id="duration" name="duration[]" value="${adv.getDuration()}">
+							                                       <span class="label label-default">Example: 2002 - Present</span>
 							                                    </div>
 												</div>
 					   						</div>
@@ -615,6 +636,7 @@ cursor:pointer;
 														     <label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>
 														      <div class="col-xs-9">
 							                                       <input class="form-control" id="duration" name="duration[]">
+							                                       <span class="label label-default">Example: 2002 - Present</span>
 							                                    </div>
 												</div>
 					   						</div>
@@ -663,11 +685,11 @@ cursor:pointer;
 														      <div class="col-xs-4">
 														        <c:choose>
 														          <c:when test="${prof.getIsCurrent()}">
-							                                       <input type="radio" id="level1" value="true" name="level${procounter}" checked="checked" />
+							                                       <input type="checkbox" id="level1" value="true" style="visibility: visible" name="level${procounter}" checked="checked" />
 														          
 														          </c:when>
 														          <c:otherwise>
-							                                       <input type="radio" id="level1" value="true" name="level${procounter}" />
+							                                       <input type="checkbox" id="level1" value="true" style="visibility: visible;" name="level${procounter}" />
 														          
 														          </c:otherwise>
 														        </c:choose>
@@ -702,6 +724,7 @@ cursor:pointer;
 														     <label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>
 														      <div class="col-xs-9">
 							                                       <input class="form-control" id="profduration" name="duration[]" value="${prof.getDuration()}">
+							                                       <span class="label label-default">Example: 2002 - Present</span>
 							                                    </div>
 												</div>
 					   						</div>
@@ -720,7 +743,7 @@ cursor:pointer;
 					   							<div class="form-group each-form-div col-xs-12 no-padding">
 														    <div class="col-xs-12">
 														      <div class="col-xs-4">
-							                                       <input type="radio" value="true" id="leve1" name="level${procounter}" />
+							                                       <input type="checkbox" style="visibility: visible;" value="true" id="leve1" name="level${procounter}" />
   																	<label for="leve1"><span></span>Present</label>
 							                                    </div>
 							                                  </div>
@@ -752,14 +775,17 @@ cursor:pointer;
 														     <label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>
 														      <div class="col-xs-9">
 							                                       <input class="form-control" id="profduration" name="duration[]">
+							                                       <span class="label label-default">Example: 2002 - Present</span>
 							                                    </div>
 												</div>
 					   						</div>
 					   						
 		   								</div>
 		   							</div>
-		   						        <c:set value="${procounter+1 }" var="procounter"></c:set>
+		   							<c:set value="${procounter+1 }" var="procounter"></c:set>
 		   						        </c:otherwise> 
+		   						        		   						        
+		   						        
 		   						    </c:choose>
 		   						
 
@@ -782,7 +808,7 @@ cursor:pointer;
 		   						</div>
 		   						<div id="skills" class="space" style="display: none">
 		   						<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Mode of communication</span>
+		   					       <span class="profil-form-head">Mode of Communication :This sections helps user to understand through which mode you want to offer them advice.</span>
 		   				        </div>
 		   				        <div class="alert alert-success" role="alert" id="validationskill" style="display: none">
 		   				
@@ -797,7 +823,7 @@ cursor:pointer;
 											                 <c:when test="${profile.getPhone()}">
 											                       <div class="col-xs-6">
 				                                         	           <div class="">
-																           <input type="radio" value="phone" id="phone" name="modephone" aria-required="true" checked="checked"/>
+																           <input type="checkbox" style="visibility: visible;" value="phone" id="phone" name="modephone" aria-required="true" checked="checked"/>
 																           <label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
 																       </div>
 														            </div>
@@ -805,7 +831,7 @@ cursor:pointer;
 											                 <c:otherwise>
 											                       <div class="col-xs-6">
 				                                         	           <div class="">
-																           <input type="radio" value="phone" id="phone" name="modephone" aria-required="true"/>
+																           <input type="checkbox" style="visibility: visible;" value="phone" id="phone" name="modephone" aria-required="true"/>
 																           <label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
 																       </div>
 														            </div>
@@ -815,7 +841,7 @@ cursor:pointer;
 											                     <c:when test="${profile.getVideo()}">
 											                             <div class="col-xs-6">
 				                                         	               <div class="">
-																               <input type="radio" value="video" id="video" name="modevideo" checked="checked"/>
+																               <input type="checkbox" style="visibility: visible;" value="video" id="video" name="modevideo" checked="checked"/>
 																               <label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
 															                </div>
 														               </div>
@@ -823,7 +849,7 @@ cursor:pointer;
 											                     <c:otherwise>
 											                          <div class="col-xs-6">
 				                                         	               <div class="">
-																               <input type="radio" value="video" id="video" name="modevideo" />
+																               <input type="checkbox" style="visibility: visible;" value="video" id="video" name="modevideo" />
 																               <label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
 															                </div>
 														               </div>
@@ -836,7 +862,7 @@ cursor:pointer;
 											 		</div>
 											 	</div>
 								<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Interests</span>
+		   					       <span class="profil-form-head">Area of Advice : This sections helps user to understand where all can you offer them advice.</span>
 		   				        </div>
 		   				        <c:forEach items="${profile.getInterests()}" var="interest">
 		   				              <div class="col-xs-12 no-padding">
@@ -889,7 +915,12 @@ cursor:pointer;
 		   								<hr>    
 		   				        </c:forEach>
 		   				        <div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Want to fill the interests again? </span>
+		   					       <span class="profil-form-head">Want to fill the Area of Advice again? </span>
+		   				        </div>
+		   				        <div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					       <span class="label label-default visible-lg">Example: If you want give advice regarding how to prepare for MBA in india, then choose 'Higher Studies' as category,<br> 'MBA-India' as sub category and then choose the relevant skills</span>
+		   					       <span class="label label-default visible-sm">Example: If you want give advice regarding how to prepare for MBA in india,<br> then choose 'Higher Studies' as category, 'MBA-India' as sub category <br>and then choose the relevant skills</span>
+		   					       <span class="label label-default visible-xs">Example: If you want give advice<br>regarding how to prepare for MBA in india,<br> then choose 'Higher Studies' as category,<br> 'MBA-India' as sub category <br>and then choose the relevant skills</span>
 		   				        </div>
 		   				        <input type="hidden" name="edit" value="true">	 			   						
 		   						<div class="each-interest-div col-xs-12 no-padding">
@@ -936,7 +967,7 @@ cursor:pointer;
 				   							<div class="form-group each-form-div col-xs-12 no-padding">
 													     <label class="col-xs-3 no-padding form-label"></label>
 													      <div class="col-xs-9">
-						                                      <span class="add-more-interest btext">+ Add More Interests</span>
+						                                      <span class="add-more-interest btext">+ Add More Area of Advice </span>
 													 		</div>
 											</div>
 			   						</div>
@@ -949,14 +980,14 @@ cursor:pointer;
 											       <div class="col-xs-9 form-group">
 				                                         <div class="col-xs-6">
 				                                         	 <div class="">
-																<input type="radio" value="phone" id="phone" name="modephone" aria-required="true" checked="checked"/>
+																<input type="checkbox" style="visibility: visible;" value="phone" id="phone" name="modephone" aria-required="true" checked="checked"/>
 																<label for="phone"><span></span><img src="assets/img/phone.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Phone</label>
 																
 															</div>
 														</div>
 														<div class="col-xs-6">
 				                                         	 <div class="">
-																<input type="radio" value="video" id="video" name="modevideo" checked="checked"/>
+																<input type="checkbox" style="visibility: visible;" value="video" id="video" name="modevideo" checked="checked"/>
 																<label for="video"><span></span><img src="assets/img/video.png" style="width: 20px;margin-right: 6px;margin-left: 5px;"> Video</label>
 																
 																
@@ -966,7 +997,13 @@ cursor:pointer;
 											 	</div>
 											 	
 								<div class="profil-form-head-div" style="margin-bottom: 35px">
-		   					       <span class="profil-form-head">Interests</span>
+		   					       <span class="profil-form-head">Area of Advice</span>
+		   				        </div>
+		   				        <div class="profil-form-head-div" style="margin-bottom: 35px">
+		   					          <span class="label label-default visible-lg">Example: If you want give advice regarding how to prepare for MBA in india, then choose 'Higher Studies' as category,<br> 'MBA-India' as sub category and then choose the relevant skills</span>
+		   					       <span class="label label-default visible-sm">Example: If you want give advice regarding how to prepare for MBA in india,<br> then choose 'Higher Studies' as category, 'MBA-India' as sub category <br>and then choose the relevant skills</span>
+		   					       <span class="label label-default visible-xs">Example: If you want give advice<br>regarding how to prepare for MBA in india,<br> then choose 'Higher Studies' as category,<br> 'MBA-India' as sub category <br>and then choose the relevant skills</span>
+		   					       
 		   				        </div>	 			   						
 		   						<div class="each-interest-div col-xs-12 no-padding">
 		   							<div class="col-xs-12 no-padding">
@@ -1012,7 +1049,7 @@ cursor:pointer;
 				   							<div class="form-group each-form-div col-xs-12 no-padding">
 													     <label class="col-xs-3 no-padding form-label"></label>
 													      <div class="col-xs-9">
-						                                      <span class="add-more-interest btext">+ Add More Interests</span>
+						                                      <span class="add-more-interest btext">+ Add More Area of Advice</span>
 													 		</div>
 											</div>
 			   						</div>
@@ -1120,7 +1157,6 @@ $(document).ready(function () {
 		$("#gen").trigger('click');
 	}
 	
-	
 	/* document.getElementById("general").style.display = 'block'; */
 	starinputconversion();
 	if("${advisorverification.equals('true') }"){
@@ -1129,6 +1165,34 @@ $(document).ready(function () {
 		document.getElementById("advisorverificationsuccess").style.display = "none";
 	}
 });
+function GetIndustrySuggesions(elem){
+	var id = elem.id;
+       $.ajax({
+	            url : 'GetRegistrationSuggestionsController', // Your Servlet mapping or JSP(not suggested)
+	            data : {"industry" : $('#'+id).val()},
+	            type : 'POST',
+	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	            success : function(response) {
+	            	if(response != "nosuggestion"){
+	   	   	            document.getElementById("industrysuggestions").innerHTML="";
+	   	            	var obj = JSON.parse(response);
+	   	            	//document.getElementById("data").innerHTML= obj[0].word+"with "+ obj[0].hits+" hits" ;
+	   	            	$.each(obj, function(key,value) {
+		   	            	var html='	<div class="hsuggestion">'+value.word+'</div>';
+		   	            	$('.suggestions').append(html);
+		   	            	$('.hsuggestion').show();
+	   	            	}); 
+	   	            	/* alert(obj[0].word+"with "+ obj[0].hits+" hits"); */
+	   	            	}else{
+	   	   	   	            document.getElementById("industrysuggestions").innerHTML="";
+		   	            	$('.hsuggestion').hide();
+	   	            	}
+	            	
+	            },
+	            error : function(request, textStatus, errorThrown) {
+	            }
+	        }); 
+}
 $('#pb').css({
     'background-image': 'none',
     'background-color': '#7ed321'
@@ -1302,7 +1366,7 @@ $('body').on('click', '.add-more-interest', function(e){
 			$('.more-interest-div').append(html);
 	}else{
 		document.getElementById("validationskill").style.display = 'block';
-		document.getElementById("validationskill").innerHTML = 'You cannot add more than 3 interests.';
+		document.getElementById("validationskill").innerHTML = 'You cannot add more than 3 area of advice.';
 	}
 
 });
@@ -1312,7 +1376,7 @@ $('body').on('click', '.add-language', function(e){
 	var html='<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-6 no-padding">'
 			+'<div class="form-group each-form-div col-xs-12 no-padding">'
-			+'<label class="col-xs-3 no-padding form-label">Language '+lal+'</label>'
+			+'<label class="col-xs-3 no-padding form-label">Language</label>'
 			+'<div class="col-xs-9">'
 			+'<input class="form-control" name="language[]">'
 			+'<span class="add-language btext">Add more</span>'
@@ -1322,7 +1386,6 @@ $('body').on('click', '.add-language', function(e){
 			+'</div>'
 			+'</div>';
 			$('.languages').append(html);
-			lal++;
 });
 $('body').on('click', '.remove-education', function(e){
 	$(this).closest('.each-education-div').remove();
@@ -1340,7 +1403,7 @@ $( "#geninfo" ).submit(function( event ) {
 	var input_p = $("#phone").val();
 	var filter = /^\d{12}$/; 
 	var is_phone = filter.test(input_p);
-	if($("#fname").val()==''){
+ if($("#fname").val()==''){
 		
 		event.preventDefault();	
 		document.getElementById("validation").style.display = 'block';
@@ -1391,7 +1454,12 @@ $( "#geninfo" ).submit(function( event ) {
 	  
 	});
 $( "#educinfo" ).submit(function( event ) {
-	if($('input[name=type0]:checked').length == 0 || $('#course').val() == '' || $('#institution').val() == '' || $('#duration').val() == '' ){
+	if("${advisor.getStatus()}" != "EducationInfo" && "${advisor.getStatus()}" != "Complete"){
+		event.preventDefault();	
+		document.getElementById("validationeduc").style.display = 'block';
+		document.getElementById("validationeduc").innerHTML = 'Please fill ${advisor.getStatus()}.';
+		$('body').scrollTop(0);
+	}else if($('input[name=type0]:checked').length == 0 || $('#course').val() == '' || $('#institution').val() == '' || $('#duration').val() == '' ){
 		event.preventDefault();	
 		document.getElementById("validationeduc").style.display = 'block';
 		document.getElementById("validationeduc").innerHTML = 'Please complete your education';
@@ -1401,17 +1469,48 @@ $( "#educinfo" ).submit(function( event ) {
 	
 });
 $( "#profinfo" ).submit(function( event ) {
-	if($('#company').val() == '' || $('#designation').val() == '' || $('#profduration').val() == '' ){
+	if("${advisor.getStatus()}" != "ProfessionalBackground" && "${advisor.getStatus()}" != "Complete"){
+		event.preventDefault();	
+		document.getElementById("validationprof").style.display = 'block';
+		document.getElementById("validationprof").innerHTML = 'Please fill ${advisor.getStatus()}.';
+		$('body').scrollTop(0);
+	}else if($('#company').val() == '' || $('#designation').val() == '' || $('#profduration').val() == '' ){
 		event.preventDefault();	
 		document.getElementById("validationprof").style.display = 'block';
 		document.getElementById("validationprof").innerHTML = 'Please complete your professional background';
 		$('body').scrollTop(0);
 
+	}else{
+		var check = new Array(10);
+		var counter = 0;
+		for(i=0;i<10;i++){
+			check[i] = false;
+			 if($('input[name="level'+i+'"]:checked').length > 0){
+				 check[i] = true;
+				 counter++;
+			 }
+		}
+		if(counter == 0){
+			event.preventDefault();	
+			document.getElementById("validationprof").style.display = 'block';
+			document.getElementById("validationprof").innerHTML = 'Please choose a current profession';
+			$('body').scrollTop(0);
+		}else if (counter > 1) {
+			event.preventDefault();	
+			document.getElementById("validationprof").style.display = 'block';
+			document.getElementById("validationprof").innerHTML = 'You cannot have more than one current profession';
+			$('body').scrollTop(0);
+		} 
 	}
 	
 });
 $( "#skillinfo" ).submit(function( event ) {
-	if(($("#category-menu0").is(":visible") && $("#category-menu0").val()=='') || ($("#category-menu1").is(":visible") && $("#category-menu1").val()=='') || ($("#category-menu2").is(":visible") && $("#category-menu2").val()=='') ){
+	if("${advisor.getStatus()}" != "Skills" && "${advisor.getStatus()}" != "Complete"){
+		event.preventDefault();	
+		document.getElementById("validationskill").style.display = 'block';
+		document.getElementById("validationskill").innerHTML = 'Please fill ${advisor.getStatus()}.';
+		$('body').scrollTop(0);
+	}else if(($("#category-menu0").is(":visible") && $("#category-menu0").val()=='') || ($("#category-menu1").is(":visible") && $("#category-menu1").val()=='') || ($("#category-menu2").is(":visible") && $("#category-menu2").val()=='') ){
 		event.preventDefault();	
 		document.getElementById("validationskill").style.display = 'block';
 		document.getElementById("validationskill").innerHTML = 'Please select a category';
@@ -1565,11 +1664,10 @@ $( "#skillinfo" ).submit(function( event ) {
 	
 });
 
-
+var count = "${counter}";
 $('body').on('click', '.add-education', function(e){
 	$('.add-education').remove();
 	inter++;
-	rad= "${counter}";
 	var html='<div class="each-education-div col-xs-12 no-padding">'
 			+'<span class="remove-education btext">X</span>'
 			+'<div class="col-xs-12 col-sm-6 no-padding">'
@@ -1577,15 +1675,15 @@ $('body').on('click', '.add-education', function(e){
 				    
 			+'<div class="col-xs-12">'
 			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level1'+inter+'"value="UG" name="type'+rad+'" />'
+			+'<input type="radio" id="level1'+inter+'"value="UG" name="type'+count+'" />'
 			+'<label for="level1'+inter+++'"><span></span>UG</label>'
 			+'</div>'
 			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level2'+inter+'" value="PG" name="type'+rad+'"/>'
+			+'<input type="radio" id="level2'+inter+'" value="PG" name="type'+count+'"/>'
 			+'<label for="level2'+inter+++'"><span></span>PG</label>'
 			+'</div>'
 			+'<div class="col-xs-4">'
-			+'<input type="radio" id="level3'+inter+'" value="others" name="type'+rad+'"/>'
+			+'<input type="radio" id="level3'+inter+'" value="others" name="type'+count+'"/>'
 			+'<label for="level3'+inter+++'"><span></span>Other</label>'
 			+'</div>'                			 
 			+'</div>'
@@ -1617,6 +1715,7 @@ $('body').on('click', '.add-education', function(e){
 			+'<label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>'
 			+'<div class="col-xs-9">'
 			+'<input class="form-control" name="duration[]">'
+            +'<span class="label label-default">Example: 2002 - Present</span>'
 			+'</div>'
 			+'</div>'
 			+'</div>'
@@ -1624,20 +1723,23 @@ $('body').on('click', '.add-education', function(e){
 			+'</div>'
 			+'<span class="add-education btext">Add more</span>';
 			$('.education-div-container').append(html);
-			rad++;
+			count++;
 });
+
+
+var procount = "${procounter}";
 $('body').on('click', '.add-profession', function(e){
 	$('.add-profession').remove();
 	inter++;
-	rad = "${procounter}";
-	var html='<div class="each-profession-div col-xs-12 no-padding">'
+/* 	rad = "${procounter}";
+ */	var html='<div class="each-profession-div col-xs-12 no-padding">'
 			+'<span class="remove-profession btext">X</span>'
 			+'<div class="col-xs-12 col-sm-6 no-padding">'
 			+'<div class="form-group each-form-div col-xs-12 no-padding">'
 				    
 			+'<div class="col-xs-12">'
 			+'<div class="col-xs-4">'
-			+'<input type="radio" value="true" id="level1'+inter+'" name="level'+rad+'" />'
+			+'<input type="checkbox" value="true" style="visibility: visible;" id="level1'+inter+'" name="level'+procount+'" />'
 			+'<label for="leve1'+inter+++'"><span></span>Present</label>'
 			+'</div>'
 			+'</div>'
@@ -1669,6 +1771,7 @@ $('body').on('click', '.add-profession', function(e){
 			+'<label class="col-xs-3 no-padding form-label" style="max-width: 113px;">Duration</label>'
 			+'<div class="col-xs-9">'
 			+'<input class="form-control" name="duration[]">'
+			+'<span class="label label-default">Example: 2002 - Present</span>'
 			+'</div>'
 			+'</div>'
 			+'</div>'
@@ -1676,7 +1779,7 @@ $('body').on('click', '.add-profession', function(e){
 			+'</div>'
 			+'<span class="add-profession btext">Add more</span>';
 			$('.professional-div-container').append(html);
-			rad++;
+			procount++;
 });
 function GetSubCategory(elem){
 	 var values= ( elem.value ); // or $(this).val()
