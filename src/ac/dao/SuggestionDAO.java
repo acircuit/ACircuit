@@ -65,4 +65,47 @@ public class SuggestionDAO {
 	    return list;	
 	}
 	
+	public List<String> GetIndustrySuggestions(String industry){
+		logger.info("Entered GetIndustrySuggestions method of SuggestionDAO");
+		List<String> list = new ArrayList<String>();
+		String query = "SELECT DISTINCT INDUSTRY FROM advisordetails WHERE ISACTIVE=? AND ISVISIBLE=? AND INDUSTRY LIKE ?";
+		try {
+			PreparedStatement pstmt;
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3,'%'+industry+'%');
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getString("INDUSTRY"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				logger.info("Exit GetIndustrySuggestions method of SuggestionDAO");
+			} catch (SQLException e) {
+				logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	    return list;	
+	}
+	
 }

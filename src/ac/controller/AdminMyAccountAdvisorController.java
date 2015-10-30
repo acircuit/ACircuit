@@ -109,7 +109,7 @@ public class AdminMyAccountAdvisorController extends HttpServlet {
 				
 				//Getting advisor languages
 				RegistrationDAO lang = new RegistrationDAO();
-				profile.setLanguages(lang.GetAdvisorLanguages(Integer.valueOf(advisorId)));
+				profile.setLanguage(lang.GetAdvisorLanguages(Integer.valueOf(advisorId)));
 				
 				
 				//Getting advisor education

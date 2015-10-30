@@ -366,9 +366,9 @@ color:white;
     border-bottom: 1px solid lightgray;
     padding-bottom: 1px;
 }
-input[type=checkbox] {
+ input[type=checkbox] {
   visibility: hidden;
-}
+} 
 /* SQUARED THREE */
 .squaredThree {
  /* width: 20px;*/  

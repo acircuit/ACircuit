@@ -544,7 +544,7 @@
     <servlet-name>skills</servlet-name>
     <url-pattern>/skills</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>/adminprofile</servlet-name>
     <servlet-class>ac.controller.AdminProfileController</servlet-class>
   </servlet>
