@@ -19,6 +19,7 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import ac.dto.AdvisorDTO;
+import ac.dto.AdvisorLanguageDTO;
 import ac.dto.CategoryDTO;
 import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
@@ -864,10 +865,10 @@ public class RegistrationDAO {
 		return profile;
 	}
 	
-	public List<String> GetAdvisorLanguages(int aId){
+	public List<AdvisorLanguageDTO> GetAdvisorLanguages(int aId){
 		
 		logger.info("Entered GetAdvisorLanguages method of RegistrationDAO");
-		List<String> lang = new ArrayList<String>(); 
+		List<AdvisorLanguageDTO> lang = new ArrayList<AdvisorLanguageDTO>(); 
 		if( aId != 0){
 		
 		try {
@@ -878,7 +879,9 @@ public class RegistrationDAO {
 			pstmt.setInt(1,aId);
 			ResultSet results = pstmt.executeQuery();
 			while(results.next()){
-				lang.add(results.getString("LANGUAGE_KNOWN"));
+				AdvisorLanguageDTO langs = new AdvisorLanguageDTO();
+				langs.setLanguage(results.getString("LANGUAGE_KNOWN"));
+				lang.add(langs);
 			}
 		} catch (SQLException e) {
 			logger.error("GetAdvisorLanguages method of RegistrationDAO threw error:"+e.getMessage());

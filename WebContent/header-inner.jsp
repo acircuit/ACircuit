@@ -46,6 +46,7 @@ pageContext.setAttribute("source", source);
 					        <!-- <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li> -->
 					          <li><a href="logout">Sign Out</a></li>
+					          
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box-i" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
 					          			

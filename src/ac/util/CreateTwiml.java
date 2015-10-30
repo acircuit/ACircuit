@@ -57,6 +57,7 @@ public class CreateTwiml {
 			
 			// Conference element
 			Element Conference = doc.createElement("Conference");
+			
 			Conference.appendChild(doc.createTextNode("Room " + sId));
 			staff.appendChild(Conference);
 			
@@ -71,6 +72,12 @@ public class CreateTwiml {
 			Attr attr2 = doc.createAttribute("endConferenceOnExit");
 			attr2.setValue("true");
 			Conference.setAttributeNode(attr2);
+			Attr attr3 = doc.createAttribute("record");
+			attr3.setValue("record-from-start");
+			Conference.setAttributeNode(attr3);
+			Attr attr4 = doc.createAttribute("eventCallbackUrl");
+			attr4.setValue("https://www.advisorcircuit.com/Demo/RecordingController");
+			Conference.setAttributeNode(attr4);
 			   File file = new File(MessageFormat.format(prop1.getProperty("TWIML"), sId));
 	              if (!file.exists()) {
 	             file.mkdirs();

@@ -10,6 +10,19 @@
     height: 150px;
     border-radius: 50%;
 }
+.suggestions{
+		display:none;
+	background-color: white;
+    min-height: 25px;
+    margin-top: 0px;
+    padding: 4px;
+    border: 1px solid lightgray;
+    border-top: 0px;
+        position: absolute;
+            width: 100%;
+    text-align: left;
+    cursor:pointer;
+}
 .change-do{
 	font-size:13px;
 	    line-height: 30px;
@@ -141,6 +154,7 @@ padding: 10px;
 .each-interest-div{
 	
 }
+
 @media (min-width: 768px) {
 
 

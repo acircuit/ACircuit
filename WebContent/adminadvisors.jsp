@@ -93,25 +93,21 @@ position:absolute;
 						      <table class="table">
 						        <thead>
 						          <tr>
+						            <th>Action</th>
 						            <th>ID</th>
 						            <th>Name</th>
 						            <th>Email</th>
 						            <th>Phone No</th>
-						            <th>ISACTIVE</th>
+						            <th>Details</th>
+<!-- 						            <th>ISACTIVE</th>
 						            <th>ISVISIBLE</th>
-						            <th>Action</th>
+						            <th>STATUS</th> -->
 						          </tr>
 						        </thead>
 						        <tbody>
 						         <c:forEach items="${advisorDetails}" var="advisor">
 						           <tr>
-						            <th scope="row">${advisor.getId()}</th>
-						            <td>${advisor.getName()}</td>
-						            <td>${advisor.getEmail()}</td>
-						            <td>${advisor.getPhoneNo()}</td>
-						            <td>${advisor.getIsActive()}</td>
-						            <td>${advisor.getIsVisible()}</td>
-						            <td>
+						             <td>
 						              <li class="dropdown">
 							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="assets/img/phone.png"><span class="badge" id="notification_count"></span></a>
 							          <ul class="dropdown-menu " style="min-width: 273px;padding: 0px;border: 0px;">
@@ -124,16 +120,15 @@ position:absolute;
 										 <a id="${advisor.getId()}"  class="list-group-item" data-toggle="modal" data-target="#price${advisor.getId()}">Set Advisor Price</a>
 										
 							          </ul>
-							           <div class="modal fade" id="price${advisor.getId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							           <div class="modal fade" id="modal${advisor.getId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-body">
-								      <span  class="ask-question-modal-head">Set Price</span><br>
+								      <span  class="ask-question-modal-head">Details</span><br>
 								      <br>
-								      <input type="text" id="pr${advisor.getId()}">
-								      <div class="row" style="padding:10px;">
-										    <a id="${advisor.getId()}"  class="btn red-button ask-question-button" onclick="SetPrice(this)">Submit</a>
-									  </div>
+								      <p>ISACTIVE : ${advisor.getIsActive()}</p>
+								      <p>ISVISIBLE : ${advisor.getIsVisible()}</p>
+								      <p>STATUS : ${advisor.getStatus()}</p>
 								      </div>
 								      
 								    </div>
@@ -141,7 +136,32 @@ position:absolute;
 								</div> 
 							        </li>                    
                                    </td>
+						            <th scope="row">${advisor.getId()}</th>
+						            <td>${advisor.getName()}</td>
+						            <td>${advisor.getEmail()}</td>
+						            <td>${advisor.getPhoneNo()}</td>
+						            <td><a data-toggle="modal" data-target="#modal${advisor.getId()}">View Details</a></td>
+<%-- 						            <td>${advisor.getIsActive()}</td>
+						            <td>${advisor.getIsVisible()}</td>
+						            <td>${advisor.getStatus()}</td> --%>
+						           
 						          </tr>
+						           <div class="modal fade" id="question${question.getQuestionId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span  class="ask-question-modal-head">User Question</span><br>
+								      <br>
+								      <p id="ques${question.getQuestionId()}">${question.getQuestion()}</p>
+								      <div class="row" style="padding:10px;">
+										    <a id="${question.getQuestionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
+										    <a id="${question.getQuestionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   
+									  </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 						        </c:forEach>
 						        </tbody>
 						      </table>
