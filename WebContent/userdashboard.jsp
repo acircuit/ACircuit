@@ -42,13 +42,16 @@ String email="";
    if(session.getAttribute("isVerified") != null){
 	isUserVerified = (Boolean) session.getAttribute("isVerified");
    }
-
-
+   String pageTitle = "Dashboard";
+   if( userDetails != null){
+	   pageTitle = userDetails.getFullName()+"'s Dashboard ";   
+   }
+pageContext.setAttribute("pageTitle", pageTitle);
 
 %>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${pageTitle}| Advisor Circuit</title>
 </head>
 <body>
  <div id="wrapper">
@@ -180,7 +183,7 @@ String email="";
 									<img src="${activity.getImage()}">
 									<span class="btext rfrom">${activity.getUserName()}</span> to <span class="rto btext"> ${activity.getAdvisorName()}</span>
 									<br>
-									<span class="review-text">${activity.getReview()}</span>
+									<span class="review-text" style="margin-top:10px;">${activity.getReview()}</span>
 									
 							</div>
 							
@@ -295,11 +298,17 @@ String email="";
 			   			
 	   			
 	   			<div class="col-xs-12 col-sm-3">
-	   			<div class="col-xs-12 text-center no-padding-xs">
+	   					<div class="col-xs-12 text-center no-padding-xs">
 							<a href="advisors?category=all" class="btn red-button b-session" style="width: 100%;margin-bottom: 10px;font-size:14px;" >Book a session</a>
 							<br>
 							<button type="button" class="btn dark-button" style="width: 100%;background-color: #6c6c6c;color:white;" onclick="OpenAskAQuestion()">Ask a question</button>
 						</div>
+						<div  class="related col-xs-12 ">
+	                    <div class="rel-section popular">
+	                        <h2 >POPULAR ADVISORS</h2>
+	                    </div>
+					</div>
+					
 		   			<div  class="related col-xs-12 ">
 	                    <div class="rel-section mostviewed">
 	                        <h2 >MOST VIEWED QUESTIONS</h2>
@@ -307,7 +316,7 @@ String email="";
 					</div>
 					<div class="related col-xs-12 ">
                     <div class="rel-section poptags">
-                        <h2 >POPULAR CATEGORIES</h2>
+                        <h2 >POPULAR SUBCATEGORIES</h2>
                     </div>
 	   			</div>
    			</div>
@@ -349,7 +358,34 @@ $(document).ready(function () {
 	}else{
 		document.getElementById("verifyaccount").style.display = "none";
 	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+        
 
+    }
+	$.ajax({
+        url : 'getsimilarprofiles', // Your Servlet mapping or JSP(not suggested)
+        data : {"type":"popular"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		popularprofile(value);
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
+	
+    
 	
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
@@ -375,6 +411,22 @@ $(document).ready(function () {
     });
 	
 });
+function popularprofile(value){
+	if(value.industry.length > 31){
+		value.industry = value.industry.substr(0,30);
+	}
+	
+	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-12 col-sm-12 no-padding" >'
+	           +'<img class="adv-img" src="'+value.image+'"></img>' 
+		       +'<p class="adv-name" style="font-size:13px">'+value.name+'</p><br>';
+		if((value.industry.indexOf("|") > -1) || (value.industry.indexOf("|") <= -1) && value.industry.length > 25){
+			 html+='<p class="adv-field  hidden-sm" style="margin-top:-30px;margin-left:70px">'+value.industry+'</p><br>';
+		}else{
+			html+='<p class="adv-field  hidden-sm" style="margin-top:5px;margin-left:10px">'+value.industry+'</p><br>';
+		}
+		html = html +'</div></a>';		
+               $('.popular').append(html);
+ }
 function OpenAskAQuestion(){
 	if(<%=isUserVerified%>){
 		$('#askquestion').modal('show');
@@ -389,14 +441,7 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">';
-	  if(value.category == "studies"){
-		  html+='Higher Studies</a>';
-	  }else if (value.category == "industry") {
-		  html+='Career & Jobs</a>';
-	}else if (value.category == "options") {
-		html+='Course</a>';
-	}
+	var html = '<a href="advisors?subcategory='+value.category+'" class="rel-category">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
 $('.datepicker').datepicker({

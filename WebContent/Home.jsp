@@ -43,9 +43,8 @@
 
 %>
 
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Career Growth Online| Advisor Circuit</title>
+<title>Career Growth Online : Your Personal Career Network | Advisor Circuit</title>
 </head>
 <body>
  <div id="wrapper">
@@ -64,7 +63,7 @@
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					      <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					              <a class="navbar-brand " href=<fmt:message key="home"/> ><img src="assets/img/logoh.png" class="logo" style="width:167px;margin-left:14px;margin-top:3px;"></a>
+					              <a class="navbar-brand " href=<fmt:message key="home_secured"/> ><img src="assets/img/logoh.png" class="logo" style="width:167px;margin-left:14px;margin-top:3px;"></a>
 					         </fmt:bundle>
 			     	    </div>
 
@@ -75,10 +74,10 @@
 					        <!-- <li class="active"><a href="advisors?category=all">Experts <span class="sr-only">(current)</span></a></li>
 					       
 					        <li><a href="questions">Q&A</a></li> -->
-					        <li><a href="becomeanadvisor">Be an Advisor</a></li>
-					         <li><a href="howitworks">How it Works</a></li>
-					          <li><a href="#" data-toggle="modal" data-target="#loginmodal">Sign In</a></li>
-					          <li><a  href="#" ><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Sign up </span></a></li>
+					        <li><a href="becomeanadvisor" onclick="ga('send', 'event', 'HomeHeaderLink', 'click', 'BeAnAdvisor');">Be an Advisor</a></li>
+					         <li><a href="howitworks" onclick="ga('send', 'event', 'HomeHeaderLink', 'click', 'HowItWorks');">How it Works</a></li>
+					          <li><a href="#" data-toggle="modal" data-target="#loginmodal" onclick="ga('send', 'event', 'HomeHeaderLink', 'click', 'SignIn');">Sign In</a></li>
+					          <li><a  href="#" onclick="ga('send', 'event', 'HomeHeaderLink', 'click', 'SignUp');"><span data-toggle="modal" data-target="#signupmodal" style="background-color: #f2624d;padding: 7px 10px 10px 10px;border-radius: 3px;">Sign up </span></a></li>
 					      </ul>
 					    </div><!-- /.navbar-collapse -->
 					  </div><!-- /.container-fluid -->
@@ -98,10 +97,10 @@
                      
                     <span class="small-font-banner hidden-xs">Leave behind calling everbody you know, wasting hours on the<br>web & social networks for some career advice.<br></span>
                      <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 10px;">Simply connect to our handpicked advisors who've had <br> first hand success with the goals you want to achieve.<br><br></span>
-                      
-                      <span class="small-font-banner hidden-xs" style="display: inline-block;">- Explore Careers</span><br>
-                      <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 8px;">- Pursue MBA & Higher Studies<br></span>
-                      <span class="small-font-banner hidden-xs" style="display: inline-block;margin-top: 8px;">- Job Interviews & Resume Preparation</span>
+                      <br>
+                      <span class="small-font-banner hidden-xs no-padding" style="display: inline-block;">- Explore Careers</span><br>
+                      <span class="small-font-banner hidden-xs no-padding" style="display: inline-block;margin-top: 8px;">- Pursue MBA & Higher Studies</span><br>
+                      <span class="small-font-banner hidden-xs no-padding" style="display: inline-block;margin-top: 8px;">- Job Interviews & Resume Preparation</span>
                        
                       
                         

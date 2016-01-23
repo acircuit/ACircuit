@@ -78,10 +78,8 @@ public class UserProfileController extends HttpServlet {
 			
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/usereditprofile");
 	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of UserProfileController");
@@ -118,8 +116,7 @@ public class UserProfileController extends HttpServlet {
 				}
 			}else{
 				String name = request.getParameter("name");
-				String male = request.getParameter("radiomale");
-				String female = request.getParameter("radiofemale");
+				String male = request.getParameter("radio");
 				String occupation = request.getParameter("occupation");
 		        String  phone = request.getParameter("phone");
 		        String gender="";
@@ -144,11 +141,7 @@ public class UserProfileController extends HttpServlet {
 
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
+			doGet(request, response);
 		}
 		
 		

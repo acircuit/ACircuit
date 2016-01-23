@@ -76,7 +76,7 @@ public class SuggestionDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
 			pstmt.setBoolean(2, true);
-			pstmt.setString(3,'%'+industry+'%');
+			pstmt.setString(3,industry+'%');
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				list.add(results.getString("INDUSTRY"));
@@ -102,6 +102,135 @@ public class SuggestionDAO {
 				logger.info("Exit GetIndustrySuggestions method of SuggestionDAO");
 			} catch (SQLException e) {
 				logger.error("GetIndustrySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	    return list;	
+	}
+	
+	public List<String> GetCourseSuggestions(String course){
+		logger.info("Entered GetCourseSuggestions method of SuggestionDAO");
+		List<String> list = new ArrayList<String>();
+		String query = "SELECT DISTINCT advisoreducation.COURSE FROM advisoreducation INNER JOIN advisordetails ON advisoreducation.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisordetails.ISACTIVE=? AND advisordetails.ISVISIBLE=? AND advisoreducation.COURSE LIKE ?";
+		try {
+			PreparedStatement pstmt;
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3,course+'%');
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getString("COURSE"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetCourseSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetCourseSuggestions method of SuggestionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetCourseSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetCourseSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				logger.info("Exit GetCourseSuggestions method of SuggestionDAO");
+			} catch (SQLException e) {
+				logger.error("GetCourseSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	    return list;	
+	}
+	
+	public List<String> GetInstitutionSuggestions(String course){
+		logger.info("Entered GetInstitutionSuggestions method of SuggestionDAO");
+		List<String> list = new ArrayList<String>();
+		String query = "SELECT DISTINCT advisoreducation.INSTITUTION FROM advisoreducation INNER JOIN advisordetails ON advisoreducation.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisordetails.ISACTIVE=? AND advisordetails.ISVISIBLE=? AND advisoreducation.INSTITUTION LIKE ?";
+		try {
+			PreparedStatement pstmt;
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3,course+'%');
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getString("INSTITUTION"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetInstitutionSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetInstitutionSuggestions method of SuggestionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetInstitutionSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetInstitutionSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				logger.info("Exit GetInstitutionSuggestions method of SuggestionDAO");
+			} catch (SQLException e) {
+				logger.error("GetInstitutionSuggestions method of SuggestionDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	    return list;	
+	}
+	
+	public List<String> GetCompanySuggestions(String course){
+		logger.info("Entered GetCompanySuggestions method of SuggestionDAO");
+		List<String> list = new ArrayList<String>();
+		String query = "SELECT DISTINCT advisorprofessionalbackground.COMPANY FROM advisorprofessionalbackground INNER JOIN advisordetails ON advisorprofessionalbackground.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisordetails.ISACTIVE=? AND advisordetails.ISVISIBLE=? AND advisorprofessionalbackground.COMPANY LIKE ?";
+		try {
+			PreparedStatement pstmt;
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3,course+'%');
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				list.add(results.getString("COMPANY"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetCompanySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetCompanySuggestions method of SuggestionDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetCompanySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetCompanySuggestions method of SuggestionDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				logger.info("Exit GetCompanySuggestions method of SuggestionDAO");
+			} catch (SQLException e) {
+				logger.error("GetCompanySuggestions method of SuggestionDAO threw error:"+e.getMessage());
 				e.printStackTrace();
 			}
 		}

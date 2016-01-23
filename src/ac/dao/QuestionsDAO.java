@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 
 
 
+
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
 import ac.dto.QuestionsDTO;
@@ -302,12 +303,13 @@ public class QuestionsDAO {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 			String q4in = generateQsForIn(aId.size());
-			String query = "SELECT ADVISOR_ID,NAME,IMAGE,INDUSTRY FROM advisordetails WHERE ISACTIVE=? AND ISVERIFIED=? AND ADVISOR_ID IN ( "+ q4in + " )";
+			String query = "SELECT ADVISOR_ID,NAME,IMAGE,INDUSTRY FROM advisordetails WHERE ISACTIVE=? AND ISVERIFIED=? AND ISVISIBLE=? AND ADVISOR_ID IN ( "+ q4in + " )";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
 			pstmt.setBoolean(2, true);
-			int i = 3;
+			pstmt.setBoolean(3, true);
+			int i = 4;
 			for (Integer item : aId) {
 				pstmt.setInt(i++, item);
 			}
@@ -490,14 +492,13 @@ public class QuestionsDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT DISTINCT CATEGORY FROM questions WHERE ISANSWERED=? AND STATUS=?  ORDER BY HITS DESC LIMIT 4";
+			String query = "SELECT DISTINCT SUBCATEGORY FROM questions WHERE STATUS=?  ORDER BY HITS DESC LIMIT 5";
 			PreparedStatement pstmt;
 			pstmt = conn.prepareStatement(query);
-			pstmt.setBoolean(1, true);
-			pstmt.setString(2, "APPROVED");
+			pstmt.setString(1, "APPROVED");
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
-				list.add(results.getString("CATEGORY"));
+				list.add(results.getString("SUBCATEGORY"));
 			}
 			logger.info("Exit GetPopularCategories method of QuestionsDAO");
 		} catch (SQLException e) {
@@ -1361,6 +1362,53 @@ public class QuestionsDAO {
 		}
 		logger.info("Exit GetUpvoteCount method of QuestionsDAO");
 		return upCount;
+
+	}
+	
+	public List<Integer> GetPopularAdvisors(){
+		logger.info("Entered GetPopularAdvisors method of QuestionsDAO");
+		List<Integer> aids = new ArrayList<Integer>();
+		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String query="";
+			query = "SELECT DISTINCT sessiondetails.ADVISOR_ID,COUNT(sessiondetails.ADVISOR_ID) AS OCCUR "
+					+ "FROM sessiondetails INNER JOIN advisordetails ON sessiondetails.ADVISOR_ID = advisordetails.ADVISOR_ID "
+					+ "WHERE advisordetails.ISACTIVE = ? AND advisordetails.ISVISIBLE= ? AND sessiondetails.STATUS = ?"
+					+ "GROUP BY sessiondetails.ADVISOR_ID ORDER BY OCCUR DESC LIMIT 5;";	
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setBoolean(2, true);
+			pstmt.setString(3, "SESSION COMPLETE");
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				aids.add(results.getInt("ADVISOR_ID"));
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetPopularAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetPopularAdvisors method of QuestionsDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetPopularAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetPopularAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetPopularAdvisors method of QuestionsDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetPopularAdvisors method of QuestionsDAO");
+		return aids;
 
 	}
 	

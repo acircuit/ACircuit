@@ -34,7 +34,7 @@ else if( session.getAttribute("advisorId") !=null){
 					  	<li><a href="#" style="color: #4a4a4a">Home</a></li>
 					</c:when>
 					<c:otherwise>
-					   <li><a href="<fmt:message key="home"/>" style="color: #4a4a4a">Home</a></li>
+					   <li><a href="<fmt:message key="home_secured"/>" style="color: #4a4a4a">Home</a></li>
 					</c:otherwise>
 				</c:choose>
 				</fmt:bundle>

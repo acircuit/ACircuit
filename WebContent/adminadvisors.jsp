@@ -162,6 +162,21 @@ position:absolute;
 								    </div>
 								  </div>
 								</div> 
+								<div class="modal fade" id="price${advisor.getId()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								      <span  class="ask-question-modal-head">Set Price</span><br>
+								      <br>
+								      <input type="text" id="pr${advisor.getId()}">
+								      <div class="row" style="padding:10px;">
+										    <a id="${advisor.getId()}"  class="btn red-button ask-question-button" onclick="SetPrice(this)">Submit</a>
+									  </div>
+								      </div>
+								      
+								    </div>
+								  </div>
+								</div> 
 						        </c:forEach>
 						        </tbody>
 						      </table>

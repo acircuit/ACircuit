@@ -49,6 +49,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -85,7 +86,7 @@ AdvisorDTO advisorDetails = (AdvisorDTO)request.getAttribute("advisorDetails");
 		   		    		
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+							   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text"></span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br>
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -193,6 +194,17 @@ $(document).ready(function () {
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
 	});
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){

@@ -135,10 +135,12 @@ public class UserDashboardController extends HttpServlet {
 		}
 		if(isError){
 			
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
+			/*StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
 			String url1 = url.toString();
 			request.setAttribute("url1", url1);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+	        rd.forward(request, response);*/
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userdashboard.jsp");
 	        rd.forward(request, response);
 		}
 			

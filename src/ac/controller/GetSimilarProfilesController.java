@@ -37,43 +37,85 @@ public class GetSimilarProfilesController extends HttpServlet {
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		String advisorId = request.getParameter("advisorId");
-		List<Integer> aids = new ArrayList<Integer>();
-		QuestionsDAO profiles = new QuestionsDAO();
-		aids = profiles.GetSimilarProfiles(advisorId,category,subcategory);
-		List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
-		JSONArray array = new JSONArray();
-        if(aids.size() > 0){
-    		QuestionsDAO advDetails = new QuestionsDAO();
-    		list = advDetails.GetAdvisorDetails(aids);
-    		List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
-    		QuestionsDAO subs = new QuestionsDAO();
-    		sub = subs.GetAdvisorSubcategories(aids);
-            for(AdvisorDTO advisor : list){
-        		String subcategories = "";
-            	for(SubCategoryDTO subcat : sub){
-            		System.out.println(subcat.getAdvisorId());
-            		System.out.println(advisor.getId());
-            		if(subcat.getAdvisorId() == advisor.getId()){
-            			subcategories = subcategories +subcat.getSubCategory()+"|";
-            		}
-            	}
-            	if(!subcategories.equals("") ){
-            	int index = subcategories.lastIndexOf("|");
-            	subcategories =subcategories.substring(0, index);
-            	}
-            	System.out.println(subcategories);
-            	JSONObject jo = new JSONObject();
-    			jo.put("id", advisor.getId());
-    			jo.put("image", advisor.getImage());
-    			jo.put("name",advisor.getName());
-    			jo.put("industry",subcategories);
-    			array.add(jo);
+		String type = request.getParameter("type");
+		if(type != null && type.equals("popular")){
+			List<Integer> aids = new ArrayList<Integer>();
+			QuestionsDAO pop = new QuestionsDAO();
+			aids = pop.GetPopularAdvisors();
+			List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
+			JSONArray array = new JSONArray();
+	        if(aids.size() > 0){
+	    		QuestionsDAO advDetails = new QuestionsDAO();
+	    		list = advDetails.GetAdvisorDetails(aids);
+	    		List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
+	    		QuestionsDAO subs = new QuestionsDAO();
+	    		sub = subs.GetAdvisorSubcategories(aids);
+	            for(AdvisorDTO advisor : list){
+	        		String subcategories = "";
+	            	for(SubCategoryDTO subcat : sub){
+	            		System.out.println(subcat.getAdvisorId());
+	            		System.out.println(advisor.getId());
+	            		if(subcat.getAdvisorId() == advisor.getId()){
+	            			subcategories = subcategories +subcat.getSubCategory()+"|";
+	            		}
+	            	}
+	            	if(!subcategories.equals("") ){
+	            	int index = subcategories.lastIndexOf("|");
+	            	subcategories =subcategories.substring(0, index);
+	            	}
+	            	System.out.println(subcategories);
+	            	JSONObject jo = new JSONObject();
+	    			jo.put("id", advisor.getId());
+	    			jo.put("image", advisor.getImage());
+	    			jo.put("name",advisor.getName());
+	    			jo.put("industry",subcategories);
+	    			array.add(jo);
 
-            }
-            
-        }
+	            }
+	            
+	        }
+			response.getWriter().write(array.toJSONString());
+		}else{
+			List<Integer> aids = new ArrayList<Integer>();
+			QuestionsDAO profiles = new QuestionsDAO();
+			aids = profiles.GetSimilarProfiles(advisorId,category,subcategory);
+			List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
+			JSONArray array = new JSONArray();
+	        if(aids.size() > 0){
+	    		QuestionsDAO advDetails = new QuestionsDAO();
+	    		list = advDetails.GetAdvisorDetails(aids);
+	    		List<SubCategoryDTO> sub = new ArrayList<SubCategoryDTO>();
+	    		QuestionsDAO subs = new QuestionsDAO();
+	    		sub = subs.GetAdvisorSubcategories(aids);
+	            for(AdvisorDTO advisor : list){
+	        		String subcategories = "";
+	            	for(SubCategoryDTO subcat : sub){
+	            		System.out.println(subcat.getAdvisorId());
+	            		System.out.println(advisor.getId());
+	            		if(subcat.getAdvisorId() == advisor.getId()){
+	            			subcategories = subcategories +subcat.getSubCategory()+"|";
+	            		}
+	            	}
+	            	if(!subcategories.equals("") ){
+	            	int index = subcategories.lastIndexOf("|");
+	            	subcategories =subcategories.substring(0, index);
+	            	}
+	            	System.out.println(subcategories);
+	            	JSONObject jo = new JSONObject();
+	    			jo.put("id", advisor.getId());
+	    			jo.put("image", advisor.getImage());
+	    			jo.put("name",advisor.getName());
+	    			jo.put("industry",subcategories);
+	    			array.add(jo);
 
-		response.getWriter().write(array.toJSONString());
+	            }
+	            
+	        }
+			response.getWriter().write(array.toJSONString());
+
+		}
+
+
         logger.info("Entered doPost method of GetSimilarProfilesController");
 	}
 

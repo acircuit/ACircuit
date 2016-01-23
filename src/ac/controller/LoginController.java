@@ -122,7 +122,7 @@ public class LoginController extends HttpServlet {
 								 if(url != null && !url.equals("")){
 							        	response.getWriter().write(url); 
 							        }else{
-										response.getWriter().write("advisordashboard");
+										response.getWriter().write("advisors?category=all");
 
 							        }
 							

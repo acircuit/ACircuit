@@ -58,7 +58,7 @@
 }
 }
 </style>
-<title>Help career growth | Become an Advisor |– Join Advisor Circuit</title>
+<title>Give Back & Get Paid - Become an Advisor | Join Advisor Circuit</title>
 
 <body>
  <div id="wrapper">
@@ -148,11 +148,11 @@
 
 <script>
 
-$(document).ready(function () {
 
-});
 $( "#becomesignup" ).submit(function( event ) {
+	event.preventDefault();
 		$.ajax({
+			context: this,
 	        url : 'login', // Your Servlet mapping or JSP(not suggested)
 	        data : {"email":$("#becomeemail").val()},
 	        type : 'GET',
@@ -160,19 +160,15 @@ $( "#becomesignup" ).submit(function( event ) {
 	        success : function(response) {
 	          	if(response == "true"){
 	          		$('#emailerrorbecome').slideDown();
-	          		$('#become-submit').prop('disabled', true);
-	          	  event.preventDefault();
+	          	  
 	          	}else{
 	          		$('#emailerrorbecome').slideUp();
-	          		$('#become-submit').prop('disabled', false);
+	          		this.submit();
 	          	}
 	          	 $('.black-screen').hide();
 
 	          },
-	          error : function(request, textStatus, errorThrown) {
-	            alert(errorThrown);
-	            
-	        }
+	         
 	    });
 });
 </script>

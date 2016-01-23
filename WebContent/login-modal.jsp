@@ -1,5 +1,10 @@
 <link href="assets/css/login.css" rel="stylesheet">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+String url1 = request.getRequestURL().toString();
+pageContext.setAttribute("url1", url1);
+%>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.min.js"></script>
 <!-- Modal -->
@@ -28,7 +33,7 @@
 									
 				 			</div>
 				 	</div>
-				 	<input class="form-control" type="hidden" id="url" value="${url }" name="redirecturl">
+				 	<input class="form-control" type="hidden" id="redirecturl" name="redirecturl">
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" name="name" type="text" placeholder="Name" required aria-required="true">
 				 	</div>
@@ -44,7 +49,7 @@
 								<span class="policy-text">By registering you accept the <a href="tnc" target="blank">T&Cs</a> and <a href="privacypolicy" target="blank">Privacy Policy</a></span>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button id="signup-submit" type="submit" class="btn gt-started" >Get Started</button>
+      						<button id="signup-submit" type="submit" class="btn gt-started" onclick="ga('send', 'event', 'SignUpButton', 'click', '${url1}');">Get Started</button>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding squaredThree" style="margin-top: -22px;">
       						 <input type="checkbox" value="true" id="updates" name="updates" checked="checked"/>
@@ -56,7 +61,7 @@
 				 	</div>
 				 	<div class="option-signin-buuton col-xs-12 no-padding form-group">
 				 		<div class="col-xs-12 no-padding" style="text-align: center; padding-right: 5px;">
- 								<button type="button" id="fbbutton" class="btn gt-started" style="background-color: #3a589b;" data-toggle="modal" data-target="#typemodal" >Facebook</button>  
+ 								<button type="button" id="fbbutton" class="btn gt-started" style="background-color: #3a589b;" data-toggle="modal" data-target="#typemodal" onclick="ga('send', 'event', 'SignUpViaFacebook', 'click', '${url1}');">Facebook</button>  
  								<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" id="fblogin" ></fb:login-button> -->	 
 									
 							</div>
@@ -70,7 +75,7 @@
 				 	
 				 	</div>
 				 	<div class="already-signup col-xs-12 no-padding" style="margin-top:-15px;">
-				 		<span class="already-signup-text">Already have an account? <span class="btext"><a onclick="OpenLogin()">Sign In </a></span>here</span>
+				 		<span class="already-signup-text">Already have an account? <span class="btext"><a onclick="OpenLoginModal()">Sign In </a></span>here</span>
 				 	</div>
       		</form>
       		
@@ -107,7 +112,10 @@
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						<input class="form-control" id="email" type="email" name="email" required aria-required="true" placeholder="Email">
 				 	</div>
-				 	
+				 	<fmt:bundle basename="ac.resources.Path" prefix="path.">
+				 	    <input type="hidden" id="home" value="<fmt:message key="home"/>">
+				 	    <input type="hidden" id="homesecured" value="<fmt:message key="home_secured"/>">
+				 	</fmt:bundle>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
       						  <input class="form-control" id="password" name="password" placeholder="Password" type="password" required>
 				 	</div>
@@ -117,14 +125,14 @@
 								<span class="policy-text">Remember Me</span><a><span class="forgot btext" style="float:right;">Forgot Password</span></a>
 				 	</div>
 				 	<div class="form-group login-form-el col-xs-12 no-padding">
-      						<button type="submit" class="btn gt-started">Log In</button>
+      						<button type="submit" class="btn gt-started" onclick="ga('send', 'event', 'LoginButton', 'click', '${url1}');">Log In</button>
 				 	</div>
 				 	<div class="option-signin col-xs-12 no-padding form-group">
 				 		  <span class="option-text">OR SIGN IN VIA</span>
 				 	</div>
 				 	<div class="option-signin-buuton col-xs-12 no-padding form-group">
 				 		<div class="col-xs-12 no-padding" style="text-align: center; padding-right: 5px;">
- 								<button type="button" id="fbbutton" class="btn gt-started" style="background-color: #3a589b;" onclick="FBLogin('login');" >Facebook</button>  
+ 								<button type="button" id="fbbutton" class="btn gt-started" style="background-color: #3a589b;" onclick="ga('send', 'event', 'LoginViaFacebook', 'click', '${url1}');FBLogin('login');" >Facebook</button>  
  								<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" id="fblogin" ></fb:login-button> -->	 
 									
 							</div>
@@ -193,6 +201,7 @@
 </div>
 <script>
 $(document).ready(function () {
+	document.getElementById('redirecturl').value = window.location.href;
 	$("#loginform").validate();
 	$("#signupform").validate();
 	$("#resetform").validate();
@@ -224,6 +233,7 @@ $('body').on( 'blur focusout', '#signupemail', function(event) {
 	}
 	
 });	
+
 $('body').on( 'keyup', '#signupemail', function(event) { 
 	$('#emailerror').slideUp();
 });	
@@ -233,7 +243,18 @@ $('body').on( 'keyup', '#signupemail', function(event) {
 });	 */
 $('body').on('click', '.move-to-signup', function(e){
    		$('#loginmodal').modal('hide');
-   		$('#signupmodal').modal('show');
+   		if(window.location.href.indexOf("contact") > -1 || window.location.href.indexOf("howitworks") > -1 
+  			  || window.location.href.indexOf("becomeanadvisor")>-1 || window.location.href.indexOf("aboutus") >-1
+  			  || window.location.href.indexOf("tnc") >-1 || window.location.href.indexOf("privacypolicy") >-1 || window.location.href.indexOf("faq") > -1
+  			  || window.location.href ==document.getElementById('home').value || window.location.href ==document.getElementById('homesecured').value){
+   			$('#signupmodal').modal('show');
+  	  }else{
+	  		$('#signupmodal').modal({
+	    	    backdrop: 'static',
+	    	    keyboard: false
+	    	});
+  	  }
+   		
     });	
 $('body').on('click', '.forgot', function(e){
 		$('#loginform').slideUp();
@@ -294,7 +315,11 @@ $( "#signupform" ).submit(function( event ) {
 $( "#loginform" ).submit(function( event ) {
 	  event.preventDefault();
 	  var profile = false;
-	  if(window.location.href.indexOf("advisorprofile?a") > -1){
+	  if(window.location.href.indexOf("contact") > -1 || window.location.href.indexOf("howitworks") > -1 
+			  || window.location.href.indexOf("becomeanadvisor")>-1 || window.location.href.indexOf("aboutus") >-1
+			  || window.location.href.indexOf("tnc") >-1 || window.location.href.indexOf("privacypolicy") >-1 || window.location.href.indexOf("faq") > -1
+			  || window.location.href ==document.getElementById('home').value || window.location.href ==document.getElementById('homesecured').value
+			  || window.location.href.indexOf("userdashboard") >-1 || window.location.href.indexOf("advisordashboard") >-1 ){
 		  profile = true;
 	  }else{
 		  profile = false;
@@ -307,16 +332,14 @@ $( "#loginform" ).submit(function( event ) {
 		        success : function(response) {
 		          	if(response == "invalid"){
 		          		document.getElementById("invalidusername").style.display = "block";
-		          	}else if (response == "userdashboard" || response == "advisordashboard") {
-		          		if(!profile){
-			          		location.href = response;
-		          		}else{
-		          			location.reload();
-		          		}
-					}
+		          	}
 		          	else{
 		          		if(response != ""){
-		          			location.href = response;
+		          			if(profile){
+				          		location.href = response;
+			          		}else{
+			          			location.reload();
+			          		}
 		          		}else{
 			          		document.getElementById("invalidusername").style.display = "none";
 		          		}
@@ -331,9 +354,19 @@ $( "#loginform" ).submit(function( event ) {
 		    });
 
 	});
-	function OpenLogin(){
+	function OpenLoginModal(){
    		$('#signupmodal').modal('hide');
-		$('#loginmodal').modal("show");
+   		if(window.location.href.indexOf("contact") > -1 || window.location.href.indexOf("howitworks") > -1 
+    			  || window.location.href.indexOf("becomeanadvisor")>-1 || window.location.href.indexOf("aboutus") >-1
+    			  || window.location.href.indexOf("tnc") >-1 || window.location.href.indexOf("privacypolicy") >-1 || window.location.href.indexOf("faq") > -1
+    			  || window.location.href ==document.getElementById('home').value || window.location.href ==document.getElementById('homesecured').value){
+   			$('#loginmodal').modal("show");
+    	  }else{
+  	  		$('#loginmodal').modal({
+  	    	    backdrop: 'static',
+  	    	    keyboard: false
+  	    	});
+    	  }
 		document.getElementById("logintocontinuequestions").style.display = "none";
 		document.getElementById("logintocontinueadvisors").style.display = "none";
 	}
@@ -378,7 +411,7 @@ $( "#loginform" ).submit(function( event ) {
 
 	  window.fbAsyncInit = function() {
 	  FB.init({
-	    appId      : '520631594756329',
+	    appId      : '516683178484504',
 	    cookie     : true,  // enable cookies to allow the server to access 
 	                        // the session
 	    xfbml      : true,  // parse social plugins on this page
@@ -451,35 +484,75 @@ $( "#loginform" ).submit(function( event ) {
 		  if(login == "login"){
 			  isLogin = true;
 		  }
+		  var profile = false;
+		  if(window.location.href.indexOf("contact") > -1 || window.location.href.indexOf("howitworks") > -1 
+				  || window.location.href.indexOf("becomeanadvisor")>-1 || window.location.href.indexOf("aboutus") >-1
+				  || window.location.href.indexOf("tnc") >-1 || window.location.href.indexOf("privacypolicy") >-1 || window.location.href.indexOf("faq") > -1
+				  || window.location.href ==document.getElementById('home').value || window.location.href ==document.getElementById('homesecured').value
+				  ){
+			  profile = true;
+		  }else{
+			  profile = false;
+		  }
 		  $.ajax({
 		        url : 'SignUpViaOthers', // Your Servlet mapping or JSP(not suggested)
 		        data : {"email":response.email,"name":response.name,"type":$("input[type='radio'][name='sign-type']:checked").val(),"isLogin":isLogin},
 		        type : 'POST',
 		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		        success : function(response) {
-		          	if(response != "false"){
-		          		$("#invalidusernameviaothers").hide();
-		          		if("${url}" != ""){
-		          			var url="${url}".substring(0, "${url}".indexOf("null") - 1);
-		          			if(response == "advisors?category=all&type=signup"){
-		          				if(url.indexOf("?") != -1){
-			          				url = url.concat("&type=signup");
-			          			}else{
-			          				url = url.concat("?type=signup");
-			          			}
+		        	var url="";
+		        	if(response == "userlogin"){
+		        		if(!profile){
+		        			if(window.location.href.indexOf("advisordashboard")>-1 ){
+		        				window.location.href = "userdashboard";
+		        			}else{
+		        				location.reload();
+		        			}
+		        			
+		        		}else{
+		        			window.location.href = "advisors?category=all";
+		        		}
+		        	}else if (response == "advisorlogin") {
+		        		if(!profile){
+		        			if(window.location.href.indexOf("userdashboard")>-1 ){
+		        				window.location.href = "advisordashboard";
+		        			}else{
+		        				location.reload();
+		        			}
+		        			
+		        		}else{
+		        			window.location.href = "advisors?category=all";
+		        		}
+					}else if (response == "advisorsignup") {
+						if(!profile){
+							var url1 = window.location.href;
+							if(window.location.href.indexOf("userdashboard")>-1 ){
+								url1 = "advisordashboard";
+		        			}
+		        			window.location.href = url1;
+		        		}else{
+		        			window.location.href = "advisors?category=all&type=signup";
+		        		}
+					}else if (response == "usersignup") {
+						if(!profile){
+							var url1 = window.location.href;
+							if(window.location.href.indexOf("advisordashboard")>-1 ){
+								url1 = "userdashboard";
+		        			}
+		        			if(url1.indexOf("?") != -1){
+		        				url1 = url1.concat("&type=signup");
+		          			}else{
+		          				url1 = url1.concat("?type=signup");
 		          			}
-		          			
-		          			window.location.href = url;
-		          		}else{
-		          			window.location.href = response;	
-		          		}
-		          		
-		          	}else if (response == "false") {
+		        			window.location.href = url1;
+		        		}else{
+		        			window.location.href = "advisors?category=all&type=signup";
+		        		}
+					}else if (response == "false") {
 						$("#invalidusernameviaothers").show();
 					}
 		          	 $('.black-screen').hide();
-
-		          },
+		        	 },
 		          error : function(request, textStatus, errorThrown) {
 		            
 		        }

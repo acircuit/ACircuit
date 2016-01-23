@@ -3,6 +3,7 @@ package ac.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -60,7 +61,6 @@ public class QuestionsController extends HttpServlet {
 		
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
-		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
 		String category = request.getParameter("category");
 		String subcategory = request.getParameter("subcategory");
 		List<QuestionsDTO> list1 = new ArrayList<QuestionsDTO>();
@@ -91,6 +91,7 @@ public class QuestionsController extends HttpServlet {
 			 if(que1.getQuestionId() == ans.getQuestionId()){
 				 count ++;
 				 que1.setLastUpdated(format.format(ans.getTime()));
+				 que1.setUpdated(ans.getTime());
 				 advId.add(ans.getAdvisor_id());
 				 que1.setAdvisor_id(ans.getAdvisor_id());
 			 }
@@ -101,6 +102,11 @@ public class QuestionsController extends HttpServlet {
 		QuestionsDAO adv = new QuestionsDAO();
 		List<AdvisorDTO> advisors = adv.GetAdvisorName(list);
 		
+		Collections.sort(list1);
+		for(QuestionsDTO que1 : list1) {
+			 System.out.println(que1.getLastUpdated());
+
+		}
 		
 		//Getting Most Viewed Questions
 		List<QuestionsDTO> mostViewedQuestions = new ArrayList<QuestionsDTO>();
@@ -131,14 +137,7 @@ public class QuestionsController extends HttpServlet {
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Questions.jsp");
         rd.forward(request, response);
-		}else{
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
-		}
-		
+	
 		logger.info("Exit doPost method of QuestionsController");
 	}
 	
@@ -188,13 +187,7 @@ public class QuestionsController extends HttpServlet {
 			}
 		
 		}
-		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
-		}
+		
 		
 		
 		logger.info("Exit doPost method of QuestionsController");

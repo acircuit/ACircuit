@@ -16,7 +16,9 @@ import org.apache.log4j.Logger;
 import ac.dao.AdminDAO;
 import ac.dao.AdvisorNotificationDAO;
 import ac.dao.FeedDAO;
+import ac.dto.AdvisorDTO;
 import ac.dto.QuestionsDTO;
+import ac.dto.UserDetailsDTO;
 import ac.util.SendNotificationToAdvisor;
 
 /**
@@ -57,10 +59,30 @@ public class AdminMyAccountQuestionsController extends HttpServlet {
 		}
 		if(isError!= null &&  !isError){
 			List<QuestionsDTO> questions = new ArrayList<QuestionsDTO>();
-
+			List<Integer> user = new ArrayList<Integer>();
+			List<AdvisorDTO> advisor = new ArrayList<AdvisorDTO>();
+			List<Integer> questionPostedtoAdvisors = new ArrayList<Integer>();
 			AdminDAO admin = new AdminDAO();
 			questions = admin.GetQuestions();
+			for(QuestionsDTO ques : questions){
+				user.add(ques.getUser_id());
+				if(!ques.getToForum()){
+					questionPostedtoAdvisors.add(ques.getQuestionId());	
+				}
+			}
+			AdminDAO adv = new AdminDAO();
+			List<QuestionsDTO> advIds = adv.GetAdvisorIds(questionPostedtoAdvisors);
+			
+			AdminDAO name = new AdminDAO();
+			advisor = name.GetAdvisorDetails(advIds);
+			
+			AdminDAO userName = new AdminDAO();
+			List<UserDetailsDTO>  usr= userName.GetUserDetails(questions);	
+			
 			request.setAttribute("questions",questions);
+			request.setAttribute("advIds",advIds);
+			request.setAttribute("advisor",advisor);
+			request.setAttribute("usr",usr);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminquestions.jsp");
 	        rd.forward(request, response);
 		}

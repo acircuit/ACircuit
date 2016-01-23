@@ -20,6 +20,7 @@
 	font-size:18px;
 	color:#4a4a4a;
 }
+.tooltip {min-width:200px;}
 .Aname {
     font-size: 28px;
     color: #4a4a4a;
@@ -416,6 +417,7 @@ font-size:13px;
 .expert-card {
     min-height: 420px;
 }
+
 .Adp img {
     width: 120px;
     height: 120px;

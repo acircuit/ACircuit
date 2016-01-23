@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="ac.dto.*"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -49,14 +50,16 @@
         	       if(session.getAttribute("isVerified") != null){
         	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
         	       }
+        	    String pageTitle = question.getQuestion();
 				pageContext.setAttribute("ids", ids);
-	
+				pageContext.setAttribute("pageTitle", pageTitle);
 
 %>
-</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${pageTitle}| Advisor Circuit</title>
 </head>
+
+
 <body>
  <div id="wrapper">
  <%@include file="/notify.jsp" %>
@@ -95,10 +98,12 @@
 									<span class="tag">${question.getSubcategory()}</span>
 				   				</div>
 				   				<div class="col-xs-12 question-div">
-									<span class="question">${question.getQuestion()}</span>
+									<span  class="question">${question.getQuestion()}</span>
 				   					<br>
 				   					<span class="count-answers">${count } answers</span><span class="updated-on">Last Updated on ${last_Updated }</span>
 				   				</div> 
+				   								   				<div class=" col-xs-12 addthis_sharing_toolbox"></div> 
+				   				
 				   				<div class="col-xs-11" style="margin-top: 4px;">
 				   					<div style="border-bottom: 1px solid lightgray;"></div>
 				   				</div>
@@ -127,7 +132,7 @@
 						                                </div>
 						                             </div>
 						                            <div class="adv_ans col-xs-12 col-sm-11 no-padding">
-						                                <p>${answer.getAnswer()}:</p>
+						                                <p>${answer.getAnswer()}</p>
 						                                <span class="upvote" id="${answer.getId()}:${advisor.getId()}" onclick="UpdateUpvote(this)">Upvote | ${answer.getUpvote()}</span>
 						                            </div>
 						                        </div>
@@ -176,12 +181,24 @@
    	 	 <%@include file="/footer.jsp" %>
 </div>
 <script>
-$(document).ready(function () {
+ $(document).ready(function () {
+	 
+	var tmp = document.createElement("DIV");
+	   tmp.innerHTML = "${question.getQuestion()}";
+	   document.title =  tmp.textContent;
+	
+	
 	if("${type.equals('signup') }"){
 		document.getElementById("verifyaccount").style.display = "block";
 	}else{
 		document.getElementById("verifyaccount").style.display = "none";
 	}
+	if(<%=isLoggedIn.equals(false) %>){
+    	$('#signupmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
    	if(<%=isAdv%>){
    		$(".ask-a-question-button").hide();
    		$(".book-a-session-button").hide();
@@ -225,14 +242,7 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">';
-	  if(value.category == "studies"){
-		  html+='Higher Studies</a>';
-	  }else if (value.category == "industry") {
-		  html+='Career & Jobs</a>';
-	}else if (value.category == "options") {
-		html+='Course</a>';
-	}
+	var html = '<a href="advisors?subcategory='+value.category+'" class="rel-category">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
 function UpdateUpvote(elem){
@@ -277,5 +287,7 @@ $('body').on('click', '.less', function(e){
 	$(this).closest('.each-question-div').find('.answer-to-question').html(res+'<span class="more"> more</span>');
 });
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-557687ac702ff828" async="async"></script>
+
 </body>
 </html>

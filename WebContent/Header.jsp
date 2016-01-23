@@ -37,7 +37,7 @@ String type = request.getParameter("type");
 					  <div class="container-fluid">
 					    <div class="navbar-header">
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
-					        <a class="navbar-brand hidden-xs" href="<fmt:message key="home"/>"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+					        <a class="navbar-brand hidden-xs" href="<fmt:message key="home_secured"/>"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
 					    </fmt:bundle>
 					         
 					    </div>
@@ -74,7 +74,7 @@ String type = request.getParameter("type");
 					                </li> -->
 				                <fmt:bundle basename="ac.resources.Path" prefix="path.">
 					                 <li>
-					                    <a href="<fmt:message key="home"/>">Home</a>
+					                    <a href="<fmt:message key="home_secured"/>">Home</a>
 					                </li>
 					                </fmt:bundle>
 					                <li>
@@ -158,7 +158,6 @@ String type = request.getParameter("type");
    	function FindSuggestions(s) {
    		var len = s.value.length;
    	    if(len>=3){
-   	   	 $('.black-screen').show();
    	        $.ajax({
    	            url : 'GetSuggestions', // Your Servlet mapping or JSP(not suggested)
    	            data : {"word" : s.value},
@@ -179,11 +178,9 @@ String type = request.getParameter("type");
    	   	   	            document.getElementById("headersuggestions").innerHTML="";
 	   	            	$('.hsuggestion').hide();
    	            	}
-   	           	    $('.black-screen').hide();
    	            	
    	            },
    	            error : function(request, textStatus, errorThrown) {
-   	                alert(errorThrown);
    	            }
    	        }); 
    	    }
@@ -243,6 +240,22 @@ String type = request.getParameter("type");
 		}
 		});
    	</script>
-<!--Start of Zopim Live Chat Script-->
+   	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-58914838-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="//v2.zopim.com/?3O1oN7WcsBdgCN1h4zUZeEgf0nCudKAr";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
 <!--End of Zopim Live Chat Script-->

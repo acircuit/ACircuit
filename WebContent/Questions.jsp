@@ -46,11 +46,14 @@
         	       if(session.getAttribute("isVerified") != null){
         	    	isUserVerified = (Boolean) session.getAttribute("isVerified");
         	       }
+           	    String pageTitle = "Trustable Answers from real people | Advisor Circuit";
         		pageContext.setAttribute("ids", ids);
-	
+				pageContext.setAttribute("pageTitle", pageTitle);
+
 
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>${pageTitle}</title>
 </head>
 
 <style>
@@ -68,7 +71,6 @@
 }
 </style>
 
-<title>Get answers to career queries I Advisor Circuit</title>
 <body>
  <div id="wrapper">
   <%@include file="/notify.jsp" %>
@@ -90,8 +92,8 @@
 		   			<div class="head-for-body">
 			   			<span class="big-title-body">Question & Answers :</span>
 			   			<br>
-			   			<span class="answers-count">${answers.size()} Answers</span>
-			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button" onclick="OpenAskAQuestion()">Ask question</button>
+			   			<span id="ans-count" class="answers-count">${answers.size()} Answers</span>
+			   			<button type="button" class="btn red-button ask-question-button ask-a-question-button"  onclick="ga('send', 'event', 'AskAQuestionModal', 'click', '${pageurl}');OpenAskAQuestion()">Ask question</button>
 			   		</div>
 		   			<div class="white-body-div">
 
@@ -113,7 +115,7 @@
 									<a href="answers?q=${question.getQuestionId()}"><span class="question">${question.getQuestion()}</span></a>
 				   					<br>
 				   					<span class="count-answers">${question.getCount()} answers</span><span class="updated-on">Last Updated on ${question.getLastUpdated()}</span>
-				   				</div> 
+				   				</div>
 								<c:forEach items="${answers }" var="answer">
 								<c:forEach items="${advisors }" var="advisor">
 								<c:if test="${answer.getQuestionId() == question.getQuestionId()}">
@@ -187,6 +189,12 @@ $(document).ready(function () {
    		$(".ask-a-question-button").hide();
    		$(".book-a-session-button").hide();
    	} 
+   	if(<%=isLoggedIn.equals(false) %>){
+    	$('#signupmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
         data : {},
@@ -213,18 +221,11 @@ $(document).ready(function () {
 	
 });
 function MostViewedQuestionsCard(value){
-	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'">'+value.question+'</a></p>';
+	var html = '<p class="rel_ques"><a class="rel_ques" href="answers?q='+value.id+'" onclick="ga(\'send\',\'event\',\'MostViewedQuestion\' , \'click\', \''+value.question+':'+value.id+'\');">'+value.question+'</a></p>';
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">';
-	  if(value.category == "studies"){
-		  html+='Higher Studies</a>';
-	  }else if (value.category == "industry") {
-		  html+='Career & Jobs</a>';
-	}else if (value.category == "options") {
-		html+='Course</a>';
-	}
+	var html = '<a href="advisors?subcategory='+value.category+'" class="rel-category" onclick="ga(\'send\',\'event\',\'PopularCategories\' , \'click\', \''+value.category+'\');">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
 
@@ -308,7 +309,9 @@ $('body').on('click', '.less', function(e){
 	          	$.each(obj, function(key,value) {
 	          		if(typeof value.answer != "undefined"){
 	          			acard =acard+ answercard(value);
-	          		}else{
+	          		}else if (typeof value.totalanswers != "undefined") {
+	          			document.getElementById("ans-count").innerHTML = value.totalanswers+" Answers";
+					}else{
 	          			qcard = qcard+ questioncard(value);
 	          			var card = qcard + acard;
 	          			card = card  +'</p>'
@@ -356,7 +359,9 @@ $('body').on('click', '.less', function(e){
 		          	$.each(obj, function(key,value) {
 		          		if(typeof value.answer != "undefined"){
 		          			acard =acard+ answercard(value);
-		          		}else{
+		          		}else if (typeof value.totalanswers != "undefined") {
+		          			document.getElementById("ans-count").innerHTML = value.totalanswers+" Answers";
+						}else{
 		          			qcard = qcard+ questioncard(value);
 		          			var card = qcard + acard;
 		          			card = card  +'</p>'
@@ -416,5 +421,6 @@ $('body').on('click', '.less', function(e){
 		}
 		});
 </script>
+ 
 </body>
 </html>

@@ -67,7 +67,7 @@ public class LogoutController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		response.sendRedirect(prop.getProperty("HOME_PATH"));
+		response.sendRedirect(prop.getProperty("HOME_PATH_SECURED"));
 		logger.info("Entered doGet method of LogoutController");
 	}
 }

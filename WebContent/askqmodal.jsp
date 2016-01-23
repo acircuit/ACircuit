@@ -33,11 +33,11 @@
 											      <br>
 											      <br>
 											        <div class="col-xs-12" style="margin-top: 21px;">
-											        <button type="submit" class="btn red-button ask-question-button" style="float:right">Ask question</button>
-											        	<div class="form-group squaredThree" style="float:right;margin-right: 11px;margin-top: -9px;">
+											        <button id="question-submit" type="submit" class="btn red-button ask-question-button" style="float:right">Ask question</button>
+											        	<!-- <div class="form-group squaredThree" style="float:right;margin-right: 11px;margin-top: -9px;">
 														  	<input type="checkbox" id="postanonymously" name="Post anonymously" />
 															<label for="postanonymously" style="margin-top: 1px;"></label><span>Post anonymously</span>
-													</div>
+													</div> -->
 													
 														
 											        </div>
@@ -54,7 +54,7 @@
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-body">
-								     <p>Please verify your account thrugh the verification link sent to you via email.<a onclick="ResendLink()">Resend Mail</a> </p>
+								     <p>Please verify your account through the verification link sent to you via email.<a onclick="ResendLink()">Resend Mail</a> </p>
 								      </div>
 								      
 								    </div>
@@ -76,6 +76,7 @@ $(document).ready(function () {
 	
 	$('body').on('submit', '#ask-form-modal', function(e){
 		e.preventDefault();
+		document.getElementById("question-submit").disabled = true;
 		var ques=$('#question').val();
 		var cat=$('#category-menu-on-modal').val();
 		var subcat=$('#subcategory-menu-on-modal').val();
@@ -97,8 +98,10 @@ $(document).ready(function () {
 		        type : 'POST',
 		        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 		        success : function(response) {
-					 alert(response);
+		        	alert(response);
+		    		document.getElementById("question-submit").disabled = false;
 		        	 $('.black-screen').hide();
+		        	 location.reload();
 
 		        },
 		        error : function(request, textStatus, errorThrown) {
@@ -108,6 +111,7 @@ $(document).ready(function () {
 		});
 			
 		}else{
+		$('.black-screen').show();
 	    	$.ajax({
 	            url : 'QuestionsController', // Your Servlet mapping or JSP(not suggested)
 	            data : {"question":question,"category" :category,"subcategory":subcategory},
@@ -115,7 +119,9 @@ $(document).ready(function () {
 	            dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
 	            success : function(response) {
 					 alert(response);
+			    	document.getElementById("question-submit").disabled = false;
 	            	 $('.black-screen').hide();
+	            	 location.reload();
 
 	            },
 	            error : function(request, textStatus, errorThrown) {

@@ -40,9 +40,10 @@ public class AdvisorMyAccountCancelSession extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
+		String sid= request.getParameter("sId");
+
 		//Getting the sessiondetails for the user
 		if(advisorId != 0){
-		String sid= request.getParameter("sId");
 		SessionDAO update = new SessionDAO();
 		Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY ADVISOR", sid);
 		if(isCommit){
@@ -87,11 +88,8 @@ public class AdvisorMyAccountCancelSession extends HttpServlet {
 		}
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
+			response.sendRedirect("advisorcancelledsession?sId="+sid);
+
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountCancelSession");
 	}

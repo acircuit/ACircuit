@@ -51,6 +51,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -248,6 +249,17 @@ $(document).ready(function () {
 	    format: 'dd-mm-yyyy',
 	    startDate: '-3d'
 	});
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){

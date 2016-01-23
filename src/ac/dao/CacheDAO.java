@@ -347,10 +347,11 @@ public class CacheDAO {
 			conn.setAutoCommit(false);
 			String query="";
 			//String q4in = generateQsForIn(words.size());
-			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? AND ISACTIVE=? ORDER BY INDUSTRY";	
+			query = "SELECT  DISTINCT INDUSTRY FROM advisordetails WHERE ISVERIFIED=? AND ISACTIVE=? AND ISVISIBLE=? ORDER BY INDUSTRY";	
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setBoolean(1, true);
 			pstmt.setBoolean(2, true);
+			pstmt.setBoolean(3, true);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {
 				industries.add(results.getString("INDUSTRY"));
@@ -417,7 +418,7 @@ public class CacheDAO {
 		try {
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
-			String query = "SELECT * FROM industry";
+			String query = "SELECT * FROM industry GROUP BY SUBCATEGORY";
 			PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet results = pstmt.executeQuery();
 			while (results.next()) {

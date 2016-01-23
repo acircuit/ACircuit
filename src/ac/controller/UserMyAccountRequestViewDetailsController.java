@@ -52,10 +52,8 @@ public class UserMyAccountRequestViewDetailsController extends HttpServlet {
 	          rd.forward(request, response);
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/userrequestviewdetails.jsp");
 	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of UserMyAccountRequestViewDetailsController");

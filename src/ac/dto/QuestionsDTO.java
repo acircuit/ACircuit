@@ -2,7 +2,7 @@ package ac.dto;
 
 import java.sql.Timestamp;
 
-public class QuestionsDTO {
+public class QuestionsDTO implements Comparable<QuestionsDTO>{
 	
 	private int questionId;
 	private int advisor_id;
@@ -18,6 +18,13 @@ public class QuestionsDTO {
 	private String category;
 	private String subcategory;
 	private String lastUpdated; 
+	private Timestamp updated;
+	public Timestamp getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
+	}
 	private int count;
 	private Boolean isAnswered;
 	private Boolean isAnonymous;
@@ -124,4 +131,9 @@ public class QuestionsDTO {
 	public void setSubcategory(String subcategory) {
 		this.subcategory = subcategory;
 	}
+	@Override
+	public int compareTo(QuestionsDTO obj) {
+		return obj.getUpdated().compareTo(this.getUpdated());
+	}
+
 }

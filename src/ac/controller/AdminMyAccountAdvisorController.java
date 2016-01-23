@@ -106,7 +106,7 @@ public class AdminMyAccountAdvisorController extends HttpServlet {
 				profile = dao.GetGeneralInfo(Integer.valueOf(advisorId));
 				GetRelativeImageURL image = new GetRelativeImageURL();
 				profile.setImage(image.getImageURL(profile.getImage())); 
-				
+				System.out.println(profile.getIndustry());
 				//Getting advisor languages
 				RegistrationDAO lang = new RegistrationDAO();
 				profile.setLanguage(lang.GetAdvisorLanguages(Integer.valueOf(advisorId)));

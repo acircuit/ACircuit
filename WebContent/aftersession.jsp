@@ -50,6 +50,7 @@ Double wallet = (Double)request.getAttribute("wallet");
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -70,12 +71,13 @@ Double wallet = (Double)request.getAttribute("wallet");
 				   	</div>
 				   	<div class="col-xs-12 col-sm-9 right-div">
 	   		    		<div class="col-xs-12 container-div-all">
+	   		    		<div class="alert alert-success" role="alert" id="validation" style="display: none"></div>
 		   		    		<span class="session-id">Session ID #${sessionDetails.getSessionid()}</span>
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> Request sent to advisor</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
 						   		<div class="col-xs-7 no-padding">
-						   			<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br>
+						   			<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text"></span><br>
 							   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span>
 							   		<br style="line-height: 32px;">
 							   		<span class="mode">Duration</span>	<span class="mode-type">${sessionDetails.getDuration()} Minutes</span>
@@ -103,14 +105,14 @@ Double wallet = (Double)request.getAttribute("wallet");
 					   		<div class="col-xs-12 no-padding">
 					   			<span class="prop-time-text">Write Review</span>
 					   		</div>
-					   		<form action="useraftersession" method="post">
+					   		<form id="review-form" action="useraftersession" method="post">
 					   		<input type="hidden" value="${sessionDetails.getSessionid() }" name="id">
 					   		<input type="hidden" value="${advisorDetails.getId()}" name="aid">
 					   		<div class="write-div col-xs-12 no-padding" style="border-bottom: 1px solid lightgray;padding-bottom: 19px;">
 					   				<textarea rows="5" cols="" id="review" class="form-control" name="review" required="required" maxlength="3000"></textarea>
 					   				<br>
-					   				<div class="col-xs-2 no-padding"><span class="rating">Your Rating :</span></div><div class="col-xs-5 no-padding"><input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="0"></div>
-					   			<div class="col-xs-5 no-padding"><button type="submit" class="btn submit-button" >Submit</button></div>
+					   				<div class="col-xs-2 no-padding"><span class="rating">Your Rating :</span></div><div class="col-xs-5 no-padding"><input id="rating" name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="0"></div>
+					   			<div class="col-xs-5 no-padding"><button id="review-submit" type="submit" class="btn submit-button" >Submit</button></div>
 					   			</div>
 					   		</form>	
 					   		<div class="next-step-div col-xs-12 ">
@@ -168,6 +170,17 @@ $(document).ready(function () {
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
 	});
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){
@@ -175,6 +188,23 @@ $(document).ready(function () {
 			+'<option value="'+i+':30">'+i+':30 Hours</option>';
 		$('.inpt-mw').append(html);
 	}
+	
+	$( "#review-form" ).submit(function( event ) {
+		if($("#review").val() == "" || $("#review").val() == " "){
+			event.preventDefault();	
+			document.getElementById("validation").style.display = 'block';
+			document.getElementById("validation").innerHTML = 'Please write your review for the session.';
+			$('body').scrollTop(0);
+		}else if ($("#rating").val() == "0") {
+			event.preventDefault();	
+			document.getElementById("validation").style.display = 'block';
+			document.getElementById("validation").innerHTML = 'Please give a rating for the advisor.';
+			$('body').scrollTop(0);
+		}
+	});
+	
+	
+	
 	starinputconversion();
 });
 	

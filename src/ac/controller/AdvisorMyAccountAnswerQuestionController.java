@@ -35,6 +35,7 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		logger.info("Entered doGet method of AdvisorMyAccountAnswerQuestionController");
 		int advisorId = 0;
 		Boolean isError = false;
+	     String qid = request.getParameter("qid");
 		try{
 			advisorId = (int) request.getSession().getAttribute("advisorId");
 		}catch(Exception e){
@@ -42,7 +43,6 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		}
 		if(advisorId != 0){
 		     String answer = request.getParameter("answer");
-		     String qid = request.getParameter("qid");
 		     String aid = request.getParameter("aid");
 		     QuestionsDAO answers = new QuestionsDAO();
 		     answer = answer.replaceAll("\r\n", "");
@@ -93,11 +93,7 @@ public class AdvisorMyAccountAnswerQuestionController extends HttpServlet {
 		     }
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
+			response.sendRedirect("answers?q="+qid);
 		}
 		logger.info("Entered doGet method of AdvisorMyAccountAnswerQuestionController");
 	}

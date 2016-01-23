@@ -18,9 +18,12 @@ import ac.cache.MyCacheBuilder;
 import ac.dao.SessionDAO;
 import ac.dto.AdvisorDTO;
 import ac.dto.AnswerDTO;
+import ac.dto.CategoryDTO;
+import ac.dto.EducationDTO;
 import ac.dto.ProfessionalBackgroundDTO;
 import ac.dto.QuestionsDTO;
 import ac.dto.ReviewsDTO;
+import ac.dto.SubCategoryDTO;
 import ac.dto.UserDetailsDTO;
 
 /**
@@ -58,11 +61,10 @@ public class AdvisorProfileController extends HttpServlet {
 		}catch (Exception e){
 			isError = true;
 		}
-		
+		String aId = request.getParameter("a");
+
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		//Getting the sessiondetails for the user
-		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
-		String aId = request.getParameter("a");
 		if(aId != null){
 			//Check if the advisor is active 
 			SessionDAO det = new SessionDAO();
@@ -144,7 +146,34 @@ public class AdvisorProfileController extends HttpServlet {
 				  //Getting user details
 				  SessionDAO usrDetails = new SessionDAO();
 				  userDetails = usrDetails.GetUserDetailsForReviews(uIds);
+				String description = "";  
+				for (CategoryDTO cat : advisor.getCategories()) {
+					for (SubCategoryDTO subcat : advisor.getSubCategories()) {
+						if(cat.getCatId() == subcat.getCategoryId()){
+							if(cat.getCategory().equals("studies")){
+								for (EducationDTO edu : advisor.getEducation()) {
+									if(edu.getType().equals("PG")){
+										description = description+ edu.getCourse()+" from "+edu.getInstitution()+"|";
+									}
+								}
+							}else if (cat.getCategory().equals("industry")) {
+								for (ProfessionalBackgroundDTO pro : advisor.getProfession()) {
+									if(pro.getIsCurrent()){
+										description = description+ pro.getDesignation()+" in "+pro.getCompany()+"|";
+									}
+								}
+							}else if (cat.getCategory().equals("options")) {
+								for (EducationDTO edu : advisor.getEducation()) {
+									if(edu.getType().equals("UG")){
+										description = description+ edu.getCourse()+" from "+edu.getInstitution()+"|";
+									}
+								}
+							}
+						}
+					}
+				}
 	     		 request.setAttribute("advisor", advisor);
+	     		request.setAttribute("description", description);
 	     		request.setAttribute("consultations", consultations);
 	     		request.setAttribute("isPhone", isPhone);
 	     		request.setAttribute("reviewCount", reviewCount);
@@ -166,14 +195,8 @@ public class AdvisorProfileController extends HttpServlet {
 			}
 			
 
-		}	
-		}else{
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
 		}
+
 		logger.info("Entered doPost method of AdvisorProfileController");
 	}
 }

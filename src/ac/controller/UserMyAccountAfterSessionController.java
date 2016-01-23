@@ -60,10 +60,8 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 	          rd.forward(request, response);
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+		
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/aftersession.jsp");
 	        rd.forward(request, response);
 		}
 	
@@ -82,11 +80,11 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
+		  String sid = request.getParameter("id");
 		//Getting the sessiondetails for the user
 		if(userId != 0 && !isError){
 		  String review = request.getParameter("review");
 		  String rating = request.getParameter("rating");
-		  String sid = request.getParameter("id");
 		  String aId = request.getParameter("aid");
 		  int[] ids;
 		  //Inserting the reviews given b the user
@@ -103,7 +101,7 @@ public class UserMyAccountAfterSessionController extends HttpServlet {
 		  }
 		}
 		if(isError){
-			response.sendRedirect("error");
+			response.sendRedirect("userpastsession?sId="+sid);
 		}
 		
 		logger.info("Entered doPost method of UserMyAccountAfterSessionController");

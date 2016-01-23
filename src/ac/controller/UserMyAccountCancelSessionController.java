@@ -41,8 +41,8 @@ public class UserMyAccountCancelSessionController extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
-		if(userId != 0){
 		String sid= request.getParameter("sId");
+		if(userId != 0){
 		SessionDAO update = new SessionDAO();
 		Boolean isCommit = update.UpdateStatus("SESSION CANCELLED BY USER", sid);
 		if(isCommit){
@@ -89,10 +89,8 @@ public class UserMyAccountCancelSessionController extends HttpServlet {
 		}
 		}
 		if(isError){
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
+			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("usercancelledsession?sId="+sid);
 	        rd.forward(request, response);
 		}
 		logger.info("Entered doGet method of UserMyAccountCancelSessionController");

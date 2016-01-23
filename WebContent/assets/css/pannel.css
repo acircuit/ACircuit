@@ -46,6 +46,33 @@ body {
     text-align: center;
    margin-left: 2px;
 }
+.adv-img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    float: left;
+}
+.adv-name {
+    font-size: 16px;
+    color: #37b7ae;
+    font-family: 'Open SansR';
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 8px;
+}
+.adv-field {
+    font-family: 'Open SansR';
+    color: #6c6c6c;
+    font-size: 13px;
+    margin-top: -10px;
+    margin-left: 11px;
+    display: block;
+    float: left;
+    
+}
+.advisor_details {
+    margin-bottom: 10px;
+}
 .scrollable-content::-webkit-scrollbar {
   background:transparent;
   width:5px;
@@ -924,7 +951,10 @@ color: #e92629;
    .navbar-nav>li>a {
     padding-left: 0px;
     padding-right: 0px;}  
+
 }
+
+
 
 @media (min-width: 767px) and (max-width: 992px) {
    .Adp img {

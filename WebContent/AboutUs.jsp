@@ -58,7 +58,6 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
 <style>
 @media (min-width: 320px) and (max-width: 762px) {
  .body-content{
@@ -68,7 +67,8 @@ pageContext.setAttribute("advisorsForReviews", advisorsForReviews);
 }
 }
 </style>
-<title>About Us | Advisor Circuit</title>
+<title>About Us-Why Did We Start, What Did We Realize, Who Are We | Advisor Circuit</title>
+</head>
 
 <body>
  <div id="wrapper">

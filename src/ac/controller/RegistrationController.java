@@ -141,19 +141,25 @@ public class RegistrationController extends HttpServlet {
         					  GetRelativeImageURL image = new GetRelativeImageURL();
         					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
         					 if(redirecturl != null && !redirecturl.equals("")){
-						        	if(redirecturl.indexOf("null") != -1){
+        						 System.out.println("Redirect url:"+redirecturl);
+						        	if((redirecturl.indexOf("contact") > -1) || (redirecturl.indexOf("howitworks") > -1) || (redirecturl.indexOf("becomeanadvisor") >-1) || (redirecturl.indexOf("aboutus")> -1) || (redirecturl.indexOf("tnc") >-1) || (redirecturl.indexOf("privacypolicy") >-1) || (redirecturl.indexOf("faq") >-1) || (redirecturl.equals(prop1.getProperty("HOME_PATH"))) || (redirecturl.equals(prop1.getProperty("HOME_PATH_SECURED")))){
+						        		response.sendRedirect("advisors?category=all&type=signup");
+						        	}else{
+						        		if(redirecturl.indexOf("advisordashboard") > -1){
+						        			redirecturl = "userdashboard";
+						        		}
 						        		
-						        		redirecturl=redirecturl.substring(0, redirecturl.indexOf("null") - 1);
 						        		if(redirecturl.indexOf("?") != -1){
 						        			redirecturl = redirecturl.concat("&type=signup");
 					          			}else{
 					          				redirecturl = redirecturl.concat("?type=signup");
 					          			}
+						        		response.sendRedirect(redirecturl);
 						        	}
-						        	response.sendRedirect(redirecturl); 
+						        	
+						        	
 						        }else{
-						        	response.sendRedirect("advisors?category=all&type=signup");
-
+						        	response.sendRedirect("advisors?category=all&type=signup"); 
 						        }
         					
     					}

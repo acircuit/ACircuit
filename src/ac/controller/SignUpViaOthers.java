@@ -79,7 +79,7 @@ public class SignUpViaOthers extends HttpServlet {
 	        }else{
 		        session.setAttribute("isVerified", false);
 	        }
-	        response.getWriter().write("advisors?category=all");
+	        response.getWriter().write("userlogin");
         }else{
         	
         	RegistrationDAO advisor = new RegistrationDAO();
@@ -95,9 +95,9 @@ public class SignUpViaOthers extends HttpServlet {
 				    session.setAttribute("path", image.getImageURL(adv.getImage()));
 					request.getSession().setAttribute("isLogin",
 							"advisor");
-					response.getWriter().write("advisors?category=all");
+					response.getWriter().write("advisorlogin");
 				}else{
-					response.getWriter().write("thankyou");
+					response.getWriter().write("advisorsignup");
 				}
 		        
         	}
@@ -181,7 +181,7 @@ public class SignUpViaOthers extends HttpServlet {
         					  GetRelativeImageURL image = new GetRelativeImageURL();
         					 request.getSession().setAttribute("path", image.getImageURL(absolutePath));
         					 request.getSession().setAttribute("isVerified", true);
-        					response.getWriter().write("advisors?category=all&type=signup");
+        					response.getWriter().write("usersignup");
     					}
 
     				}
@@ -217,7 +217,7 @@ public class SignUpViaOthers extends HttpServlet {
   					SendMail mail1 = new SendMail(subject1, content1, prop.getProperty("MAIL_ADMIN"),prop1.getProperty("MAIL_ADMIN"));
   					mail1.start();
 
-  					response.getWriter().write("thankyou");
+  					response.getWriter().write("advisorsignup");
   				}
 			}else{
 				response.getWriter().write("false");

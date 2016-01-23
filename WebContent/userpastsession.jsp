@@ -49,6 +49,7 @@ pageContext.setAttribute("review", review);
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -73,7 +74,7 @@ pageContext.setAttribute("review", review);
 		   		    		<br>
 					   		<span class="status"><i class="fa fa-check"></i> SESSION COMPLETE</span>
 					   		<div class="col-xs-12 no-padding session-info-div">
-						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text">| User Email/summary background</span><br><br>
+						   		<span class="btext name">${advisorDetails.getName()}</span> <span class="name-other-text"></span><br><br>
 						   		<span class="mode">Mode</span>	<span class="mode-type"><img src="assets/img/phone.png"> ${sessionDetails.getMode()} session</span><br>
 						   		<br>
 						   		<c:choose>
@@ -160,6 +161,17 @@ $(document).ready(function () {
 	    format: 'mm/dd/yyyy',
 	    startDate: '-3d'
 	});
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){

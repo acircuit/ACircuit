@@ -40,7 +40,7 @@ public class RecordingController extends HttpServlet {
 		String content = "Hello, <br><br>"
                        + "Recording Link:"+RecordingUrl+""
 						+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
-		SendMail mail = new SendMail("Recording URL", content, "udaykhatry@advisorcircuit.com","udaykhatry@advisorcircuit.com");
+		SendMail mail = new SendMail("Recording URL", content, "admin@advisorcircuit.com","admin@advisorcircuit.com");
 		mail.start();
 	}
 
@@ -73,7 +73,7 @@ public class RecordingController extends HttpServlet {
 		String content = "Hello, <br><br>"
                        + "Recording Link:"+RecordingUrl+""
 						+ "<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
-		SendMail mail = new SendMail("Recording URL", content, "udaykhatry@advisorcircuit.com","udaykhatry@advisorcircuit.com");
+		SendMail mail = new SendMail("Recording URL", content, "admin@advisorcircuit.com","admin@advisorcircuit.com");
 		mail.start();
 //		}
 	}

@@ -382,6 +382,8 @@ public class AdminDAO {
 				question.setSubcategory(results.getString("SUBCATEGORY"));
 				question.setPostedOnDate(sdf.format(results.getTimestamp("TIMESTAMP") ));
 				question.setStatus(results.getString("STATUS"));
+				question.setUser_id(results.getInt("U_ID"));
+				question.setToForum(results.getBoolean("TOFORUM"));
 				questions.add(question);
 			}
 			logger.info("Exit GetQuestions method of AdminDAO");
@@ -1163,6 +1165,150 @@ public class AdminDAO {
 			}
 		}
 		return isCommit;
+	}
+	
+    public List<QuestionsDTO> GetAdvisorIds(List<Integer> qid){
+    	logger.info("Entered GetAdvisorIds method of AdminDAO");
+   		List<QuestionsDTO> list = new ArrayList<QuestionsDTO>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(qid.size());
+			String query ="SELECT * FROM questiontoadvisor WHERE Q_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (Integer subs : qid) {
+				pstmt.setInt(i++, subs);
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				QuestionsDTO que = new QuestionsDTO();
+				que.setAdvisor_id(results.getInt("A_ID"));
+				que.setQuestionId(results.getInt("Q_ID"));
+				list.add(que);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorIds method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorIds method of AdminDAO");
+		return list;
+	}
+    
+    public List<AdvisorDTO> GetAdvisorDetails(List<QuestionsDTO> advIds){
+    	logger.info("Entered GetAdvisorDetails method of AdminDAO");
+   		List<AdvisorDTO> list = new ArrayList<AdvisorDTO>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(advIds.size());
+			String query ="SELECT ADVISOR_ID,NAME FROM advisordetails WHERE ADVISOR_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (QuestionsDTO que : advIds) {
+				pstmt.setInt(i++, que.getAdvisor_id());
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				AdvisorDTO adv = new AdvisorDTO();
+				adv.setId(results.getInt("ADVISOR_ID"));
+				adv.setName(results.getString("NAME"));
+				list.add(adv);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetAdvisorDetails method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetAdvisorDetails method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetAdvisorDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetAdvisorDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetAdvisorDetails method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetAdvisorDetails method of AdminDAO");
+		return list;
+	}
+    
+    public List<UserDetailsDTO> GetUserDetails(List<QuestionsDTO> advIds){
+    	logger.info("Entered GetUserDetails method of AdminDAO");
+   		List<UserDetailsDTO> list = new ArrayList<UserDetailsDTO>();
+   		
+   		try {
+			conn = ConnectionFactory.getConnection();
+			conn.setAutoCommit(false);
+			String q4in = generateQsForIn(advIds.size());
+			String query ="SELECT USER_ID,FULL_NAME FROM userdetails WHERE USER_ID IN ( "+ q4in + ")";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			int i = 1;
+			for (QuestionsDTO que : advIds) {
+				pstmt.setInt(i++, que.getUser_id());
+			}
+			ResultSet results = pstmt.executeQuery();
+			while (results.next()) {
+				UserDetailsDTO usr = new UserDetailsDTO();
+				usr.setUserId(results.getInt("USER_ID"));
+				usr.setFullName(results.getString("FULL_NAME"));
+				list.add(usr);
+			}
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+				logger.error("GetUserDetails method of AdminDAO threw error:"+e.getMessage());
+			} catch (SQLException e1) {
+				logger.error("GetUserDetails method of AdminDAO threw error:"+e1.getMessage());
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.error("GetUserDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} catch (PropertyVetoException e) {
+			logger.error("GetUserDetails method of AdminDAO threw error:"+e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("GetUserDetails method of AdminDAO threw error:"+e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		logger.info("Exit GetUserDetails method of AdminDAO");
+		return list;
 	}
 	
 	private String generateQsForIn(int numQs) {

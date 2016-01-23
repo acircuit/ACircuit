@@ -16,6 +16,8 @@ if( session.getAttribute("admin") != null &&  (Boolean)session.getAttribute("adm
 		path = (String)session.getAttribute("path");
 
 	} 
+String pageurl = request.getRequestURL().toString();
+pageContext.setAttribute("pageurl", pageurl);
 pageContext.setAttribute("source", source);
 
 
@@ -27,10 +29,10 @@ pageContext.setAttribute("source", source);
 					    <fmt:bundle basename="ac.resources.Path" prefix="path.">
 					    <c:if test="${source.equals('user') }">
 
-					         <a class="navbar-brand hidden-xs" href="userdashboard"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+					         <a class="navbar-brand hidden-xs" href="userdashboard" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-					         <a class="navbar-brand hidden-xs" href="advisordashboard"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
+					         <a class="navbar-brand hidden-xs" href="advisordashboard" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="assets/img/horizontal_logo.png" class="" style="max-width:187px;"></a>
 							          </c:if>
 					        
 					    </fmt:bundle>
@@ -41,11 +43,11 @@ pageContext.setAttribute("source", source);
 					    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					     <ul class="nav navbar-nav first-ul">
 
-					        <li><a href="advisors?category=all">Advisors <span class="sr-only">(current)</span></a></li>
-					        <li><a href="questions">Q&A</a></li>
+					        <li><a href="advisors?category=all" onclick="ga('send', 'event', 'AdvisorsPage', 'click', '${pageurl}');">Advisors <span class="sr-only">(current)</span></a></li>
+					        <li><a href="questions" onclick="ga('send', 'event', 'QuestionsPage', 'click', '${pageurl}');">Q&A</a></li>
 					        <!-- <li><a href="becomeanadvisor">Be an Advisor</a></li>
 					         <li><a href="howitworks">How it Works</a></li> -->
-					          <li><a href="logout">Sign Out</a></li>
+					          <li><a href="logout" onclick="ga('send', 'event', 'Logout', 'click', '${pageurl}');">Sign Out</a></li>
 					          
 					          	<li><form class="search-form" action="Search"><input  class="form-control search-box-i" type="text" placeholder="Search" onkeyup="FindSuggestions(this)" name="word" autocomplete="off">
 					          	<div id="headersuggestions" class="dropdown sugg">
@@ -53,7 +55,7 @@ pageContext.setAttribute("source", source);
 					          	</div></form><span class="make-search-small">X</span></li>
 					          	<li><div><ul class="nav navbar-nav navbar-right " >
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important" onclick="ga('send', 'event', 'Notifications', 'click', '${pageurl}');"><img src="assets/img/header_notification.svg" style="width:24px;"><span class="badge" id="notification_count"></span></a>
 							          <ul id="notifications" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 273px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;">
 										
 							          </ul></div>
@@ -61,10 +63,10 @@ pageContext.setAttribute("source", source);
 							          <li>
 							          <c:if test="${source.equals('user') }">
 
-							           <a href="userdashboard" style="background-image: none !important"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							           <a href="userdashboard" style="background-image: none !important" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-							           <a href="advisordashboard" style="background-image: none !important"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
+							           <a href="advisordashboard" style="background-image: none !important" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;"></a>
 							          </c:if>
 							          </li>
 						        </ul>
@@ -79,26 +81,26 @@ pageContext.setAttribute("source", source);
 					            <ul class="nav sidebar-nav">
 					                <li>
 							          <c:if test="${source.equals('user') }">
-							           <a href="userdashboard"><img src="<%=path %>" style="width: 55px;height: 55px;border-radius: 50%;border: 2px solid white;"></a>
+							           <a href="userdashboard" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="<%=path %>" style="width: 55px;height: 55px;border-radius: 50%;border: 2px solid white;"></a>
 							          </c:if>
 							           <c:if test="${source.equals('advisor') }">
-							           <a href="advisordashboard"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;border: 2px solid white;"></a>
+							           <a href="advisordashboard" onclick="ga('send', 'event', 'Dashboard', 'click', '${pageurl}');"><img src="<%=path %>" style="width: 32px;height: 32px;border-radius: 50%;border: 2px solid white;"></a>
 							          </c:if>
 							          </li>
 					                <li>
-					                    <a href="advisors?category=all">Experts</a>
+					                    <a href="advisors?category=all" onclick="ga('send', 'event', 'AdvisorsPage', 'click', '${pageurl}');">Advisors</a>
 					                </li>
 					                <li>
-					                    <a href="questions">Q&A</a>
+					                    <a href="questions" onclick="ga('send', 'event', 'QuestionsPage', 'click', '${pageurl}');">Q&A</a>
 					                </li>
 					                <li>
-					                    <a href="becomeanadvisor">Be an Advisor</a>
+					                    <a href="becomeanadvisor" onclick="ga('send', 'event', 'BeAnAdvisor', 'click', '${pageurl}');">Be an Advisor</a>
 					                </li>
 					                <li>
-					                    <a href="howitworks">How it Works</a>
+					                    <a href="howitworks" onclick="ga('send', 'event', 'HowItWorks', 'click', '${pageurl}');">How it Works</a>
 					                </li>
 					                <li>
-					                   <a href="logout">Sign Out</a>
+					                   <a href="logout" onclick="ga('send', 'event', 'Logout', 'click', '${pageurl}');">Sign Out</a>
 					                </li>
 					               
 					            </ul>
@@ -112,7 +114,7 @@ pageContext.setAttribute("source", source);
 					            </button>
 					       <div class="visible-xs" style="position: absolute;top: -17px;left: 1%;"><ul class="nav navbar-nav navbar-right " style="border-top: 0px;">
 						          	 <li class="dropdown">
-							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important;margin-left: 63px;"><img src="assets/img/header_notification.svg" style="width:15px;"><span class="badge" id="notification_count_mob"></span></a>
+							          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="background-image: none !important;margin-left: 63px;" onclick="ga('send', 'event', 'Notifications', 'click', '${pageurl}');"><img src="assets/img/header_notification.svg" style="width:15px;"><span class="badge" id="notification_count_mob"></span></a>
 							          <ul id="notifications-mob" class="dropdown-menu notify-div-dropdown scrollable-content" style="min-width: 319px;padding: 0px;border: 0px;max-height: 250px;overflow-y: scroll;margin-top: 12px;">
 										
 							          </ul></div>

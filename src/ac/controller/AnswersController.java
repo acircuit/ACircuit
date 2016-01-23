@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.lang.Object;
 
 import ac.cache.MyCacheBuilder;
 import ac.dao.QuestionsDAO;
@@ -55,7 +59,6 @@ public class AnswersController extends HttpServlet {
 		}catch(Exception e){
 			isError = true;
 		}
-		if(userId != 0 || advisorId != 0 || (admin != null && admin)){
 		String q_id = request.getParameter("q");
 		String last_Updated = "";
 		QuestionsDTO que = new QuestionsDTO();
@@ -100,7 +103,6 @@ public class AnswersController extends HttpServlet {
 		
 		MyCacheBuilder option = MyCacheBuilder.getCacheBuilder();
 		List<String> optionsSubCategory = option.getOpionsSubCategory();
-		
 		request.setAttribute("mostViewedQuestions", mostViewedQuestions);
 		request.setAttribute("popCats", popCats);
 		request.setAttribute("question", que);
@@ -113,13 +115,7 @@ public class AnswersController extends HttpServlet {
 		request.setAttribute("optionsSubCategory", optionsSubCategory);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/Answers.jsp");
         rd.forward(request, response);
-		}else{
-			StringBuffer url =  request.getRequestURL().append('?').append(request.getQueryString());
-			String url1 = url.toString();
-			request.setAttribute("url1", url1);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sessionerror.jsp");
-	        rd.forward(request, response);
-		}
+
 		
 		logger.info("Exit doPost method of AnswersController");
 	}

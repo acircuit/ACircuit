@@ -62,10 +62,11 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Answered & Pending Questions | Advisor Circuit</title>
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -210,6 +211,17 @@
 <script>
 $(document).ready(function () {
 	starinputconversion();
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	$.ajax({
         url : 'getsimilarprofiles', // Your Servlet mapping or JSP(not suggested)
         data : {"category":"${advisorCategory}", "subcategory": "${advisorSubcategory}","advisorId" :"${advisor.getId()} "},
@@ -260,7 +272,7 @@ function OpenAskAQuestion(){
 	}	
 }
 function similarprofile(value){
-	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-6 col-sm-12 no-padding" >'
+	var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-12 col-sm-12 no-padding" >'
 	           +'<img class="adv-img" src="'+value.image+'"></img>' 
 		       +'<p class="adv-name">'+value.name+'</p><br>'
 		       +'<p class="adv-field">'+value.industry+'</p><br>'  
@@ -272,14 +284,7 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">';
-	  if(value.category == "studies"){
-		  html+='Higher Studies</a>';
-	  }else if (value.category == "industry") {
-		  html+='Career & Jobs</a>';
-	}else if (value.category == "options") {
-		html+='Course</a>';
-	}
+	var html = '<a href="advisors?subcategory='+value.category+'" class="rel-category">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
 $('#category-menu-on-modal').on('change', function() {

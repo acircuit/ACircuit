@@ -1,0 +1,91 @@
+@CHARSET "ISO-8859-1";
+.body-head-div {
+    padding-top: 80px;
+    padding-bottom: 65px;
+}
+.about-text-top-head{
+	color:#fd6d64;
+	font-family:latol;
+	font-size:42px;
+}
+.about-us-head-small{
+	color:#555555;
+	font-family:latol;
+	font-size:18px;
+	
+}
+.main-body-div {
+    min-height: 100px;
+}
+.blue-div{
+	background-color:#f6f8fa;
+	color:#555555;
+	font-size:13px;
+	text-align:center;
+	    padding-top: 45px;
+    padding-bottom: 51px;
+}
+.blue-text-b-div{
+	color:#006CCC;
+}
+.footer-div-bottom {
+    background-color: white!important;
+}
+.icon-row-b-div{
+	    padding-top: 62px;
+}
+.each-row-div{
+	margin-bottom: 55px;
+}
+.icon-b-div{
+	
+}
+.icon-b-div img{
+	width:112px;
+	float: right;
+}
+.text-b-div{
+	
+}
+.text-head{
+	color:#555555;
+	font-family:latol;
+	font-size:18px;
+}
+.b-div-text{
+	
+	color:#555555;
+	font-family:latol;
+	font-size:14px;
+}
+.signup-div{
+	padding-top:55px;
+	
+}
+.signup-text{
+	color:#555555;
+	font-family:latol;
+	font-size:16px;
+	float:right;
+}
+.s-text-div{
+	padding-top: 6px;
+}
+.s-button-div{
+	
+}
+@media (min-width: 320px) and (max-width: 767px) {
+.icon-b-div img {
+    width: 86px;
+}
+.text-b-div {
+    padding-left: 15px !important;
+}
+.signup-div {
+    padding-top: 0px;
+    text-align: center;
+}
+.s-button-div {
+    padding-top: 16px;
+}
+}

@@ -85,7 +85,7 @@ public class ForgotPasswordController extends HttpServlet {
 							String subject ="Forgot Password";
 							String content ="Hi, <br><br>Please Click on the below link to set your New Password: <br><a href='"+url+"'>Click Here To Set New Password</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 							SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-							mail.start();	
+							mail.start();
 							response.getWriter().write("true");
 						}
 					}
@@ -110,7 +110,7 @@ public class ForgotPasswordController extends HttpServlet {
 					String subject ="Forgot Password";
 					String content ="Hi, <br><br>Please Click on the below link to set your New Password: <br><a href='"+url+"'>Click Here To Set New Password</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
 					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-					mail.start();	
+					mail.start();
 					response.getWriter().write("true");
 				}
 			}
@@ -168,7 +168,7 @@ public class ForgotPasswordController extends HttpServlet {
         					String subject ="Forgot Password";
         					String content ="Hi, <br><br>Please Click on the below link to set your New Password: <br><a href='"+url+"'>Click Here To Set New Password</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
         					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-        					mail.start();	
+        					mail.start();
         					response.getWriter().write("true");
         				}
         			}
@@ -181,7 +181,7 @@ public class ForgotPasswordController extends HttpServlet {
     					String subject ="Forgot Password";
     					String content ="Hi, <br><br>Please Click on the below link to set your New Password: <br><a href='"+url+"'>Click Here To Set New Password</a>"+"<br><img src=\"https://www.advisorcircuit.com/Test/assets/img/logo_black.png\" style='float:right' width='15%'>";
     					SendMail mail = new SendMail(subject, content, email,prop.getProperty("MAIL_ADMIN"));
-    					mail.start();	
+    					mail.start();
     					response.getWriter().write("true");
     				}
     			}

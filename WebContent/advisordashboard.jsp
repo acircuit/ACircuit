@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <%@page import="java.util.List"%>
 <%@page import="ac.dto.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -35,15 +35,20 @@
     type="text/css">
 <%
       AdvisorDTO advisorDetails = (AdvisorDTO) request.getAttribute("advisorDetails");
-      List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activities");        
-
+      List<ActivityDTO> activities = (List<ActivityDTO>) request.getAttribute("activities"); 
+      String pageTitle = "Dashboard";
+      if(advisorDetails != null){
+          pageTitle = advisorDetails.getName()+"'s Dashboard ";    	  
+      }
+      pageContext.setAttribute("pageTitle", pageTitle);
 %>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${pageTitle}| Advisor Circuit</title>
 </head>
 <body>
  <div id="wrapper">
+ <%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -169,7 +174,7 @@
 									<img src="${activity.getImage()}">
 									<span class="btext rfrom">${activity.getUserName()}</span> to <span class="rto btext">${activity.getAdvisorName()}</span>
 									<br>
-									<span class="review-text">${activity.getReview()}</span>
+									<span class="review-text" style="margin-top:10px;">${activity.getReview()}</span>
 									
 							</div>
 							<div class="col-xs-11" style="margin-top: 10px;">
@@ -285,6 +290,11 @@
 			   		</div>
 
 	   			<div class="col-xs-12 col-sm-3">
+	   			<div  class="related col-xs-12 ">
+	                    <div class="rel-section popular">
+	                        <h2 >POPULAR ADVISORS</h2>
+	                    </div>
+					</div>
 		   			<div  class="related col-xs-12">
 	                    <div class="rel-section mostviewed">
 	                        <h2>MOST VIEWED QUESTIONS</h2>
@@ -306,6 +316,17 @@
 
 <script>
 $(document).ready(function () {
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	$.ajax({
         url : 'GetMostViwedAndPopularTagsController', // Your Servlet mapping or JSP(not suggested)
         data : {},
@@ -328,6 +349,24 @@ $(document).ready(function () {
             
         }
     });
+	$.ajax({
+        url : 'getsimilarprofiles', // Your Servlet mapping or JSP(not suggested)
+        data : {"type":"popular"},
+        type : 'POST',
+        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+        success : function(response) {
+        	var obj = JSON.parse(response);
+          	$.each(obj, function(key,value) {
+          		popularprofile(value);
+          	}); 
+        	 $('.black-screen').hide();
+
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(errorThrown);
+            
+        }
+    });
 	
 });
 function MostViewedQuestionsCard(value){
@@ -335,14 +374,7 @@ function MostViewedQuestionsCard(value){
 	 $('.mostviewed').append(html);
 } 
 function Populartags(value){
-	var html = '<a class="rel-category">';
-	  if(value.category == "studies"){
-		  html+='Higher Studies</a>';
-	  }else if (value.category == "industry") {
-		  html+='Career & Jobs</a>';
-	}else if (value.category == "options") {
-		html+='Course</a>';
-	}
+	var html = '<a href="advisors?subcategory='+value.category+'" class="rel-category">'+value.category+'</a>';
 	 $('.poptags').append(html);
 }
 $('.datepicker').datepicker({
@@ -421,7 +453,22 @@ $('body').on('click', '.less', function(e){
             }
         });
 	}
-	
+	function popularprofile(value){
+		if(value.industry.length > 31){
+			value.industry = value.industry.substr(0,30);
+		}
+		
+		var html = '<a href="advisorprofile?a='+value.id+'"><div class="advisor_details col-xs-12 col-sm-12 no-padding" >'
+		           +'<img class="adv-img" src="'+value.image+'"></img>' 
+			       +'<p class="adv-name" style="font-size:13px">'+value.name+'</p><br>';
+			if((value.industry.indexOf("|") > -1) || (value.industry.indexOf("|") <= -1) && value.industry.length > 25){
+				 html+='<p class="adv-field  hidden-sm" style="margin-top:-30px;margin-left:70px">'+value.industry+'</p><br>';
+			}else{
+				html+='<p class="adv-field  hidden-sm" style="margin-top:5px;margin-left:10px">'+value.industry+'</p><br>';
+			}
+			html = html +'</div></a>';		
+	               $('.popular').append(html);
+	 }
 	function GetResultAccordingToSubCategory(elem){
 		$('.black-screen').show();
 		var id = elem.id;

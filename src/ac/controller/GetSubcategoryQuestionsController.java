@@ -47,6 +47,7 @@ public class GetSubcategoryQuestionsController extends HttpServlet {
 		SimpleDateFormat format = new SimpleDateFormat("dd MMM");
 		QuestionsDAO adv = new QuestionsDAO();
 		List<AdvisorDTO> advisors = adv.GetAdvisorName(list);
+		 int totalAnswers = 0;
 		for(QuestionsDTO que1 : ques) {
 			JSONObject jo = new JSONObject();
 			jo.put("id", que1.getQuestionId());
@@ -65,6 +66,7 @@ public class GetSubcategoryQuestionsController extends HttpServlet {
 		 for(AnswerDTO ans : list){
 			if(que1.getQuestionId() == ans.getQuestionId()){
 				 count ++;
+				 totalAnswers++;
 				 jo.put("lastupdated", format.format(ans.getTime()));
 
 				 for(AdvisorDTO advisor : advisors){
@@ -82,6 +84,9 @@ public class GetSubcategoryQuestionsController extends HttpServlet {
 		 jo.put("count", count);
 		 array.add(jo);
 		}
+		JSONObject jo = new JSONObject();
+		jo.put("totalanswers", totalAnswers);
+		array.add(jo);
 		System.out.println(array.size());
 
 		response.getWriter().write(array.toJSONString());

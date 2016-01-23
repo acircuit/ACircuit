@@ -34,19 +34,28 @@
     rel='stylesheet' type='text/css'>
 <%
                 String ids = (String) request.getAttribute("ids");
-                String[] advisorIds = ids.split(":");
-                int size = advisorIds.length; 
+                 int size = 0;
+                if(ids != null){
+                	String[]   advisorIds = ids.split(":");
+                    size = advisorIds.length; 
+                }
                 String category =  request.getParameter("category");  
+                String sub_category =  request.getParameter("subcategory");  
                 List<String> industries = (List<String>)request.getAttribute("industries");
                 List<String> institutions = (List<String>)request.getAttribute("institutions");
                 List<String> languages = (List<String>)request.getAttribute("languages");
-        	       
+           	    String pageTitle = "Advisors - Get career help from someone who's been there, done that | Advisor Circuit";
+   
 
         		pageContext.setAttribute("ids", ids);
-       			
+        		pageContext.setAttribute("sub_category", sub_category);
+				pageContext.setAttribute("pageTitle", pageTitle);
+
 
 
 %>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>${pageTitle}</title>
 </head>
 <body>
 
@@ -177,17 +186,17 @@
    					<div class="col-xs-12 card-container">
    					</div>
 	   					<div class="col-xs-12" id="loadmore" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
-	   						<button type="button" class="btn load-more" onclick="GetMoreAdvisors()">
+	   						<button type="button" class="btn load-more" onclick="ga('send', 'event', 'LoadMore', 'click', 'ExpertsPage');GetMoreAdvisors()">
 	  											Load more</button>
 	
 	   					</div>
    					<div class="col-xs-12 " id="loadmorefilters" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
-	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisors()">
+	   						<button type="button" class="btn load-more" onclick="ga('send', 'event', 'LoadMore', 'click', 'ExpertsPage');GetLeftAdvisors()">
 	  											Load more</button>
 	
 	   					</div>
 	   					<div class="col-xs-12 " id="loadmoresub" style="text-align:center;text-align: center;margin-bottom: 15px;display: none">
-	   						<button type="button" class="btn load-more" onclick="GetLeftAdvisorsUsingSubcategory()">
+	   						<button type="button" class="btn load-more" onclick="ga('send', 'event', 'LoadMore', 'click', 'ExpertsPage');GetLeftAdvisorsUsingSubcategory()">
 	  											Load more</button>
 	
 	   					</div>
@@ -398,9 +407,82 @@
 
   }
 	  
- 
+  if(<%=isLoggedIn.equals(false) %>){
+  	$('#signupmodal').modal({
+  	    backdrop: 'static',
+  	    keyboard: false
+  	});
+   }
+  var categ = "";
+  var subcateg ="";
+  if("${sub_category}" != ""){
+		subcateg = "${sub_category}";
+		if(subcateg == "MBA India" || subcateg == "MBA Abroad" || subcateg == "Masters India" || subcateg == "Masters Abroad"){
+			categ = "higherstudies";
+		}else if (subcateg == "Engineering") {
+			categ = "options";
+		}else{
+			categ = "industry";
+		}
+	    $('.card-container').html('');
+		$('.filterlist').html('');
+		$('.squaredThree input[type=checkbox]').prop("checked", false);
+		
+		$.ajax({
+	        url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
+	        data : {"category":categ,"subcategory":subcateg},
+	        type : 'POST',
+	        dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+	        success : function(response) {
+				 document.getElementById("loadmore").style.display  = "none";
 
-  defaultcall();
+	          	var obj = JSON.parse(response);
+	          	var count=0;
+	      		var noadv = false;
+	          	$.each(obj, function(key,value) {
+	          		if(value.name !="noadv" && value.name !="id"){
+	          			if(typeof value.company == "undefined"){
+	          				 word = "Currently Studying"
+	          			 }else{
+	          				 word = value.company;
+	                  		 var length = word.length;
+	                  		 if(length > 30){
+	                  			 word = word.substring(0, 28);
+	                  			 word = word+'..';
+	                  		 }
+	          			 }
+	            		 value.company = word;
+	          		     expertcard(value);
+	          		     count++;
+	          			 document.getElementById("loadmoresub").style.display = 'none';
+	          		}else if (value.name =="id") {
+	        			 adIds = value.ids;
+	        			 document.getElementById("loadmoresub").style.display  = "none";
+	        			 if(noadv){
+	              			 document.getElementById("loadmoresub").style.display = 'block';
+	 
+	        			 }else{
+	              			 document.getElementById("loadmoresub").style.display = 'none';
+	 
+	        			 }
+					}else if (value.name =="noadv") {
+						 noadv = true;
+	          			 document.getElementById("loadmoresub").style.display = 'block';
+					}
+	          		}); 
+	          	//console.log(obj[0].name+": subcategory : "+ obj[0].subcategory+" :institution:"+ obj[0].institution+":company:" +obj[0].company+":designation:"+obj[0].designation) ;
+	             					// create an empty div in your page with some id
+	             	CollapsedCategory("${sub_category}", categ);
+	          	 $('.black-screen').hide();
+
+	          },
+	          error : function(request, textStatus, errorThrown) {
+	            
+	        }
+	    });
+   }else{
+	   defaultcall();	   
+   }
 	});
 function defaultcall(){
 	var advisorId =  "${ids}";
@@ -468,38 +550,36 @@ function emptystate(){
 $('.card-container').html(html);
 }
 function expertcard(value)
-{
+{   var name = value.name;
 	var html='<div class="col-xs-12  col-sm-6 expert-card-div">'
 			+'<div class="expert-card">'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="col-xs-4 blueT  no-padding">'
-			+'<a href=advisorprofile?a='+value.id+'>'
+			+'<a href=advisorprofile?a='+value.id+' onclick="ga(\'send\',\'event\',\'AdvisorProfileLink\', \'click\',\''+value.name+'\');">'
 			+'<div class="Adp" style="text-align:center;">'
 			+'<img src="'+value.image+'">'
 			+'</div>'
 			+'</a>';
 	html = html 
 	        if(value.ratecount > 0){
-				+'<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>';
-	        }else{
-				+'<input name="rating" class="rating" style ="" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>';
+	        	html+='<input name="rating" class="rating" data-min="0" data-max="5" data-step="0.5" data-stars=5 data-glyphicon="false" value="'+value.ratecount+'" disabled>';
 	        }
 	html = html+'<div class="count" >';
 			
 	 html = html 
 	         if(value.reviews == 0){
-	 			+'<span class="reviews" style="visibility: hidden">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
-	 			+'<span class="consults"> '+value.sessions+' consults</span>';
+	        	 html+='<span class="reviews" style="visibility: hidden">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
+	        	 html+='<span class="consults" style="visibility: hidden"> '+value.sessions+' consults</span>';
 	         }else{
-		 		+'<span class="reviews">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
-	 			+'<span class="consults"> '+value.sessions+' consults</span>';
+	        	 html+='<span class="reviews">'+value.reviews+' reviews</span><!-- <br class="midd-br"> -->'
+	        	 html+='<span class="consults"> '+value.sessions+' consults</span>';
 	         }
 	 html = html
 			+'</div>'
 			+'</div>'
 			+'<div class="col-xs-8">'
 			+'<div class="Apinfo">'
-			+'<a href=advisorprofile?a='+value.id+'>'
+			+'<a href=advisorprofile?a='+value.id+' onclick="ga(\'send\',\'event\',\'AdvisorProfileLink\', \'click\',\''+value.name+'\');">'
 			+'<span class="Aname">'+value.name+'</span><br>'
 			+'<span class="Afeild">'+value.subcategory1;
 	        if(typeof value.subcategory2 != 'undefined'){
@@ -519,8 +599,15 @@ function expertcard(value)
 			+'</div>'
 			+'<div class="col-xs-12 no-padding">'
 			+'<div class="b-strip">'
-			+'<a  href=advisorprofile?a='+value.id+' class="btn red-button col-xs-4 col-sm-6 col-md-4"><span>Rs '+value.price+'/</span>min</a>'
-			+'<form class="ask-form col-xs-8 col-sm-6 col-md-8" style="padding-right:0px;"><a href=advisorprofile?a='+value.id+' id="'+value.id+'"><span class="form-control ask-box">Ask a Question for FREE</span></button></a>'
+			+'<a  href=advisorprofile?a='+value.id+' class="btn red-button col-xs-4 col-sm-6 col-md-4">';
+	
+	        if(value.price == 0){
+	        	 html+='<span>For Free</span></a>';
+	        }else{
+	        	 html+='<span>Rs '+value.price+'/</span>min</a>';
+	        }
+	 html = html
+			+'<form class="ask-form col-xs-8 col-sm-6 col-md-8" style="padding-right:0px;"><a href=advisorprofile?a='+value.id+' id="'+value.id+'" onclick="ga(\'send\',\'event\',\'AdvisorProfileUsingAskAQuestion\', \'click\',\''+value.name+'\');"><span class="form-control ask-box">Ask a Question for FREE</span></button></a>'
 			+'</div>'
 			+'</div>'
 			+'</div>'
@@ -552,6 +639,7 @@ $('body').on('change','.squaredThree input[type=checkbox]', function() {
 		    
 		  } else {
 		 	 $('.filterlist [value='+value+']').remove();
+		 	$('.filterlist [id='+value+']').remove();
 		  }
 		  var filters = document.getElementById("filtervalues").childNodes;
 		  	var length = filters.length;
@@ -825,8 +913,7 @@ $('.filters,.alpha-div-filter,.modal-body').bind('mousewheel DOMMouseScroll', fu
         $(this).scrollTop(scrollTo + $(this).scrollTop());
     }
 });
-var categ = "";
-var subcateg ="";
+
 function GetResultAccordingToSubCategory(elem){
  	$('.black-screen').show();
 	var id = elem.id;
@@ -954,10 +1041,11 @@ function GetResultsUsingSubCategory(){
 var subpaging =1;
 function GetLeftAdvisorsUsingSubcategory(){
 	 $('.black-screen').show();
-	   var sel = document.getElementById('category-menu');
-	   var category = sel.options[sel.selectedIndex].value;
-	   var sel1 = document.getElementById('subcategory-menu');
-	   var subcategory = sel1.options[sel1.selectedIndex].value;
+		   var sel = document.getElementById('category-menu');
+		   var category = sel.options[sel.selectedIndex].value;
+		   var sel1 = document.getElementById('subcategory-menu');
+		   var subcategory = sel1.options[sel1.selectedIndex].value;
+
   	$.ajax({
         url : 'GetSubcategoryAdvisors', // Your Servlet mapping or JSP(not suggested)
         data : {"category":category,"subcategory":subcategory,"paging":subpaging},

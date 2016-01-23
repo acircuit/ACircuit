@@ -658,10 +658,26 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>aboutus</servlet-name>
-    <jsp-file>/AboutUs.jsp</jsp-file>
+    <jsp-file>/about.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>aboutus</servlet-name>
     <url-pattern>/aboutus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>client</servlet-name>
+    <servlet-class>ac.controller.TwilioServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>client</servlet-name>
+    <url-pattern>/client</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>voice</servlet-name>
+    <servlet-class>ac.controller.TwilioVoiceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>voice</servlet-name>
+    <url-pattern>/voice</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -65,6 +65,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 		ids = 	advisors.GetAdvisorsUsingCategory(category);
 		System.out.println("es"+ids);
 		String[] advisorIds = ids.split(":");
+		
 		//Getting the advisors object from Cache
 		  JSONArray array = new JSONArray();
 			for(String aid : advisorIds){
@@ -72,11 +73,21 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 				MyCacheBuilder cache = MyCacheBuilder.getCacheBuilder();
 				AdvisorDTO advisor = cache.getAdvisor(Integer.valueOf(aid));
 				List<CategoryDTO> list = advisor.getCategories();
+				List<SubCategoryDTO> subcats2 = advisor.getSubCategories();
+
 				if(category.equals("higherstudies")){
 					for(CategoryDTO cat : list){
 						if(cat.getCategory().equals("studies")){
 							catId = cat.getCatId();
 							threshold++;
+						}
+						for(SubCategoryDTO sub :subcats2){
+							if(sub.getCategoryId() == catId && sub.getSubCategory().equals(subcategory)){
+								threshold++;	
+								}
+						}
+						if(threshold % 2 == 1){
+							threshold = threshold -1;
 						}
 					}
 					
@@ -86,6 +97,14 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 							catId = cat.getCatId();
 							threshold++;
 						}
+						for(SubCategoryDTO sub :subcats2){
+							if(sub.getCategoryId() == catId && sub.getSubCategory().equals(subcategory)){
+								threshold++;	
+								}
+						}
+						if(threshold % 2 == 1){
+							threshold = threshold -1;
+						}
 					}
 			   }else if (category.equals("options")) {
 				   for(CategoryDTO cat : list){
@@ -93,9 +112,17 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 							catId = cat.getCatId();
 							threshold++;
 						}
+						for(SubCategoryDTO sub :subcats2){
+							if(sub.getCategoryId() == catId && sub.getSubCategory().equals(subcategory)){
+								threshold++;	
+								}
+						}
+						if(threshold % 2 == 1){
+							threshold = threshold -1;
+						}
 					}
 			    }
-				if(category.equals("options")){
+/*				if(category.equals("options")){
 					threshold++;	
 
 				}else{
@@ -105,7 +132,7 @@ public class GetSubcategoryAdvisorsController extends HttpServlet {
 							threshold++;	
 							}
 					}
-				}
+				}*/
 			
 				if(threshold ==2){
 					adId = adId+advisor.getId()+":";

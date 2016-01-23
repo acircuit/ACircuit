@@ -49,7 +49,7 @@
 <title>Insert title here</title>
 <body>
  <div id="wrapper">
-
+<%@include file="/notify.jsp" %>
 	<div class="do-not-scroll " style="width:100%">
 		  <div class="top-div">
 			       <%@include file="/Header.jsp" %>
@@ -252,7 +252,7 @@ $('body').on('click', '.cross-noti', function(e){
 CKEDITOR.replace( 'sessionplan' );
 CKEDITOR.replace( 'reason' );
 $(document).ready(function () {
-
+	CKEDITOR.config.removePlugins = 'about';
 	$('.datepicker').datepicker({
 	    format: 'yyyy/mm/dd',
 	    startDate: '-3d'
@@ -260,6 +260,17 @@ $(document).ready(function () {
 	   CKEDITOR.config.removePlugins = 'about';
 
 	$("#reject-reason-form").validate();
+	if("${type.equals('signup') }"){
+		document.getElementById("verifyaccount").style.display = "block";
+	}else{
+		document.getElementById("verifyaccount").style.display = "none";
+	}
+    if(<%=isLoggedIn.equals(false) %>){
+    	$('#loginmodal').modal({
+    	    backdrop: 'static',
+    	    keyboard: false
+    	});
+     }
 	var i=0;
 	var html=""
 	for(i=0;i<25;i++){

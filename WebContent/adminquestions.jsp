@@ -43,6 +43,10 @@
 <%
 
 List<QuestionsDTO> questions = (List<QuestionsDTO>)request.getAttribute("questions");
+List<UserDetailsDTO> usr = (List<UserDetailsDTO>)request.getAttribute("usr");
+List<QuestionsDTO> advIds = (List<QuestionsDTO>)request.getAttribute("advIds");
+List<AdvisorDTO> advisor = (List<AdvisorDTO>)request.getAttribute("advisor");
+
 pageContext.setAttribute("questions", questions);
 
 %>
@@ -95,6 +99,8 @@ position:absolute;
 						            <th>Questions</th>
 						            <th>Category</th>
 						            <th>Sub Category</th>
+						            <th>Posted By</th>
+						            <th>Posted To</th>
 						            <th>Posted On</th>
 						            <th>Status</th>
 						          </tr>
@@ -107,6 +113,36 @@ position:absolute;
 						            </td>
 						            <td id="cat${question.getQuestionId()}">${question.getCategory()}</td>
 						            <td id="sub${question.getQuestionId()}">${question.getSubcategory()}</td>
+						            <td>
+						              <c:forEach items="${usr}" var="user">
+						                  <c:if test="${question.getUser_id() == user.getUserId()}">
+						                  ${user.getFullName()}
+						                  
+						                  </c:if>
+						              
+						              
+						              </c:forEach>
+						            
+						            
+						            </td>
+						            <td>
+						            	<c:choose>
+						            		<c:when test="${question.getToForum()}">
+						            			To Forum
+						            		</c:when>
+						            		<c:otherwise>
+						            		    <c:forEach items="${advIds}" var="qids">
+						            		       <c:if test="${question.getQuestionId() == qids.getQuestionId()}">
+						            		           <c:forEach items="${advisor }" var="adv">
+						            		              <c:if test="${adv.getId() == qids.getAdvisor_id()}">
+						            		                 ${adv.getName()}
+						            		              </c:if>
+						            		           </c:forEach>
+						            		       </c:if>
+						            		    </c:forEach>
+						            		</c:otherwise>
+						            	</c:choose>
+						            </td>
 						            <td>${question.getPostedOnDate()}</td>
 						            <td>${question.getStatus()}</td>
 						          </tr>
@@ -116,7 +152,8 @@ position:absolute;
 								      <div class="modal-body">
 								      <span  class="ask-question-modal-head">User Question</span><br>
 								      <br>
-								      <p id="ques${question.getQuestionId()}">${question.getQuestion()}</p>
+								      <p>${question.getQuestion()}</p>
+								      <input id="ques${question.getQuestionId()}" type="hidden" value="${question.getQuestion()}">
 								      <div class="row" style="padding:10px;">
 										    <a id="${question.getQuestionId()}"  class="btn red-button ask-question-button" onclick="UpdateStatus(this,'approve')">Approve</a>
 										    <a id="${question.getQuestionId()}" class="btn red-button ask-question-button" onclick="UpdateStatus(this,'reject')">Reject</a>   
@@ -139,7 +176,7 @@ position:absolute;
 <script>
 function UpdateStatus(elem,status){
 	var id = elem.id;
-	var question = document.getElementById("ques"+id).innerHTML;
+	var question = document.getElementById("ques"+id).value;
 	var category = document.getElementById("cat"+id).innerHTML;
 	var subcategory = document.getElementById("sub"+id).innerHTML;
 

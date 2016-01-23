@@ -486,25 +486,28 @@ public class SearchDAO {
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt;
 			if(type.equals("higherstudies")){
-				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
-						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
+				query = "SELECT DISTINCT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=? AND ISVISIBLE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "studies");
 				pstmt.setBoolean(2, true);
+				pstmt.setBoolean(3, true);
 			}else if (type.equals("industry")) {
-				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
-						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
+				query = "SELECT DISTINCT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=? AND ISVISIBLE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "industry");
 				pstmt.setBoolean(2, true);
+				pstmt.setBoolean(3, true);
 			}else if (type.equals("options")) {
-				query = "SELECT advisor_category.ADVISOR_ID FROM advisor_category "
-						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=?";
+				query = "SELECT DISTINCT advisor_category.ADVISOR_ID FROM advisor_category "
+						+ "INNER JOIN advisordetails ON advisor_category.ADVISOR_ID=advisordetails.ADVISOR_ID WHERE advisor_category.CATEGORY = ? AND advisordetails.ISACTIVE=? AND ISVISIBLE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, "options");
 				pstmt.setBoolean(2, true);
+				pstmt.setBoolean(3, true);
 			}else{
-				query = "SELECT ADVISOR_ID FROM advisordetails WHERE  ISACTIVE=? AND ISVISIBLE=?";
+				query = "SELECT DISTINCT ADVISOR_ID FROM advisordetails WHERE  ISACTIVE=? AND ISVISIBLE=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setBoolean(1, true);
 				pstmt.setBoolean(2, true);
